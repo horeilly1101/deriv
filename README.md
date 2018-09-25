@@ -1,2 +1,2 @@
 # deriv
-A Python derivative calculator/parser
+A Python derivative calculator/parser (when I get time!)
