@@ -3,13 +3,13 @@
 from term import Term
 from constant import Constant
 
-class Factor():
-	'''a factor
+class Factor(Function):
+	'''a function without constants
 
 	instance variables:
 		var (string) -- a variable
-		constant -- a Constant object
 	'''
-	def __init__(constant = Constant(), var='x'):
-		self.var = var
+	def __init__(terms, var = 'x'):
 		self.constant = constant
+		self.var = var
+		self.terms = set(terms)

@@ -8,9 +8,15 @@ class Function():
 	instance variables:
 		constant  -- a Constant object
 
-		factors -- a set of factors
+		factors -- a set of terms
 	'''
-	def __init__(power = 1, var='x'):
+	def __init__(self, constant = Constant(), var='x'):
 		'''
 		'''
+		pass
+
+	def new_function():
+		pass
+
+	def evaluate(self):
 		pass
