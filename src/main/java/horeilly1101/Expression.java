@@ -324,7 +324,6 @@ interface Expression extends Comparable {
 
     static List<Expression> simplify(List<Expression> terms) {
       return simplifyTerms(simplifyConstants(withoutNesting(terms)));
-//      return simplifyConstants(withoutNesting(terms));
     }
 
     /**
