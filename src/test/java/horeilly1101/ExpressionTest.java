@@ -1,7 +1,7 @@
 package horeilly1101;
 
 import com.sun.tools.javac.util.List;
-//import org.junit.Test;
+import org.junit.Test;
 
 import static horeilly1101.Expression.Add.*;
 import static horeilly1101.Expression.Constant.*;
@@ -11,7 +11,8 @@ import static horeilly1101.Expression.Variable.*;
 
 public class ExpressionTest {
 
-  public static void main(String[] args) {
+  @Test
+  public void derivativeTest() {
     // x ^ 2.0
     Expression pol = poly(var(), 2.0);
     // 1.0
