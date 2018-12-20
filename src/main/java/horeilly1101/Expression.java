@@ -2,8 +2,10 @@ package horeilly1101;
 
 import com.sun.istack.internal.NotNull;
 
+import java.time.temporal.ValueRange;
 import java.util.*;
 import java.lang.Math;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
@@ -14,9 +16,9 @@ interface Expression extends Comparable {
    * in the function, and then evaluates the rest of the
    * expression.
    *
-   * @return Double solution
+   * @return Expression solution
    */
-  Double evaluate(Double input);
+  Expression evaluate(String var, Double input);
 
   /**
    * Takes the derivative of the given expression.
@@ -144,11 +146,11 @@ interface Expression extends Comparable {
                              .reduce("", (a, b) -> a + " * " + b);
     }
 
-    public Double evaluate(Double input) {
+    public Expression evaluate(String var, Double input) {
       // multiplies factors together
-      return factors.stream()
-                 .map(x -> x.evaluate(input))
-                 .reduce(1.0, (a, b) -> a * b);
+      return mult(factors.stream()
+                 .map(x -> x.evaluate(var, input))
+                 .collect(toList()));
     }
 
     static List<Expression> simplify(List<Expression> factors) {
@@ -328,11 +330,11 @@ interface Expression extends Comparable {
                        + "]";
     }
 
-    public Double evaluate(Double input) {
+    public Expression evaluate(String var, Double input) {
       // adds terms together
-      return terms.stream()
-                 .map(x -> x.evaluate(input))
-                 .reduce(0.0, (a, b) -> a + b);
+      return add(terms.stream()
+                 .map(x -> x.evaluate(var, input))
+                     .collect(toList()));
     }
 
     static List<Expression> simplify(List<Expression> terms) {
@@ -440,7 +442,7 @@ interface Expression extends Comparable {
     Expression base;
     Expression result;
 
-    public Double evaluate(Double val) {
+    public Expression evaluate(String var, Double val) {
       throw new RuntimeException();
     }
 
@@ -495,8 +497,8 @@ interface Expression extends Comparable {
       return "(" + base.toString() + ") ^ (" + exponent.toString() + ")";
     }
 
-    public Double evaluate(Double input) {
-      return Math.pow(base.evaluate(input), exponent);
+    public Expression evaluate(String var, Double input) {
+      return poly(base.evaluate(var, input), exponent);
     }
 
     static Expression simplify(Expression base, Double exponent) {
@@ -523,7 +525,7 @@ interface Expression extends Comparable {
   class Trig implements Expression {
 
     // maps to ensure cleaner code (i.e. no long if statements)
-    private Map<String, Function<Double, Double>> evalMap = new TreeMap<>();
+    private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
     private Map<String, Function<Trig, Expression>> derivMap = new TreeMap<>();
 
     private String func;
@@ -534,12 +536,12 @@ interface Expression extends Comparable {
       this.inside = inside;
 
       // define functions for evaluating expressions
-      evalMap.put("sin", Math::sin);
-      evalMap.put("cos", Math::cos);
-      evalMap.put("tan", Math::tan);
-      evalMap.put("csc", x -> 1.0 / Math.sin(x));
-      evalMap.put("sec", x -> 1.0 / Math.cos(x));
-      evalMap.put("cot", x -> 1.0 / Math.tan(x));
+      evalMap.put("sin", Trig::sin);
+      evalMap.put("cos", Trig::cos);
+      evalMap.put("tan", Trig::tan);
+      evalMap.put("csc", Trig::csc);
+      evalMap.put("sec", Trig::sec);
+      evalMap.put("cot", Trig::cot);
 
       // define functions for evaluating derivatives
       derivMap.put("sin",
@@ -628,8 +630,9 @@ interface Expression extends Comparable {
       return this.func + "(" + this.inside.toString() + ")";
     }
 
-    public Double evaluate(Double val) {
-      return evalMap.get(this.func).apply(val);
+    public Expression evaluate(String var, Double val) {
+      return evalMap.get(this.func)
+                 .apply(inside.evaluate(var, val));
     }
 
     public Expression differentiate() {
@@ -647,6 +650,14 @@ interface Expression extends Comparable {
 
     static Expression constant(Double val) {
       return new Constant(val);
+    }
+
+    static Expression constant(String val) {
+      return Variable.var(val);
+    }
+
+    static Expression e() {
+      return new Variable("e");
     }
 
     @Override
@@ -671,8 +682,8 @@ interface Expression extends Comparable {
       return val.toString();
     }
 
-    public Double evaluate(Double input) {
-      return val;
+    public Expression evaluate(String var, Double input) {
+      return this;
     }
 
     public Expression differentiate() {
@@ -681,11 +692,22 @@ interface Expression extends Comparable {
   }
 
   class Variable implements Expression {
-    // univariate for now
-    private Variable() { }
+    String var;
 
-    static Expression var() {
-      return new Variable();
+    private Variable(String var) {
+      this.var = var;
+    }
+
+    static Expression var(String var) {
+      if (var.equals("e")) {
+        throw new RuntimeException("Variable can't be named e.");
+      }
+
+      return new Variable(var);
+    }
+
+    static Expression x() {
+      return new Variable("x");
     }
 
     @Override
@@ -697,7 +719,7 @@ interface Expression extends Comparable {
       }
 
       Variable var = (Variable) o;
-      return var.toString().equals(this.toString());
+      return var.var.equals(this.var);
     }
 
     @Override
@@ -710,8 +732,8 @@ interface Expression extends Comparable {
       return "x";
     }
 
-    public Double evaluate(Double input) {
-      return input;
+    public Expression evaluate(String var, Double input) {
+      return var.equals(this.var) ? Constant.constant(input) : this;
     }
 
     public Expression differentiate() {

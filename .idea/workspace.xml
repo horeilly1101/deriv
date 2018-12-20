@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Add.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Add.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Constant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Power.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Power.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Mult.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Mult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/classes/horeilly1101/ExpressionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/classes/horeilly1101/ExpressionTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" afterDir="false" />
     </list>
@@ -52,14 +50,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1381" />
-          <entry key="txt" value="79" />
+          <entry key="java" value="2268" />
+          <entry key="txt" value="94" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1381" />
-          <entry key="PLAIN_TEXT" value="79" />
+          <entry key="JAVA" value="2268" />
+          <entry key="PLAIN_TEXT" value="94" />
         </counts>
       </usages-collector>
     </session>
@@ -69,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="442" column="10" selection-start-line="442" selection-start-column="10" selection-end-line="442" selection-end-column="10" />
+            <state relative-caret-position="6111">
+              <caret line="739" column="1" lean-forward="true" selection-start-line="739" selection-start-column="1" selection-end-line="739" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1135#1136#0" expanded="true" />
@@ -93,6 +91,10 @@
                 <element signature="e#8673#8674#0" expanded="true" />
                 <element signature="e#8956#8957#0" expanded="true" />
                 <element signature="e#9007#9008#0" expanded="true" />
+                <element signature="e#13570#13571#0" expanded="true" />
+                <element signature="e#13611#13612#0" expanded="true" />
+                <element signature="e#13657#13658#0" expanded="true" />
+                <element signature="e#13679#13680#0" expanded="true" />
                 <element signature="e#13517#13518#0" expanded="true" />
                 <element signature="e#13558#13559#0" expanded="true" />
                 <element signature="e#13622#13623#0" expanded="true" />
@@ -101,8 +103,8 @@
                 <element signature="e#14046#14047#0" expanded="true" />
                 <element signature="e#14092#14093#0" expanded="true" />
                 <element signature="e#14172#14173#0" expanded="true" />
-                <element signature="e#14216#14217#0" expanded="true" />
-                <element signature="e#14277#14278#0" expanded="true" />
+                <element signature="e#15083#15084#0" expanded="true" />
+                <element signature="e#15145#15146#0" expanded="true" />
                 <element signature="e#16716#16717#0" expanded="true" />
                 <element signature="e#16760#16761#0" expanded="true" />
                 <element signature="e#16808#16809#0" expanded="true" />
@@ -119,14 +121,16 @@
                 <element signature="e#17590#17591#0" expanded="true" />
                 <element signature="e#17636#17637#0" expanded="true" />
                 <element signature="e#17703#17704#0" expanded="true" />
-                <element signature="e#17745#17746#0" expanded="true" />
-                <element signature="e#17799#17800#0" expanded="true" />
                 <element signature="e#17840#17841#0" expanded="true" />
                 <element signature="e#17896#17897#0" expanded="true" />
                 <element signature="e#18003#18004#0" expanded="true" />
                 <element signature="e#18031#18032#0" expanded="true" />
                 <element signature="e#18077#18078#0" expanded="true" />
                 <element signature="e#18115#18116#0" expanded="true" />
+                <element signature="e#18909#18910#0" expanded="true" />
+                <element signature="e#18947#18948#0" expanded="true" />
+                <element signature="e#18892#18893#0" expanded="true" />
+                <element signature="e#18930#18931#0" expanded="true" />
                 <element signature="e#18411#18412#0" expanded="true" />
                 <element signature="e#18463#18464#0" expanded="true" />
                 <element signature="e#18509#18510#0" expanded="true" />
@@ -135,16 +139,15 @@
                 <element signature="e#18612#18613#0" expanded="true" />
                 <element signature="e#18653#18654#0" expanded="true" />
                 <element signature="e#18687#18688#0" expanded="true" />
-                <element signature="e#18817#18818#0" expanded="true" />
-                <element signature="e#18852#18853#0" expanded="true" />
-                <element signature="e#19162#19163#0" expanded="true" />
-                <element signature="e#19214#19215#0" expanded="true" />
-                <element signature="e#19260#19261#0" expanded="true" />
-                <element signature="e#19284#19285#0" expanded="true" />
-                <element signature="e#19328#19329#0" expanded="true" />
-                <element signature="e#19354#19355#0" expanded="true" />
-                <element signature="e#19395#19396#0" expanded="true" />
-                <element signature="e#19438#19439#0" expanded="true" />
+                <element signature="e#19555#19556#0" expanded="true" />
+                <element signature="e#19583#19584#0" expanded="true" />
+                <element signature="e#19920#19921#0" expanded="true" />
+                <element signature="e#19956#19957#0" expanded="true" />
+                <element signature="e#20047#20048#0" expanded="true" />
+                <element signature="e#20099#20100#0" expanded="true" />
+                <element signature="e#20145#20146#0" expanded="true" />
+                <element signature="e#20169#20170#0" expanded="true" />
+                <element signature="e#20323#20324#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,8 +156,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+            <state relative-caret-position="330">
+              <caret line="28" column="35" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1487#1488#0" expanded="true" />
@@ -474,8 +477,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/company/Expr.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expr.java" />
-        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" />
+        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" />
       </list>
     </option>
   </component>
@@ -552,7 +555,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545284233993" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545293232998" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -571,7 +574,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExpressionTest.constantTest">
+  <component name="RunManager" selected="JUnit.ExpressionTest.polyDerivativeTest">
     <configuration name="ExpressionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -618,22 +621,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExpressionTest.derivativeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="1_test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
-      <option name="METHOD_NAME" value="derivativeTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ExpressionTest.multEqualityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -650,20 +637,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExpressionTest.polyDerivativeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="1_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="horeilly1101" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="METHOD_NAME" value="polyDerivativeTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="JUnit.ExpressionTest.derivativeTest" />
       <item itemvalue="JUnit.ExpressionTest" />
       <item itemvalue="JUnit.ExpressionTest.multEqualityTest" />
       <item itemvalue="JUnit.ExpressionTest.addEqualityTest" />
       <item itemvalue="JUnit.ExpressionTest.constantTest" />
+      <item itemvalue="JUnit.ExpressionTest.polyDerivativeTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ExpressionTest.polyDerivativeTest" />
         <item itemvalue="JUnit.ExpressionTest.constantTest" />
         <item itemvalue="JUnit.ExpressionTest.addEqualityTest" />
         <item itemvalue="JUnit.ExpressionTest.multEqualityTest" />
         <item itemvalue="JUnit.ExpressionTest" />
-        <item itemvalue="JUnit.ExpressionTest.derivativeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -699,39 +702,46 @@
       <option name="project" value="LOCAL" />
       <updated>1545252994779</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added Log class">
+      <created>1545284448575</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1545284448575</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ExpressionTest_derivativeTest - 2018.12.19 at 14h 36m 04s.xml">
-      <configuration name="ExpressionTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_derivativeTest - 2018.12.19 at 14h 50m 01s.xml">
-      <configuration name="ExpressionTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_derivativeTest - 2018.12.19 at 14h 50m 16s.xml">
-      <configuration name="ExpressionTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_derivativeTest - 2018.12.19 at 14h 50m 45s.xml">
-      <configuration name="ExpressionTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_derivativeTest - 2018.12.19 at 14h 53m 57s.xml">
-      <configuration name="ExpressionTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest - 2018.12.19 at 14h 54m 08s.xml">
-      <configuration name="ExpressionTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_multEqualityTest - 2018.12.19 at 14h 54m 12s.xml">
-      <configuration name="ExpressionTest.multEqualityTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_addEqualityTest - 2018.12.19 at 15h 26m 55s.xml">
-      <configuration name="ExpressionTest.addEqualityTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ExpressionTest_constantTest - 2018.12.19 at 15h 38m 59s.xml">
       <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="ExpressionTest_constantTest - 2018.12.19 at 15h 39m 13s.xml">
       <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_constantTest - 2018.12.20 at 01h 34m 10s.xml">
+      <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_constantTest - 2018.12.20 at 01h 37m 39s.xml">
+      <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_constantTest - 2018.12.20 at 02h 04m 01s.xml">
+      <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_constantTest - 2018.12.20 at 02h 05m 25s.xml">
+      <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 05m 36s.xml">
+      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 06m 00s.xml">
+      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 06m 13s.xml">
+      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 07m 16s.xml">
+      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -753,7 +763,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21927711" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32409638" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -776,7 +786,8 @@
     <MESSAGE value="add comment" />
     <MESSAGE value="tests are updated with junit5" />
     <MESSAGE value="organized unit tests a little better" />
-    <option name="LAST_COMMIT_MESSAGE" value="organized unit tests a little better" />
+    <MESSAGE value="added Log class" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Log class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java">
@@ -788,8 +799,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="52" column="9" selection-start-line="52" selection-start-column="9" selection-end-line="52" selection-end-column="9" />
+        <state relative-caret-position="330">
+          <caret line="28" column="35" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1487#1488#0" expanded="true" />
@@ -800,8 +811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="442" column="10" selection-start-line="442" selection-start-column="10" selection-end-line="442" selection-end-column="10" />
+        <state relative-caret-position="6111">
+          <caret line="739" column="1" lean-forward="true" selection-start-line="739" selection-start-column="1" selection-end-line="739" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1135#1136#0" expanded="true" />
@@ -824,6 +835,10 @@
             <element signature="e#8673#8674#0" expanded="true" />
             <element signature="e#8956#8957#0" expanded="true" />
             <element signature="e#9007#9008#0" expanded="true" />
+            <element signature="e#13570#13571#0" expanded="true" />
+            <element signature="e#13611#13612#0" expanded="true" />
+            <element signature="e#13657#13658#0" expanded="true" />
+            <element signature="e#13679#13680#0" expanded="true" />
             <element signature="e#13517#13518#0" expanded="true" />
             <element signature="e#13558#13559#0" expanded="true" />
             <element signature="e#13622#13623#0" expanded="true" />
@@ -832,8 +847,8 @@
             <element signature="e#14046#14047#0" expanded="true" />
             <element signature="e#14092#14093#0" expanded="true" />
             <element signature="e#14172#14173#0" expanded="true" />
-            <element signature="e#14216#14217#0" expanded="true" />
-            <element signature="e#14277#14278#0" expanded="true" />
+            <element signature="e#15083#15084#0" expanded="true" />
+            <element signature="e#15145#15146#0" expanded="true" />
             <element signature="e#16716#16717#0" expanded="true" />
             <element signature="e#16760#16761#0" expanded="true" />
             <element signature="e#16808#16809#0" expanded="true" />
@@ -850,14 +865,16 @@
             <element signature="e#17590#17591#0" expanded="true" />
             <element signature="e#17636#17637#0" expanded="true" />
             <element signature="e#17703#17704#0" expanded="true" />
-            <element signature="e#17745#17746#0" expanded="true" />
-            <element signature="e#17799#17800#0" expanded="true" />
             <element signature="e#17840#17841#0" expanded="true" />
             <element signature="e#17896#17897#0" expanded="true" />
             <element signature="e#18003#18004#0" expanded="true" />
             <element signature="e#18031#18032#0" expanded="true" />
             <element signature="e#18077#18078#0" expanded="true" />
             <element signature="e#18115#18116#0" expanded="true" />
+            <element signature="e#18909#18910#0" expanded="true" />
+            <element signature="e#18947#18948#0" expanded="true" />
+            <element signature="e#18892#18893#0" expanded="true" />
+            <element signature="e#18930#18931#0" expanded="true" />
             <element signature="e#18411#18412#0" expanded="true" />
             <element signature="e#18463#18464#0" expanded="true" />
             <element signature="e#18509#18510#0" expanded="true" />
@@ -866,16 +883,15 @@
             <element signature="e#18612#18613#0" expanded="true" />
             <element signature="e#18653#18654#0" expanded="true" />
             <element signature="e#18687#18688#0" expanded="true" />
-            <element signature="e#18817#18818#0" expanded="true" />
-            <element signature="e#18852#18853#0" expanded="true" />
-            <element signature="e#19162#19163#0" expanded="true" />
-            <element signature="e#19214#19215#0" expanded="true" />
-            <element signature="e#19260#19261#0" expanded="true" />
-            <element signature="e#19284#19285#0" expanded="true" />
-            <element signature="e#19328#19329#0" expanded="true" />
-            <element signature="e#19354#19355#0" expanded="true" />
-            <element signature="e#19395#19396#0" expanded="true" />
-            <element signature="e#19438#19439#0" expanded="true" />
+            <element signature="e#19555#19556#0" expanded="true" />
+            <element signature="e#19583#19584#0" expanded="true" />
+            <element signature="e#19920#19921#0" expanded="true" />
+            <element signature="e#19956#19957#0" expanded="true" />
+            <element signature="e#20047#20048#0" expanded="true" />
+            <element signature="e#20099#20100#0" expanded="true" />
+            <element signature="e#20145#20146#0" expanded="true" />
+            <element signature="e#20169#20170#0" expanded="true" />
+            <element signature="e#20323#20324#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -15,16 +15,18 @@ public class ExpressionTest {
   @Test
   public void polyDerivativeTest() {
     // x ^ 2.0
-    Expression pol = poly(var(), 2.0);
+    Expression pol = poly(x(), 2.0);
     // 2.0 * x
-    Expression polExpected = mult(constant(2.0), var());
+    Expression polExpected = mult(constant(2.0), x());
     assertEquals(polExpected, pol.differentiate());
 
     // x ^ 2.0 + x + 1.0
-    Expression pol2 = add(poly(var(), 2.0), var(), constant(1.0));
+    Expression pol2 = add(poly(x(), 2.0), x(), constant(1.0));
     // 2.0 * x + 1
-    Expression pol2Expected = add(mult(constant(2.0), var()), constant(1.0));
+    Expression pol2Expected = add(mult(constant(2.0), x()), constant(1.0));
     assertEquals(pol2Expected, pol2.differentiate());
+
+    System.out.println(pol2Expected.evaluate("x", 1.0));
   }
 
   @Test
@@ -32,9 +34,9 @@ public class ExpressionTest {
     // We want to be sure that the ordering of the factors does not affect equality
 
     // x * 2.0
-    Expression mul = mult(var(), constant(2.0));
+    Expression mul = mult(x(), constant(2.0));
     // 2.0 * x
-    Expression mul2 = mult(constant(2.0), var());
+    Expression mul2 = mult(constant(2.0), x());
     assertEquals(mul, mul2);
   }
 
@@ -43,9 +45,9 @@ public class ExpressionTest {
     // We want to be sure that the ordering of the terms does not affect equality
 
     // x + 2.0
-    Expression add = add(var(), constant(2.0));
+    Expression add = add(x(), constant(2.0));
     // 2.0 + x
-    Expression add2 = add(constant(2.0), var());
+    Expression add2 = add(constant(2.0), x());
     assertEquals(add, add2);
   }
 
