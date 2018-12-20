@@ -498,8 +498,7 @@ interface Expression extends Comparable {
 
   class Power implements Expression {
     private Expression base;
-    // polynomial for now
-    private Double exponent;
+    private Expression exponent;
 
     /**
      * Instantiates a Power. Avoid using as much as possible! Use the easy constructor
@@ -507,17 +506,25 @@ interface Expression extends Comparable {
      *
      * Data definition: a power is a base and an exponent.
      */
-    private Power(Expression base, Double exponent) {
+    private Power(Expression base, Expression exponent) {
       this.base = base;
       this.exponent = exponent;
     }
+//
+//    static Power polyUnsimplified(Expression base) {
+//      return new Power(base, 1.0);
+//    }
 
-    static Power polyUnsimplified(Expression base) {
-      return new Power(base, 1.0);
+    static Expression power(Expression base, Expression exponent) {
+      return new Power(base, exponent);
     }
 
-    static Expression poly(Expression base, Double exponent) {
-      return simplify(base, exponent);
+    static Expression poly(Expression base, Constant exponent) {
+      return power(base, exponent);
+    }
+
+    static Expression exponential(Constant base, Expression exponent) {
+      return new Power(base, exponent);
     }
 
     @Override
@@ -546,24 +553,22 @@ interface Expression extends Comparable {
       return poly(base.evaluate(var, input), exponent);
     }
 
-    static Expression simplify(Expression base, Double exponent) {
-      if (exponent == 1.0) {
-        return base;
-      } else if (exponent == 0.0) {
-        return Constant.constant(0.0);
-      } else {
-        return new Power(base, exponent);
-      }
-    }
+//    static Expression simplify(Expression base, Double exponent) {
+//      if (exponent == 1.0) {
+//        return base;
+//      } else if (exponent == 0.0) {
+//        return Constant.constant(0.0);
+//      } else {
+//        return new Power(base, exponent);
+//      }
+//    }
 
     public Expression differentiate(String var) {
       // assume polynomial for now
       // power rule
-      return exponent == 1.0
-                 ? new Constant(1.0)
-                 : Mult.mult(Constant.constant(exponent),
-                     base.differentiate(var),
-                     poly(base, exponent - 1));
+      return Mult.mult(Constant.constant(exponent),
+                 base.differentiate(var),
+                 poly(base, exponent - 1));
     }
   }
 
@@ -693,7 +698,7 @@ interface Expression extends Comparable {
       this.val = val;
     }
 
-    static Expression constant(Double val) {
+    static Constant constant(Double val) {
       return new Constant(val);
     }
 
