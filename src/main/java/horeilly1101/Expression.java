@@ -28,7 +28,8 @@ interface Expression extends Comparable {
   /**
    * This method compares an expression with a given object. This
    * is important, as it allows us to define an ordering on our
-   * data structures.
+   * data structures. It also makes equality less strict. (i.e.
+   * 2.0 * x should be equal to x * 2.0.)
    */
   default int compareTo(@NotNull Object o) {
     // constants come first
@@ -39,6 +40,14 @@ interface Expression extends Comparable {
     }
 
     return this.toString().compareTo(o.toString());
+  }
+
+  default Boolean isMult() {
+    return this.getClass().equals(Mult.class);
+  }
+
+  default Boolean isAdd() {
+    return this.getClass().equals(Add.class);
   }
 
   default Mult asMult() {
@@ -68,7 +77,7 @@ interface Expression extends Comparable {
     }
   }
 
-  default Expression getFactora() {
+  default Expression getFactor() {
     return this.getClass().equals(Mult.class)
                ? Mult.mult(this.asMult().factors.stream()
                                .filter(x -> !x.getClass().equals(Constant.class))
@@ -77,6 +86,7 @@ interface Expression extends Comparable {
   }
 
   class Mult implements Expression {
+    // we need to be able to store constants and factors separately
     private List<Expression> factors;
 
     /**
@@ -185,6 +195,9 @@ interface Expression extends Comparable {
      * constant factors. (e.g. multipling an expression by 1 should yield
      * the expression, multiplying an expression by 0 should yield zero,
      * and so on.)
+     *
+     * It also multiplies the values of all constants together, so that each
+     * mult has a single Constant.
      *
      * @return List<Expression> simplified
      */
@@ -338,14 +351,14 @@ interface Expression extends Comparable {
       HashMap<Expression, List<Double>> powerMap = new HashMap<>();
 
       for (Expression term : terms) {
-        if (powerMap.containsKey(term.getFactora())) {
-          List<Double> newList = powerMap.get(term.getFactora());
+        if (powerMap.containsKey(term.getFactor())) {
+          List<Double> newList = powerMap.get(term.getFactor());
           newList.add(term.getConstant().val);
-          powerMap.replace(term.getFactora(), newList);
+          powerMap.replace(term.getFactor(), newList);
         } else {
           List<Double> newList = new ArrayList<>();
           newList.add(term.getConstant().val);
-          powerMap.put(term.getFactora(), newList);
+          powerMap.put(term.getFactor(), newList);
         }
       }
 
@@ -420,6 +433,19 @@ interface Expression extends Comparable {
       return add(terms.stream()
                      .map(Expression::differentiate)
                      .collect(toList()));
+    }
+  }
+
+  class Log implements Expression {
+    Expression base;
+    Expression result;
+
+    public Double evaluate(Double val) {
+      throw new RuntimeException();
+    }
+
+    public Expression differentiate() {
+      throw new RuntimeException();
     }
   }
 

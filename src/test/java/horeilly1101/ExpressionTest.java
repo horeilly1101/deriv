@@ -37,4 +37,20 @@ public class ExpressionTest {
     Expression mul2 = mult(constant(2.0), var());
     assertEquals(mul, mul2);
   }
+
+  @Test
+  public void addEqualityTest() {
+    // We want to be sure that the ordering of the terms does not affect equality
+
+    // x + 2.0
+    Expression add = add(var(), constant(2.0));
+    // 2.0 + x
+    Expression add2 = add(constant(2.0), var());
+    assertEquals(add, add2);
+  }
+
+  @Test
+  public void constantTest() {
+    System.out.println(mult(constant(2.0), constant(3.0)));
+  }
 }
