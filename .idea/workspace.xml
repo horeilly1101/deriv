@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -53,25 +52,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2910" />
-          <entry key="txt" value="125" />
+          <entry key="java" value="3119" />
+          <entry key="txt" value="147" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2910" />
-          <entry key="PLAIN_TEXT" value="125" />
+          <entry key="JAVA" value="3119" />
+          <entry key="PLAIN_TEXT" value="147" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="468" column="13" lean-forward="true" selection-start-line="468" selection-start-column="13" selection-end-line="468" selection-end-column="13" />
+            <state relative-caret-position="540">
+              <caret line="787" column="1" lean-forward="true" selection-start-line="787" selection-start-column="1" selection-end-line="787" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1130#1131#0" expanded="true" />
@@ -85,7 +84,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="409">
@@ -409,8 +408,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/company/Expr.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expr.java" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" />
       </list>
     </option>
   </component>
@@ -487,7 +486,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545331329189" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545331833567" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -650,13 +649,17 @@
       <option name="project" value="LOCAL" />
       <updated>1545293398082</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="implemented log class">
+      <created>1545331426809</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1545331426809</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ExpressionTest_constantTest - 2018.12.20 at 02h 05m 25s.xml">
-      <configuration name="ExpressionTest.constantTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 05m 36s.xml">
       <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
     </history-entry>
@@ -684,6 +687,9 @@
     <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 40m 09s.xml">
       <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 42m 10s.xml">
+      <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -698,7 +704,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32409638" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18433735" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -729,14 +735,25 @@
     <MESSAGE value="organized unit tests a little better" />
     <MESSAGE value="added Log class" />
     <MESSAGE value="fixed evaluate() implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed evaluate() implementation" />
+    <MESSAGE value="implemented log class" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented log class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="62" column="41" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="468" column="13" lean-forward="true" selection-start-line="468" selection-start-column="13" selection-end-line="468" selection-end-column="13" />
+        <state relative-caret-position="540">
+          <caret line="787" column="1" lean-forward="true" selection-start-line="787" selection-start-column="1" selection-end-line="787" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1130#1131#0" expanded="true" />
@@ -745,16 +762,6 @@
             <element signature="e#13798#13799#0" expanded="true" />
             <element signature="e#14241#14242#0" expanded="true" />
             <element signature="e#14312#14313#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="62" column="41" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

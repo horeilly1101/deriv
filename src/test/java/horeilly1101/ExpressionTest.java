@@ -19,13 +19,13 @@ public class ExpressionTest {
     Expression pol = poly(x(), 2.0);
     // 2.0 * x
     Expression polExpected = mult(constant(2.0), x());
-    assertEquals(polExpected, pol.differentiate());
+    assertEquals(polExpected, pol.differentiate("x"));
 
     // x ^ 2.0 + x + 1.0
     Expression pol2 = add(poly(x(), 2.0), x(), constant(1.0));
     // 2.0 * x + 1
     Expression pol2Expected = add(mult(constant(2.0), x()), constant(1.0));
-    assertEquals(pol2Expected, pol2.differentiate());
+    assertEquals(pol2Expected, pol2.differentiate("x"));
 
     System.out.println(pol2Expected.evaluate("y", 1.0));
   }
@@ -60,6 +60,6 @@ public class ExpressionTest {
   @Test
   public void logTest() {
     Expression lg = log(e(), x());
-    System.out.println(lg.differentiate());
+    System.out.println(lg.differentiate("x"));
   }
 }

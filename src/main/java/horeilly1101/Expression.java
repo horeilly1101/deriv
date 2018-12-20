@@ -3,7 +3,7 @@ package horeilly1101;
 import com.sun.istack.internal.NotNull;
 
 import java.util.*;
-import java.util.function.Function;
+import java.util.function.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -22,7 +22,7 @@ interface Expression extends Comparable {
    *
    * @return Expression derivative
    */
-  Expression differentiate();
+  Expression differentiate(String var);
 
   /**
    * This method compares an expression with a given object. This
@@ -253,17 +253,14 @@ interface Expression extends Comparable {
       return newList;
     }
 
-    public Expression differentiate() {
-      return factors.size() == 1
-                 ? factors.get(0).differentiate()
-                 // product rule
-                 : Add.add(
+    public Expression differentiate(String var) {
+      return Add.add(
                      mult(
                          factors.get(0),
-                         mult(factors.subList(1, factors.size())).differentiate()
+                         mult(factors.subList(1, factors.size())).differentiate(var)
                      ),
                      mult(
-                         factors.get(0).differentiate(),
+                         factors.get(0).differentiate(var),
                          mult(factors.subList(1, factors.size()))
                      ));
     }
@@ -427,10 +424,10 @@ interface Expression extends Comparable {
       return newList;
     }
 
-    public Expression differentiate() {
+    public Expression differentiate(String var) {
       // linearity of differentiation
       return add(terms.stream()
-                     .map(Expression::differentiate)
+                     .map(x -> x.differentiate(var))
                      .collect(toList()));
     }
   }
@@ -444,7 +441,7 @@ interface Expression extends Comparable {
       this.result = result;
     }
 
-    public static Expression log(Expression base, Expression result) {
+    static Expression log(Expression base, Expression result) {
       return new Log(base, result);
     }
 
@@ -474,17 +471,17 @@ interface Expression extends Comparable {
       return log(base.evaluate(var, val), result.evaluate(var, val));
     }
 
-    public Expression differentiate() {
+    public Expression differentiate(String var) {
       return Mult.mult(
           Add.add(
               Mult.mult(
                   base,
-                  result.differentiate(),
+                  result.differentiate(var),
                   log(Constant.e(), base)),
               Mult.mult(
                   Constant.constant(-1.0),
                   result,
-                  base.differentiate(),
+                  base.differentiate(var),
                   log(Constant.e(), result))),
 
           Power.poly(
@@ -559,13 +556,13 @@ interface Expression extends Comparable {
       }
     }
 
-    public Expression differentiate() {
+    public Expression differentiate(String var) {
       // assume polynomial for now
       // power rule
       return exponent == 1.0
                  ? new Constant(1.0)
                  : Mult.mult(Constant.constant(exponent),
-                     base.differentiate(),
+                     base.differentiate(var),
                      poly(base, exponent - 1));
     }
   }
@@ -574,7 +571,7 @@ interface Expression extends Comparable {
 
     // maps to ensure cleaner code (i.e. no long if statements)
     private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
-    private Map<String, Function<Trig, Expression>> derivMap = new TreeMap<>();
+    private Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
 
     private String func;
     private Expression inside;
@@ -593,40 +590,40 @@ interface Expression extends Comparable {
 
       // define functions for evaluating derivatives
       derivMap.put("sin",
-          x -> Mult.mult(
-              x.inside.differentiate(),
+          (x, var) -> Mult.mult(
+              x.inside.differentiate(var),
               cos(inside)));
 
       derivMap.put("cos",
-          x -> Mult.mult(
+          (x, var) -> Mult.mult(
               Constant.constant(-1.0),
-              x.inside.differentiate(),
+              x.inside.differentiate(var),
               sin(inside)));
 
       derivMap.put("tan",
-          x -> Mult.mult(
-              x.inside.differentiate(),
+          (x, var) -> Mult.mult(
+              x.inside.differentiate(var),
               Power.poly(
                   sec(inside),
                   2.0)));
 
       derivMap.put("csc",
-          x -> Mult.mult(
+          (x, var) -> Mult.mult(
               Constant.constant(-1.0),
-              x.inside.differentiate(),
+              x.inside.differentiate(var),
               csc(inside),
               cot(inside)));
 
       derivMap.put("sec",
-          x -> Mult.mult(
-              x.inside.differentiate(),
+          (x, var) -> Mult.mult(
+              x.inside.differentiate(var),
               sec(inside),
               tan(inside)));
 
       derivMap.put("cot",
-          x -> Mult.mult(
+          (x, var) -> Mult.mult(
               Constant.constant(-1.0),
-              x.inside.differentiate(),
+              x.inside.differentiate(var),
               Power.poly(
                   csc(inside),
                   2.0)));
@@ -683,8 +680,8 @@ interface Expression extends Comparable {
                  .apply(inside.evaluate(var, val));
     }
 
-    public Expression differentiate() {
-      return derivMap.get(this.func).apply(this);
+    public Expression differentiate(String var) {
+      return derivMap.get(this.func).apply(this, var);
     }
 
   }
@@ -734,7 +731,7 @@ interface Expression extends Comparable {
       return this;
     }
 
-    public Expression differentiate() {
+    public Expression differentiate(String var) {
       return constant(0.0);
     }
   }
@@ -784,8 +781,8 @@ interface Expression extends Comparable {
       return var.equals(this.var) ? Constant.constant(input) : this;
     }
 
-    public Expression differentiate() {
-      return Constant.constant(1.0);
+    public Expression differentiate(String wrt) {
+      return wrt.equals(var) ? Constant.constant(1.0) : Constant.constant(0.0);
     }
   }
 }
