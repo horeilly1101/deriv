@@ -8,6 +8,7 @@ import static horeilly1101.Expression.Mult.*;
 import static horeilly1101.Expression.Power.*;
 import static horeilly1101.Expression.Variable.*;
 import static horeilly1101.Expression.Trig.*;
+import static horeilly1101.Expression.Log.*;
 import static org.junit.Assert.assertEquals;
 
 public class ExpressionTest {
@@ -26,7 +27,7 @@ public class ExpressionTest {
     Expression pol2Expected = add(mult(constant(2.0), x()), constant(1.0));
     assertEquals(pol2Expected, pol2.differentiate());
 
-    System.out.println(pol2Expected.evaluate("x", 1.0));
+    System.out.println(pol2Expected.evaluate("y", 1.0));
   }
 
   @Test
@@ -54,5 +55,11 @@ public class ExpressionTest {
   @Test
   public void constantTest() {
     System.out.println(mult(constant(2.0), constant(3.0)));
+  }
+
+  @Test
+  public void logTest() {
+    Expression lg = log(e(), x());
+    System.out.println(lg.differentiate());
   }
 }

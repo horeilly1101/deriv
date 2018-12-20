@@ -2,10 +2,7 @@ package horeilly1101;
 
 import com.sun.istack.internal.NotNull;
 
-import java.time.temporal.ValueRange;
 import java.util.*;
-import java.lang.Math;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
@@ -442,12 +439,63 @@ interface Expression extends Comparable {
     Expression base;
     Expression result;
 
+    private Log(Expression base, Expression result) {
+      this.base = base;
+      this.result = result;
+    }
+
+    public static Expression log(Expression base, Expression result) {
+      return new Log(base, result);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      } else if (!(o instanceof Log)) {
+        return false;
+      }
+
+      Log log = (Log) o;
+      return log.base.equals(this.base) && log.result.equals(this.result);
+    }
+
+    @Override
+    public int hashCode() {
+      return this.toString().hashCode() + 8;
+    }
+
+    @Override
+    public String toString() {
+      return "log(" + base.toString() + ", " + result.toString() + ")";
+    }
+
     public Expression evaluate(String var, Double val) {
-      throw new RuntimeException();
+      return log(base.evaluate(var, val), result.evaluate(var, val));
     }
 
     public Expression differentiate() {
-      throw new RuntimeException();
+      return Mult.mult(
+          Add.add(
+              Mult.mult(
+                  base,
+                  result.differentiate(),
+                  log(Constant.e(), base)),
+              Mult.mult(
+                  Constant.constant(-1.0),
+                  result,
+                  base.differentiate(),
+                  log(Constant.e(), result))),
+
+          Power.poly(
+              Mult.mult(
+                  result,
+                  base,
+                  Power.poly(
+                      log(Constant.e(),
+                          base),
+                      2.0)),
+              -1.0));
     }
   }
 
@@ -729,7 +777,7 @@ interface Expression extends Comparable {
 
     @Override
     public String toString() {
-      return "x";
+      return var;
     }
 
     public Expression evaluate(String var, Double input) {
