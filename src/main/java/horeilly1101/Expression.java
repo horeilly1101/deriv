@@ -245,6 +245,10 @@ interface Expression extends Comparable {
       return new Log(base, result);
     }
 
+    static Expression ln(Expression result) {
+      return new Log(Constant.e(), result);
+    }
+
     @Override
     public boolean equals(Object o) {
       if (this == o) {
@@ -362,8 +366,14 @@ interface Expression extends Comparable {
     }
 
     public Expression differentiate(String var) {
-      // UPDATE
-      return this;
+      return Mult.mult(
+          power(base, exponent),
+          Add.add(
+              Mult.mult(
+                  exponent.differentiate(var), Log.ln(base)),
+              Mult.mult(exponent,
+                  base.differentiate(var),
+                  power(base, Constant.constant(-1.0)))));
     }
   }
 
