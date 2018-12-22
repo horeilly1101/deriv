@@ -14,13 +14,6 @@ import static org.junit.Assert.assertEquals;
 public class ExpressionTest {
 
   @Test
-  public void multTest() {
-    Expression mul = mult(x(), x(), constant(2.0));
-    System.out.println(mul);
-//    Expression ad = add(constant(2.0), constant(1.0));
-  }
-
-  @Test
   public void polyDerivativeTest() {
     // x ^ 2.0
     Expression pol = poly(x(), Constant.constant(2.0));
@@ -37,36 +30,36 @@ public class ExpressionTest {
     System.out.println(pol2Expected.evaluate("y", 1.0));
   }
 
-  @Test
-  public void multEqualityTest() {
-    // We want to be sure that the ordering of the factors does not affect equality
-
-    // x * 2.0
-    Expression mul = mult(x(), constant(2.0));
-    // 2.0 * x
-    Expression mul2 = mult(constant(2.0), x());
-    assertEquals(mul, mul2);
-  }
-
-  @Test
-  public void addEqualityTest() {
-    // We want to be sure that the ordering of the terms does not affect equality
-
-    // x + 2.0
-    Expression add = add(x(), constant(2.0));
-    // 2.0 + x
-    Expression add2 = add(constant(2.0), x());
-    assertEquals(add, add2);
-  }
-
-  @Test
-  public void constantTest() {
-    System.out.println(mult(constant(2.0), constant(3.0)));
-  }
-
-  @Test
-  public void logTest() {
-    Expression lg = log(e(), x());
-    System.out.println(lg.differentiate("x"));
-  }
+//  @Test
+//  public void multEqualityTest() {
+//    // We want to be sure that the ordering of the factors does not affect equality
+//
+//    // x * 2.0
+//    Expression mul = mult(x(), constant(2.0));
+//    // 2.0 * x
+//    Expression mul2 = mult(constant(2.0), x());
+//    assertEquals(mul, mul2);
+//  }
+//
+//  @Test
+//  public void addEqualityTest() {
+//    // We want to be sure that the ordering of the terms does not affect equality
+//
+//    // x + 2.0
+//    Expression add = add(x(), constant(2.0));
+//    // 2.0 + x
+//    Expression add2 = add(constant(2.0), x());
+//    assertEquals(add, add2);
+//  }
+//
+//  @Test
+//  public void constantTest() {
+//    System.out.println(mult(constant(2.0), constant(3.0)));
+//  }
+//
+//  @Test
+//  public void logTest() {
+//    Expression lg = log(e(), x());
+//    System.out.println(lg.differentiate("x"));
+//  }
 }

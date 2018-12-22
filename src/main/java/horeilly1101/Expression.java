@@ -83,7 +83,6 @@ interface Expression extends Comparable {
   class Mult implements Expression {
     // we need to be able to store constants and factors separately
     private List<Expression> factors;
-    private Constant constant;
 
     /**
      * Instantiates a Term. Avoid using as much as possible! Use the easy constructor
@@ -101,7 +100,7 @@ interface Expression extends Comparable {
         throw new RuntimeException("Don't instantiate a term with an empty list!");
       } else {
         // we don't want terms of one object
-        List<Expression> simplified = simplify(factors);
+        List<Expression> simplified = factors;
         simplified.sort(Expression::compareTo);
         return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
       }
@@ -147,106 +146,6 @@ interface Expression extends Comparable {
                  .collect(toList()));
     }
 
-    static List<Expression> simplify(List<Expression> factors) {
-      return simplifyConstants(withoutNesting(factors));
-    }
-
-    /**
-     * This method simplifies a list of factors by ensuring factors
-     * are taken to the proper exponents. (e.g. we want to write x * x
-     * as x ^ 2.0.)
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> simplifyFactors(List<Expression> factors) {
-      HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
-
-      for (Expression fac : factors) {
-        if (powerMap.containsKey(fac.getBase())) {
-          List<Expression> newList = powerMap.get(fac.getBase());
-          newList.add(fac.getExponent());
-          powerMap.replace(fac.getBase(), newList);
-        } else {
-          List<Expression> newList = new ArrayList<>();
-          newList.add(fac.getExponent());
-          powerMap.put(fac.getBase(), newList);
-        }
-      }
-
-      System.out.println("powerMap " + powerMap.toString());
-
-      // add up the exponents
-      return powerMap.keySet().stream()
-                 .map(key -> Power.power(
-                     key,
-                     Add.add(powerMap.get(key))))
-                 .collect(toList());
-    }
-
-    /**
-     * This method simplifies a list of factors to get rid of extraneous
-     * constant factors. (e.g. multipling an expression by 1 should yield
-     * the expression, multiplying an expression by 0 should yield zero,
-     * and so on.)
-     *
-     * It also multiplies the values of all constants together, so that each
-     * mult has a single Constant.
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> simplifyConstants(List<Expression> factors) {
-      // keep track of constants' values
-      List<Expression> noConstants = new ArrayList<>();
-      Double constants = 1.0;
-
-      for (Expression factor : factors) {
-        if (factor.getClass().equals(Constant.class)) {
-          // checked cast
-          constants *= ((Constant) factor).val;
-        } else {
-          noConstants.add(factor);
-        }
-      }
-
-      // multiplicative identity?
-      if (constants == 1.0 && noConstants.isEmpty()) {
-        noConstants.add(Constant.constant(1.0));
-        // zero?
-      } else if (constants == 0.0) {
-        // all factors go to zero
-        noConstants.clear();
-        noConstants.add(Constant.constant(0.0));
-      } else if (constants != 1.0) {
-        noConstants.add(Constant.constant(constants));
-      }
-
-      return noConstants;
-    }
-
-    /**
-     * This method simplifies a list of factors by taking advantage of
-     * the associativity of multiplication. (i.e. a Mult object multiplied
-     * by a Mult object should not yield a Mult object of two Mult objects.
-     * It should yield a Mult object of whatever was in the original objects,
-     * flatmapped together.)
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> withoutNesting(List<Expression> factors) {
-      List<Expression> newList = new ArrayList<>();
-
-      for (Expression factor : factors) {
-        if (factor.getClass().equals(Mult.class)) {
-          // checked cast
-          newList.addAll(factor.asMult().factors);
-        } else {
-          newList.add(factor);
-        }
-      }
-
-      return newList;
-    }
-
     public Expression differentiate(String var) {
       return Add.add(
                      mult(
@@ -278,10 +177,10 @@ interface Expression extends Comparable {
       if (terms.isEmpty()) {
         throw new RuntimeException("don't instantiate an expr with an empty list!");
       } else {
-        List<Expression> simplified = simplify(terms);
+        List<Expression> simplified = terms;
         // reverse sort
         simplified.sort(Comparator.reverseOrder());
-        return simplified.size() > 1 ? new Add(simplified) : terms.get(0);
+        return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
       }
     }
 
@@ -323,98 +222,6 @@ interface Expression extends Comparable {
       return add(terms.stream()
                  .map(x -> x.evaluate(var, input))
                      .collect(toList()));
-    }
-
-    static List<Expression> simplify(List<Expression> terms) {
-//      return simplifyConstants(withoutNesting(terms));
-      return simplifyConstants(withoutNesting(terms));
-    }
-
-    /**
-     * This method simplifies a list of terms by ensuring terms
-     * are taken to the proper constants. (e.g. we want to write x + x
-     * as 2.0 * x.)
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> simplifyTerms(List<Expression> terms) {
-
-      HashMap<Expression, List<Double>> powerMap = new HashMap<>();
-
-      for (Expression term : terms) {
-        if (powerMap.containsKey(term.getRemainingFactors())) {
-          List<Double> newList = powerMap.get(term.getRemainingFactors());
-          newList.add(term.getConstantFactor().val);
-          powerMap.replace(term.getRemainingFactors(), newList);
-        } else {
-          List<Double> newList = new ArrayList<>();
-          newList.add(term.getConstantFactor().val);
-          powerMap.put(term.getRemainingFactors(), newList);
-        }
-      }
-
-      // add up the constants
-      return powerMap.keySet().stream()
-                 .map(key -> Mult.mult(
-                     key,
-                     Constant.constant(powerMap.get(key).stream()
-                                           .reduce(0.0, (a, b) -> a + b))))
-                 .collect(toList());
-    }
-
-    /**
-     * This method simplifies a list of factors to get rid of extraneous
-     * constant factors. (e.g. adding 0.0)
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> simplifyConstants(List<Expression> factors) {
-      // keep track of constants' values
-      List<Expression> noConstants = new ArrayList<>();
-      Double constants = 0.0;
-
-      for (Expression factor : factors) {
-        if (factor.getClass().equals(Constant.class)) {
-          // checked cast
-          constants += ((Constant) factor).val;
-        } else {
-          noConstants.add(factor);
-        }
-      }
-
-      // multiplicative identity?
-      if (constants == 0.0 && noConstants.isEmpty()) {
-        noConstants.add(Constant.constant(0.0));
-        // zero?
-      } else if (constants != 0.0) {
-        noConstants.add(Constant.constant(constants));
-      }
-
-      return noConstants;
-    }
-
-    /**
-     * This method simplifies a list of terms by taking advantage of
-     * the associativity of addition. (i.e. a Mult object multiplied
-     * by a Mult object should not yield a Mult object of two Mult objects.
-     * It should yield a Mult object of whatever was in the original objects,
-     * flatmapped together.)
-     *
-     * @return List<Expression> simplified
-     */
-    static List<Expression> withoutNesting(List<Expression> terms) {
-      List<Expression> newList = new ArrayList<>();
-
-      for (Expression term : terms) {
-        if (term.getClass().equals(Add.class)) {
-          // checked cast
-          newList.addAll(term.asAdd().terms);
-        } else {
-          newList.add(term);
-        }
-      }
-
-      return newList;
     }
 
     public Expression differentiate(String var) {
@@ -503,15 +310,8 @@ interface Expression extends Comparable {
       this.base = base;
       this.exponent = exponent;
     }
-//
-//    static Power polyUnsimplified(Expression base) {
-//      return new Power(base, 1.0);
-//    }
 
     static Expression power(Expression base, Expression exponent) {
-      if (exponent.equals(Constant.multID())) {
-        return base;
-      }
       return new Power(base, exponent);
     }
 
@@ -560,16 +360,6 @@ interface Expression extends Comparable {
           base.evaluate(var, input),
           exponent.evaluate(var, input));
     }
-
-//    static Expression simplify(Expression base, Double exponent) {
-//      if (exponent == 1.0) {
-//        return base;
-//      } else if (exponent == 0.0) {
-//        return Constant.constant(0.0);
-//      } else {
-//        return new Power(base, exponent);
-//      }
-//    }
 
     public Expression differentiate(String var) {
       // UPDATE
