@@ -4,6 +4,7 @@
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -47,14 +48,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3300" />
-          <entry key="txt" value="200" />
+          <entry key="java" value="4039" />
+          <entry key="txt" value="253" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3300" />
-          <entry key="PLAIN_TEXT" value="200" />
+          <entry key="JAVA" value="4039" />
+          <entry key="PLAIN_TEXT" value="253" />
         </counts>
       </usages-collector>
     </session>
@@ -64,22 +65,34 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="527" column="5" lean-forward="true" selection-start-line="527" selection-start-column="5" selection-end-line="527" selection-end-column="5" />
+            <state relative-caret-position="269">
+              <caret line="329" column="67" selection-start-line="329" selection-start-column="67" selection-end-line="329" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1130#1131#0" expanded="true" />
-                <element signature="e#1181#1182#0" expanded="true" />
+                <element signature="e#1484#1485#0" expanded="true" />
+                <element signature="e#1502#1503#0" expanded="true" />
+                <element signature="e#1550#1551#0" expanded="true" />
+                <element signature="e#1574#1575#0" expanded="true" />
+                <element signature="e#1617#1618#0" expanded="true" />
+                <element signature="e#1638#1639#0" expanded="true" />
+                <element signature="e#4295#4296#0" expanded="true" />
+                <element signature="e#4358#4359#0" expanded="true" />
                 <element signature="e#13756#13757#0" expanded="true" />
                 <element signature="e#13798#13799#0" expanded="true" />
                 <element signature="e#14241#14242#0" expanded="true" />
                 <element signature="e#14312#14313#0" expanded="true" />
-                <element signature="e#15655#15656#0" expanded="true" />
-                <element signature="e#15686#15687#0" expanded="true" />
                 <element signature="e#15648#15649#0" expanded="true" />
                 <element signature="e#15694#15695#0" expanded="true" />
                 <element signature="e#15764#15765#0" expanded="true" />
                 <element signature="e#15810#15811#0" expanded="true" />
+                <element signature="e#16034#16035#0" expanded="true" />
+                <element signature="e#16062#16063#0" expanded="true" />
+                <element signature="e#16222#16223#0" expanded="true" />
+                <element signature="e#16251#16252#0" expanded="true" />
+                <element signature="e#20545#20546#0" expanded="true" />
+                <element signature="e#20575#20576#0" expanded="true" />
+                <element signature="e#20615#20616#0" expanded="true" />
+                <element signature="e#20645#20646#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="930">
-              <caret line="64" column="1" lean-forward="true" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+            <state relative-caret-position="255">
+              <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -487,7 +500,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545333381795" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545449119050" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -506,7 +519,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ExpressionTest.logTest">
+  <component name="RunManager" selected="JUnit.ExpressionTest.multTest">
     <configuration name="ExpressionTest.addEqualityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -555,7 +568,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExpressionTest.multEqualityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExpressionTest.multTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
@@ -565,7 +578,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="horeilly1101" />
       <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
-      <option name="METHOD_NAME" value="multEqualityTest" />
+      <option name="METHOD_NAME" value="multTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -588,19 +601,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ExpressionTest.multEqualityTest" />
       <item itemvalue="JUnit.ExpressionTest.addEqualityTest" />
       <item itemvalue="JUnit.ExpressionTest.constantTest" />
       <item itemvalue="JUnit.ExpressionTest.polyDerivativeTest" />
       <item itemvalue="JUnit.ExpressionTest.logTest" />
+      <item itemvalue="JUnit.ExpressionTest.multTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ExpressionTest.logTest" />
+        <item itemvalue="JUnit.ExpressionTest.multTest" />
         <item itemvalue="JUnit.ExpressionTest.polyDerivativeTest" />
+        <item itemvalue="JUnit.ExpressionTest.logTest" />
         <item itemvalue="JUnit.ExpressionTest.constantTest" />
         <item itemvalue="JUnit.ExpressionTest.addEqualityTest" />
-        <item itemvalue="JUnit.ExpressionTest.multEqualityTest" />
       </list>
     </recent_temporary>
   </component>
@@ -664,39 +677,46 @@
       <option name="project" value="LOCAL" />
       <updated>1545331896734</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="redefined power class and added new constructors">
+      <created>1545333789886</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1545333789886</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 06m 00s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 18h 53m 04s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 06m 13s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 09m 50s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 02h 07m 16s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 10m 03s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 10h 05m 05s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 15m 02s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 10h 05m 18s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 15m 14s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_polyDerivativeTest - 2018.12.20 at 10h 38m 00s.xml">
-      <configuration name="ExpressionTest.polyDerivativeTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 15m 27s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 39m 53s.xml">
-      <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 19m 01s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 40m 09s.xml">
-      <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 22m 59s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 42m 10s.xml">
-      <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 23m 14s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ExpressionTest_logTest - 2018.12.20 at 10h 50m 34s.xml">
-      <configuration name="ExpressionTest.logTest" configurationId="JUnit" />
+    <history-entry file="ExpressionTest_multTest - 2018.12.21 at 19h 23m 22s.xml">
+      <configuration name="ExpressionTest.multTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -712,7 +732,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18072289" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22409639" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -745,14 +765,15 @@
     <MESSAGE value="fixed evaluate() implementation" />
     <MESSAGE value="implemented log class" />
     <MESSAGE value="implemented multivariate differentiation" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented multivariate differentiation" />
+    <MESSAGE value="redefined power class and added new constructors" />
+    <option name="LAST_COMMIT_MESSAGE" value="redefined power class and added new constructors" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="64" column="1" lean-forward="true" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+        <state relative-caret-position="255">
+          <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -761,22 +782,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="527" column="5" lean-forward="true" selection-start-line="527" selection-start-column="5" selection-end-line="527" selection-end-column="5" />
+        <state relative-caret-position="269">
+          <caret line="329" column="67" selection-start-line="329" selection-start-column="67" selection-end-line="329" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1130#1131#0" expanded="true" />
-            <element signature="e#1181#1182#0" expanded="true" />
+            <element signature="e#1484#1485#0" expanded="true" />
+            <element signature="e#1502#1503#0" expanded="true" />
+            <element signature="e#1550#1551#0" expanded="true" />
+            <element signature="e#1574#1575#0" expanded="true" />
+            <element signature="e#1617#1618#0" expanded="true" />
+            <element signature="e#1638#1639#0" expanded="true" />
+            <element signature="e#4295#4296#0" expanded="true" />
+            <element signature="e#4358#4359#0" expanded="true" />
             <element signature="e#13756#13757#0" expanded="true" />
             <element signature="e#13798#13799#0" expanded="true" />
             <element signature="e#14241#14242#0" expanded="true" />
             <element signature="e#14312#14313#0" expanded="true" />
-            <element signature="e#15655#15656#0" expanded="true" />
-            <element signature="e#15686#15687#0" expanded="true" />
             <element signature="e#15648#15649#0" expanded="true" />
             <element signature="e#15694#15695#0" expanded="true" />
             <element signature="e#15764#15765#0" expanded="true" />
             <element signature="e#15810#15811#0" expanded="true" />
+            <element signature="e#16034#16035#0" expanded="true" />
+            <element signature="e#16062#16063#0" expanded="true" />
+            <element signature="e#16222#16223#0" expanded="true" />
+            <element signature="e#16251#16252#0" expanded="true" />
+            <element signature="e#20545#20546#0" expanded="true" />
+            <element signature="e#20575#20576#0" expanded="true" />
+            <element signature="e#20615#20616#0" expanded="true" />
+            <element signature="e#20645#20646#0" expanded="true" />
           </folding>
         </state>
       </provider>

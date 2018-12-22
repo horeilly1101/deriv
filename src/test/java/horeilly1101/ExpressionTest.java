@@ -14,15 +14,22 @@ import static org.junit.Assert.assertEquals;
 public class ExpressionTest {
 
   @Test
+  public void multTest() {
+    Expression mul = mult(x(), x(), constant(2.0));
+    System.out.println(mul);
+//    Expression ad = add(constant(2.0), constant(1.0));
+  }
+
+  @Test
   public void polyDerivativeTest() {
     // x ^ 2.0
-    Expression pol = poly(x(), 2.0);
+    Expression pol = poly(x(), Constant.constant(2.0));
     // 2.0 * x
     Expression polExpected = mult(constant(2.0), x());
     assertEquals(polExpected, pol.differentiate("x"));
 
     // x ^ 2.0 + x + 1.0
-    Expression pol2 = add(poly(x(), 2.0), x(), constant(1.0));
+    Expression pol2 = add(poly(x(), Constant.constant(2.0)), x(), constant(1.0));
     // 2.0 * x + 1
     Expression pol2Expected = add(mult(constant(2.0), x()), constant(1.0));
     assertEquals(pol2Expected, pol2.differentiate("x"));

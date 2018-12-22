@@ -41,14 +41,6 @@ interface Expression extends Comparable {
     return this.toString().compareTo(o.toString());
   }
 
-  default Boolean isMult() {
-    return this.getClass().equals(Mult.class);
-  }
-
-  default Boolean isAdd() {
-    return this.getClass().equals(Add.class);
-  }
-
   default Mult asMult() {
     return (Mult) this;
   }
@@ -57,15 +49,19 @@ interface Expression extends Comparable {
     return (Add) this;
   }
 
-//  default Power asPower() {
-//    return (Power) this;
-//  }
-//
-//  default Double getPower() {
-//    throw new RuntimeException();
-//  }
+  default Power asPower() {
+    return (Power) this;
+  }
 
-  default Constant getConstant() {
+  default Expression getExponent() {
+    return Constant.multID();
+  }
+
+  default Expression getBase() {
+    return this;
+  }
+
+  default Constant getConstantFactor() {
     if (this.getClass().equals(Mult.class)) {
       List<Expression> cons = this.asMult().factors.stream()
                                   .filter(x -> x.getClass().equals(Constant.class))
@@ -76,7 +72,7 @@ interface Expression extends Comparable {
     }
   }
 
-  default Expression getFactor() {
+  default Expression getRemainingFactors() {
     return this.getClass().equals(Mult.class)
                ? Mult.mult(this.asMult().factors.stream()
                                .filter(x -> !x.getClass().equals(Constant.class))
@@ -87,6 +83,7 @@ interface Expression extends Comparable {
   class Mult implements Expression {
     // we need to be able to store constants and factors separately
     private List<Expression> factors;
+    private Constant constant;
 
     /**
      * Instantiates a Term. Avoid using as much as possible! Use the easy constructor
@@ -137,10 +134,10 @@ interface Expression extends Comparable {
       return factors.isEmpty()
                  ? ""
                  // a little clunky, but it gets the job done
-                 : factors.get(0).toString()
+                 : "(" + factors.get(0).toString()
                        + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                              .map(Expression::toString)
-                             .reduce("", (a, b) -> a + " * " + b);
+                             .reduce("", (a, b) -> a + " * " + b) + ")";
     }
 
     public Expression evaluate(String var, Double input) {
@@ -151,7 +148,7 @@ interface Expression extends Comparable {
     }
 
     static List<Expression> simplify(List<Expression> factors) {
-      return simplifyFactors(simplifyConstants(withoutNesting(factors)));
+      return simplifyConstants(withoutNesting(factors));
     }
 
     /**
@@ -162,30 +159,27 @@ interface Expression extends Comparable {
      * @return List<Expression> simplified
      */
     static List<Expression> simplifyFactors(List<Expression> factors) {
-      List<Power> powers = factors.stream()
-                               .map(x -> x.getClass().equals(Power.class) ? (Power) x : Power.polyUnsimplified(x))
-                               .collect(toList());
+      HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
 
-      HashMap<Expression, List<Double>> powerMap = new HashMap<>();
-
-      for (Power pow : powers) {
-        if (powerMap.containsKey(pow.base)) {
-          List<Double> newList = powerMap.get(pow.base);
-          newList.add(pow.exponent);
-          powerMap.replace(pow.base, newList);
+      for (Expression fac : factors) {
+        if (powerMap.containsKey(fac.getBase())) {
+          List<Expression> newList = powerMap.get(fac.getBase());
+          newList.add(fac.getExponent());
+          powerMap.replace(fac.getBase(), newList);
         } else {
-          List<Double> newList = new ArrayList<>();
-          newList.add(pow.exponent);
-          powerMap.put(pow.base, newList);
+          List<Expression> newList = new ArrayList<>();
+          newList.add(fac.getExponent());
+          powerMap.put(fac.getBase(), newList);
         }
       }
 
+      System.out.println("powerMap " + powerMap.toString());
+
       // add up the exponents
       return powerMap.keySet().stream()
-                 .map(key -> Power.poly(
+                 .map(key -> Power.power(
                      key,
-                     powerMap.get(key).stream()
-                         .reduce(0.0, (a, b) -> a + b)))
+                     Add.add(powerMap.get(key))))
                  .collect(toList());
     }
 
@@ -332,7 +326,8 @@ interface Expression extends Comparable {
     }
 
     static List<Expression> simplify(List<Expression> terms) {
-      return simplifyTerms(simplifyConstants(withoutNesting(terms)));
+//      return simplifyConstants(withoutNesting(terms));
+      return simplifyConstants(withoutNesting(terms));
     }
 
     /**
@@ -347,14 +342,14 @@ interface Expression extends Comparable {
       HashMap<Expression, List<Double>> powerMap = new HashMap<>();
 
       for (Expression term : terms) {
-        if (powerMap.containsKey(term.getFactor())) {
-          List<Double> newList = powerMap.get(term.getFactor());
-          newList.add(term.getConstant().val);
-          powerMap.replace(term.getFactor(), newList);
+        if (powerMap.containsKey(term.getRemainingFactors())) {
+          List<Double> newList = powerMap.get(term.getRemainingFactors());
+          newList.add(term.getConstantFactor().val);
+          powerMap.replace(term.getRemainingFactors(), newList);
         } else {
           List<Double> newList = new ArrayList<>();
-          newList.add(term.getConstant().val);
-          powerMap.put(term.getFactor(), newList);
+          newList.add(term.getConstantFactor().val);
+          powerMap.put(term.getRemainingFactors(), newList);
         }
       }
 
@@ -369,9 +364,7 @@ interface Expression extends Comparable {
 
     /**
      * This method simplifies a list of factors to get rid of extraneous
-     * constant factors. (e.g. multipling an expression by 1 should yield
-     * the expression, multiplying an expression by 0 should yield zero,
-     * and so on.)
+     * constant factors. (e.g. adding 0.0)
      *
      * @return List<Expression> simplified
      */
@@ -491,8 +484,8 @@ interface Expression extends Comparable {
                   Power.poly(
                       log(Constant.e(),
                           base),
-                      2.0)),
-              -1.0));
+                      Constant.constant(2.0))),
+              Constant.constant(-1.0)));
     }
   }
 
@@ -516,6 +509,9 @@ interface Expression extends Comparable {
 //    }
 
     static Expression power(Expression base, Expression exponent) {
+      if (exponent.equals(Constant.multID())) {
+        return base;
+      }
       return new Power(base, exponent);
     }
 
@@ -525,6 +521,16 @@ interface Expression extends Comparable {
 
     static Expression exponential(Constant base, Expression exponent) {
       return new Power(base, exponent);
+    }
+
+    @Override
+    public Expression getExponent() {
+      return exponent;
+    }
+
+    @Override
+    public Expression getBase() {
+      return base;
     }
 
     @Override
@@ -550,7 +556,9 @@ interface Expression extends Comparable {
     }
 
     public Expression evaluate(String var, Double input) {
-      return poly(base.evaluate(var, input), exponent);
+      return power(
+          base.evaluate(var, input),
+          exponent.evaluate(var, input));
     }
 
 //    static Expression simplify(Expression base, Double exponent) {
@@ -564,11 +572,8 @@ interface Expression extends Comparable {
 //    }
 
     public Expression differentiate(String var) {
-      // assume polynomial for now
-      // power rule
-      return Mult.mult(Constant.constant(exponent),
-                 base.differentiate(var),
-                 poly(base, exponent - 1));
+      // UPDATE
+      return this;
     }
   }
 
@@ -610,7 +615,7 @@ interface Expression extends Comparable {
               x.inside.differentiate(var),
               Power.poly(
                   sec(inside),
-                  2.0)));
+                  Constant.constant(2.0))));
 
       derivMap.put("csc",
           (x, var) -> Mult.mult(
@@ -631,7 +636,7 @@ interface Expression extends Comparable {
               x.inside.differentiate(var),
               Power.poly(
                   csc(inside),
-                  2.0)));
+                  Constant.constant(2.0))));
     }
 
     static Expression sin(Expression inside) {
@@ -702,8 +707,12 @@ interface Expression extends Comparable {
       return new Constant(val);
     }
 
-    static Expression constant(String val) {
-      return Variable.var(val);
+    static Constant multID() {
+      return constant(1.0);
+    }
+
+    static Constant addID() {
+      return constant(0.0);
     }
 
     static Expression e() {
