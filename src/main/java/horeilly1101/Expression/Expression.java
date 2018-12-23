@@ -5,6 +5,15 @@ import com.sun.istack.internal.NotNull;
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
+ *
+ * This interface is implemented by:
+ * - Mult
+ * - Add
+ * - Log
+ * - Power
+ * - Trig
+ * - Constant
+ * - Variable
  */
 interface Expression extends Comparable {
   /**
@@ -103,6 +112,11 @@ interface Expression extends Comparable {
   default Variable asVariable() {
     return (Variable) this;
   }
+
+  /*
+  Each Expression is implicitly a Mult, an Add, and a Power,
+  so the following getter functions are justified.
+   */
 
 //  default Expression getExponent() {
 //    return Constant.multID();

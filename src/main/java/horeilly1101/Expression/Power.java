@@ -60,7 +60,7 @@ public class Power implements Expression {
 
   @Override
   public String toString() {
-    return "(" + base.toString() + ") ^ (" + exponent.toString() + ")";
+    return base.toString() + " ^ " + exponent.toString();
   }
 
   public Expression evaluate(String var, Double input) {
