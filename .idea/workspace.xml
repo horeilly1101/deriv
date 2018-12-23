@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Constant.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Constant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Power.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Power.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Trig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Variable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/classes/horeilly1101/ExpressionTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/classes/horeilly1101/ExpressionTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Add.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Add.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Mult.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression$Mult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/horeilly1101/Expression.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" afterDir="false" />
@@ -55,27 +53,29 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="5341" />
-          <entry key="txt" value="390" />
+          <entry key="java" value="7253" />
+          <entry key="txt" value="408" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5341" />
-          <entry key="PLAIN_TEXT" value="390" />
+          <entry key="JAVA" value="7253" />
+          <entry key="PLAIN_TEXT" value="408" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1028">
-              <caret line="332" column="6" selection-start-line="332" selection-start-column="6" selection-end-line="332" selection-end-column="6" />
+            <state relative-caret-position="1425">
+              <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1494#1495#0" expanded="true" />
+                <element signature="e#1515#1516#0" expanded="true" />
                 <element signature="e#3284#3285#0" expanded="true" />
                 <element signature="e#3311#3312#0" expanded="true" />
                 <element signature="e#5691#5692#0" expanded="true" />
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
+            <state relative-caret-position="112">
+              <caret line="221" column="35" lean-forward="true" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,8 +102,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+            <state relative-caret-position="257">
+              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -428,9 +428,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/company/Expr.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expr.java" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java" />
       </list>
     </option>
   </component>
@@ -507,7 +507,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545544959738" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545600544179" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -710,28 +710,17 @@
       <option name="project" value="LOCAL" />
       <updated>1545452991217</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="bug in add() fixed">
+      <created>1545544992419</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1545544992419</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 31m 30s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 32m 28s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 34m 34s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 35m 03s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 35m 15s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 35m 52s.xml">
-      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 49m 35s.xml">
       <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
     </history-entry>
@@ -742,6 +731,24 @@
       <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
     </history-entry>
     <history-entry file="ExpressionTest_justRun - 2018.12.22 at 21h 59m 21s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 22h 01m 33s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 22h 02m 41s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.22 at 22h 36m 18s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.23 at 10h 24m 14s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.23 at 10h 26m 26s.xml">
+      <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ExpressionTest_justRun - 2018.12.23 at 10h 31m 39s.xml">
       <configuration name="ExpressionTest.justRun" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -758,7 +765,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33734939" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.124096386" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -796,14 +803,25 @@
     <MESSAGE value="refining simplification" />
     <MESSAGE value="moved simplification logic to a new file" />
     <MESSAGE value="finished a generalized differentiation function for powers" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished a generalized differentiation function for powers" />
+    <MESSAGE value="bug in add() fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug in add() fixed" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="221" column="35" lean-forward="true" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/ExpressionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+        <state relative-caret-position="257">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -812,26 +830,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1028">
-          <caret line="332" column="6" selection-start-line="332" selection-start-column="6" selection-end-line="332" selection-end-column="6" />
+        <state relative-caret-position="1425">
+          <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1494#1495#0" expanded="true" />
+            <element signature="e#1515#1516#0" expanded="true" />
             <element signature="e#3284#3285#0" expanded="true" />
             <element signature="e#3311#3312#0" expanded="true" />
             <element signature="e#5691#5692#0" expanded="true" />
             <element signature="e#5717#5718#0" expanded="true" />
             <element signature="e#14032#14033#0" expanded="true" />
             <element signature="e#14055#14056#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/SimplifyExpression.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

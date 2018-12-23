@@ -9,15 +9,14 @@ import static horeilly1101.Expression.Power.*;
 import static horeilly1101.Expression.Variable.*;
 import static horeilly1101.Expression.Trig.*;
 import static horeilly1101.Expression.Log.*;
+import static horeilly1101.SimplifyExpression.*;
 import static org.junit.Assert.assertEquals;
 
 public class ExpressionTest {
 
   @Test
   public void justRun() {
-    // x^3 + x^2 + x + 1
-    Expression ex = mult(x(), x(), x(), power(x(), e()));
-    System.out.println(ex);
+//    System.out.println("log(2, 8) -- " + logConstant(2.0, 16.0));
 }
 
 //  @Test

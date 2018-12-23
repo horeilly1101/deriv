@@ -58,6 +58,10 @@ interface Expression extends Comparable {
     return (Power) this;
   }
 
+  default Constant asConstant() {
+    return (Constant) this;
+  }
+
   default Expression getExponent() {
     return Constant.multID();
   }
@@ -86,7 +90,7 @@ interface Expression extends Comparable {
   }
 
   class Mult implements Expression {
-    // we need to be able to store constants and factors separately
+    private Constant constant;
     private List<Expression> factors;
 
     /**
@@ -96,7 +100,8 @@ interface Expression extends Comparable {
      * Data definition: a term is a list of Expressions (factors). This is analogous
      * to the factors in an expression.
      */
-    private Mult(List<Expression> factors) {
+    Mult(Constant constant, List<Expression> factors) {
+      this.constant = constant;
       this.factors = factors;
     }
 
