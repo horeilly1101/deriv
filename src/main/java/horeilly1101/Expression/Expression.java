@@ -1,11 +1,7 @@
-package horeilly1101;
+package horeilly1101.Expression;
 
 import com.sun.istack.internal.NotNull;
 
-import java.util.*;
-import java.util.function.*;
-
-import static java.util.stream.Collectors.toList;
 import static horeilly1101.SimplifyExpression.*;
 
 /**

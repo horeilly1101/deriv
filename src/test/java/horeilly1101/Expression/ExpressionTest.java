@@ -1,4 +1,4 @@
-package horeilly1101;
+package horeilly1101.Expression;
 
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import static horeilly1101.Expression.Power.*;
 import static horeilly1101.Expression.Variable.*;
 import static horeilly1101.Expression.Trig.*;
 import static horeilly1101.Expression.Log.*;
-import static horeilly1101.SimplifyExpression.*;
+//import static horeilly1101.SimplifyExpression.*;
 import static org.junit.Assert.assertEquals;
 
 public class ExpressionTest {

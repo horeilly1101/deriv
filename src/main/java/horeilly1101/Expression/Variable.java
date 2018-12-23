@@ -1,4 +1,4 @@
-package horeilly1101;
+package horeilly1101.Expression;
 
 public class Variable implements Expression {
   String var;

@@ -600,7 +600,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545602262334" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545603625772" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -624,12 +624,12 @@
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -638,12 +638,12 @@
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
       <option name="METHOD_NAME" value="justRun" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -654,12 +654,12 @@
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
       <option name="METHOD_NAME" value="logTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -670,12 +670,12 @@
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
       <option name="METHOD_NAME" value="multTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -686,12 +686,12 @@
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="horeilly1101.*" />
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.ExpressionTest" />
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
       <option name="METHOD_NAME" value="polyDerivativeTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
