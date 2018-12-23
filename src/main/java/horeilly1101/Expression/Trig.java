@@ -4,11 +4,13 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Trig implements Expression {
-
   // maps to ensure cleaner code (i.e. no long "if" statements)
   private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
+//  private Map<String, Function<Expression, Expression>> evalMap = Stream.of().collect(Collectors.toMap())
   private Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
 
   private String func;

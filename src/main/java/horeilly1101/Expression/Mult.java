@@ -1,5 +1,6 @@
 package horeilly1101.Expression;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,17 +18,29 @@ public class Mult implements Expression {
    * to the factors in an expression.
    */
   Mult(List<Expression> factors) {
-//      this.constant = constant;
+    this.constant = constant;
     this.factors = factors;
   }
 
+  /**
+   * Use this to create a mult object.
+   */
   static Expression mult(List<Expression> factors) {
     if (factors.isEmpty()) {
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
 
-    List<Expression> simplified = factors.stream()
-                                      .sorted().collect(toList());
+    Double conVal = 1.0;
+    List<Expression> factorList = new ArrayList<>();
+
+    for (Expression fac : factors) {
+      if (fac.isConstant()) {
+        conVal *= fac.asConstant().getVal();
+      } else {
+        factorList.add(fac);
+      }
+    }
+
     return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
   }
 
