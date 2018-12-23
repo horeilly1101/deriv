@@ -2,8 +2,6 @@ package horeilly1101.Expression;
 
 import com.sun.istack.internal.NotNull;
 
-import static horeilly1101.SimplifyExpression.*;
-
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
@@ -42,6 +40,42 @@ interface Expression extends Comparable {
     return this.toString().compareTo(o.toString());
   }
 
+  /*
+  Type check functions
+   */
+
+  default Boolean isMult() {
+    return this.getClass().equals(Mult.class);
+  }
+
+  default Boolean isAdd() {
+    return this.getClass().equals(Add.class);
+  }
+
+  default Boolean isLog() {
+    return this.getClass().equals(Log.class);
+  }
+
+  default Boolean isPower() {
+    return this.getClass().equals(Power.class);
+  }
+
+  default Boolean isTrig() {
+    return this.getClass().equals(Trig.class);
+  }
+
+  default Boolean isConstant() {
+    return this.getClass().equals(Constant.class);
+  }
+
+  default Boolean isVariable() {
+    return this.getClass().equals(Variable.class);
+  }
+
+  /*
+  Type cast functions
+   */
+
   default Mult asMult() {
     return (Mult) this;
   }
@@ -50,19 +84,31 @@ interface Expression extends Comparable {
     return (Add) this;
   }
 
+  default Log asLog() {
+    return (Log) this;
+  }
+
   default Power asPower() {
     return (Power) this;
+  }
+
+  default Trig asTrig() {
+    return (Trig) this;
   }
 
   default Constant asConstant() {
     return (Constant) this;
   }
 
-  default Expression getExponent() {
-    return Constant.multID();
+  default Variable asVariable() {
+    return (Variable) this;
   }
 
-  default Expression getBase() {
-    return this;
-  }
+//  default Expression getExponent() {
+//    return Constant.multID();
+//  }
+//
+//  default Expression getBase() {
+//    return this;
+//  }
 }

@@ -16,7 +16,7 @@ public class ExpressionTest {
 
   @Test
   public void justRun() {
-//    System.out.println("log(2, 8) -- " + logConstant(2.0, 16.0));
+    System.out.println(add(poly(x(), constant(2.0)), x(), multID()).differentiate("x"));
 }
 
 //  @Test
