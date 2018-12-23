@@ -6,7 +6,12 @@ import java.util.*;
 import java.util.function.*;
 
 import static java.util.stream.Collectors.toList;
+import static horeilly1101.SimplifyExpression.*;
 
+/**
+ * An Expression is the all-encompassing data structure that allows
+ * us to differentiate arbitrary functions.
+ */
 interface Expression extends Comparable {
   /**
    * Plugs an input into the value of whatever variable is
@@ -98,16 +103,19 @@ interface Expression extends Comparable {
     static Expression mult(List<Expression> factors) {
       if (factors.isEmpty()) {
         throw new RuntimeException("Don't instantiate a term with an empty list!");
-      } else {
-        // we don't want terms of one object
-        List<Expression> simplified = factors;
-        simplified.sort(Expression::compareTo);
-        return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
       }
+
+      List<Expression> simplified = multSimplify(factors).stream()
+                                        .sorted().collect(toList());
+      return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
     }
 
     static Expression mult(Expression... factors) {
       return mult(Arrays.asList(factors));
+    }
+
+    public List<Expression> getFactors() {
+      return factors;
     }
 
     @Override
@@ -177,15 +185,18 @@ interface Expression extends Comparable {
       if (terms.isEmpty()) {
         throw new RuntimeException("don't instantiate an expr with an empty list!");
       } else {
-        List<Expression> simplified = terms;
-        // reverse sort
-        simplified.sort(Comparator.reverseOrder());
+        List<Expression> simplified = addSimplify(terms).stream()
+                                          .sorted().collect(toList());
         return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
       }
     }
 
     static Expression add(Expression... terms) {
       return add(Arrays.asList(terms));
+    }
+
+    public List<Expression> getTerms() {
+      return terms;
     }
 
     @Override
@@ -316,6 +327,10 @@ interface Expression extends Comparable {
     }
 
     static Expression power(Expression base, Expression exponent) {
+      if (exponent.equals(Constant.multID())) {
+        return base;
+      }
+
       return new Power(base, exponent);
     }
 
@@ -493,7 +508,6 @@ interface Expression extends Comparable {
     public Expression differentiate(String var) {
       return derivMap.get(this.func).apply(this, var);
     }
-
   }
 
   class Constant implements Expression {
@@ -505,6 +519,10 @@ interface Expression extends Comparable {
 
     static Constant constant(Double val) {
       return new Constant(val);
+    }
+
+    public Double getVal() {
+      return val;
     }
 
     static Constant multID() {

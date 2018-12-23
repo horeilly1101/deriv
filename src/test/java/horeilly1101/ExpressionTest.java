@@ -15,8 +15,10 @@ public class ExpressionTest {
 
   @Test
   public void justRun() {
-    System.out.println("hi");
-  }
+    // x^3 + x^2 + x + 1
+    Expression ex = mult(x(), x(), x(), power(x(), e()));
+    System.out.println(ex);
+}
 
 //  @Test
 //  public void polyDerivativeTest() {
