@@ -1,16 +1,25 @@
 package horeilly1101.Expression;
 
 import static horeilly1101.Expression.Constant.*;
+import static horeilly1101.Expression.Add.*;
+import static horeilly1101.Expression.Mult.*;
+import static horeilly1101.Expression.Power.*;
 
 public class Log implements Expression {
   private Expression base;
   private Expression result;
 
+  /**
+   * Don't use this to instantiate a Log object! Use the method below.
+   */
   private Log(Expression base, Expression result) {
     this.base = base;
     this.result = result;
   }
 
+  /**
+   * Use this method to instantiate a Log object.
+   */
   static Expression log(Expression base, Expression result) {
     if (result.getBase().equals(base)) {
       return result.getExponent();
@@ -19,6 +28,9 @@ public class Log implements Expression {
     return new Log(base, result);
   }
 
+  /**
+   * Instantiate a natural logarithm.
+   */
   static Expression ln(Expression result) {
     return log(Constant.e(), result);
   }
@@ -52,26 +64,28 @@ public class Log implements Expression {
   }
 
   public Expression differentiate(String var) {
-    return Mult.mult(
-        Add.add(
-            Mult.mult(
-                base,
-                result.differentiate(var),
-                log(Constant.e(), base)),
-            Mult.mult(
-                Constant.constant(-1.0),
-                result,
-                base.differentiate(var),
-                log(Constant.e(), result))),
+    // calculate the derivative of log(g(x), f(x)) for arbitrary
+    // g, f and this is what you'll get
+    return mult(
+              add(
+                  mult(
+                      base,
+                      result.differentiate(var),
+                      log(e(), base)),
+                  mult(
+                      constant(-1.0),
+                      result,
+                      base.differentiate(var),
+                      log(e(), result))),
 
-        Power.poly(
-            Mult.mult(
-                result,
-                base,
-                Power.poly(
-                    log(Constant.e(),
-                        base),
-                    Constant.constant(2.0))),
-            Constant.constant(-1.0)));
+              Power.poly(
+                  mult(
+                      result,
+                      base,
+                      poly(
+                          log(e(),
+                              base),
+                          constant(2.0))),
+                  constant(-1.0)));
   }
 }

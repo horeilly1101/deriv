@@ -12,6 +12,8 @@ package horeilly1101.Expression;
  * - Trig
  * - Constant
  * - Variable
+ *
+ * Questions about how it all works? Email horeilly1101@gmail.com
  */
 interface Expression extends Comparable {
   /**

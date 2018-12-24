@@ -62,14 +62,13 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    return terms.isEmpty()
-               ? ""
-               // a little clunky, but it gets the job done
-               : "[" + terms.get(0).toString()
-                     + terms.subList(1, terms.size()).stream()
-                           .map(Expression::toString)
-                           .reduce("", (a, b) -> a + " + " + b)
-                     + "]";
+    // We use brackets for adds so that it's easier to debug
+    // when comparing to mults
+    return "[" + terms.get(0).toString()
+               + terms.subList(1, terms.size()).stream()
+                     .map(Expression::toString)
+                     .reduce("", (a, b) -> a + " + " + b)
+               + "]";
   }
 
   public Expression evaluate(String var, Double input) {
@@ -120,10 +119,13 @@ public class Add implements Expression {
     for (Expression term : terms) {
       if (powerMap.containsKey(term.getSymbolicFactors())) {
         List<Double> newList = powerMap.get(term.getSymbolicFactors());
+
         newList.add(term.getConstantFactor().getVal());
         powerMap.replace(term.getSymbolicFactors(), newList);
+
       } else {
         List<Double> newList = new ArrayList<>();
+
         newList.add(term.getConstantFactor().getVal());
         powerMap.put(term.getSymbolicFactors(), newList);
       }
