@@ -118,11 +118,11 @@ interface Expression extends Comparable {
   so the following getter functions are justified.
    */
 
-//  default Expression getExponent() {
-//    return Constant.multID();
-//  }
-//
-//  default Expression getBase() {
-//    return this;
-//  }
+  default Expression getExponent() {
+    return Constant.multID();
+  }
+
+  default Expression getBase() {
+    return this;
+  }
 }
