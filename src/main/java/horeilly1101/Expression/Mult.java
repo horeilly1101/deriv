@@ -2,6 +2,7 @@ package horeilly1101.Expression;
 
 import java.util.*;
 
+import static horeilly1101.Expression.Add.add;
 import static java.util.stream.Collectors.toList;
 import static horeilly1101.Expression.Constant.*;
 
@@ -24,11 +25,12 @@ public class Mult implements Expression {
    */
   private static Expression mult(List<Expression> factors) {
     if (factors.isEmpty()) {
+      // bad
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
 
     List<Expression> simplified = simplify(factors);
-    return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
+    return simplified.size() == 1 ? simplified.get(0) : new Mult(simplified);
   }
 
   /**
@@ -61,33 +63,29 @@ public class Mult implements Expression {
 
   @Override
   public String toString() {
-    // factors should never be empty, but we're being suitably cautious
-    return factors.isEmpty()
-               ? ""
-               // a little clunky, but it gets the job done
-               : "(" + factors.get(0).toString()
-                     + factors.subList(1, factors.size()).stream() //  sublist is O(1)
-                           .map(Expression::toString)
-                           .reduce("", (a, b) -> a + " * " + b) + ")";
+    return "(" + factors.get(0).toString()
+               + factors.subList(1, factors.size()).stream() //  sublist is O(1)
+                     .map(Expression::toString)
+                     .reduce("", (a, b) -> a + " * " + b) + ")";
   }
 
   public Expression evaluate(String var, Double input) {
     // multiplies factors together
     return mult(factors.stream()
-                    .map(x -> x.evaluate(var, input))
-                    .collect(toList()));
+                  .map(x -> x.evaluate(var, input))
+                  .collect(toList()));
   }
 
   public Expression differentiate(String var) {
-    return Add.add(
-        mult(
-            factors.get(0),
-            mult(factors.subList(1, factors.size())).differentiate(var)
-        ),
-        mult(
-            factors.get(0).differentiate(var),
-            mult(factors.subList(1, factors.size()))
-        ));
+    return add(
+              mult(
+                  factors.get(0),
+                  mult(factors.subList(1, factors.size())).differentiate(var)
+              ),
+              mult(
+                  factors.get(0).differentiate(var),
+                  mult(factors.subList(1, factors.size()))
+              ));
   }
 
   /*
@@ -102,7 +100,6 @@ public class Mult implements Expression {
    * time.)
    */
   private static List<Expression> simplify(List<Expression> factors) {
-    System.out.println(isSimplified(factors));
     return isSimplified(factors)
                ? factors
                : simplify(
@@ -137,7 +134,7 @@ public class Mult implements Expression {
     return powerMap.keySet().stream()
                .map(key -> Power.power(
                    key,
-                   Add.add(powerMap.get(key))))
+                   add(powerMap.get(key))))
                .collect(toList());
   }
 

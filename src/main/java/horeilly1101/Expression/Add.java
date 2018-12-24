@@ -88,40 +88,40 @@ public class Add implements Expression {
   Private, static methods to help simplify instantiated objects
    */
 
-  static List<Expression> simplify(List<Expression> terms) {
-    return terms.size() > 1 ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
-  }
+//  static List<Expression> simplify(List<Expression> terms) {
+//    return terms.size() > 1 ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
+//  }
 
-  /**
-   * This method simplifies a list of terms by ensuring terms
-   * are taken to the proper constants. (e.g. we want to write x + x
-   * as 2.0 * x.)
-   *
-   * @return List<Expression> simplified
-   */
-  private static List<Expression> simplifyTerms(List<Expression> terms) {
-    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
-
-    for (Expression term : terms) {
-      if (powerMap.containsKey(term.getRemainingFactors())) {
-        List<Double> newList = powerMap.get(term.getRemainingFactors());
-        newList.add(term.getConstantFactor().getVal());
-        powerMap.replace(term.getRemainingFactors(), newList);
-      } else {
-        List<Double> newList = new ArrayList<>();
-        newList.add(term.getConstantFactor().getVal());
-        powerMap.put(term.getRemainingFactors(), newList);
-      }
-    }
-
-    // add up the constants
-    return powerMap.keySet().stream()
-               .map(key -> mult(
-                   key,
-                   constant(powerMap.get(key).stream()
-                                                    .reduce(0.0, (a, b) -> a + b))))
-               .collect(toList());
-  }
+//  /**
+//   * This method simplifies a list of terms by ensuring terms
+//   * are taken to the proper constants. (e.g. we want to write x + x
+//   * as 2.0 * x.)
+//   *
+//   * @return List<Expression> simplified
+//   */
+//  private static List<Expression> simplifyTerms(List<Expression> terms) {
+//    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
+//
+//    for (Expression term : terms) {
+//      if (powerMap.containsKey(term.getRemainingFactors())) {
+//        List<Double> newList = powerMap.get(term.getRemainingFactors());
+//        newList.add(term.getConstantFactor().getVal());
+//        powerMap.replace(term.getRemainingFactors(), newList);
+//      } else {
+//        List<Double> newList = new ArrayList<>();
+//        newList.add(term.getConstantFactor().getVal());
+//        powerMap.put(term.getRemainingFactors(), newList);
+//      }
+//    }
+//
+//    // add up the constants
+//    return powerMap.keySet().stream()
+//               .map(key -> mult(
+//                   key,
+//                   constant(powerMap.get(key).stream()
+//                                                    .reduce(0.0, (a, b) -> a + b))))
+//               .collect(toList());
+//  }
 
   /**
    * This method simplifies a list of factors to get rid of extraneous
