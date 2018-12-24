@@ -97,6 +97,9 @@ public class Mult implements Expression {
   /**
    * This function brings together all the simplify functions. It runs
    * recursively until there is nothing left to simplify.
+   *
+   * (Everything but the (possible) recursive call runs in expected linear
+   * time.)
    */
   private static List<Expression> simplify(List<Expression> factors) {
     System.out.println(isSimplified(factors));

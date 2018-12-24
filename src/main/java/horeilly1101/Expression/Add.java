@@ -1,9 +1,13 @@
 package horeilly1101.Expression;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static horeilly1101.Expression.Constant.*;
+import static horeilly1101.Expression.Mult.*;
 
 public class Add implements Expression {
   private List<Expression> terms;
@@ -78,5 +82,99 @@ public class Add implements Expression {
     return add(terms.stream()
                    .map(x -> x.differentiate(var))
                    .collect(toList()));
+  }
+
+  /*
+  Private, static methods to help simplify instantiated objects
+   */
+
+  static List<Expression> simplify(List<Expression> terms) {
+    return terms.size() > 1 ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
+  }
+
+  /**
+   * This method simplifies a list of terms by ensuring terms
+   * are taken to the proper constants. (e.g. we want to write x + x
+   * as 2.0 * x.)
+   *
+   * @return List<Expression> simplified
+   */
+  private static List<Expression> simplifyTerms(List<Expression> terms) {
+    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
+
+    for (Expression term : terms) {
+      if (powerMap.containsKey(term.getRemainingFactors())) {
+        List<Double> newList = powerMap.get(term.getRemainingFactors());
+        newList.add(term.getConstantFactor().getVal());
+        powerMap.replace(term.getRemainingFactors(), newList);
+      } else {
+        List<Double> newList = new ArrayList<>();
+        newList.add(term.getConstantFactor().getVal());
+        powerMap.put(term.getRemainingFactors(), newList);
+      }
+    }
+
+    // add up the constants
+    return powerMap.keySet().stream()
+               .map(key -> mult(
+                   key,
+                   constant(powerMap.get(key).stream()
+                                                    .reduce(0.0, (a, b) -> a + b))))
+               .collect(toList());
+  }
+
+  /**
+   * This method simplifies a list of factors to get rid of extraneous
+   * constant factors. (e.g. adding 0.0)
+   *
+   * @return List<Expression> simplified
+   */
+  private static List<Expression> simplifyConstantTerms(List<Expression> factors) {
+    // keep track of constants' values
+    List<Expression> noConstants = new ArrayList<>();
+    Double constants = 0.0;
+
+    for (Expression factor : factors) {
+      if (factor.isConstant()) {
+        // checked cast
+        constants += factor.asConstant().getVal();
+      } else {
+        noConstants.add(factor);
+      }
+    }
+
+    // multiplicative identity?
+    if (constants == 0.0 && noConstants.isEmpty()) {
+      noConstants.add(constant(0.0));
+      // zero?
+    } else if (constants != 0.0) {
+      noConstants.add(constant(constants));
+    }
+
+    return noConstants;
+  }
+
+  /**
+   * This method simplifies a list of terms by taking advantage of
+   * the associativity of addition. (i.e. a Mult object multiplied
+   * by a Mult object should not yield a Mult object of two Mult objects.
+   * It should yield a Mult object of whatever was in the original objects,
+   * flatmapped together.)
+   *
+   * @return List<Expression> simplified
+   */
+  private static List<Expression> withoutNesting(List<Expression> terms) {
+    List<Expression> newList = new ArrayList<>();
+
+    for (Expression term : terms) {
+      if (term.isAdd()) {
+        // checked cast
+        newList.addAll(term.asAdd().getTerms());
+      } else {
+        newList.add(term);
+      }
+    }
+
+    return newList;
   }
 }
