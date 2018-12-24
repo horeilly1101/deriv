@@ -27,7 +27,8 @@ public class Add implements Expression {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
-      List<Expression> simplified = simplify(terms);
+      List<Expression> simplified = simplify(terms).stream()
+                                        .sorted().collect(toList());
       return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
     }
   }

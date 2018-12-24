@@ -23,13 +23,14 @@ public class Mult implements Expression {
   /**
    * Use this to create a mult object.
    */
-  private static Expression mult(List<Expression> factors) {
+  static Expression mult(List<Expression> factors) {
     if (factors.isEmpty()) {
       // bad
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
 
-    List<Expression> simplified = simplify(factors);
+    List<Expression> simplified = simplify(factors).stream()
+                                      .sorted().collect(toList());
     return simplified.size() == 1 ? simplified.get(0) : new Mult(simplified);
   }
 
@@ -40,7 +41,7 @@ public class Mult implements Expression {
     return mult(Arrays.asList(factors));
   }
 
-  private List<Expression> getFactors() {
+  List<Expression> getFactors() {
     return factors;
   }
 

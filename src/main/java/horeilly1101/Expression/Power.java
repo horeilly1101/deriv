@@ -1,6 +1,9 @@
 package horeilly1101.Expression;
 
+import java.util.stream.Collectors;
+
 import static horeilly1101.Expression.Constant.*;
+import static horeilly1101.Expression.Mult.*;
 
 public class Power implements Expression {
   private Expression base;
@@ -34,6 +37,12 @@ public class Power implements Expression {
     // is the whole expression a constant?
     if (base.isConstant() && exponent.isConstant()) {
       return constant(Math.pow(base.asConstant().getVal(), exponent.asConstant().getVal()));
+    }
+
+    // is the base a mult?
+    if (base.isMult()) {
+      return mult(base.asMult().getFactors().stream()
+                 .map(x -> power(x, exponent)).collect(Collectors.toList()));
     }
 
     return new Power(base, exponent);
