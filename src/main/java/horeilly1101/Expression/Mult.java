@@ -1,11 +1,9 @@
 package horeilly1101.Expression;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
+import static horeilly1101.Expression.Constant.*;
 
 public class Mult implements Expression {
   private List<Expression> factors;
@@ -93,8 +91,17 @@ public class Mult implements Expression {
   Private, static methods to help simplify Mult objects when instantiated
    */
 
+  /**
+   * This function brings together all the simplify functions. It runs
+   * recursively until there is nothing left to simplify.
+   */
   private static List<Expression> simplify(List<Expression> factors) {
-    return simplifyFactors(simplifyConstantFactors(withoutNesting(factors)));
+    return isSimplified(factors)
+               ? factors
+               : simplify(
+                   simplifyFactors(
+                       simplifyConstantFactors(
+                           withoutNesting(factors))));
   }
 
   /**
@@ -144,9 +151,9 @@ public class Mult implements Expression {
     Double constants = 1.0;
 
     for (Expression factor : factors) {
-      if (factor.getClass().equals(Constant.class)) {
+      if (factor.isConstant()) {
         // checked cast
-        constants *= ((Constant) factor).getVal();
+        constants *= factor.asConstant().getVal();
       } else {
         noConstants.add(factor);
       }
@@ -191,4 +198,28 @@ public class Mult implements Expression {
     return newList;
   }
 
+  /**
+   * This function figures out whether or not the list of factors is
+   * fully simplified or not.
+   */
+  private static Boolean isSimplified(List<Expression> factors) {
+    // we want to make sure there is at most 1 constant in factors
+    int conCount = 0;
+    Set<Expression> bases = new HashSet<>();
+
+    for (Expression fac : factors) {
+      if (fac.isConstant()) {
+        conCount += 1;
+      }
+
+      // all of these conditions imply factors is not simplified
+      if (conCount > 1 || fac.equals(multID()) || fac.isMult() || bases.contains(fac)) {
+        return false;
+      }
+
+      bases.add(fac);
+    }
+
+    return true;
+  }
 }
