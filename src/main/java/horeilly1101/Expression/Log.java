@@ -15,7 +15,7 @@ public class Log implements Expression {
     if (result.getBase().equals(base)) {
       return result.getExponent();
     }
-      
+
     return new Log(base, result);
   }
 
@@ -42,7 +42,9 @@ public class Log implements Expression {
 
   @Override
   public String toString() {
-    return "log(" + base.toString() + ", " + result.toString() + ")";
+    return (base.equals(e()))
+               ? "ln(" + result.toString() + ")"
+               : "log(" + base.toString() + ", " + result.toString() + ")";
   }
 
   public Expression evaluate(String var, Double val) {
