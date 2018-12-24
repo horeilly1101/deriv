@@ -6,6 +6,7 @@ package horeilly1101.Expression;
  *
  * This interface is implemented by:
  * - Mult
+ * - Div
  * - Add
  * - Log
  * - Power
@@ -125,7 +126,7 @@ interface Expression extends Comparable {
   }
 
   /*
-  Each Expression is implicitly a Mult, an Add, and a Power,
+  Each Expression is implicitly a Mult, a Div, an Add, and a Power,
   so the following getter functions are justified.
    */
 
