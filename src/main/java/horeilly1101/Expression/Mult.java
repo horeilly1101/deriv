@@ -45,6 +45,17 @@ public class Mult implements Expression {
   }
 
   @Override
+  public Constant getConstantFactor() {
+    List<Expression> constant = factors.stream().filter(Expression::isConstant).collect(toList());
+    return constant.isEmpty() ? multID() : constant.get(0).asConstant();
+  }
+
+  @Override
+  public Expression getSymbolicFactors() {
+    return mult(factors.stream().filter(x -> !x.isConstant()).collect(toList()));
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -217,7 +228,11 @@ public class Mult implements Expression {
       }
 
       // all of these conditions imply factors is not simplified
-      if (conCount > 1 || fac.equals(multID()) || fac.isMult() || bases.contains(fac.getBase())) {
+      if (conCount > 1
+              || (fac.equals(multID()) && factors.size() > 1)
+              || (fac.equals(addID()) && factors.size() > 1)
+              || fac.isMult()
+              || bases.contains(fac.getBase())) {
         return false;
       }
 

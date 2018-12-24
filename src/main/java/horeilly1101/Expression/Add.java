@@ -1,9 +1,6 @@
 package horeilly1101.Expression;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 import static horeilly1101.Expression.Constant.*;
@@ -27,8 +24,7 @@ public class Add implements Expression {
     if (terms.isEmpty()) {
       throw new RuntimeException("don't instantiate an expr with an empty list!");
     } else {
-      List<Expression> simplified = terms.stream()
-                                        .sorted().collect(toList());
+      List<Expression> simplified = simplify(terms);
       return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
     }
   }
@@ -88,40 +84,40 @@ public class Add implements Expression {
   Private, static methods to help simplify instantiated objects
    */
 
-//  static List<Expression> simplify(List<Expression> terms) {
-//    return terms.size() > 1 ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
-//  }
+  static List<Expression> simplify(List<Expression> terms) {
+    return terms.size() > 1 && !isSimplified(terms) ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
+  }
 
-//  /**
-//   * This method simplifies a list of terms by ensuring terms
-//   * are taken to the proper constants. (e.g. we want to write x + x
-//   * as 2.0 * x.)
-//   *
-//   * @return List<Expression> simplified
-//   */
-//  private static List<Expression> simplifyTerms(List<Expression> terms) {
-//    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
-//
-//    for (Expression term : terms) {
-//      if (powerMap.containsKey(term.getRemainingFactors())) {
-//        List<Double> newList = powerMap.get(term.getRemainingFactors());
-//        newList.add(term.getConstantFactor().getVal());
-//        powerMap.replace(term.getRemainingFactors(), newList);
-//      } else {
-//        List<Double> newList = new ArrayList<>();
-//        newList.add(term.getConstantFactor().getVal());
-//        powerMap.put(term.getRemainingFactors(), newList);
-//      }
-//    }
-//
-//    // add up the constants
-//    return powerMap.keySet().stream()
-//               .map(key -> mult(
-//                   key,
-//                   constant(powerMap.get(key).stream()
-//                                                    .reduce(0.0, (a, b) -> a + b))))
-//               .collect(toList());
-//  }
+  /**
+   * This method simplifies a list of terms by ensuring terms
+   * are taken to the proper constants. (e.g. we want to write x + x
+   * as 2.0 * x.)
+   *
+   * @return List<Expression> simplified
+   */
+  private static List<Expression> simplifyTerms(List<Expression> terms) {
+    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
+
+    for (Expression term : terms) {
+      if (powerMap.containsKey(term.getSymbolicFactors())) {
+        List<Double> newList = powerMap.get(term.getSymbolicFactors());
+        newList.add(term.getConstantFactor().getVal());
+        powerMap.replace(term.getSymbolicFactors(), newList);
+      } else {
+        List<Double> newList = new ArrayList<>();
+        newList.add(term.getConstantFactor().getVal());
+        powerMap.put(term.getSymbolicFactors(), newList);
+      }
+    }
+
+    // add up the constants
+    return powerMap.keySet().stream()
+               .map(key -> mult(
+                   key,
+                   constant(powerMap.get(key).stream()
+                                                    .reduce(0.0, (a, b) -> a + b))))
+               .collect(toList());
+  }
 
   /**
    * This method simplifies a list of factors to get rid of extraneous
@@ -176,5 +172,29 @@ public class Add implements Expression {
     }
 
     return newList;
+  }
+
+  private static Boolean isSimplified(List<Expression> terms) {
+    // we want to make sure there is at most 1 constant in factors
+    int conCount = 0;
+    Set<Expression> bases = new HashSet<>();
+
+    for (Expression term : terms) {
+      if (term.isConstant()) {
+        conCount += 1;
+      }
+
+      // all of these conditions imply factors is not simplified
+      if (conCount > 1
+              || (term.equals(addID()) && terms.size() > 1)
+              || term.isAdd()
+              || bases.contains(term.getSymbolicTerms())) {
+        return false;
+      }
+
+      bases.add(term.getSymbolicTerms());
+    }
+
+    return true;
   }
 }

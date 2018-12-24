@@ -2,6 +2,10 @@ package horeilly1101.Expression;
 
 import com.sun.istack.internal.NotNull;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
@@ -123,6 +127,22 @@ interface Expression extends Comparable {
   }
 
   default Expression getBase() {
+    return this;
+  }
+
+  default Constant getConstantFactor() {
+    return Constant.multID();
+  }
+
+  default Expression getSymbolicFactors() {
+    return this;
+  }
+
+  default Constant getConstantTerm() {
+    return Constant.addID();
+  }
+
+  default Expression getSymbolicTerms() {
     return this;
   }
 }

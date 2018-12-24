@@ -2,6 +2,7 @@ package horeilly1101.Expression;
 
 import org.junit.Test;
 
+import static horeilly1101.Expression.Log.ln;
 import static horeilly1101.Expression.Mult.*;
 import static horeilly1101.Expression.Constant.*;
 import static horeilly1101.Expression.Variable.*;
@@ -18,6 +19,4 @@ public class MultTest {
     Expression mul = mult(x(), x());
     System.out.println(mul.differentiate("x"));
   }
-
-
 }
