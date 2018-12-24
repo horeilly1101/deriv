@@ -41,6 +41,13 @@ public class Mult implements Expression {
     return mult(Arrays.asList(factors));
   }
 
+  /**
+   * negates an Expression;
+   */
+  static Expression negate(Expression expr) {
+    return mult(constant(-1.0), expr);
+  }
+
   List<Expression> getFactors() {
     return factors;
   }

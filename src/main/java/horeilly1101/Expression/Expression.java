@@ -60,6 +60,10 @@ interface Expression extends Comparable {
     return this.getClass().equals(Mult.class);
   }
 
+  default Boolean isDiv() {
+    return this.getClass().equals(Div.class);
+  }
+
   default Boolean isAdd() {
     return this.getClass().equals(Add.class);
   }
@@ -90,6 +94,10 @@ interface Expression extends Comparable {
 
   default Mult asMult() {
     return (Mult) this;
+  }
+
+  default Div asDiv() {
+    return (Div) this;
   }
 
   default Add asAdd() {
