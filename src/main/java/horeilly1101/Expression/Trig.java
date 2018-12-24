@@ -14,8 +14,11 @@ public class Trig implements Expression {
   private Expression inside;
 
   /**
-   * Don't use this to instantiate a Trig object! Use one of the
-   * constructors down below instead.
+   * Instantiates a Trig object. Avoid using as much as possible! Instead, use
+   * one of the several constructors down below.
+   *
+   * Data definition: a trig is a function name (e.g. "sin", "cos", etc.) and
+   * an input (Expression).
    */
   private Trig(String func, Expression inside) {
     this.func = func;

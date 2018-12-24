@@ -10,7 +10,10 @@ public class Log implements Expression {
   private Expression result;
 
   /**
-   * Don't use this to instantiate a Log object! Use the method below.
+   * Instantiates a Log object. Avoid using as much as possible! Instead, use
+   * the easy constructor down below.
+   *
+   * Data definition: a log is two Expressions (a base and a result)
    */
   private Log(Expression base, Expression result) {
     this.base = base;

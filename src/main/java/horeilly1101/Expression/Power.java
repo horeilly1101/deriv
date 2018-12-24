@@ -7,10 +7,10 @@ public class Power implements Expression {
   private Expression exponent;
 
   /**
-   * Don't use this to instantiate a power! Use the easy constructor instead.
-   * (A power is the more general form of a polynomial and an exponential.)
+   * Instantiates a Power object. Avoid using as much as possible! Use the easy constructor
+   * instead. (A power is the more general form of a polynomial and an exponential.)
    *
-   * Data definition: a power is a base and an exponent.
+   * Data definition: a power is two Expressions (a base and an exponent).
    */
   private Power(Expression base, Expression exponent) {
     this.base = base;

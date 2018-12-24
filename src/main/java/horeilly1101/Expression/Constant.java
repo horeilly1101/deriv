@@ -4,7 +4,10 @@ public class Constant implements Expression {
   private Double val;
 
   /**
-   * Don't use this to create new constants!
+   * Instantiates a new Constant. Avoid using as much as possible! Use the
+   * easy constructor below instead.
+   *
+   * Data definition: A constant is a double.
    */
   private Constant(Double val) {
     this.val = val;

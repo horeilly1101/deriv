@@ -5,8 +5,12 @@ public class Variable implements Expression {
 
   /**
    * This method is only package-private (because I want to use it
-   * to create the constant e in Constant), but you still shouldn't
-   * use it to instantiate Variable objects.
+   * to create the constant e in Constant), but you still should
+   * avoid using it to instantiate Variable objects. Use the easy
+   * constructor below instead.
+   *
+   * Data definition: a variable is a string name (e.g. "x", "y",
+   * etc.).
    */
   Variable(String var) {
     this.var = var;
