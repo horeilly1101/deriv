@@ -1,5 +1,7 @@
 package horeilly1101.Expression;
 
+import static horeilly1101.Expression.Constant.*;
+
 public class Power implements Expression {
   private Expression base;
   private Expression exponent;
@@ -16,12 +18,19 @@ public class Power implements Expression {
   }
 
   static Expression power(Expression base, Expression exponent) {
+    // is exponent 1.0?
     if (exponent.equals(Constant.multID())) {
       return base;
     }
 
+    // is it 0.0?
     if (exponent.equals(Constant.addID())) {
       return Constant.multID();
+    }
+
+    // is the whole expression a constant?
+    if (base.isConstant() && exponent.isConstant()) {
+      return constant(Math.pow(base.asConstant().getVal(), exponent.asConstant().getVal()));
     }
 
     return new Power(base, exponent);
@@ -81,6 +90,6 @@ public class Power implements Expression {
                 exponent.differentiate(var), Log.ln(base)),
             Mult.mult(exponent,
                 base.differentiate(var),
-                power(base, Constant.constant(-1.0)))));
+                power(base, constant(-1.0)))));
   }
 }

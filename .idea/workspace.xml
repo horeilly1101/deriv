@@ -635,7 +635,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545623340528" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545624003010" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -659,7 +659,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.deriv [javadoc]">
+  <component name="RunManager" selected="JUnit.MultTest">
     <configuration name="deriv [javadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -692,7 +692,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExpressionTest.checkTypeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MultTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
         <pattern>
@@ -701,9 +701,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ExpressionTest" />
-      <option name="METHOD_NAME" value="checkTypeTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.MultTest" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -740,18 +738,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.ExpressionTest" />
-      <item itemvalue="JUnit.ExpressionTest.checkTypeTest" />
       <item itemvalue="JUnit.MultTest.multTest" />
       <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
       <item itemvalue="Gradle.deriv [javadoc]" />
+      <item itemvalue="JUnit.MultTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MultTest" />
+        <item itemvalue="JUnit.ExpressionTest" />
         <item itemvalue="Gradle.deriv [javadoc]" />
         <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
         <item itemvalue="JUnit.MultTest.multTest" />
-        <item itemvalue="JUnit.ExpressionTest" />
-        <item itemvalue="JUnit.ExpressionTest.checkTypeTest" />
       </list>
     </recent_temporary>
   </component>
