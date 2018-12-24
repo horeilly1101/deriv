@@ -15,7 +15,7 @@ public class ExpressionTest {
 
   @Test
   public void typeCheckTest() {
-    Expression mult = mult(x(), multID());
+    Expression mult = mult(x(), e());
     assertTrue(mult.isMult());
 
     Expression ad = add(x(), multID());
@@ -39,7 +39,7 @@ public class ExpressionTest {
 
   @Test
   public void typeCastTest() {
-    Expression mult = mult(x(), multID());
+    Expression mult = mult(x(), e());
     assertTrue(mult.asMult().isMult());
 
     Expression ad = add(x(), multID());

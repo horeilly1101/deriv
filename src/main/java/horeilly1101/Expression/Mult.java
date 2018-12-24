@@ -31,6 +31,9 @@ public class Mult implements Expression {
     return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
   }
 
+  /**
+   * Or use this if you really want to.
+   */
   static Expression mult(Expression... factors) {
     return mult(Arrays.asList(factors));
   }
@@ -96,6 +99,7 @@ public class Mult implements Expression {
    * recursively until there is nothing left to simplify.
    */
   private static List<Expression> simplify(List<Expression> factors) {
+    System.out.println(isSimplified(factors));
     return isSimplified(factors)
                ? factors
                : simplify(
@@ -200,7 +204,7 @@ public class Mult implements Expression {
 
   /**
    * This function figures out whether or not the list of factors is
-   * fully simplified or not.
+   * fully simplified.
    */
   private static Boolean isSimplified(List<Expression> factors) {
     // we want to make sure there is at most 1 constant in factors
@@ -213,11 +217,11 @@ public class Mult implements Expression {
       }
 
       // all of these conditions imply factors is not simplified
-      if (conCount > 1 || fac.equals(multID()) || fac.isMult() || bases.contains(fac)) {
+      if (conCount > 1 || fac.equals(multID()) || fac.isMult() || bases.contains(fac.getBase())) {
         return false;
       }
 
-      bases.add(fac);
+      bases.add(fac.getBase());
     }
 
     return true;

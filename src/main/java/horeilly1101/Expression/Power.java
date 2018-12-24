@@ -20,6 +20,10 @@ public class Power implements Expression {
       return base;
     }
 
+    if (exponent.equals(Constant.addID())) {
+      return Constant.multID();
+    }
+
     return new Power(base, exponent);
   }
 
