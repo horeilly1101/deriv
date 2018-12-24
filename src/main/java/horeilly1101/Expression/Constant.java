@@ -3,15 +3,31 @@ package horeilly1101.Expression;
 public class Constant implements Expression {
   private Double val;
 
+  /**
+   * Don't use this to create new constants!
+   */
   private Constant(Double val) {
     this.val = val;
   }
 
+  /**
+   * Use this to create new constants. This method is for constants
+   * that are explicitly numbers.
+   */
   static Constant constant(Double val) {
     return new Constant(val);
   }
 
-  public Double getVal() {
+  /**
+   * Use this to create new constants. This allows you to create
+   * arbitrary constants.
+   */
+  static Expression constant(String val) {
+    // yeah, yeah I know it says variable
+    return new Variable(val);
+  }
+
+  Double getVal() {
     return val;
   }
 

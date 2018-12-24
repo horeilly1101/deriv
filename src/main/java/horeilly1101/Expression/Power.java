@@ -7,8 +7,8 @@ public class Power implements Expression {
   private Expression exponent;
 
   /**
-   * Instantiates a Power. Avoid using as much as possible! Use the easy constructor
-   * instead. (A power is the more general form of a polynomial and an exponential.)
+   * Don't use this to instantiate a power! Use the easy constructor instead.
+   * (A power is the more general form of a polynomial and an exponential.)
    *
    * Data definition: a power is a base and an exponent.
    */
@@ -17,6 +17,9 @@ public class Power implements Expression {
     this.exponent = exponent;
   }
 
+  /**
+   * Use this to instantiate a power.
+   */
   static Expression power(Expression base, Expression exponent) {
     // is exponent 1.0?
     if (exponent.equals(Constant.multID())) {
@@ -83,6 +86,10 @@ public class Power implements Expression {
   }
 
   public Expression differentiate(String var) {
+    // I'm not using any of the cookie cutter power rules here.
+    // This is a more general approach to differentiating powers.
+    // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
+    // this is what you'll get.
     return Mult.mult(
         power(base, exponent),
         Add.add(

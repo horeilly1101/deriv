@@ -8,12 +8,15 @@ import java.util.function.Function;
 public class Trig implements Expression {
   // maps to ensure cleaner code (i.e. no long "if" statements)
   private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
-//  private Map<String, Function<Expression, Expression>> evalMap = Stream.of().collect(Collectors.toMap())
   private Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
 
   private String func;
   private Expression inside;
 
+  /**
+   * Don't use this to instantiate a Trig object! Use one of the
+   * constructors down below instead.
+   */
   private Trig(String func, Expression inside) {
     this.func = func;
     this.inside = inside;
