@@ -25,7 +25,7 @@ public class Add implements Expression {
    */
   static Expression add(List<Expression> terms) {
     if (terms.isEmpty()) {
-      throw new RuntimeException("don't instantiate an expr with an empty list!");
+      throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
       List<Expression> simplified = simplify(terms);
       return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
@@ -97,7 +97,7 @@ public class Add implements Expression {
    * (Everything but the (possible) recursive call runs in expected linear
    * time.)
    */
-  static List<Expression> simplify(List<Expression> terms) {
+  private static List<Expression> simplify(List<Expression> terms) {
     return terms.size() > 1 && !isSimplified(terms)
                ? simplifyTerms(
                    simplifyConstantTerms(

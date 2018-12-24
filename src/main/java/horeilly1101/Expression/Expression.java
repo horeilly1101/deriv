@@ -1,11 +1,5 @@
 package horeilly1101.Expression;
 
-import com.sun.istack.internal.NotNull;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
@@ -25,6 +19,8 @@ interface Expression extends Comparable {
    * in the function, and then evaluates the rest of the
    * expression.
    *
+   * @param var -- a string variable name
+   * @param input -- the number to be plugged into var
    * @return Expression solution
    */
   Expression evaluate(String var, Double input);
@@ -32,6 +28,7 @@ interface Expression extends Comparable {
   /**
    * Takes the derivative of the given expression.
    *
+   * @param var -- a string variable name
    * @return Expression derivative
    */
   Expression differentiate(String var);
@@ -42,7 +39,7 @@ interface Expression extends Comparable {
    * data structures. It also makes equality less strict. (i.e.
    * 2.0 * x should be equal to x * 2.0.)
    */
-  default int compareTo(@NotNull Object o) {
+  default int compareTo(Object o) {
     // constants come first
     if (this.getClass().equals(Constant.class)) {
       return -1;
