@@ -17,6 +17,6 @@ public class MultTest {
     mult(x(), e());
 
     Expression mul = mult(x(), x());
-    System.out.println(mul.differentiate("x"));
+    System.out.println(mul.evaluate("x", 2.0));
   }
 }

@@ -20,6 +20,9 @@ public class Add implements Expression {
     this.terms = terms;
   }
 
+  /**
+   * Use this function to instantiate an Add object.
+   */
   static Expression add(List<Expression> terms) {
     if (terms.isEmpty()) {
       throw new RuntimeException("don't instantiate an expr with an empty list!");
@@ -29,11 +32,14 @@ public class Add implements Expression {
     }
   }
 
+  /**
+   * Or this one.
+   */
   static Expression add(Expression... terms) {
     return add(Arrays.asList(terms));
   }
 
-  public List<Expression> getTerms() {
+  private List<Expression> getTerms() {
     return terms;
   }
 
@@ -84,8 +90,19 @@ public class Add implements Expression {
   Private, static methods to help simplify instantiated objects
    */
 
+  /**
+   * This function brings together all the simplify functions. It runs
+   * recursively until there is nothing left to simplify.
+   *
+   * (Everything but the (possible) recursive call runs in expected linear
+   * time.)
+   */
   static List<Expression> simplify(List<Expression> terms) {
-    return terms.size() > 1 && !isSimplified(terms) ? simplifyTerms(simplifyConstantTerms(withoutNesting(terms))) : terms;
+    return terms.size() > 1 && !isSimplified(terms)
+               ? simplifyTerms(
+                   simplifyConstantTerms(
+                       withoutNesting(terms)))
+               : terms;
   }
 
   /**
@@ -96,6 +113,8 @@ public class Add implements Expression {
    * @return List<Expression> simplified
    */
   private static List<Expression> simplifyTerms(List<Expression> terms) {
+    // maintain a hash map of factors we've already seen
+    // this allows us to compute this function in linear time
     HashMap<Expression, List<Double>> powerMap = new HashMap<>();
 
     for (Expression term : terms) {
@@ -174,6 +193,10 @@ public class Add implements Expression {
     return newList;
   }
 
+  /**
+   * This function checks whether or not the given list of Expressions
+   * can form a simplified Add object.
+   */
   private static Boolean isSimplified(List<Expression> terms) {
     // we want to make sure there is at most 1 constant in factors
     int conCount = 0;
@@ -188,11 +211,11 @@ public class Add implements Expression {
       if (conCount > 1
               || (term.equals(addID()) && terms.size() > 1)
               || term.isAdd()
-              || bases.contains(term.getSymbolicTerms())) {
+              || bases.contains(term.getSymbolicFactors())) {
         return false;
       }
 
-      bases.add(term.getSymbolicTerms());
+      bases.add(term.getSymbolicFactors());
     }
 
     return true;
