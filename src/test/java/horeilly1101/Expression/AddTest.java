@@ -54,7 +54,7 @@ public class AddTest {
   }
 
   @Test
-  public void counntTest() {
+  public void countTest() {
     // ln(x) + ln(x) + ln(x)
     Expression ex = add(ln(x()), ln(x()), ln(x()));
     assertEquals(mult(ln(x()), constant(3.0)), ex);
