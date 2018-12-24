@@ -4,8 +4,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Trig implements Expression {
   // maps to ensure cleaner code (i.e. no long "if" statements)

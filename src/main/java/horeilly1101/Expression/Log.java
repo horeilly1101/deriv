@@ -1,5 +1,7 @@
 package horeilly1101.Expression;
 
+import static horeilly1101.Expression.Constant.*;
+
 public class Log implements Expression {
   private Expression base;
   private Expression result;
@@ -10,11 +12,15 @@ public class Log implements Expression {
   }
 
   static Expression log(Expression base, Expression result) {
+    if (result.getBase().equals(base)) {
+      return result.getExponent();
+    }
+      
     return new Log(base, result);
   }
 
   static Expression ln(Expression result) {
-    return new Log(Constant.e(), result);
+    return log(Constant.e(), result);
   }
 
   @Override
