@@ -60,4 +60,25 @@ public class ExpressionTest {
     Expression va = var("y");
     assertTrue(va.asVariable().isVariable());
   }
+
+  @Test
+  public void getterTest() {
+    Expression mult = mult(x(), e());
+
+    assertEquals(multID(), mult.getConstantFactor());
+    assertEquals(mult, mult.getSymbolicFactors());
+    assertEquals(addID(), mult.getConstantTerm());
+
+    Expression ad = add(x(), multID());
+
+    assertEquals(multID(), ad.getConstantTerm());
+    assertEquals(x(), ad.getSymbolicTerms());
+    assertEquals(multID(), ad.getExponent());
+
+    Expression pow = poly(x(), constant(2.0));
+
+    assertEquals(constant(2.0), pow.getExponent());
+    assertEquals(x(), pow.getBase());
+    assertEquals(pow, pow.getSymbolicFactors());
+  }
 }

@@ -44,6 +44,17 @@ public class Add implements Expression {
   }
 
   @Override
+  public Constant getConstantTerm() {
+    List<Expression> constant = terms.stream().filter(Expression::isConstant).collect(toList());
+    return constant.isEmpty() ? addID() : constant.get(0).asConstant();
+  }
+
+  @Override
+  public Expression getSymbolicTerms() {
+    return add(terms.stream().filter(x -> !x.isConstant()).collect(toList()));
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
