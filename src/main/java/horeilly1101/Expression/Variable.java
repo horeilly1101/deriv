@@ -56,14 +56,18 @@ public class Variable implements Expression {
   }
 
   public Expression evaluate(String var, Double input) {
-    return var.equals(this.var) ? toConstant(input) : this;
+    // update later
+    return var.equals(this.var) ? Constant.constant((int) Math.round(input)) : this;
   }
 
   public Expression differentiate(String wrt) {
     return wrt.equals(var) ? Constant.multID() : Constant.addID();
   }
 
-  private static Expression toConstant(Double input) {
-    return div();
-  }
+//  private static Expression toConstant(Double input) {
+//    int length = input.toString().length();
+//    int decimalPlace = input.toString().lastIndexOf(".") + 1;
+//
+//    return div();
+//  }
 }

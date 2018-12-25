@@ -39,14 +39,14 @@ public class MultTest {
   public void nestingTest() {
     // x * (x * (x * (x * ln(x))))
     Expression ex = mult(x(), mult(x(), mult(x(), mult(x(), ln(x())))));
-    assertEquals(mult(poly(x(), constant(4.0)), ln(x())), ex);
+    assertEquals(mult(poly(x(), 4), ln(x())), ex);
   }
 
   @Test
   public void constantTest() {
     // 2 * 3 * 4
-    Expression ex = mult(constant(2.0), constant(3.0), constant(4.0));
-    assertEquals(constant(24.0), ex);
+    Expression ex = mult(constant(2), constant(3), constant(4));
+    assertEquals(constant(24), ex);
 
     // 0 * ln(x)
     Expression ex2 = mult(addID(), ln(x()));
@@ -57,29 +57,29 @@ public class MultTest {
   public void exponentTest() {
     // ln(x) * ln(x) * ln(x)
     Expression ex = mult(ln(x()), ln(x()), ln(x()));
-    assertEquals(power(ln(x()), constant(3.0)), ex);
+    assertEquals(power(ln(x()), constant(3)), ex);
   }
 
   @Test
   public void evaluateTest() {
     // x * x * 2
-    Expression ex = mult(x(), x(), constant(2.0));
-    assertEquals(constant(8.0), ex.evaluate("x", 2.0));
+    Expression ex = mult(x(), x(), constant(2));
+    assertEquals(constant(8), ex.evaluate("x", 2.0));
 
     // x * a * 3, where a is a constant
-    Expression ex2 = mult(x(), constant("a"), constant(3.0));
-    assertEquals(mult(constant("a"), constant(9.0)), ex2.evaluate("x", 3.0));
+    Expression ex2 = mult(x(), constant("a"), constant(3));
+    assertEquals(mult(constant("a"), constant(9)), ex2.evaluate("x", 3.0));
   }
 
   @Test
   public void derivativeTest() {
     // x * x * 2
-    Expression ex = mult(x(), x(), constant(2.0));
-    assertEquals(mult(constant(4.0), x()), ex.differentiate("x"));
+    Expression ex = mult(x(), x(), constant(2));
+    assertEquals(mult(constant(4), x()), ex.differentiate("x"));
 
     // x * a * 3, where a is a constant
-    Expression ex2 = mult(x(), constant("a"), constant(3.0));
-    assertEquals(mult(constant("a"), constant(3.0)), ex2.differentiate("x"));
+    Expression ex2 = mult(x(), constant("a"), constant(3));
+    assertEquals(mult(constant("a"), constant(3)), ex2.differentiate("x"));
 
     // x * ln(x)
     Expression ex3 = mult(x(), ln(x()));

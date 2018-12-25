@@ -24,13 +24,13 @@ public class ExpressionTest {
     Expression lo = log(e(), x());
     assertTrue(lo.isLog());
 
-    Expression pow = poly(x(), constant(2.0));
+    Expression pow = poly(x(), 2);
     assertTrue(pow.isPower());
 
     Expression trig = sin(x());
     assertTrue(trig.isTrig());
 
-    Expression con = constant(17.0);
+    Expression con = constant(17);
     assertTrue(con.isConstant());
 
     Expression va = var("y");
@@ -48,13 +48,13 @@ public class ExpressionTest {
     Expression lo = log(e(), x());
     assertTrue(lo.asLog().isLog());
 
-    Expression pow = poly(x(), constant(2.0));
+    Expression pow = poly(x(), 2);
     assertTrue(pow.asPower().isPower());
 
     Expression trig = sin(x());
     assertTrue(trig.asTrig().isTrig());
 
-    Expression con = constant(17.0);
+    Expression con = constant(17);
     assertTrue(con.asConstant().isConstant());
 
     Expression va = var("y");
@@ -75,9 +75,9 @@ public class ExpressionTest {
     assertEquals(x(), ad.getSymbolicTerms());
     assertEquals(multID(), ad.getExponent());
 
-    Expression pow = poly(x(), constant(2.0));
+    Expression pow = poly(x(), 2);
 
-    assertEquals(constant(2.0), pow.getExponent());
+    assertEquals(constant(2), pow.getExponent());
     assertEquals(x(), pow.getBase());
     assertEquals(pow, pow.getSymbolicFactors());
   }

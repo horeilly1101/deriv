@@ -39,14 +39,14 @@ public class AddTest {
   public void nestingTest() {
     // x + (x + (x + (x + ln(x))))
     Expression ex = add(x(), add(x(), add(x(), add(x(), ln(x())))));
-    assertEquals(add(mult(x(), constant(4.0)), ln(x())), ex);
+    assertEquals(add(mult(x(), constant(4)), ln(x())), ex);
   }
 
   @Test
   public void constantTest() {
     // 2 + 3 + 4
-    Expression ex = add(constant(2.0), constant(3.0), constant(4.0));
-    assertEquals(constant(9.0), ex);
+    Expression ex = add(constant(2), constant(3), constant(4));
+    assertEquals(constant(9), ex);
 
     // 0 + ln(x)
     Expression ex2 = add(addID(), ln(x()));
@@ -57,33 +57,33 @@ public class AddTest {
   public void countTest() {
     // ln(x) + ln(x) + ln(x)
     Expression ex = add(ln(x()), ln(x()), ln(x()));
-    assertEquals(mult(ln(x()), constant(3.0)), ex);
+    assertEquals(mult(ln(x()), constant(3)), ex);
   }
 
   @Test
   public void evaluateTest() {
     // x + x + 2
-    Expression ex = add(x(), x(), constant(2.0));
-    assertEquals(constant(6.0), ex.evaluate("x", 2.0));
+    Expression ex = add(x(), x(), constant(2));
+    assertEquals(constant(6), ex.evaluate("x", 2.0));
 
     // x + a + 3, where a is a constant
-    Expression ex2 = add(x(), constant("a"), constant(3.0));
-    assertEquals(add(constant("a"), constant(6.0)), ex2.evaluate("x", 3.0));
+    Expression ex2 = add(x(), constant("a"), constant(3));
+    assertEquals(add(constant("a"), constant(6)), ex2.evaluate("x", 3.0));
   }
 
   @Test
   public void derivativeTest() {
     // x + x + 2
-    Expression ex = add(x(), x(), constant(2.0));
-    assertEquals(constant(2.0), ex.differentiate("x"));
+    Expression ex = add(x(), x(), constant(2));
+    assertEquals(constant(2), ex.differentiate("x"));
 
     // a * x + 3, where a is a constant
-    Expression ex2 = add(mult(x(), constant("a")), constant(3.0));
+    Expression ex2 = add(mult(x(), constant("a")), constant(3));
     assertEquals(constant("a"), ex2.differentiate("x"));
 
     // x + ln(x)
     Expression ex3 = add(x(), ln(x()));
-    assertEquals(add(multID(), poly(x(), constant(-1.0))), ex3.differentiate("x"));
+    assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate("x"));
 
     // x + sin(x)
     Expression ex4 = add(x(), sin(x()));

@@ -11,6 +11,6 @@ public class LogTest {
 
   @Test
   public void logTest() {
-    System.out.println(power(constant(5.0), x()).differentiate("x"));
+    System.out.println(power(constant(5), x()).differentiate("x"));
   }
 }

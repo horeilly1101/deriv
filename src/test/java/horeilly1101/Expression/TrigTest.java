@@ -27,19 +27,19 @@ public class TrigTest {
     assertEquals(sin(multID()), si.evaluate("x", 1.0));
 
     Expression co = cos(x());
-    assertEquals(cos(constant(2.0)), co.evaluate("x", 2.0));
+    assertEquals(cos(constant(2)), co.evaluate("x", 2.0));
 
     Expression ta = tan(x());
-    assertEquals(tan(constant(2.0)), ta.evaluate("x", 2.0));
+    assertEquals(tan(constant(2)), ta.evaluate("x", 2.0));
 
     Expression cs = csc(x());
-    assertEquals(csc(constant(2.0)), cs.evaluate("x", 2.0));
+    assertEquals(csc(constant(2)), cs.evaluate("x", 2.0));
 
     Expression se = sec(x());
-    assertEquals(sec(constant(2.0)), se.evaluate("x", 2.0));
+    assertEquals(sec(constant(2)), se.evaluate("x", 2.0));
 
     Expression cota = cot(x());
-    assertEquals(cot(constant(2.0)), cota.evaluate("x", 2.0));
+    assertEquals(cot(constant(2)), cota.evaluate("x", 2.0));
   }
 
   @Test

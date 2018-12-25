@@ -11,7 +11,7 @@ import static horeilly1101.Expression.Variable.x;
 public class DivTest {
   @Test
   public void divTest() {
-    System.out.println(div(power(x(), constant(3.0)), ln(x())));
+    System.out.println(div(power(x(), constant(3)), ln(x())));
 
     System.out.println(div(multID(), div(multID(), e())));
   }
