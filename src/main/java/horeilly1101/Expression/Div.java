@@ -27,10 +27,6 @@ public class Div implements Expression {
       return div(mult(numerator, den.denominator), den.numerator);
     }
 
-    // add a check to simplify constants
-
-    // add a check to simplify adds in numerator
-
     // let mult do the rest of the simplifying
     return mult(numerator, poly(denominator, -1));
   }

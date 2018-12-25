@@ -24,18 +24,23 @@ public class Power implements Expression {
    * Use this to instantiate a power.
    */
   static Expression power(Expression base, Expression exponent) {
-    // is exponent 1.0?
+    // is exponent 1?
     if (exponent.equals(Constant.multID())) {
       return base;
     }
 
-    // is it 0.0?
+    // is it 0?
     if (exponent.equals(Constant.addID())) {
       return Constant.multID();
     }
 
+//    // is the whole expression a denominator constant?
+//    if (base.isConstant() && exponent.isConstant() && exponent.asConstant().isNegative()) {
+//      return new Power(power(base, negate(exponent)), constant(-1));
+//    }
+
     // is the whole expression a constant?
-    if (base.isConstant() && exponent.isConstant()) {
+    if (base.isConstant() && exponent.isConstant() && !exponent.asConstant().isNegative()) {
       return constant((int)
                           Math.round(
                               Math.pow(

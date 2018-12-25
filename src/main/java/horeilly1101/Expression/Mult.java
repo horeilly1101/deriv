@@ -185,29 +185,45 @@ public class Mult implements Expression {
    * @return List<Expression> simplified
    */
   private static List<Expression> simplifyConstantFactors(List<Expression> factors) {
-    // keep track of constants' values
+    // keep track of constant values in the numerator and the denominator
     List<Expression> noConstants = new ArrayList<>();
-    Integer constants = 1;
+    int numConstants = 1;
+    int denConstants = 1;
 
     for (Expression factor : factors) {
       if (factor.isConstant()) {
         // checked cast
-        constants *= factor.asConstant().getVal();
+        numConstants *= factor.asConstant().getVal();
+      } else if (factor.isPower()
+                    && factor.asPower().getBase().isConstant()
+                    && factor.asPower().getExponent().equals(constant(-1))) {
+
+        denConstants *= factor.asPower().getBase().asConstant().getVal();
       } else {
         noConstants.add(factor);
       }
     }
 
+    // divide numConstants and denConstants by gcf
+    int gcf = gcf(numConstants, denConstants);
+    numConstants /= gcf;
+    denConstants /= gcf;
+
     // multiplicative identity?
-    if (constants == 1 && noConstants.isEmpty()) {
+    if (numConstants == 1 && noConstants.isEmpty()) {
       noConstants.add(multID());
       // zero?
-    } else if (constants == 0) {
+    } else if (numConstants == 0) {
       // all factors go to zero
       noConstants.clear();
       noConstants.add(addID());
-    } else if (constants != 1) {
-      noConstants.add(Constant.constant(constants));
+    } else if (numConstants != 1) {
+      noConstants.add(constant(numConstants));
+    }
+
+    // is there a constant in the denominator?
+    if (denConstants != 1 && numConstants != 0) {
+      noConstants.add(poly(constant(denConstants), -1));
     }
 
     return noConstants;
@@ -257,17 +273,28 @@ public class Mult implements Expression {
    * fully simplified.
    */
   private static Boolean isSimplified(List<Expression> factors) {
-    // we want to make sure there is at most 1 constant in factors
-    int conCount = 0;
+    // we want to make sure there is at most 1 constant in numerator and denominator
+    int numCount = 0;
+    Constant num = multID();
+    int dencount = 0;
+    Constant den = multID();
     Set<Expression> bases = new HashSet<>();
 
     for (Expression fac : factors) {
       if (fac.isConstant()) {
-        conCount += 1;
+        numCount += 1;
+        num = fac.asConstant();
+      }
+
+      if (fac.isPower() && fac.asPower().getBase().isConstant() && fac.asPower().getExponent().equals(constant(-1))) {
+        dencount += 1;
+        den = fac.asPower().getBase().asConstant();
       }
 
       // all of these conditions imply factors is not simplified
-      if (conCount > 1
+      if (numCount > 1
+              || dencount > 1
+              || gcf(num.getVal(), den.getVal()) != 1
               || (fac.equals(multID()) && factors.size() > 1)
               || (fac.equals(addID()) && factors.size() > 1)
               || fac.isMult()
@@ -294,19 +321,56 @@ public class Mult implements Expression {
     for (Expression factor : factors) {
       if (factor.getExponent().isNegative()) {
         den.add(power(factor.getBase(), negate(factor.getExponent())));
+
       } else {
         num.add(factor);
       }
     }
 
+    // no factors in numerator
     if (num.isEmpty()) {
       num.add(multID());
     }
 
+    // no factors in denominator
     if (den.isEmpty()) {
       den.add(multID());
     }
 
-    return den.size() == 1 && den.get(0).equals(multID()) ? new Mult(num) : new Div(new Mult(num), new Mult(den));
+    // factors aren't a div
+    if (den.size() == 1 && den.get(0).equals(multID())) {
+      return new Mult(num);
+    }
+
+    return den.size() == 1 && den.get(0).equals(multID())
+               ? new Mult(num)
+               : new Div(lengthCheck(num), lengthCheck(den));
   }
+
+  /**
+   * This method uses Euclid's recursive algorithm to find the greatest common
+   * factor of two given integers.
+   */
+  private static int gcf(int a, int b) {
+    if (a == 0) {
+      return b;
+    }
+
+    if (b == 0) {
+      return a;
+    }
+
+    return gcf(b, a % b);
+  }
+
+  /**
+   * This method checks whether or not a list of factors has more than
+   * one element. If it does, then it creates a mult. If it has just one
+   * object, it just returns the object.
+   */
+  private static Expression lengthCheck(List<Expression> factors) {
+    return factors.size() == 1 ? factors.get(0) : new Mult(factors);
+  }
+
+
 }
