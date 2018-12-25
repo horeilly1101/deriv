@@ -45,6 +45,11 @@ public class Power implements Expression {
                  .map(x -> power(x, exponent)).collect(Collectors.toList()));
     }
 
+    // is the base a power?
+    if (base.isPower()) {
+      return power(base.getBase(), mult(exponent, base.getExponent()));
+    }
+
     return new Power(base, exponent);
   }
 

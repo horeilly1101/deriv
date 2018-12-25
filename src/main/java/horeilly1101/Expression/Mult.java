@@ -120,7 +120,11 @@ public class Mult implements Expression {
   }
 
   /*
-  Private, static methods to help simplify Mult objects when instantiated
+  Private, static methods to help simplify Mult objects when instantiated.
+
+  The below functions are probably the ugliest ones you'll see in this project,
+  but they've been thoroughly tested, and they each serve an important role
+  in simplifying mults.
    */
 
   /**
@@ -231,18 +235,15 @@ public class Mult implements Expression {
       } else if (factor.isDiv()) {
         // checked cast
         newList.add(factor.asDiv().getNumerator());
-
         Expression den = factor.asDiv().getDenominator();
-        Expression denInvert;
 
         if (den.isMult()) {
-          // must be unsimplified
-          denInvert = new Mult(den.asMult().getFactors().stream().map(x -> power(x, constant(-1.0))).collect(toList()));
+          // add the denominator factors individually
+          newList.addAll(den.asMult().getFactors().stream().map(x -> power(x, constant(-1.0))).collect(toList()));
         } else {
-          denInvert = power(factor.asDiv().getDenominator(), constant(-1.0));
+          newList.add(power(den, constant(-1.0)));
         }
 
-        newList.add(denInvert);
       } else {
         newList.add(factor);
       }
