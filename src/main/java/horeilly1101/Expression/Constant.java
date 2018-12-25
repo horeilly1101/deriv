@@ -34,6 +34,21 @@ public class Constant implements Expression {
     return val;
   }
 
+  @Override
+  public Constant getConstantFactor() {
+    return this;
+  }
+
+  @Override
+  public Constant getSymbolicFactors() {
+    return multID();
+  }
+
+  @Override
+  public Boolean isNegative() {
+    return this.getVal() < 0;
+  }
+
   static Constant multID() {
     return constant(1.0);
   }

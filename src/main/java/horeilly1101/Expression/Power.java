@@ -15,7 +15,7 @@ public class Power implements Expression {
    *
    * Data definition: a power is two Expressions (a base and an exponent).
    */
-  private Power(Expression base, Expression exponent) {
+  Power(Expression base, Expression exponent) {
     this.base = base;
     this.exponent = exponent;
   }

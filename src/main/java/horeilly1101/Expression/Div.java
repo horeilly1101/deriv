@@ -20,7 +20,8 @@ public class Div implements Expression {
     this.denominator = denominator;
   }
 
-  public Expression div(Expression numerator, Expression denominator) {
+  public static Expression div(Expression numerator, Expression denominator) {
+    // avoid nesting
     if (denominator.isDiv()) {
       Div den = denominator.asDiv();
       return div(mult(numerator, den.denominator), den.numerator);

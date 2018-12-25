@@ -1,8 +1,10 @@
 package horeilly1101.Expression;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static horeilly1101.Expression.Add.add;
+import static horeilly1101.Expression.Power.power;
 import static java.util.stream.Collectors.toList;
 import static horeilly1101.Expression.Constant.*;
 
@@ -31,7 +33,12 @@ public class Mult implements Expression {
 
     List<Expression> simplified = simplify(factors).stream()
                                       .sorted().collect(toList());
-    return simplified.size() == 1 ? simplified.get(0) : new Mult(simplified);
+
+    // if there is just one factor, there's no use in having a Mult object
+    return simplified.size() == 1
+               ? simplified.get(0)
+               // if it can be a Div object, it should be a Div object
+               : divCheck(simplified);
   }
 
   /**
@@ -61,6 +68,11 @@ public class Mult implements Expression {
   @Override
   public Expression getSymbolicFactors() {
     return mult(factors.stream().filter(x -> !x.isConstant()).collect(toList()));
+  }
+
+  @Override
+  public Boolean isNegative() {
+    return this.getConstantFactor().isNegative();
   }
 
   @Override
@@ -151,7 +163,7 @@ public class Mult implements Expression {
 
     // add up the exponents
     return powerMap.keySet().stream()
-               .map(key -> Power.power(
+               .map(key -> power(
                    key,
                    add(powerMap.get(key))))
                .collect(toList());
@@ -210,9 +222,27 @@ public class Mult implements Expression {
     List<Expression> newList = new ArrayList<>();
 
     for (Expression factor : factors) {
+      // ensures no nested mults
       if (factor.isMult()) {
         // checked cast
         newList.addAll(factor.asMult().getFactors());
+
+        // ensures no nest divs
+      } else if (factor.isDiv()) {
+        // checked cast
+        newList.add(factor.asDiv().getNumerator());
+
+        Expression den = factor.asDiv().getDenominator();
+        Expression denInvert;
+
+        if (den.isMult()) {
+          // must be unsimplified
+          denInvert = new Mult(den.asMult().getFactors().stream().map(x -> power(x, constant(-1.0))).collect(toList()));
+        } else {
+          denInvert = power(factor.asDiv().getDenominator(), constant(-1.0));
+        }
+
+        newList.add(denInvert);
       } else {
         newList.add(factor);
       }
@@ -240,7 +270,8 @@ public class Mult implements Expression {
               || (fac.equals(multID()) && factors.size() > 1)
               || (fac.equals(addID()) && factors.size() > 1)
               || fac.isMult()
-              || bases.contains(fac.getBase())) {
+              || bases.contains(fac.getBase())
+              || fac.isDiv()) {
         return false;
       }
 
@@ -248,5 +279,33 @@ public class Mult implements Expression {
     }
 
     return true;
+  }
+
+  /**
+   * This method checks if any of the factors have a negative exponent.
+   * If they do, it creates a Div with these factors in the denominator,
+   * with positive exponents. If they don't, it creates a Mult.
+   */
+  private static Expression divCheck(List<Expression> factors) {
+    List<Expression> num = new ArrayList<>();
+    List<Expression> den = new ArrayList<>();
+
+    for (Expression factor : factors) {
+      if (factor.getExponent().isNegative()) {
+        den.add(power(factor.getBase(), negate(factor.getExponent())));
+      } else {
+        num.add(factor);
+      }
+    }
+
+    if (num.isEmpty()) {
+      num.add(multID());
+    }
+
+    if (den.isEmpty()) {
+      den.add(multID());
+    }
+
+    return den.size() == 1 && den.get(0).equals(multID()) ? new Mult(num) : new Div(new Mult(num), new Mult(den));
   }
 }

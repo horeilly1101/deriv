@@ -153,4 +153,8 @@ interface Expression extends Comparable {
   default Expression getSymbolicTerms() {
     return this;
   }
+
+  default Boolean isNegative() {
+    return false;
+  }
 }
