@@ -36,7 +36,11 @@ public class Power implements Expression {
 
     // is the whole expression a constant?
     if (base.isConstant() && exponent.isConstant()) {
-      return constant(Math.pow(base.asConstant().getVal(), exponent.asConstant().getVal()));
+      return constant((int)
+                          Math.round(
+                              Math.pow(
+                                  base.asConstant().getVal(),
+                                  exponent.asConstant().getVal())));
     }
 
     // is the base a mult?
@@ -53,12 +57,12 @@ public class Power implements Expression {
     return new Power(base, exponent);
   }
 
-  static Expression poly(Expression base, Constant exponent) {
-    return power(base, exponent);
+  static Expression poly(Expression base, Integer exponent) {
+    return power(base, constant(exponent));
   }
 
-  static Expression exponential(Constant base, Expression exponent) {
-    return new Power(base, exponent);
+  static Expression exponential(Integer base, Expression exponent) {
+    return new Power(constant(base), exponent);
   }
 
   @Override
@@ -111,6 +115,6 @@ public class Power implements Expression {
                 exponent.differentiate(var), Log.ln(base)),
             Mult.mult(exponent,
                 base.differentiate(var),
-                power(base, constant(-1.0)))));
+                power(base, constant(-1)))));
   }
 }

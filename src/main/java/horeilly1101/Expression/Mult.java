@@ -1,9 +1,9 @@
 package horeilly1101.Expression;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import static horeilly1101.Expression.Add.add;
+import static horeilly1101.Expression.Power.poly;
 import static horeilly1101.Expression.Power.power;
 import static java.util.stream.Collectors.toList;
 import static horeilly1101.Expression.Constant.*;
@@ -52,7 +52,7 @@ public class Mult implements Expression {
    * negates an Expression;
    */
   static Expression negate(Expression expr) {
-    return mult(constant(-1.0), expr);
+    return mult(constant(-1), expr);
   }
 
   List<Expression> getFactors() {
@@ -187,7 +187,7 @@ public class Mult implements Expression {
   private static List<Expression> simplifyConstantFactors(List<Expression> factors) {
     // keep track of constants' values
     List<Expression> noConstants = new ArrayList<>();
-    Double constants = 1.0;
+    Integer constants = 1;
 
     for (Expression factor : factors) {
       if (factor.isConstant()) {
@@ -199,14 +199,14 @@ public class Mult implements Expression {
     }
 
     // multiplicative identity?
-    if (constants == 1.0 && noConstants.isEmpty()) {
-      noConstants.add(Constant.constant(1.0));
+    if (constants == 1 && noConstants.isEmpty()) {
+      noConstants.add(multID());
       // zero?
-    } else if (constants == 0.0) {
+    } else if (constants == 0) {
       // all factors go to zero
       noConstants.clear();
-      noConstants.add(Constant.constant(0.0));
-    } else if (constants != 1.0) {
+      noConstants.add(addID());
+    } else if (constants != 1) {
       noConstants.add(Constant.constant(constants));
     }
 
@@ -239,9 +239,9 @@ public class Mult implements Expression {
 
         if (den.isMult()) {
           // add the denominator factors individually
-          newList.addAll(den.asMult().getFactors().stream().map(x -> power(x, constant(-1.0))).collect(toList()));
+          newList.addAll(den.asMult().getFactors().stream().map(x -> poly(x, -1)).collect(toList()));
         } else {
-          newList.add(power(den, constant(-1.0)));
+          newList.add(poly(den, -1));
         }
 
       } else {

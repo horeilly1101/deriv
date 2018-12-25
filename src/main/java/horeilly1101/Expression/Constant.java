@@ -1,7 +1,7 @@
 package horeilly1101.Expression;
 
 public class Constant implements Expression {
-  private Double val;
+  private Integer val;
 
   /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
@@ -9,7 +9,7 @@ public class Constant implements Expression {
    *
    * Data definition: A constant is a double.
    */
-  private Constant(Double val) {
+  private Constant(Integer val) {
     this.val = val;
   }
 
@@ -17,7 +17,7 @@ public class Constant implements Expression {
    * Use this to create new constants. This method is for constants
    * that are explicitly numbers.
    */
-  static Constant constant(Double val) {
+  static Constant constant(Integer val) {
     return new Constant(val);
   }
 
@@ -30,7 +30,7 @@ public class Constant implements Expression {
     return new Variable(val);
   }
 
-  Double getVal() {
+  Integer getVal() {
     return val;
   }
 
@@ -50,11 +50,11 @@ public class Constant implements Expression {
   }
 
   static Constant multID() {
-    return constant(1.0);
+    return constant(1);
   }
 
   static Constant addID() {
-    return constant(0.0);
+    return constant(0);
   }
 
   static Expression e() {
@@ -88,6 +88,6 @@ public class Constant implements Expression {
   }
 
   public Expression differentiate(String var) {
-    return constant(0.0);
+    return addID();
   }
 }

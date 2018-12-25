@@ -56,10 +56,14 @@ public class Variable implements Expression {
   }
 
   public Expression evaluate(String var, Double input) {
-    return var.equals(this.var) ? Constant.constant(input) : this;
+    return var.equals(this.var) ? toConstant(input) : this;
   }
 
   public Expression differentiate(String wrt) {
-    return wrt.equals(var) ? Constant.constant(1.0) : Constant.constant(0.0);
+    return wrt.equals(var) ? Constant.multID() : Constant.addID();
+  }
+
+  private static Expression toConstant(Double input) {
+    return div();
   }
 }

@@ -32,7 +32,7 @@ public class Div implements Expression {
     // add a check to simplify adds in numerator
 
     // let mult do the rest of the simplifying
-    return mult(numerator, poly(denominator, constant(-1.0)));
+    return mult(numerator, poly(denominator, -1));
   }
 
   public Expression getNumerator() {
@@ -82,6 +82,6 @@ public class Div implements Expression {
                           numerator,
                           denominator.differentiate(var)))),
 
-              poly(denominator, constant(2.0)));
+              poly(denominator, 2));
   }
 }

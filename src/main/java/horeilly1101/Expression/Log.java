@@ -76,7 +76,7 @@ public class Log implements Expression {
                       result.differentiate(var),
                       log(e(), base)),
                   mult(
-                      constant(-1.0),
+                      constant(-1),
                       result,
                       base.differentiate(var),
                       log(e(), result))),
@@ -88,7 +88,7 @@ public class Log implements Expression {
                       poly(
                           log(e(),
                               base),
-                          constant(2.0))),
-                  constant(-1.0)));
+                          2)),
+                  -1));
   }
 }

@@ -126,17 +126,17 @@ public class Add implements Expression {
   private static List<Expression> simplifyTerms(List<Expression> terms) {
     // maintain a hash map of factors we've already seen
     // this allows us to compute this function in linear time
-    HashMap<Expression, List<Double>> powerMap = new HashMap<>();
+    HashMap<Expression, List<Integer>> powerMap = new HashMap<>();
 
     for (Expression term : terms) {
       if (powerMap.containsKey(term.getSymbolicFactors())) {
-        List<Double> newList = powerMap.get(term.getSymbolicFactors());
+        List<Integer> newList = powerMap.get(term.getSymbolicFactors());
 
         newList.add(term.getConstantFactor().getVal());
         powerMap.replace(term.getSymbolicFactors(), newList);
 
       } else {
-        List<Double> newList = new ArrayList<>();
+        List<Integer> newList = new ArrayList<>();
 
         newList.add(term.getConstantFactor().getVal());
         powerMap.put(term.getSymbolicFactors(), newList);
@@ -148,7 +148,7 @@ public class Add implements Expression {
                .map(key -> mult(
                    key,
                    constant(powerMap.get(key).stream()
-                                                    .reduce(0.0, (a, b) -> a + b))))
+                                                    .reduce(0, (a, b) -> a + b))))
                .collect(toList());
   }
 
@@ -161,7 +161,7 @@ public class Add implements Expression {
   private static List<Expression> simplifyConstantTerms(List<Expression> factors) {
     // keep track of constants' values
     List<Expression> noConstants = new ArrayList<>();
-    Double constants = 0.0;
+    Integer constants = 0;
 
     for (Expression factor : factors) {
       if (factor.isConstant()) {
@@ -174,7 +174,7 @@ public class Add implements Expression {
 
     // multiplicative identity?
     if (constants == 0.0 && noConstants.isEmpty()) {
-      noConstants.add(constant(0.0));
+      noConstants.add(addID());
       // zero?
     } else if (constants != 0.0) {
       noConstants.add(constant(constants));

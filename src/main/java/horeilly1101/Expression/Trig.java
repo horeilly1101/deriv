@@ -40,7 +40,7 @@ public class Trig implements Expression {
 
     derivMap.put("cos",
         (x, var) -> Mult.mult(
-            Constant.constant(-1.0),
+            Constant.constant(-1),
             x.inside.differentiate(var),
             sin(inside)));
 
@@ -49,11 +49,11 @@ public class Trig implements Expression {
             x.inside.differentiate(var),
             Power.poly(
                 sec(inside),
-                Constant.constant(2.0))));
+                2)));
 
     derivMap.put("csc",
         (x, var) -> Mult.mult(
-            Constant.constant(-1.0),
+            Constant.constant(-1),
             x.inside.differentiate(var),
             csc(inside),
             cot(inside)));
@@ -66,11 +66,11 @@ public class Trig implements Expression {
 
     derivMap.put("cot",
         (x, var) -> Mult.mult(
-            Constant.constant(-1.0),
+            Constant.constant(-1),
             x.inside.differentiate(var),
             Power.poly(
                 csc(inside),
-                Constant.constant(2.0))));
+                2)));
   }
 
   static Expression sin(Expression inside) {
