@@ -44,10 +44,15 @@ interface Expression extends Comparable {
    */
   default int compareTo(Object o) {
     // constants come first
-    if (this.getClass().equals(Constant.class)) {
+    if (this.isConstant()) {
       return -1;
     } else if (o.getClass().equals(Constant.class)) {
       return 1;
+    }
+
+    // polynomials go in decreasing order of exponent
+    if (this.isPower() || o.getClass().equals(Power.class)) {
+      return this.getExponent().compareTo(((Expression) o).getExponent());
     }
 
     return this.toString().compareTo(o.toString());

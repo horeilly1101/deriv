@@ -2,9 +2,8 @@ package horeilly1101.Expression;
 
 import java.util.*;
 
-import static horeilly1101.Expression.Add.add;
-import static horeilly1101.Expression.Power.poly;
-import static horeilly1101.Expression.Power.power;
+import static horeilly1101.Expression.Add.*;
+import static horeilly1101.Expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static horeilly1101.Expression.Constant.*;
 
@@ -276,8 +275,10 @@ public class Mult implements Expression {
     // we want to make sure there is at most 1 constant in numerator and denominator
     int numCount = 0;
     Constant num = multID();
+
     int dencount = 0;
     Constant den = multID();
+
     Set<Expression> bases = new HashSet<>();
 
     for (Expression fac : factors) {

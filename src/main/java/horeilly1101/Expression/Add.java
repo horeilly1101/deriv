@@ -1,5 +1,6 @@
 package horeilly1101.Expression;
 
+import java.lang.annotation.Documented;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
@@ -28,7 +29,9 @@ public class Add implements Expression {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
       List<Expression> simplified = simplify(terms).stream()
-                                        .sorted().collect(toList());
+                                        // reverse order
+                                        .sorted((x, y) -> -1 * x.compareTo(y))
+                                        .collect(toList());
       return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
     }
   }
