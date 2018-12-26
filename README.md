@@ -19,7 +19,9 @@ is the key design detail that glues the project together. It is implemented by
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
 available are integrals, inverse functions, and more obscure functions, but these may all be added later on.) It's
 interesting to note that the hardest part of this project has been simplifying the expressions before they're
-instantiated. The design, derivatives, evaluations -- all of that was a cake walk compared to the simplifications.
+instantiated. The design, derivatives, evaluations -- all of that was easy compared to the simplifications.
+
+For examples of how to use these classes, see the provided unit tests.
 
 ## Parser
 Coming soon!

@@ -2,7 +2,7 @@ package horeilly1101.Expression;
 
 import org.junit.Test;
 
-import static horeilly1101.Expression.Add.add;
+import static horeilly1101.Expression.Add.*;
 import static horeilly1101.Expression.Constant.*;
 import static horeilly1101.Expression.Log.ln;
 import static horeilly1101.Expression.Mult.mult;
@@ -25,8 +25,6 @@ public class DivTest {
 
   @Test
   public void differentiateTest() {
-//    System.out.println(div(poly(x(), 2), sin(x())).differentiate("x"));
-
-    System.out.println(add(poly(x(), 2), x(), multID()));
+    System.out.println(div(poly(x(), 2), sin(x())).differentiate("x"));
   }
 }
