@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -22,7 +22,7 @@
     </option>
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/deriv$horeilly1101_Expression_in_1_test.ic" NAME="horeilly1101.Expression in 1_test Coverage Results" MODIFIED="1545791597133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/deriv$horeilly1101_Expression_in_1_test.ic" NAME="horeilly1101.Expression in 1_test Coverage Results" MODIFIED="1545803946248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>horeilly1101.Expression.*</FILTER>
     </SUITE>
   </component>
@@ -90,7 +90,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="105" />
+          <entry key="JAVA" value="106" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
@@ -104,8 +104,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="25031" />
-          <entry key="Markdown" value="823" />
+          <entry key="JAVA" value="25052" />
+          <entry key="Markdown" value="824" />
           <entry key="PLAIN_TEXT" value="3187" />
         </counts>
       </usages-collector>
@@ -116,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+            <state relative-caret-position="1830">
+              <caret line="150" column="16" lean-forward="true" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
               <folding>
                 <element signature="e#2365#2366#0" expanded="true" />
                 <element signature="e#2397#2398#0" expanded="true" />
@@ -159,8 +159,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+            <state relative-caret-position="795">
+              <caret line="60" column="21" lean-forward="true" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -181,11 +181,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="119" column="12" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="225">
-                <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+              <first_editor relative-caret-position="285">
+                <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
               </first_editor>
               <second_editor />
             </state>
@@ -549,20 +561,21 @@
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/ExpressionTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/PowerTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/TrigTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/MultTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Mult.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -650,7 +663,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545792714047" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545803944481" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -1118,7 +1131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1545791769258</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="update README">
+      <created>1545792783282</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1545792783282</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1317,16 +1337,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="36" selection-start-line="36" selection-start-column="2" selection-end-line="39" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/LogTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1359,20 +1369,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+        <state relative-caret-position="240">
+          <caret line="16" column="45" lean-forward="true" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#800#801#0" expanded="true" />
+            <element signature="e#876#877#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="51" lean-forward="true" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="285">
+            <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+        <state relative-caret-position="1830">
+          <caret line="150" column="16" lean-forward="true" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
           <folding>
             <element signature="e#2365#2366#0" expanded="true" />
             <element signature="e#2397#2398#0" expanded="true" />
@@ -1396,14 +1423,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="45" lean-forward="true" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
+        <state relative-caret-position="795">
+          <caret line="60" column="21" lean-forward="true" selection-start-line="60" selection-start-column="21" selection-end-line="60" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#876#877#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1418,18 +1443,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="51" lean-forward="true" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="225">
-            <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="119" column="12" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
