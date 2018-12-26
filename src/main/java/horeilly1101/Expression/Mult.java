@@ -134,6 +134,7 @@ public class Mult implements Expression {
    * time.)
    */
   private static List<Expression> simplify(List<Expression> factors) {
+    System.out.println(factors);
     return isSimplified(factors)
                ? factors
                : simplify(
@@ -296,7 +297,6 @@ public class Mult implements Expression {
       if (numCount > 1
               || dencount > 1
               || gcf(num.getVal(), den.getVal()) != 1
-              || (fac.equals(multID()) && factors.size() > 1)
               || (fac.equals(addID()) && factors.size() > 1)
               || fac.isMult()
               || bases.contains(fac.getBase())
@@ -305,6 +305,12 @@ public class Mult implements Expression {
       }
 
       bases.add(fac.getBase());
+    }
+
+    // ensure there aren't extraneous 1 multiples
+    if (bases.contains(multID()) && dencount != factors.size() - 1) {
+      System.out.println("hey");
+      return false;
     }
 
     return true;

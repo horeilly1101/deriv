@@ -2,6 +2,7 @@ package horeilly1101.Expression;
 
 import static horeilly1101.Expression.Constant.*;
 import static horeilly1101.Expression.Add.*;
+import static horeilly1101.Expression.Div.div;
 import static horeilly1101.Expression.Mult.*;
 import static horeilly1101.Expression.Power.*;
 
@@ -69,26 +70,9 @@ public class Log implements Expression {
   public Expression differentiate(String var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
-    return mult(
-              add(
-                  mult(
-                      base,
-                      result.differentiate(var),
-                      log(e(), base)),
-                  mult(
-                      constant(-1),
-                      result,
-                      base.differentiate(var),
-                      log(e(), result))),
-
-              Power.poly(
-                  mult(
-                      result,
-                      base,
-                      poly(
-                          log(e(),
-                              base),
-                          2)),
-                  -1));
+    return base.equals(e())
+               // derivative of natural log
+               ? mult(result.differentiate(var), div(multID(), result))
+               : div(ln(result), ln(base)).differentiate(var);
   }
 }
