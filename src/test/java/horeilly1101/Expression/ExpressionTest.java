@@ -63,18 +63,21 @@ public class ExpressionTest {
 
   @Test
   public void getterTest() {
+    // e * x
     Expression mult = mult(x(), e());
 
     assertEquals(multID(), mult.getConstantFactor());
     assertEquals(mult, mult.getSymbolicFactors());
     assertEquals(addID(), mult.getConstantTerm());
 
+    // x + 1
     Expression ad = add(x(), multID());
 
     assertEquals(multID(), ad.getConstantTerm());
     assertEquals(x(), ad.getSymbolicTerms());
     assertEquals(multID(), ad.getExponent());
 
+    // x ^ 2
     Expression pow = poly(x(), 2);
 
     assertEquals(constant(2), pow.getExponent());
