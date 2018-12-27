@@ -18,6 +18,12 @@ public class Mult implements Expression {
    * to the factors in an expression.
    */
   private Mult(List<Expression> factors) {
+    // important check
+    // mostly for debugging
+    if (factors.size() < 2) {
+      throw new RuntimeException("Mult was created with less than two factors!");
+    }
+
     this.factors = factors;
   }
 
@@ -134,7 +140,6 @@ public class Mult implements Expression {
    * time.)
    */
   private static List<Expression> simplify(List<Expression> factors) {
-    System.out.println(factors);
     return isSimplified(factors)
                ? factors
                : simplify(
@@ -288,9 +293,9 @@ public class Mult implements Expression {
         num = fac.asConstant();
       }
 
-      if (fac.isPower() && fac.asPower().getBase().isConstant() && fac.asPower().getExponent().equals(constant(-1))) {
+      if (fac.getBase().isConstant() && fac.getExponent().equals(constant(-1))) {
         dencount += 1;
-        den = fac.asPower().getBase().asConstant();
+        den = fac.getBase().asConstant();
       }
 
       // all of these conditions imply factors is not simplified
@@ -308,12 +313,7 @@ public class Mult implements Expression {
     }
 
     // ensure there aren't extraneous 1 multiples
-    if (bases.contains(multID()) && dencount != factors.size() - 1) {
-      System.out.println("hey");
-      return false;
-    }
-
-    return true;
+    return !(bases.contains(multID()) && dencount != factors.size() - 1);
   }
 
   /**

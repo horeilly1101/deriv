@@ -18,6 +18,12 @@ public class Add implements Expression {
    * the terms in an expression.
    */
   private Add(List<Expression> terms) {
+    // important check
+    // mostly for debugging
+    if (terms.size() < 2) {
+      throw new RuntimeException("Add was created with less than two factors!");
+    }
+
     this.terms = terms;
   }
 

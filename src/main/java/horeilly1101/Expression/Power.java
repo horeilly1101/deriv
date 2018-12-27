@@ -35,10 +35,10 @@ public class Power implements Expression {
       return Constant.multID();
     }
 
-//    // is the whole expression a denominator constant?
-//    if (base.isConstant() && exponent.isConstant() && exponent.asConstant().isNegative()) {
-//      return new Power(power(base, negate(exponent)), constant(-1));
-//    }
+    // is the whole expression a denominator constant?
+    if (base.isConstant() && exponent.isConstant() && exponent.asConstant().isNegative()) {
+      return new Power(power(base, negate(exponent)), constant(-1));
+    }
 
     // is the whole expression a constant?
     if (base.isConstant() && exponent.isConstant() && !exponent.asConstant().isNegative()) {

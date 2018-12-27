@@ -35,6 +35,10 @@ public class PowerTest {
     // ln(x) ^ 1.0
     Expression ex4 = poly(ln(x()), 1);
     assertEquals(ln(x()), ex4);
+
+    // 2 ^ -2
+    Expression ex5 = poly(constant(2), -2);
+    System.out.println(ex5);
   }
 
   @Test
