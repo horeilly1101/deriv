@@ -149,6 +149,11 @@ interface Expression extends Comparable {
     return Constant.multID();
   }
 
+  // FIXXXXX
+//  default Expression getConstantFactor() {
+//    return Constant.multID();
+//  }
+
   default Expression getSymbolicFactors() {
     return this;
   }

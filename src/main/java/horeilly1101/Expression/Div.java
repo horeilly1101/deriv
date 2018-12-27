@@ -32,6 +32,11 @@ public class Div implements Expression {
     return denominator;
   }
 
+//  @Override
+//  public Expression getConstantFactor() {
+//    return div(numerator.getConstantFactor(), denominator.getConstantFactor());
+//  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
