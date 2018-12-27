@@ -12,7 +12,8 @@ public class Log implements Expression {
 
   /**
    * Instantiates a Log object. Avoid using as much as possible! Instead, use
-   * the easy constructor down below.
+   * the easy constructor down below. (I should note that throughout the code
+   * base, I use <b>log(a, b)</b> to refer to a logarithm with base a and result b.)
    *
    * Data definition: a log is two Expressions (a base and a result)
    */
@@ -25,6 +26,10 @@ public class Log implements Expression {
    * Use this method to instantiate a Log object.
    */
   static Expression log(Expression base, Expression result) {
+    // future addition, simplify something like log(2, 4) or log(3, 27)
+    // idea: just implement getBase() to output the root of a constant,
+    // if it's a perfect root
+
     if (result.getBase().equals(base)) {
       return result.getExponent();
     }

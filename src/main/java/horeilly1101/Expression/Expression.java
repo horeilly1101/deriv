@@ -26,6 +26,8 @@ interface Expression extends Comparable {
    * @param input -- the number to be plugged into var
    * @return Expression solution
    */
+  // future: should be able to evaluate with an Expression
+  // e.g. evaluate at e
   Expression evaluate(String var, Double input);
 
   /**
