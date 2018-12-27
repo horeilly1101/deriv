@@ -38,7 +38,7 @@ public class PowerTest {
 
     // 2 ^ -2
     Expression ex5 = poly(constant(2), -2);
-    System.out.println(ex5);
+//    System.out.println(ex5);
   }
 
   @Test

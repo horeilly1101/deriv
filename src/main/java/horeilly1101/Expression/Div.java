@@ -1,7 +1,6 @@
 package horeilly1101.Expression;
 
 import static horeilly1101.Expression.Add.add;
-import static horeilly1101.Expression.Constant.*;
 import static horeilly1101.Expression.Mult.*;
 import static horeilly1101.Expression.Power.*;
 
@@ -21,13 +20,7 @@ public class Div implements Expression {
   }
 
   public static Expression div(Expression numerator, Expression denominator) {
-    // avoid nesting
-    if (denominator.isDiv()) {
-      Div den = denominator.asDiv();
-      return div(mult(numerator, den.denominator), den.numerator);
-    }
-
-    // let mult do the rest of the simplifying
+    // let mult do the simplifying
     return mult(numerator, poly(denominator, -1));
   }
 

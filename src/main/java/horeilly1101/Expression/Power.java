@@ -3,7 +3,7 @@ package horeilly1101.Expression;
 import java.util.stream.Collectors;
 
 import static horeilly1101.Expression.Constant.*;
-import static horeilly1101.Expression.Log.ln;
+import static horeilly1101.Expression.Log.*;
 import static horeilly1101.Expression.Mult.*;
 
 public class Power implements Expression {

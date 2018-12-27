@@ -21,7 +21,7 @@ public class Mult implements Expression {
     // important check
     // mostly for debugging
     if (factors.size() < 2) {
-      throw new RuntimeException("Mult was created with less than two factors!");
+      throw new RuntimeException("Mult was created with fewer than two factors!");
     }
 
     this.factors = factors;
@@ -346,7 +346,7 @@ public class Mult implements Expression {
 
     // factors aren't a div
     if (den.size() == 1 && den.get(0).equals(multID())) {
-      return new Mult(num);
+      return lengthCheck(num);
     }
 
     return den.size() == 1 && den.get(0).equals(multID())
