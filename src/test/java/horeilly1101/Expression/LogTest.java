@@ -22,11 +22,11 @@ public class LogTest {
   public void simplifyTest() {
     // log(x, x ^ 2)
     Expression lg = log(x(), poly(x(), 2));
-    assertEquals(constant(2), lg.differentiate("x"));
+    assertEquals(constant(2), lg);
 
     // log(ln(x), ln(x) ^ e())
     Expression lg2 = log(ln(x()), power(ln(x()), e()));
-    assertEquals(e(), lg2.differentiate("x"));
+    assertEquals(e(), lg2);
   }
 
   @Test

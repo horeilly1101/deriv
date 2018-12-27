@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/LogTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/LogTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -25,7 +21,7 @@
     </option>
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/deriv$horeilly1101_Expression_in_1_test.ic" NAME="horeilly1101.Expression in 1_test Coverage Results" MODIFIED="1545935747079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/deriv$horeilly1101_Expression_in_1_test.ic" NAME="horeilly1101.Expression in 1_test Coverage Results" MODIFIED="1545937269979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>horeilly1101.Expression.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/deriv$TrigTest.ic" NAME="TrigTest Coverage Results" MODIFIED="1545935714120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -110,9 +106,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="28212" />
+          <entry key="JAVA" value="28312" />
           <entry key="Markdown" value="824" />
-          <entry key="PLAIN_TEXT" value="3356" />
+          <entry key="PLAIN_TEXT" value="3376" />
         </counts>
       </usages-collector>
     </session>
@@ -177,8 +173,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/LogTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="45" column="60" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
+            <state relative-caret-position="546">
+              <caret line="39" column="7" lean-forward="true" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -660,7 +656,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545937089743" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545937269646" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -687,23 +683,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.LogTest.differentiateTest">
-    <configuration name="ConstantTest.derivativeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="1_test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="horeilly1101.Expression.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.ConstantTest" />
-      <option name="METHOD_NAME" value="derivativeTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.horeilly1101.Expression in 1_test">
     <configuration name="LogTest.differentiateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -731,6 +711,22 @@
       <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
       <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.LogTest" />
       <option name="METHOD_NAME" value="logTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogTest.simplifyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="1_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.LogTest" />
+      <option name="METHOD_NAME" value="simplifyTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -766,18 +762,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
-      <item itemvalue="JUnit.ConstantTest.derivativeTest" />
       <item itemvalue="JUnit.TrigTest" />
       <item itemvalue="JUnit.LogTest.logTest" />
       <item itemvalue="JUnit.LogTest.differentiateTest" />
+      <item itemvalue="JUnit.LogTest.simplifyTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
+        <item itemvalue="JUnit.LogTest.simplifyTest" />
         <item itemvalue="JUnit.LogTest.differentiateTest" />
         <item itemvalue="JUnit.LogTest.logTest" />
-        <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
         <item itemvalue="JUnit.TrigTest" />
-        <item itemvalue="JUnit.ConstantTest.derivativeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -791,13 +787,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545243666211</updated>
-    </task>
-    <task id="LOCAL-00006" summary="implemented log class">
-      <created>1545331426809</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1545331426809</updated>
     </task>
     <task id="LOCAL-00007" summary="implemented multivariate differentiation">
       <created>1545331896734</created>
@@ -1135,19 +1124,17 @@
       <option name="project" value="LOCAL" />
       <updated>1545935696806</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="added log unit tests">
+      <created>1545937109895</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1545937109895</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ConstantTest_derivativeTest - 2018.12.27 at 12h 34m 37s.xml">
-      <configuration name="ConstantTest.derivativeTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TrigTest - 2018.12.27 at 12h 35m 15s.xml">
-      <configuration name="TrigTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="horeilly1101_Expression_in_1_test - 2018.12.27 at 12h 35m 49s.xml">
-      <configuration name="horeilly1101.Expression in 1_test" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="LogTest_logTest - 2018.12.27 at 12h 37m 42s.xml">
       <configuration name="LogTest.logTest" configurationId="JUnit" />
     </history-entry>
@@ -1169,12 +1156,20 @@
     <history-entry file="LogTest_logTest - 2018.12.27 at 12h 51m 14s.xml">
       <configuration name="LogTest.logTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="LogTest_logTest - 2018.12.27 at 12h 54m 44s.xml">
+      <configuration name="LogTest.logTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LogTest_differentiateTest - 2018.12.27 at 12h 55m 46s.xml">
+      <configuration name="LogTest.differentiateTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="LogTest_differentiateTest - 2018.12.27 at 12h 58m 11s.xml">
+      <configuration name="LogTest.differentiateTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21888413" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21888413" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1183,7 +1178,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.26987952" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22891566" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1212,7 +1207,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="simplified Log instantiation" />
     <MESSAGE value="added natural log in Log toString() method" />
     <MESSAGE value="outlined the remaining test structure" />
     <MESSAGE value="cleaned up some more documentation" />
@@ -1237,7 +1231,8 @@
     <MESSAGE value="finished Trig unit tests" />
     <MESSAGE value="wrote variable unit tests, pretty simple" />
     <MESSAGE value="wrote constant unit tests, for completeness" />
-    <option name="LAST_COMMIT_MESSAGE" value="wrote constant unit tests, for completeness" />
+    <MESSAGE value="added log unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="added log unit tests" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java" />
@@ -1442,8 +1437,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/LogTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="45" column="60" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
+        <state relative-caret-position="546">
+          <caret line="39" column="7" lean-forward="true" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
