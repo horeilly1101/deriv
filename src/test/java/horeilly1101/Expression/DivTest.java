@@ -65,4 +65,9 @@ public class DivTest {
     Expression result = div(add(mult(cos(x()), x()), negate(sin(x()))), poly(x(), 2));
     assertEquals(result, ex.differentiate("x"));
   }
+
+  @Test
+  public void denomTest() {
+    System.out.println(add(div(multID(), x()), div(multID(), x())));
+  }
 }

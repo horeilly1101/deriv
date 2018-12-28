@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/Scanner.jflex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -97,9 +100,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="151" />
+          <entry key="JAVA" value="153" />
           <entry key="Markdown" value="2" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -111,9 +114,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="29550" />
+          <entry key="JAVA" value="29795" />
           <entry key="Markdown" value="824" />
-          <entry key="PLAIN_TEXT" value="3490" />
+          <entry key="PLAIN_TEXT" value="3521" />
         </counts>
       </usages-collector>
     </session>
@@ -123,7 +126,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state relative-caret-position="1605">
               <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
               <folding>
                 <element signature="e#3168#3169#0" expanded="true" />
@@ -136,8 +139,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+            <state relative-caret-position="270">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,10 +149,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/Scanner.jflex">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-984">
-              <caret line="128" column="30" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
+            <state relative-caret-position="270">
+              <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,11 +165,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/ExpressionTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="1110">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -169,22 +180,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="63" column="39" lean-forward="true" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
+            <state relative-caret-position="627">
+              <caret line="70" column="64" selection-start-line="70" selection-start-column="64" selection-end-line="70" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Mult.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5265">
-              <caret line="361" column="17" selection-start-line="361" selection-start-column="17" selection-end-line="361" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1994#1995#0" expanded="true" />
+                <element signature="e#2013#2014#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -532,7 +533,6 @@
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Variable.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/AddTest.java" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/MultTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/TrigTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/ExpressionTest.java" />
@@ -543,10 +543,12 @@
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/PowerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/VariableTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" />
+        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" />
+        <option value="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/Scanner.jflex" />
       </list>
     </option>
   </component>
@@ -589,14 +591,14 @@
               <item name="deriv" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jflex" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="deriv" type="b2602c69:ProjectViewProjectNode" />
               <item name="deriv" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jflex" type="462c0819:PsiDirectoryNode" />
               <item name="horeilly1101" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -604,9 +606,9 @@
               <item name="deriv" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jflex" type="462c0819:PsiDirectoryNode" />
               <item name="horeilly1101" type="462c0819:PsiDirectoryNode" />
-              <item name="Expression" type="462c0819:PsiDirectoryNode" />
+              <item name="Parser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="deriv" type="b2602c69:ProjectViewProjectNode" />
@@ -646,7 +648,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545945291847" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545978478483" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -673,7 +675,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.horeilly1101.Expression in 1_test">
+  <component name="RunManager" selected="JUnit.DivTest.denomTest">
+    <configuration name="DivTest.denomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="1_test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="horeilly1101.Expression.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
+      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.DivTest" />
+      <option name="METHOD_NAME" value="denomTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DivTest.differentiateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -685,22 +703,6 @@
       <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
       <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.DivTest" />
       <option name="METHOD_NAME" value="differentiateTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DivTest.evaluateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="1_test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="horeilly1101.Expression.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="horeilly1101.Expression" />
-      <option name="MAIN_CLASS_NAME" value="horeilly1101.Expression.DivTest" />
-      <option name="METHOD_NAME" value="evaluateTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -755,17 +757,17 @@
     <list>
       <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
       <item itemvalue="JUnit.DivTest.nestTest" />
-      <item itemvalue="JUnit.DivTest.evaluateTest" />
       <item itemvalue="JUnit.VariableTest.keshavTest" />
       <item itemvalue="JUnit.DivTest.differentiateTest" />
+      <item itemvalue="JUnit.DivTest.denomTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DivTest.denomTest" />
         <item itemvalue="JUnit.horeilly1101.Expression in 1_test" />
         <item itemvalue="JUnit.DivTest.differentiateTest" />
         <item itemvalue="JUnit.VariableTest.keshavTest" />
         <item itemvalue="JUnit.DivTest.nestTest" />
-        <item itemvalue="JUnit.DivTest.evaluateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -779,13 +781,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545243666211</updated>
-    </task>
-    <task id="LOCAL-00010" summary="moved simplification logic to a new file">
-      <created>1545451651257</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1545451651257</updated>
     </task>
     <task id="LOCAL-00011" summary="finished a generalized differentiation function for powers">
       <created>1545452991217</created>
@@ -1123,16 +1118,17 @@
       <option name="project" value="LOCAL" />
       <updated>1545943668733</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="skeleton of scanner class">
+      <created>1545945305275</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1545945305275</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="horeilly1101_Expression_in_1_test - 2018.12.27 at 13h 20m 31s.xml">
-      <configuration name="horeilly1101.Expression in 1_test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="horeilly1101_Expression_in_1_test - 2018.12.27 at 13h 21m 26s.xml">
-      <configuration name="horeilly1101.Expression in 1_test" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="DivTest_nestTest - 2018.12.27 at 13h 22m 58s.xml">
       <configuration name="DivTest.nestTest" configurationId="JUnit" />
     </history-entry>
@@ -1157,12 +1153,18 @@
     <history-entry file="horeilly1101_Expression_in_1_test - 2018.12.27 at 14h 46m 46s.xml">
       <configuration name="horeilly1101.Expression in 1_test" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="horeilly1101_Expression_in_1_test - 2018.12.27 at 15h 26m 11s.xml">
+      <configuration name="horeilly1101.Expression in 1_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DivTest_denomTest - 2018.12.27 at 15h 29m 30s.xml">
+      <configuration name="DivTest.denomTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22174536" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22174536" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1171,7 +1173,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.110843375" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.27951807" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1200,7 +1202,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="update README again" />
     <MESSAGE value="updated the documentation a little more" />
     <MESSAGE value="updated the documentation a lot more" />
     <MESSAGE value="Expression unit tests finished" />
@@ -1225,7 +1226,8 @@
     <MESSAGE value="fixed a bug in log unit tests" />
     <MESSAGE value="completed div unit tests" />
     <MESSAGE value="added a few future implementation notes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a few future implementation notes" />
+    <MESSAGE value="skeleton of scanner class" />
+    <option name="LAST_COMMIT_MESSAGE" value="skeleton of scanner class" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Main.java" />
@@ -1242,23 +1244,6 @@
             <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/MultTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="26" column="3" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/ExpressionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1357,16 +1342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="39" lean-forward="true" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Mult.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5265">
@@ -1377,9 +1352,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-start-column="2" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="1605">
           <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
           <folding>
             <element signature="e#3168#3169#0" expanded="true" />
@@ -1388,30 +1370,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/ExpressionTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        <state relative-caret-position="1110">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/DivTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="70" column="64" selection-start-line="70" selection-start-column="64" selection-end-line="70" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1994#1995#0" expanded="true" />
+            <element signature="e#2013#2014#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Expression/MultTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Div.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/Scanner.jflex">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-984">
-          <caret line="128" column="30" selection-start-line="128" selection-start-column="30" selection-end-line="128" selection-end-column="30" />
+        <state relative-caret-position="270">
+          <caret line="18" column="39" lean-forward="true" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
         </state>
       </provider>
     </entry>

@@ -1,6 +1,5 @@
 package horeilly1101.Expression;
 
-import java.lang.annotation.Documented;
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;
@@ -34,6 +33,8 @@ public class Add implements Expression {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
+      // we want to add together all the divs
+
       List<Expression> simplified = simplify(terms).stream()
                                         // reverse order
                                         .sorted((x, y) -> -1 * x.compareTo(y))
@@ -119,9 +120,10 @@ public class Add implements Expression {
    */
   private static List<Expression> simplify(List<Expression> terms) {
     return terms.size() > 1 && !isSimplified(terms)
-               ? simplifyTerms(
-                   simplifyConstantTerms(
-                       withoutNesting(terms)))
+               ? simplify(
+                   simplifyTerms(
+                     simplifyConstantTerms(
+                         withoutNesting(terms))))
                : terms;
   }
 
