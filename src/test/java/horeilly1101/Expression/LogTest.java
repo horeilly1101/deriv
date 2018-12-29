@@ -3,9 +3,9 @@ package horeilly1101.Expression;
 import org.junit.Test;
 
 import static horeilly1101.Expression.Constant.*;
-import static horeilly1101.Expression.Div.div;
+//import static horeilly1101.Expression.Div.div;
 import static horeilly1101.Expression.Log.*;
-import static horeilly1101.Expression.Mult.mult;
+import static horeilly1101.Expression.Mult.*;
 import static horeilly1101.Expression.Power.*;
 import static horeilly1101.Expression.Variable.*;
 import static junit.framework.TestCase.assertEquals;

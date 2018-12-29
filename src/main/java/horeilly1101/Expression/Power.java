@@ -30,6 +30,11 @@ public class Power implements Expression {
       return base;
     }
 
+    // is base 1?
+    if (base.equals(multID())) {
+      return multID();
+    }
+
     // is it 0?
     if (exponent.equals(Constant.addID())) {
       return Constant.multID();

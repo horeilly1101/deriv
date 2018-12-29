@@ -1,6 +1,7 @@
 package horeilly1101.Expression;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static horeilly1101.Expression.Add.*;
 import static horeilly1101.Expression.Power.*;
@@ -35,15 +36,12 @@ public class Mult implements Expression {
       // bad
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
+    List<Expression> simplified = simplify(factors)
+                                      .stream()
+                                      .sorted()
+                                      .collect(toList());
 
-    List<Expression> simplified = simplify(factors).stream()
-                                      .sorted().collect(toList());
-
-    // if there is just one factor, there's no use in having a Mult object
-    return simplified.size() == 1
-               ? simplified.get(0)
-               // if it can be a Div object, it should be a Div object
-               : divCheck(simplified);
+    return lengthCheck(simplified);
   }
 
   /**
@@ -51,6 +49,13 @@ public class Mult implements Expression {
    */
   static Expression mult(Expression... factors) {
     return mult(Arrays.asList(factors));
+  }
+
+  /**
+   * Use this constructor to play with division.
+   */
+  static Expression div(Expression numerator, Expression denominator) {
+    return mult(numerator, poly(denominator, -1));
   }
 
   /**
@@ -99,6 +104,19 @@ public class Mult implements Expression {
 
   @Override
   public String toString() {
+    List<Expression> den = this.getFactors().stream()
+                               .filter(x -> x.getExponent().isNegative())
+                               .map(y -> poly(y, -1))
+                               .collect(toList());
+
+    if (den.size() > 0) {
+      List<Expression> num = this.getFactors().stream().filter(x -> !x.getExponent().isNegative()).collect(toList());
+      num = num.size() > 0 ? num : Stream.of(multID()).collect(toList());
+
+      // probably the easiest way to write this
+      return mult(num).toString() + " / " + mult(den).toString();
+    }
+
     return "(" + factors.get(0).toString()
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
@@ -187,6 +205,10 @@ public class Mult implements Expression {
    * It also multiplies the values of all constants together, so that each
    * mult has a single Constant.
    *
+   * This method also simplifies constants in the numerator and denominator
+   * by dividing each by the greatest common factor. (Check out Euclid's
+   * algorithm down below.)
+   *
    * @return List<Expression> simplified
    */
   private static List<Expression> simplifyConstantFactors(List<Expression> factors) {
@@ -251,20 +273,6 @@ public class Mult implements Expression {
       if (factor.isMult()) {
         // checked cast
         newList.addAll(factor.asMult().getFactors());
-
-        // ensures no nest divs
-      } else if (factor.isDiv()) {
-        // checked cast
-        newList.add(factor.asDiv().getNumerator());
-        Expression den = factor.asDiv().getDenominator();
-
-        if (den.isMult()) {
-          // add the denominator factors individually
-          newList.addAll(den.asMult().getFactors().stream().map(x -> poly(x, -1)).collect(toList()));
-        } else {
-          newList.add(poly(den, -1));
-        }
-
       } else {
         newList.add(factor);
       }
@@ -305,7 +313,7 @@ public class Mult implements Expression {
               || (fac.equals(addID()) && factors.size() > 1)
               || fac.isMult()
               || bases.contains(fac.getBase())
-              || fac.isDiv()) {
+      ) {
         return false;
       }
 
@@ -314,44 +322,6 @@ public class Mult implements Expression {
 
     // ensure there aren't extraneous 1 multiples
     return !(bases.contains(multID()) && dencount != factors.size() - 1);
-  }
-
-  /**
-   * This method checks if any of the factors have a negative exponent.
-   * If they do, it creates a Div with these factors in the denominator,
-   * with positive exponents. If they don't, it creates a Mult.
-   */
-  private static Expression divCheck(List<Expression> factors) {
-    List<Expression> num = new ArrayList<>();
-    List<Expression> den = new ArrayList<>();
-
-    for (Expression factor : factors) {
-      if (factor.getExponent().isNegative()) {
-        den.add(power(factor.getBase(), negate(factor.getExponent())));
-
-      } else {
-        num.add(factor);
-      }
-    }
-
-    // no factors in numerator
-    if (num.isEmpty()) {
-      num.add(multID());
-    }
-
-    // no factors in denominator
-    if (den.isEmpty()) {
-      den.add(multID());
-    }
-
-    // factors aren't a div
-    if (den.size() == 1 && den.get(0).equals(multID())) {
-      return lengthCheck(num);
-    }
-
-    return den.size() == 1 && den.get(0).equals(multID())
-               ? new Mult(num)
-               : new Div(lengthCheck(num), lengthCheck(den));
   }
 
   /**
@@ -378,6 +348,4 @@ public class Mult implements Expression {
   private static Expression lengthCheck(List<Expression> factors) {
     return factors.size() == 1 ? factors.get(0) : new Mult(factors);
   }
-
-
 }
