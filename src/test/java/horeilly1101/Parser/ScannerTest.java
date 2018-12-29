@@ -1,0 +1,18 @@
+package horeilly1101.Parser;
+
+import org.junit.Test;
+import static horeilly1101.Parser.Scanner.*;
+
+public class ScannerTest {
+
+  @Test
+  public void readTest() {
+    System.out.println("hey");
+
+    String str = "12 + 34 * sin(1)";
+    System.out.println(read(str));
+
+    String str2 = "12 + 34 * sin(1) / csc(x) + a";
+    System.out.println(read(str2));
+  }
+}

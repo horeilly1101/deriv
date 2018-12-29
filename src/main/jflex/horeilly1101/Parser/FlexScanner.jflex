@@ -2,7 +2,7 @@
 
 package horeilly1101.Parser;
 
-import horeilly1101.Parser.Token.*;
+import horeilly1101.Parser.Scanner.*;
 
 %%
 
@@ -24,24 +24,24 @@ Trig = (sin|cos|tan|csc|sec|cot)
 
 /* Lexical Rules */
 
-{ Trig }  { return new Token("Trig", yytext()); }
+{ Trig }  { return new Token(TRIG, yytext()); }
 
-{ Number } { return new Token("Number", yytext()); }
+{ Number } { return new Token(NUMBER, yytext()); }
 
-{ Variable } { return new Token("Variable", yytext()); }
+{ Variable } { return new Token(VARIABLE, yytext()); }
 
-{ Whitespace } { return new Token("Whitespace", yytext()); }
+{ Whitespace } { return new Token(WHITESPACE, yytext()); }
 
-"(" { return new Token("LParen", yytext()); }
+"(" { return new Token(LPAREN, yytext()); }
 
-")" { return new Token("RParen", yytext()); }
+")" { return new Token(RPAREN, yytext()); }
 
-"+" { return new Token("Plus", yytext()); }
+"+" { return new Token(PLUS, yytext()); }
 
-"-" { return new Token("Minus", yytext()); }
+"-" { return new Token(MINUS, yytext()); }
 
-"*" { return new Token("Times", yytext()); }
+"*" { return new Token(TIMES, yytext()); }
 
-"/" { return new Token("Divide", yytext()); }
+"/" { return new Token(DIVIDE, yytext()); }
 
-. { return new Token("Fail", yytext()); }
+. { return new Token(FAIL, yytext()); }

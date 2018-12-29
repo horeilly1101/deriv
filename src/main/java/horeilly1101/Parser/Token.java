@@ -1,10 +1,12 @@
 package horeilly1101.Parser;
 
+import horeilly1101.Parser.Scanner.*;
+
 public class Token {
-  String name;
+  SymbolType name;
   String data;
 
-  Token(String name, String data) {
+  Token(SymbolType name, String data) {
     this.name = name;
     this.data = data;
   }

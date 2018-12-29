@@ -7,23 +7,28 @@ import java.util.List;
 
 public class Scanner {
 
-  public static List<Token> read(String input) {
+  static List<Token> read(String input) {
     FlexScanner flex = new FlexScanner(new StringReader(input));
     List<Token> tokens = new ArrayList<>();
 
+    // iterate until loop breaks
     for (;;) {
-      Token current = new Token("Fail", "excpetion");
+      // default token is a fail
+      Token current = new Token(SymbolType.FAIL, "exception");
+      // we need to catch the exception
+      // (that's never actually going to be thrown)
       try {
         current = flex.yylex();
       } catch (IOException e) {
         System.out.println(e);
       }
 
-      if (current == null || current.name == "Fail") {
+      if (current == null || current.name.equals(SymbolType.FAIL)) {
         break;
       }
 
-      if (current.name != "Whitespace") {
+      // filter out whitespaces
+      if (!current.name.equals(SymbolType.WHITESPACE)) {
         tokens.add(current);
       }
     }
@@ -31,10 +36,8 @@ public class Scanner {
     return tokens;
   }
 
-  public static void main(String[] args) {
-    System.out.println("hey");
-    String str = "12 + 34 * sin(1)";
-
-    System.out.println(read(str));
+  enum SymbolType {
+    TRIG, NUMBER, VARIABLE, WHITESPACE, LPAREN, RPAREN,
+    PLUS, MINUS, TIMES, DIVIDE, FAIL
   }
 }
