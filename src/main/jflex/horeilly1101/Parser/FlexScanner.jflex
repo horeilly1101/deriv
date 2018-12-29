@@ -2,7 +2,7 @@
 
 package horeilly1101.Parser;
 
-import horeilly1101.Parser.Scanner.*;
+import static horeilly1101.Parser.Scanner.SymbolType.*;
 
 %%
 
@@ -15,33 +15,40 @@ import horeilly1101.Parser.Scanner.*;
 %public
 %type Token
 
-Whitespace = [ \t\n]+
-Number = [1-9][0-9]*(.[0-9]+)?
-Variable = [a-zA-Z]
-Trig = (sin|cos|tan|csc|sec|cot)
+Whitespace  = [ \t\n]+
+Number      = [1-9][0-9]*(.[0-9]+)?
+Variable    = [a-zA-Z]
+Trig        = (sin|cos|tan|csc|sec|cot)
+Log         = (log|ln)
 
 %%
 
 /* Lexical Rules */
 
-{ Trig }  { return new Token(TRIG, yytext()); }
+{ Trig }        { return new Token(TRIG, yytext()); }
 
-{ Number } { return new Token(NUMBER, yytext()); }
+{ Number }      { return new Token(NUMBER, yytext()); }
 
-{ Variable } { return new Token(VARIABLE, yytext()); }
+{ Variable }    { return new Token(VARIABLE, yytext()); }
 
-{ Whitespace } { return new Token(WHITESPACE, yytext()); }
+{ Log }         { return new Token(LOG, yytext()); }
 
-"(" { return new Token(LPAREN, yytext()); }
+"sqrt"            { return new Token(SQRT, ""); }
 
-")" { return new Token(RPAREN, yytext()); }
+{ Whitespace }  { return new Token(WHITESPACE, ""); }
 
-"+" { return new Token(PLUS, yytext()); }
+"("             { return new Token(LPAREN, ""); }
 
-"-" { return new Token(MINUS, yytext()); }
+")"             { return new Token(RPAREN, ""); }
 
-"*" { return new Token(TIMES, yytext()); }
+"+"             { return new Token(PLUS, ""); }
 
-"/" { return new Token(DIVIDE, yytext()); }
+"-"             { return new Token(MINUS, ""); }
 
-. { return new Token(FAIL, yytext()); }
+"*"             { return new Token(TIMES, ""); }
+
+"/"             { return new Token(DIVIDE, ""); }
+
+"^"             { return new Token(CARROT, ""); }
+
+.               { return new Token(FAIL, ""); }

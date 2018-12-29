@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Scanner {
 
+  /**
+   * Scans a String into a list of Token objects. We want to filter out
+   * the WHITESPACE tokens and break the scanner if a FAIL token pops up.
+   */
   static List<Token> read(String input) {
     FlexScanner flex = new FlexScanner(new StringReader(input));
     List<Token> tokens = new ArrayList<>();
@@ -37,7 +41,7 @@ public class Scanner {
   }
 
   enum SymbolType {
-    TRIG, NUMBER, VARIABLE, WHITESPACE, LPAREN, RPAREN,
-    PLUS, MINUS, TIMES, DIVIDE, FAIL
+    TRIG, NUMBER, VARIABLE, LOG, SQRT, WHITESPACE, LPAREN, RPAREN,
+    PLUS, MINUS, TIMES, DIVIDE, CARROT,  FAIL
   }
 }
