@@ -14,5 +14,8 @@ public class ScannerTest {
 
     String str2 = "12 + 34 * sin(1) / csc(x) + a";
     System.out.println(read(str2));
+
+    String str3 = "12 8 $";
+    System.out.println(read(str3));
   }
 }

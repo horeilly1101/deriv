@@ -16,7 +16,7 @@ package horeilly1101.Expression;
  *
  * Questions about how it all works? Email horeilly1101@gmail.com
  */
-interface Expression extends Comparable {
+public interface Expression extends Comparable {
   /**
    * Plugs an input into the value of whatever variable is
    * in the function, and then evaluates the rest of the

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Scanner {
 
@@ -11,7 +12,7 @@ public class Scanner {
    * Scans a String into a list of Token objects. We want to filter out
    * the WHITESPACE tokens and break the scanner if a FAIL token pops up.
    */
-  static List<Token> read(String input) {
+  static Optional<List<Token>> read(String input) {
     FlexScanner flex = new FlexScanner(new StringReader(input));
     List<Token> tokens = new ArrayList<>();
 
@@ -27,8 +28,12 @@ public class Scanner {
         System.out.println(e);
       }
 
-      if (current == null || current.name.equals(SymbolType.FAIL)) {
+      if (current == null) {
         break;
+      }
+
+      if (current.name.equals(SymbolType.FAIL)) {
+        return Optional.empty();
       }
 
       // filter out whitespaces
@@ -37,7 +42,7 @@ public class Scanner {
       }
     }
 
-    return tokens;
+    return Optional.of(tokens);
   }
 
   enum SymbolType {
