@@ -33,7 +33,7 @@ Log         = (log|ln)
 
 { Log }         { return new Token(LOG, yytext()); }
 
-"sqrt"            { return new Token(SQRT, ""); }
+"sqrt"          { return new Token(SQRT, ""); }
 
 { Whitespace }  { return new Token(WHITESPACE, ""); }
 

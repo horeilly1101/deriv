@@ -71,14 +71,17 @@ public class Mult implements Expression {
   }
 
   @Override
-  public Constant getConstantFactor() {
-    List<Expression> constant = factors.stream()
-                                    .filter(Expression::isConstant)
+  public Expression getConstantFactor() {
+    List<Expression> constants = factors.stream()
+                                    .filter(x -> x.isConstant()
+                                                     || (x.isPower()
+                                                             && x.getBase().isConstant()
+                                                             && x.getExponent().isNegative()))
                                     .collect(toList());
 
-    return constant.isEmpty()
+    return constants.isEmpty()
                ? multID()
-               : constant.get(0).asConstant();
+               : mult(constants);
   }
 
   @Override

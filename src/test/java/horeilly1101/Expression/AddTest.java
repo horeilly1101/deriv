@@ -61,6 +61,11 @@ public class AddTest {
   }
 
   @Test
+  public void factorsTest() {
+
+  }
+
+  @Test
   public void evaluateTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));

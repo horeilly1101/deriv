@@ -144,7 +144,7 @@ public interface Expression extends Comparable {
     return this;
   }
 
-  default Constant getConstantFactor() {
+  default Expression getConstantFactor() {
     return Constant.multID();
   }
 

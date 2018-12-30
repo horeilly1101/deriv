@@ -137,19 +137,19 @@ public class Add implements Expression {
   private static List<Expression> simplifyTerms(List<Expression> terms) {
     // maintain a hash map of factors we've already seen
     // this allows us to compute this function in linear time
-    HashMap<Expression, List<Integer>> powerMap = new HashMap<>();
+    HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
 
     for (Expression term : terms) {
       if (powerMap.containsKey(term.getSymbolicFactors())) {
-        List<Integer> newList = powerMap.get(term.getSymbolicFactors());
+        List<Expression> newList = powerMap.get(term.getSymbolicFactors());
 
-        newList.add(term.getConstantFactor().getVal());
+        newList.add(term.getConstantFactor());
         powerMap.replace(term.getSymbolicFactors(), newList);
 
       } else {
-        List<Integer> newList = new ArrayList<>();
+        List<Expression> newList = new ArrayList<>();
 
-        newList.add(term.getConstantFactor().getVal());
+        newList.add(term.getConstantFactor());
         powerMap.put(term.getSymbolicFactors(), newList);
       }
     }
@@ -158,8 +158,7 @@ public class Add implements Expression {
     return powerMap.keySet().stream()
                .map(key -> mult(
                    key,
-                   constant(powerMap.get(key).stream()
-                                                    .reduce(0, (a, b) -> a + b))))
+                   add(powerMap.get(key))))
                .collect(toList());
   }
 

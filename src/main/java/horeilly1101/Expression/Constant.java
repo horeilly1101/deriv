@@ -35,12 +35,12 @@ public class Constant implements Expression {
   }
 
   @Override
-  public Constant getConstantFactor() {
+  public Expression getConstantFactor() {
     return this;
   }
 
   @Override
-  public Constant getSymbolicFactors() {
+  public Expression getSymbolicFactors() {
     return multID();
   }
 
