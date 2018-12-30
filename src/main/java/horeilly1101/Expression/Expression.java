@@ -6,7 +6,6 @@ package horeilly1101.Expression;
  *
  * This interface is implemented by:
  * - Mult
- * - Div
  * - Add
  * - Log
  * - Power

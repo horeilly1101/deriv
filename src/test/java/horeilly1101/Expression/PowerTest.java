@@ -59,8 +59,8 @@ public class PowerTest {
   @Test
   public void differentiateTest() {
     // 5 ^ x
-    Expression ex = exponential(5, x());
-    assertEquals(mult(power(constant(5), x()), ln(constant(5))), ex.differentiate("x"));
+    Expression ex = exponential(3, x());
+    assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate("x"));
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);

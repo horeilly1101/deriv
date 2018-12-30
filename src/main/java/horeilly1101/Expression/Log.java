@@ -1,10 +1,7 @@
 package horeilly1101.Expression;
 
 import static horeilly1101.Expression.Constant.*;
-import static horeilly1101.Expression.Add.*;
-//import static horeilly1101.Expression.Div.div;
 import static horeilly1101.Expression.Mult.*;
-import static horeilly1101.Expression.Power.*;
 
 public class Log implements Expression {
   private Expression base;

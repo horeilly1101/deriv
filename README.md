@@ -9,7 +9,6 @@ together and take their derivatives. Every function is an implementation of an E
 is the key design detail that glues the project together. It is implemented by
 
 - *Mult*: a mult is a list of expressions, multiplied together
-- *Div*: a div is a numerator and a denominator
 - *Add*: an add is a list of expressions, added together
 - *Log*: a log is a base and a result (i.e. log(base, result))
 - *Power*: a power is a base and an exponent (i.e. base ^ exponent)

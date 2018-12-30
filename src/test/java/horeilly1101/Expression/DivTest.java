@@ -6,8 +6,6 @@ import static horeilly1101.Expression.Add.*;
 import static horeilly1101.Expression.Constant.*;
 import static horeilly1101.Expression.Log.ln;
 import static horeilly1101.Expression.Mult.*;
-import static horeilly1101.Expression.Power.*;
-import static horeilly1101.Expression.Trig.*;
 import static horeilly1101.Expression.Variable.x;
 import static junit.framework.TestCase.assertEquals;
 

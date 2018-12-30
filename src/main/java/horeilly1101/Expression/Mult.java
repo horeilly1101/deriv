@@ -36,6 +36,7 @@ public class Mult implements Expression {
       // bad
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
+
     List<Expression> simplified = simplify(factors)
                                       .stream()
                                       .sorted()
