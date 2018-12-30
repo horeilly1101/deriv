@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Scanner {
+import java_cup.runtime.*;
 
+public class Scanner {
   /**
    * Scans a String into a list of Token objects. We want to filter out
    * the WHITESPACE tokens and break the scanner if a FAIL token pops up.

@@ -71,13 +71,20 @@ public class Mult implements Expression {
 
   @Override
   public Constant getConstantFactor() {
-    List<Expression> constant = factors.stream().filter(Expression::isConstant).collect(toList());
-    return constant.isEmpty() ? multID() : constant.get(0).asConstant();
+    List<Expression> constant = factors.stream()
+                                    .filter(Expression::isConstant)
+                                    .collect(toList());
+
+    return constant.isEmpty()
+               ? multID()
+               : constant.get(0).asConstant();
   }
 
   @Override
   public Expression getSymbolicFactors() {
-    return mult(factors.stream().filter(x -> !x.isConstant()).collect(toList()));
+    return mult(factors.stream()
+                    .filter(x -> !x.isConstant())
+                    .collect(toList()));
   }
 
   @Override
@@ -110,7 +117,9 @@ public class Mult implements Expression {
                                .collect(toList());
 
     if (den.size() > 0) {
-      List<Expression> num = this.getFactors().stream().filter(x -> !x.getExponent().isNegative()).collect(toList());
+      List<Expression> num = this.getFactors().stream()
+                                 .filter(x -> !x.getExponent().isNegative())
+                                 .collect(toList());
       num = num.size() > 0 ? num : Stream.of(multID()).collect(toList());
 
       // probably the easiest way to write this
