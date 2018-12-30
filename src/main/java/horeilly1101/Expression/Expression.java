@@ -44,17 +44,12 @@ public interface Expression extends Comparable {
    * 2.0 * x should be equal to x * 2.0.)
    */
   default int compareTo(Object o) {
-    // constants come first
-//    if (this.isConstant()) {
-//      return -1;
-//    } else if (o.getClass().equals(Constant.class)) {
-//      return 1;
-//    }
-//
-//    // polynomials go in decreasing order of exponent
-//    if (this.isPower() || o.getClass().equals(Power.class)) {
-//      return this.getExponent().compareTo(((Expression) o).getExponent());
-//    }
+    // constants shouldcome first
+
+    // polynomials go in decreasing order of exponent
+    if (this.isPower() || o.getClass().equals(Power.class)) {
+      return this.getExponent().compareTo(((Expression) o).getExponent());
+    }
 
     return this.toString().compareTo(o.toString());
   }
@@ -66,10 +61,6 @@ public interface Expression extends Comparable {
   default Boolean isMult() {
     return this.getClass().equals(Mult.class);
   }
-
-//  default Boolean isDiv() {
-//    return this.getClass().equals(Div.class);
-//  }
 
   default Boolean isAdd() {
     return this.getClass().equals(Add.class);
@@ -102,10 +93,6 @@ public interface Expression extends Comparable {
   default Mult asMult() {
     return (Mult) this;
   }
-
-//  default Div asDiv() {
-//    return (Div) this;
-//  }
 
   default Add asAdd() {
     return (Add) this;
@@ -147,11 +134,6 @@ public interface Expression extends Comparable {
   default Expression getConstantFactor() {
     return Constant.multID();
   }
-
-  // FIXXXXX
-//  default Expression getConstantFactor() {
-//    return Constant.multID();
-//  }
 
   default Expression getSymbolicFactors() {
     return this;
