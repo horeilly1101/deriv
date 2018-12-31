@@ -2,7 +2,7 @@
 
 package horeilly1101.Parser;
 
-import static horeilly1101.Parser.Scanner.SymbolType.*;
+import java_cup.runtime.*;
 
 %%
 
@@ -13,7 +13,18 @@ import static horeilly1101.Parser.Scanner.SymbolType.*;
 %line
 %column
 %public
-%type Token
+%cup
+
+%{
+    StringBuffer string = new StringBuffer();
+
+    private Symbol symbol(int type) {
+        return new Symbol(type, yyline, yycolumn);
+    }
+    private Symbol symbol(int type, Object value) {
+        return new Symbol(type, yyline, yycolumn, value);
+    }
+%}
 
 Whitespace  = [ \t\n]+
 Number      = [1-9][0-9]*(.[0-9]+)?
@@ -25,30 +36,30 @@ Log         = (log|ln)
 
 /* Lexical Rules */
 
-{ Trig }        { return new Token(TRIG, yytext()); }
+{ Trig }        { return symbol(sym.TRIG); }
 
-{ Number }      { return new Token(NUMBER, yytext()); }
+{ Number }      { return symbol(sym.NUMBER); }
 
-{ Variable }    { return new Token(VARIABLE, yytext()); }
+{ Variable }    { return symbol(sym.VARIABLE); }
 
-{ Log }         { return new Token(LOG, yytext()); }
+{ Log }         { return symbol(sym.LOG); }
 
-"sqrt"          { return new Token(SQRT, ""); }
+"sqrt"          { return symbol(sym.SQRT); }
 
-{ Whitespace }  { return new Token(WHITESPACE, ""); }
+{ Whitespace }  { /* ignore */ }
 
-"("             { return new Token(LPAREN, ""); }
+"("             { return symbol(sym.LPAREN); }
 
-")"             { return new Token(RPAREN, ""); }
+")"             { return symbol(sym.RPAREN); }
 
-"+"             { return new Token(PLUS, ""); }
+"+"             { return symbol(sym.PLUS); }
 
-"-"             { return new Token(MINUS, ""); }
+"-"             { return symbol(sym.MINUS); }
 
-"*"             { return new Token(TIMES, ""); }
+"*"             { return symbol(sym.TIMES); }
 
-"/"             { return new Token(DIVIDE, ""); }
+"/"             { return symbol(sym.DIVIDE); }
 
-"^"             { return new Token(CARROT, ""); }
+"^"             { return symbol(sym.CARROT); }
 
-.               { return new Token(FAIL, ""); }
+.               { throw new RuntimeException("Illegal character <"+ yytext()+">"); }
