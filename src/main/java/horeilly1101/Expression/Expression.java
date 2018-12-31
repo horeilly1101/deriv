@@ -1,5 +1,7 @@
 package horeilly1101.Expression;
 
+import static horeilly1101.Expression.Constant.*;
+
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
@@ -124,7 +126,7 @@ public interface Expression extends Comparable {
    */
 
   default Expression getExponent() {
-    return Constant.multID();
+    return multID();
   }
 
   default Expression getBase() {
@@ -132,7 +134,7 @@ public interface Expression extends Comparable {
   }
 
   default Expression getConstantFactor() {
-    return Constant.multID();
+    return multID();
   }
 
   default Expression getSymbolicFactors() {
@@ -145,6 +147,14 @@ public interface Expression extends Comparable {
 
   default Expression getSymbolicTerms() {
     return this;
+  }
+
+  default Expression getNumerator() {
+    return this;
+  }
+
+  default Expression getDenominator() {
+    return multID();
   }
 
   default Boolean isNegative() {

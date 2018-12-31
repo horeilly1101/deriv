@@ -115,13 +115,15 @@ public class Mult implements Expression {
 
   @Override
   public String toString() {
-    List<Expression> den = this.getFactors().stream()
+    List<Expression> den = this.getFactors()
+                               .stream()
                                .filter(x -> x.getExponent().isNegative())
                                .map(y -> poly(y, -1))
                                .collect(toList());
 
     if (den.size() > 0) {
-      List<Expression> num = this.getFactors().stream()
+      List<Expression> num = this.getFactors()
+                                 .stream()
                                  .filter(x -> !x.getExponent().isNegative())
                                  .collect(toList());
       num = num.size() > 0 ? num : Stream.of(multID()).collect(toList());

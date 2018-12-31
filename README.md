@@ -12,8 +12,8 @@ is the key design detail that glues the project together. It is implemented by
 - *Add*: an add is a list of expressions, added together
 - *Log*: a log is a base and a result (i.e. log(base, result))
 - *Power*: a power is a base and an exponent (i.e. base ^ exponent)
-- *Trig*: a trig is a trig functi˚on name and an expression
-- *Constant*: a constant is an Double (as painful as it may be to see, arbitrary constants are technically variables)
+- *Trig*: a trig is a trig function name and an expression
+- *Constant*: a constant is an Integer (unfortunately, arbitrary constants are technically variables)
 - *Variable*: a string name (e.g. "x", "y", etc.)
 
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
@@ -30,3 +30,8 @@ Coming soon!
 ## Server
 
 Coming soon!
+
+## Dependencies
+
+You'll need to download java-cup-11b-runtime.jar and spark-core-2.8.0 and then make them available to the classes
+in horeilly1101.
