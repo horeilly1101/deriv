@@ -31,7 +31,7 @@ public class Mult implements Expression {
   /**
    * Use this to create a mult object.
    */
-  static Expression mult(List<Expression> factors) {
+  public static Expression mult(List<Expression> factors) {
     if (factors.isEmpty()) {
       // bad
       throw new RuntimeException("Don't instantiate a term with an empty list!");
@@ -48,21 +48,21 @@ public class Mult implements Expression {
   /**
    * Or use this if you really want to.
    */
-  static Expression mult(Expression... factors) {
+  public static Expression mult(Expression... factors) {
     return mult(Arrays.asList(factors));
   }
 
   /**
    * Use this constructor to play with division.
    */
-  static Expression div(Expression numerator, Expression denominator) {
+  public static Expression div(Expression numerator, Expression denominator) {
     return mult(numerator, poly(denominator, -1));
   }
 
   /**
    * negates an Expression;
    */
-  static Expression negate(Expression expr) {
+  public static Expression negate(Expression expr) {
     return mult(constant(-1), expr);
   }
 

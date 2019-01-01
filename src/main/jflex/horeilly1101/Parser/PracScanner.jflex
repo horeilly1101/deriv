@@ -8,7 +8,7 @@ import java_cup.runtime.*;
 
 /* Options and declarations */
 
-%class FlexScanner
+%class PracScanner
 %unicode
 %line
 %column
@@ -28,26 +28,12 @@ import java_cup.runtime.*;
 
 Whitespace  = [ \t\n]+
 Number      = 0|[1-9][0-9]*
-Variable    = [a-zA-Z]
-Trig        = (sin|cos|tan|csc|sec|cot)
 
 %%
 
 /* Lexical Rules */
 
-{ Trig }        { return symbol(sym.TRIG, yytext()); }
-
 { Number }      { return symbol(sym.NUMBER, new Integer(yytext())); }
-
-"e"             { return symbol(sym.ECON); }
-
-{ Variable }    { return symbol(sym.VARIABLE, yytext()); }
-
-"log"           { return symbol(sym.LOG); }
-
-"ln"            { return symbol(sym.LN); }
-
-"sqrt"          { return symbol(sym.SQRT); }
 
 { Whitespace }  { /* ignore */ }
 
@@ -61,8 +47,6 @@ Trig        = (sin|cos|tan|csc|sec|cot)
 
 "*"             { return symbol(sym.TIMES); }
 
-"/"             { return symbol(sym.DIVIDE); }
-
-"^"             { return symbol(sym.CARROT); }
+";"             { return symbol(sym.SEMI); }
 
 .               { throw new RuntimeException("Illegal character <"+ yytext()+">"); }

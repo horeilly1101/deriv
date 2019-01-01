@@ -22,7 +22,7 @@ public class Log implements Expression {
   /**
    * Use this method to instantiate a Log object.
    */
-  static Expression log(Expression base, Expression result) {
+  public static Expression log(Expression base, Expression result) {
     // future addition, simplify something like log(2, 4) or log(3, 27)
     // idea: just implement getBase() to output the root of a constant,
     // if it's a perfect root
@@ -37,7 +37,7 @@ public class Log implements Expression {
   /**
    * Instantiate a natural logarithm.
    */
-  static Expression ln(Expression result) {
+  public static Expression ln(Expression result) {
     return log(Constant.e(), result);
   }
 

@@ -24,7 +24,7 @@ public class Power implements Expression {
   /**
    * Use this to instantiate a power.
    */
-  static Expression power(Expression base, Expression exponent) {
+  public static Expression power(Expression base, Expression exponent) {
     // is exponent 1?
     if (exponent.equals(Constant.multID())) {
       return base;
@@ -71,7 +71,7 @@ public class Power implements Expression {
     return new Power(base, exponent);
   }
 
-  static Expression poly(Expression base, Integer exponent) {
+  public static Expression poly(Expression base, Integer exponent) {
     return power(base, constant(exponent));
   }
 

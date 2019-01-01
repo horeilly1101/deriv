@@ -17,7 +17,7 @@ public class Constant implements Expression {
    * Use this to create new constants. This method is for constants
    * that are explicitly numbers.
    */
-  static Constant constant(Integer val) {
+  public static Constant constant(Integer val) {
     return new Constant(val);
   }
 
@@ -57,7 +57,7 @@ public class Constant implements Expression {
     return constant(0);
   }
 
-  static Expression e() {
+  public static Expression e() {
     return new Variable("e");
   }
 

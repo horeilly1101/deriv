@@ -1,9 +1,12 @@
 package horeilly1101.Expression;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Trig implements Expression {
   // maps to ensure cleaner code (i.e. no long "if" statements)
@@ -71,6 +74,15 @@ public class Trig implements Expression {
             Power.poly(
                 csc(inside),
                 2)));
+  }
+
+  public static Expression trig(String func, Expression inside) {
+    Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot").collect(Collectors.toSet());
+    if (!valid.contains(func)) {
+      throw new RuntimeException("Not a valid trig function!");
+    }
+
+    return new Trig(func, inside);
   }
 
   static Expression sin(Expression inside) {

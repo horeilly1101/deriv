@@ -4,7 +4,7 @@
 
 package horeilly1101.Parser;
 
-import static horeilly1101.Parser.Scanner.SymbolType.*;
+import java_cup.runtime.*;
 
 
 /**
@@ -12,7 +12,7 @@ import static horeilly1101.Parser.Scanner.SymbolType.*;
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>/Users/hughoreilly/Desktop/GitHub/deriv/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex</tt>
  */
-public class FlexScanner {
+public class FlexScanner implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -37,11 +37,11 @@ public class FlexScanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\1\1\4\1\5\1\5\1\5\22\0\1\1\7\0\1\23"+
-    "\1\24\1\27\1\25\1\0\1\26\1\0\1\30\1\3\11\2\7\0"+
-    "\32\6\3\0\1\31\2\0\1\15\1\6\1\12\1\6\1\16\1\6"+
-    "\1\20\1\6\1\10\2\6\1\17\1\6\1\11\1\13\1\6\1\21"+
-    "\1\22\1\7\1\14\6\6\12\0\1\5\u1fa2\0\1\5\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\1\1\1\1\30\1\30\1\30\22\0\1\1\7\0\1\21"+
+    "\1\22\1\25\1\23\1\0\1\24\1\0\1\26\1\2\11\3\7\0"+
+    "\32\4\3\0\1\27\2\0\1\13\1\4\1\10\1\4\1\14\1\4"+
+    "\1\16\1\4\1\6\2\4\1\15\1\4\1\7\1\11\1\4\1\17"+
+    "\1\20\1\5\1\12\6\4\12\0\1\30\u1fa2\0\1\30\1\30\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -54,12 +54,12 @@ public class FlexScanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\5\4\1\5\1\6\1\7"+
-    "\1\10\1\11\1\12\1\13\5\0\1\14\1\0\1\3"+
-    "\1\15\1\0\1\16";
+    "\1\0\1\1\1\2\2\3\4\4\1\5\1\4\1\6"+
+    "\1\7\1\10\1\11\1\12\1\13\1\14\4\0\1\15"+
+    "\1\0\1\16\1\0\1\17\1\20";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[27];
+    int [] result = new int[28];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -84,13 +84,13 @@ public class FlexScanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\32\0\64\0\116\0\32\0\150\0\202\0\234"+
-    "\0\266\0\32\0\32\0\32\0\32\0\32\0\32\0\32"+
-    "\0\320\0\352\0\u0104\0\u011e\0\u0138\0\32\0\u0152\0\320"+
-    "\0\32\0\u016c\0\32";
+    "\0\0\0\31\0\62\0\31\0\113\0\31\0\144\0\175"+
+    "\0\226\0\31\0\257\0\31\0\31\0\31\0\31\0\31"+
+    "\0\31\0\31\0\310\0\341\0\372\0\u0113\0\31\0\u012c"+
+    "\0\31\0\u0145\0\31\0\31";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[27];
+    int [] result = new int[28];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -113,17 +113,16 @@ public class FlexScanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\2\1\3\1\0\1\5\1\6"+
-    "\2\5\1\7\1\5\1\10\2\5\1\11\3\5\1\12"+
-    "\1\13\1\14\1\15\1\16\1\17\1\20\33\0\1\3"+
-    "\2\0\1\3\25\0\2\21\2\4\2\0\24\21\10\0"+
-    "\1\22\5\0\1\23\2\0\1\24\17\0\1\23\3\0"+
-    "\1\25\33\0\1\22\25\0\1\26\1\0\1\27\20\0"+
-    "\2\30\37\0\1\31\32\0\1\31\41\0\1\32\16\0"+
-    "\1\31\4\0\1\31\35\0\1\26\25\0\1\33\15\0";
+    "\1\2\1\3\1\4\1\5\1\6\1\7\2\6\1\10"+
+    "\1\6\1\11\1\6\1\12\1\13\3\6\1\14\1\15"+
+    "\1\16\1\17\1\20\1\21\1\22\33\0\1\3\31\0"+
+    "\2\5\33\0\1\23\5\0\1\24\2\0\1\25\16\0"+
+    "\1\24\3\0\1\26\32\0\1\23\24\0\1\27\1\0"+
+    "\1\30\26\0\1\31\31\0\1\31\40\0\1\32\15\0"+
+    "\1\31\4\0\1\31\34\0\1\33\24\0\1\34\16\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[390];
+    int [] result = new int[350];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -161,11 +160,11 @@ public class FlexScanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\1\11\4\1\7\11\5\0\1\11"+
-    "\1\0\1\1\1\11\1\0\1\11";
+    "\1\0\1\11\1\1\1\11\1\1\1\11\3\1\1\11"+
+    "\1\1\7\11\4\0\1\11\1\0\1\11\1\0\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[27];
+    int [] result = new int[28];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -239,6 +238,16 @@ public class FlexScanner {
    * otherwise, it will have a value of 0.
    */
   private int zzFinalHighSurrogate = 0;
+
+  /* user code: */
+    StringBuffer string = new StringBuffer();
+
+    private Symbol symbol(int type) {
+        return new Symbol(type, yyline, yycolumn);
+    }
+    private Symbol symbol(int type, Object value) {
+        return new Symbol(type, yyline, yycolumn, value);
+    }
 
 
   /**
@@ -465,13 +474,25 @@ public class FlexScanner {
 
 
   /**
+   * Contains user EOF-code, which will be executed exactly once,
+   * when the end of file is reached
+   */
+  private void zzDoEOF() throws java.io.IOException {
+    if (!zzEOFDone) {
+      zzEOFDone = true;
+      yyclose();
+    }
+  }
+
+
+  /**
    * Resumes scanning until the next regular expression is matched,
    * the end of input is encountered or an I/O-Error occurs.
    *
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public Token yylex() throws java.io.IOException {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -607,80 +628,91 @@ public class FlexScanner {
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
-        return null;
+            zzDoEOF();
+          { return new java_cup.runtime.Symbol(sym.EOF); }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return new Token(FAIL, "");
-            } 
-            // fall through
-          case 15: break;
-          case 2: 
-            { return new Token(WHITESPACE, "");
-            } 
-            // fall through
-          case 16: break;
-          case 3: 
-            { return new Token(NUMBER, yytext());
+            { throw new RuntimeException("Illegal character <"+ yytext()+">");
             } 
             // fall through
           case 17: break;
-          case 4: 
-            { return new Token(VARIABLE, yytext());
+          case 2: 
+            { /* ignore */
             } 
             // fall through
           case 18: break;
-          case 5: 
-            { return new Token(LPAREN, "");
+          case 3: 
+            { return symbol(sym.NUMBER, new Integer(yytext()));
             } 
             // fall through
           case 19: break;
-          case 6: 
-            { return new Token(RPAREN, "");
+          case 4: 
+            { return symbol(sym.VARIABLE, yytext());
             } 
             // fall through
           case 20: break;
-          case 7: 
-            { return new Token(PLUS, "");
+          case 5: 
+            { return symbol(sym.ECON);
             } 
             // fall through
           case 21: break;
-          case 8: 
-            { return new Token(MINUS, "");
+          case 6: 
+            { return symbol(sym.LPAREN);
             } 
             // fall through
           case 22: break;
-          case 9: 
-            { return new Token(TIMES, "");
+          case 7: 
+            { return symbol(sym.RPAREN);
             } 
             // fall through
           case 23: break;
-          case 10: 
-            { return new Token(DIVIDE, "");
+          case 8: 
+            { return symbol(sym.PLUS);
             } 
             // fall through
           case 24: break;
-          case 11: 
-            { return new Token(CARROT, "");
+          case 9: 
+            { return symbol(sym.MINUS);
             } 
             // fall through
           case 25: break;
-          case 12: 
-            { return new Token(LOG, yytext());
+          case 10: 
+            { return symbol(sym.TIMES);
             } 
             // fall through
           case 26: break;
-          case 13: 
-            { return new Token(TRIG, yytext());
+          case 11: 
+            { return symbol(sym.DIVIDE);
             } 
             // fall through
           case 27: break;
-          case 14: 
-            { return new Token(SQRT, "");
+          case 12: 
+            { return symbol(sym.CARROT);
             } 
             // fall through
           case 28: break;
+          case 13: 
+            { return symbol(sym.LN);
+            } 
+            // fall through
+          case 29: break;
+          case 14: 
+            { return symbol(sym.TRIG, yytext());
+            } 
+            // fall through
+          case 30: break;
+          case 15: 
+            { return symbol(sym.LOG);
+            } 
+            // fall through
+          case 31: break;
+          case 16: 
+            { return symbol(sym.SQRT);
+            } 
+            // fall through
+          case 32: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

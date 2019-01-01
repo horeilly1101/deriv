@@ -1,38 +1,49 @@
-/* Simple +/-/* expression language; parser evaluates constant expressions on the fly */
-import java_cup.runtime.*;
+/* Our expression language */
 
-parser code {:
-    // Connect this parser to a scanner!
-    scanner s;
-    Parser(scanner s){ this.s=s; }
-:}
-
-/* define how to connect to the scanner! */
-init with {: s.init(); :};
-scan with {: return s.next_token(); :};
+//package horeilly1101.Parser;
+//
+//import java_cup.runtime.*;
+//import horeilly1101.Expression.Expression.*;
+//import static horeilly1101.Expression.Mult.*;
+//import static horeilly1101.Expression.Add.*;
+//import static horeilly1101.Expression.Power.*;
+//import static horeilly1101.Expression.Log.*;
+//import static horeilly1101.Expression.Trig.*;
+//import static horeilly1101.Expression.Constant.*;
+//import static horeilly1101.Expression.Variable.*;
 
 /* Terminals (tokens returned by the scanner). */
-terminal            SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
-terminal Integer    NUMBER;        // our scanner provides numbers as integers
+terminal                    PLUS, MINUS, TIMES, LPAREN, RPAREN, DIVIDE;
+terminal                    CARROT, LN, LOG, SQRT, COMMA, ECON;
+terminal String             VARIABLE, TRIG;
+terminal Integer            NUMBER;
 
 /* Non terminals */
-non terminal            expr_list;
-non terminal Integer    expr;      // used to store evaluated subexpressions
+non terminal Expression     expr, value;
 
 /* Precedences */
-precedence left PLUS, MINUS;
-precedence left TIMES;
-precedence left UMINUS;
+precedence right            CARROT;
+precedence left             PLUS, MINUS;
+precedence left             TIMES, DIVIDE;
 
 /* The grammar rules */
-expr_list ::= expr_list expr:e SEMI         {: System.out.println(e);:}
-            | expr:e SEMI                   {: System.out.println(e);:}
-;
-expr      ::= expr:e1 PLUS  expr:e2         {: RESULT = e1+e2;       :}
-             | expr:e1 MINUS expr:e2        {: RESULT = e1-e2;       :}
-             | expr:e1 TIMES expr:e2        {: RESULT = e1*e2;       :}
-             | MINUS expr:e                 {: RESULT = -e;          :}
-  	     %prec UMINUS
-       | LPAREN expr:e RPAREN	         {: RESULT = e;           :}
-       | NUMBER:n	                     {: RESULT = n;           :}
-             ;
+expr    ::= expr:e1 CARROT expr:e2                      {: RESULT = power(e1, e2); :}
+        | expr:e1 expr:e2                               {: RESULT = mult(e1, e2); :} // implicit multiplication
+        | expr:e1 TIMES expr:e2                         {: RESULT = mult(e1, e2); :}
+        | expr:e1 DIVIDE expr:e2                        {: RESULT = div(e1, e2); :}
+        | expr:e1 PLUS MINUS expr:e2                    {: RESULT = add(e1, negate(e2)); :}
+        | expr:e1 PLUS expr:e2                          {: RESULT = add(e1, e2); :}
+        | expr:e1 MINUS expr:e2                         {: RESULT = add(e1, negate(e2)); :}
+        | TRIG:t LPAREN expr:e RPAREN                   {: RESULT = trig(t, e); :}
+        | LN LPAREN expr:e RPAREN                       {: RESULT = ln(e); :}
+        | LOG LPAREN expr:e RPAREN                      {: RESULT = log(constant(10), e); :}
+        | SQRT LPAREN expr:e RPAREN                     {: RESULT = poly(e, -2); :}
+        | LOG LPAREN expr:e1 COMMA expr:e2 RPAREN       {: RESULT = log(e1, e2); :}
+        | LPAREN expr:e RPAREN                          {: RESULT = e; :}
+        | value:v                                       {: RESULT = v; :}
+        ;
+
+value   ::= NUMBER:n                                    {: RESULT = constant(n); :}
+        | ECON                                          {: RESULT = e(); :}
+        | VARIABLE:x                                    {: RESULT = var(x); :}
+        ;

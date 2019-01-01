@@ -21,7 +21,7 @@ public class Variable implements Expression {
    * a variable named "e" because that's a really important constant in
    * calculus, and we don't want to create any problems.
    */
-  static Expression var(String var) {
+  public static Expression var(String var) {
     if (var.equals("e")) {
       throw new RuntimeException("Variable can't be named e.");
     }

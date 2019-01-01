@@ -29,7 +29,7 @@ public class Add implements Expression {
   /**
    * Use this function to instantiate an Add object.
    */
-  static Expression add(List<Expression> terms) {
+  public static Expression add(List<Expression> terms) {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
@@ -46,7 +46,7 @@ public class Add implements Expression {
   /**
    * Or this one.
    */
-  static Expression add(Expression... terms) {
+  public static Expression add(Expression... terms) {
     return add(Arrays.asList(terms));
   }
 
