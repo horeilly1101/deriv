@@ -33,5 +33,4 @@ Coming soon!
 
 ## Dependencies
 
-You'll need to download java-cup-11b-runtime.jar and spark-core-2.8.0 and then make them available to the classes
-in horeilly1101.
+Handled with Maven.
