@@ -55,6 +55,10 @@ Trig        = (sin|cos|tan|csc|sec|cot)
 
 ")"             { return symbol(sym.RPAREN); }
 
+"["             { return symbol(sym.LBRACK); }
+
+"]"             { return symbol(sym.RBRACK); }
+
 "+"             { return symbol(sym.PLUS); }
 
 "-"             { return symbol(sym.MINUS); }

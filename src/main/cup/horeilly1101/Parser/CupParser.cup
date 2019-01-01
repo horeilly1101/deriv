@@ -13,7 +13,7 @@
 //import static horeilly1101.Expression.Power.*;
 
 /* Terminals (tokens returned by the scanner). */
-terminal                    PLUS, MINUS, TIMES, LPAREN, RPAREN, DIVIDE;
+terminal                    PLUS, MINUS, TIMES, LPAREN, RPAREN, LBRACK, RBRACK, DIVIDE;
 terminal                    CARROT, LN, LOG, SQRT, COMMA, ECON;
 terminal String             VARIABLE, TRIG;
 terminal Integer            NUMBER;
@@ -40,6 +40,7 @@ base    ::= NUMBER:n                                    {: RESULT = constant(n);
         | ECON                                          {: RESULT = e(); :}
         | VARIABLE:x                                    {: RESULT = var(x); :}
         | LPAREN expr:e RPAREN                          {: RESULT = e; :}
+        | LBRACK expr:e RBRACK                          {: RESULT = e; :}
         | TRIG:t LPAREN expr:e RPAREN                   {: RESULT = trig(t, e); :}
         | LN LPAREN expr:e RPAREN                       {: RESULT = ln(e); :}
         | LOG LPAREN expr:e RPAREN                      {: RESULT = log(constant(10), e); :}

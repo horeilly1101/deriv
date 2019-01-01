@@ -37,8 +37,8 @@ public class Parser {
         return Optional.empty();
       }
 
-      // the scanner returns 0 when finished
-      if (current.sym == 0) {
+      // the scanner returns EOF when finished
+      if (current.sym == sym.EOF) {
         break;
       }
 

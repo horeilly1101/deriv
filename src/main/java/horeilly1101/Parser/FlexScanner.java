@@ -37,11 +37,12 @@ public class FlexScanner implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\1\1\1\1\31\1\31\1\31\22\0\1\1\7\0\1\21"+
-    "\1\22\1\25\1\23\1\30\1\24\1\0\1\26\1\2\11\3\7\0"+
-    "\32\4\3\0\1\27\2\0\1\13\1\4\1\10\1\4\1\14\1\4"+
-    "\1\16\1\4\1\6\2\4\1\15\1\4\1\7\1\11\1\4\1\17"+
-    "\1\20\1\5\1\12\6\4\12\0\1\31\u1fa2\0\1\31\1\31\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\1\1\1\1\33\1\33\1\33\22\0\1\1\7\0\1\21"+
+    "\1\22\1\27\1\25\1\32\1\26\1\0\1\30\1\2\11\3\7\0"+
+    "\32\4\1\23\1\0\1\24\1\31\2\0\1\13\1\4\1\10\1\4"+
+    "\1\14\1\4\1\16\1\4\1\6\2\4\1\15\1\4\1\7\1\11"+
+    "\1\4\1\17\1\20\1\5\1\12\6\4\12\0\1\33\u1fa2\0\1\33"+
+    "\1\33\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -55,11 +56,11 @@ public class FlexScanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\2\3\4\4\1\5\1\4\1\6"+
-    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\4\0"+
-    "\1\16\1\0\1\17\1\0\1\20\1\21";
+    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
+    "\1\17\4\0\1\20\1\0\1\21\1\0\1\22\1\23";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[29];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -84,13 +85,13 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\32\0\64\0\32\0\116\0\32\0\150\0\202"+
-    "\0\234\0\32\0\266\0\32\0\32\0\32\0\32\0\32"+
-    "\0\32\0\32\0\32\0\320\0\352\0\u0104\0\u011e\0\32"+
-    "\0\u0138\0\32\0\u0152\0\32\0\32";
+    "\0\0\0\34\0\70\0\34\0\124\0\34\0\160\0\214"+
+    "\0\250\0\34\0\304\0\34\0\34\0\34\0\34\0\34"+
+    "\0\34\0\34\0\34\0\34\0\34\0\340\0\374\0\u0118"+
+    "\0\u0134\0\34\0\u0150\0\34\0\u016c\0\34\0\34";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[29];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -115,15 +116,15 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\5\1\6\1\7\2\6\1\10"+
     "\1\6\1\11\1\6\1\12\1\13\3\6\1\14\1\15"+
-    "\1\16\1\17\1\20\1\21\1\22\1\23\34\0\1\3"+
-    "\32\0\2\5\34\0\1\24\5\0\1\25\2\0\1\26"+
-    "\17\0\1\25\3\0\1\27\33\0\1\24\25\0\1\30"+
-    "\1\0\1\31\27\0\1\32\32\0\1\32\41\0\1\33"+
-    "\16\0\1\32\4\0\1\32\35\0\1\34\25\0\1\35"+
-    "\17\0";
+    "\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
+    "\36\0\1\3\34\0\2\5\36\0\1\26\5\0\1\27"+
+    "\2\0\1\30\21\0\1\27\3\0\1\31\35\0\1\26"+
+    "\27\0\1\32\1\0\1\33\31\0\1\34\34\0\1\34"+
+    "\43\0\1\35\20\0\1\34\4\0\1\34\37\0\1\36"+
+    "\27\0\1\37\21\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[364];
+    int [] result = new int[392];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -162,10 +163,10 @@ public class FlexScanner implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\1\11\1\1\1\11\1\1\1\11\3\1\1\11"+
-    "\1\1\10\11\4\0\1\11\1\0\1\11\1\0\2\11";
+    "\1\1\12\11\4\0\1\11\1\0\1\11\1\0\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[29];
+    int [] result = new int[31];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -271,7 +272,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 132) {
+    while (i < 136) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -638,87 +639,97 @@ public class FlexScanner implements java_cup.runtime.Scanner {
             { return symbol(sym.error);
             } 
             // fall through
-          case 18: break;
+          case 20: break;
           case 2: 
             { /* ignore */
             } 
             // fall through
-          case 19: break;
+          case 21: break;
           case 3: 
             { return symbol(sym.NUMBER, new Integer(yytext()));
             } 
             // fall through
-          case 20: break;
+          case 22: break;
           case 4: 
             { return symbol(sym.VARIABLE, yytext());
             } 
             // fall through
-          case 21: break;
+          case 23: break;
           case 5: 
             { return symbol(sym.ECON);
             } 
             // fall through
-          case 22: break;
+          case 24: break;
           case 6: 
             { return symbol(sym.LPAREN);
             } 
             // fall through
-          case 23: break;
+          case 25: break;
           case 7: 
             { return symbol(sym.RPAREN);
             } 
             // fall through
-          case 24: break;
-          case 8: 
-            { return symbol(sym.PLUS);
-            } 
-            // fall through
-          case 25: break;
-          case 9: 
-            { return symbol(sym.MINUS);
-            } 
-            // fall through
           case 26: break;
-          case 10: 
-            { return symbol(sym.TIMES);
+          case 8: 
+            { return symbol(sym.LBRACK);
             } 
             // fall through
           case 27: break;
-          case 11: 
-            { return symbol(sym.DIVIDE);
+          case 9: 
+            { return symbol(sym.RBRACK);
             } 
             // fall through
           case 28: break;
-          case 12: 
-            { return symbol(sym.CARROT);
+          case 10: 
+            { return symbol(sym.PLUS);
             } 
             // fall through
           case 29: break;
-          case 13: 
-            { return symbol(sym.COMMA);
+          case 11: 
+            { return symbol(sym.MINUS);
             } 
             // fall through
           case 30: break;
-          case 14: 
-            { return symbol(sym.LN);
+          case 12: 
+            { return symbol(sym.TIMES);
             } 
             // fall through
           case 31: break;
-          case 15: 
-            { return symbol(sym.TRIG, yytext());
+          case 13: 
+            { return symbol(sym.DIVIDE);
             } 
             // fall through
           case 32: break;
-          case 16: 
-            { return symbol(sym.LOG);
+          case 14: 
+            { return symbol(sym.CARROT);
             } 
             // fall through
           case 33: break;
-          case 17: 
-            { return symbol(sym.SQRT);
+          case 15: 
+            { return symbol(sym.COMMA);
             } 
             // fall through
           case 34: break;
+          case 16: 
+            { return symbol(sym.LN);
+            } 
+            // fall through
+          case 35: break;
+          case 17: 
+            { return symbol(sym.TRIG, yytext());
+            } 
+            // fall through
+          case 36: break;
+          case 18: 
+            { return symbol(sym.LOG);
+            } 
+            // fall through
+          case 37: break;
+          case 19: 
+            { return symbol(sym.SQRT);
+            } 
+            // fall through
+          case 38: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

@@ -28,7 +28,7 @@ public class ParserTest {
     String str6 = "xlog(e, x)";
     System.out.println(parse(str6));
 
-    String str7 = "xlog(e, &)";
-    System.out.println(parse(str7));
+//    String str7 = "xlog(e, &)";
+//    System.out.println(parse(str7));
   }
 }
