@@ -1,17 +1,5 @@
 /* Our expression language */
 
-//package horeilly1101.Parser;
-//
-//import java_cup.runtime.*;
-//import horeilly1101.Expression.Expression.*;
-//import static horeilly1101.Expression.Mult.*;
-//import static horeilly1101.Expression.Add.*;
-//import static horeilly1101.Expression.Power.*;
-//import static horeilly1101.Expression.Log.*;
-//import static horeilly1101.Expression.Trig.*;
-//import static horeilly1101.Expression.Constant.*;
-//import static horeilly1101.Expression.Variable.*;
-
 /* Terminals (tokens returned by the scanner). */
 terminal                    PLUS, MINUS, TIMES, LPAREN, RPAREN, DIVIDE;
 terminal                    CARROT, LN, LOG, SQRT, COMMA, ECON;

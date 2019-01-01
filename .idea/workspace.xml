@@ -2,24 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="178f6270-3b68-4d0f-b79a-0c25a722a115" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/PracParser.cup" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/PracScanner.jflex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ParserTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/PracParser/PracParserTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Add.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Mult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Mult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Trig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Trig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Variable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/PracParser.cup" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Token.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/PracScanner.jflex" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/horeilly1101/PracParser/PracParserTest.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -152,7 +141,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="10" />
-          <entry key="JAVA" value="293" />
+          <entry key="JAVA" value="296" />
           <entry key="JFlex" value="3" />
           <entry key="Manifest" value="1" />
           <entry key="Markdown" value="6" />
@@ -171,10 +160,10 @@
         <counts>
           <entry key="Cup file" value="64" />
           <entry key="Enforced Plain Text" value="74" />
-          <entry key="JAVA" value="35908" />
+          <entry key="JAVA" value="36232" />
           <entry key="JFlex" value="11" />
           <entry key="Markdown" value="1077" />
-          <entry key="PLAIN_TEXT" value="6702" />
+          <entry key="PLAIN_TEXT" value="6758" />
         </counts>
       </usages-collector>
     </session>
@@ -184,8 +173,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="195">
+              <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="810">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -202,7 +200,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
@@ -211,14 +209,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="32" lean-forward="true" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+            <state relative-caret-position="165">
+              <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="27" selection-start-line="27" selection-end-line="33" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/sym.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="415">
+              <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -231,27 +250,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/sym.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-              <folding>
-                <element signature="e#0#1172#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
             </state>
           </provider>
         </entry>
@@ -619,8 +617,6 @@
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Expression/MultTest.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Expression.java" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" />
-        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java" />
         <option value="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/PracScanner.jflex" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/PracParser/Parser.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/PracParser/sym.java" />
@@ -636,9 +632,11 @@
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Constant.java" />
         <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Expression/Power.java" />
         <option value="$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java" />
         <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ParserTest.java" />
         <option value="$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup" />
-        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java" />
+        <option value="$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java" />
       </list>
     </option>
   </component>
@@ -739,15 +737,6 @@
               <item name="deriv" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="horeilly1101" type="462c0819:PsiDirectoryNode" />
-              <item name="PracParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="deriv" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="jflex" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -840,7 +829,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/hughoreilly/Desktop/GitHub/deriv/src/main/java/horeilly1101/Expression/Add.java" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546302649510" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546316732581" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -870,7 +859,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ParserTest">
+  <component name="RunManager" selected="JUnit.ScannerTest.readTest">
     <configuration name="ParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="1_test" />
       <extension name="coverage">
@@ -962,11 +951,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ScannerTest.readTest" />
         <item itemvalue="JUnit.ParserTest" />
         <item itemvalue="JUnit.PracParserTest.parseTest" />
         <item itemvalue="JUnit.PracParserTest" />
         <item itemvalue="JUnit.ParserTest.parseTest" />
-        <item itemvalue="JUnit.ScannerTest.readTest" />
       </list>
     </recent_temporary>
   </component>
@@ -980,13 +969,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545243666211</updated>
-    </task>
-    <task id="LOCAL-00027" summary="simplified Power instantiation">
-      <created>1545624019226</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1545624019226</updated>
     </task>
     <task id="LOCAL-00028" summary="simplified Log instantiation">
       <created>1545625513608</created>
@@ -1324,46 +1306,53 @@
       <option name="project" value="LOCAL" />
       <updated>1546244437558</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Parser.cup is written and compiled. The parser works!">
+      <created>1546302677511</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1546302677512</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PracParserTest_parseTest - 2018.12.31 at 14h 40m 36s.xml">
-      <configuration name="PracParserTest.parseTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PracParserTest_parseTest - 2018.12.31 at 14h 40m 52s.xml">
-      <configuration name="PracParserTest.parseTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PracParserTest_parseTest - 2018.12.31 at 14h 41m 08s.xml">
-      <configuration name="PracParserTest.parseTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PracParserTest - 2018.12.31 at 15h 24m 45s.xml">
-      <configuration name="PracParserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PracParserTest - 2018.12.31 at 15h 28m 02s.xml">
-      <configuration name="PracParserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PracParserTest_parseTest - 2018.12.31 at 15h 28m 23s.xml">
-      <configuration name="PracParserTest.parseTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ParserTest - 2018.12.31 at 18h 22m 58s.xml">
+    <history-entry file="ParserTest - 2018.12.31 at 18h 30m 21s.xml">
       <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ParserTest - 2018.12.31 at 18h 23m 07s.xml">
+    <history-entry file="ParserTest - 2018.12.31 at 18h 30m 35s.xml">
       <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ParserTest - 2018.12.31 at 18h 25m 05s.xml">
-      <configuration name="ParserTest" configurationId="JUnit" />
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 16m 15s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ParserTest - 2018.12.31 at 18h 26m 25s.xml">
-      <configuration name="ParserTest" configurationId="JUnit" />
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 18m 54s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 19m 11s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 19m 38s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 20m 27s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 20m 41s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 24m 02s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ScannerTest_readTest - 2018.12.31 at 22h 24m 39s.xml">
+      <configuration name="ScannerTest.readTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4974705" visible="true" weight="0.2532189" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4974705" visible="true" weight="0.2532189" />
       <window_info id="Structure" order="1" sideWeight="0.5025295" side_tool="true" weight="0.23891273" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1373,7 +1362,7 @@
       <window_info anchor="bottom" id="Inspection Results" order="0" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="3" visible="true" weight="0.22771084" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.36144578" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -1406,7 +1395,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="cleaned up power differentiation" />
     <MESSAGE value="cleaned up log differentiation" />
     <MESSAGE value="finished Trig unit tests" />
     <MESSAGE value="wrote variable unit tests, pretty simple" />
@@ -1431,7 +1419,8 @@
     <MESSAGE value="cleaned up the API and fixed a couple problems with external libraries" />
     <MESSAGE value="added an example .cup file" />
     <MESSAGE value="jflex file is updated to work alongside cup parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="jflex file is updated to work alongside cup parser" />
+    <MESSAGE value="Parser.cup is written and compiled. The parser works!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parser.cup is written and compiled. The parser works!" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1556,16 +1545,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1727,10 +1706,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex">
+    <entry file="file://$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="195">
+          <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1744,20 +1723,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/cup/horeilly1101/Parser/Parser.cup">
+    <entry file="file://$PROJECT_DIR$/src/main/jflex/horeilly1101/Parser/FlexScanner.jflex">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="810">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/sym.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="e#0#1172#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="210">
+          <caret line="16" column="47" lean-forward="true" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -1771,20 +1747,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/sym.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="32" lean-forward="true" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+        <state relative-caret-position="415">
+          <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/horeilly1101/Parser/ScannerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="27" selection-start-line="27" selection-end-line="33" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/FlexScanner.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/horeilly1101/Parser/Scanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="47" lean-forward="true" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+        <state relative-caret-position="165">
+          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
