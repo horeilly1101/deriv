@@ -37,6 +37,8 @@ public class Scanner {
       tokens.add(current);
     }
 
-    return Optional.of(tokens.stream().map(x -> sym.terminalNames[x.sym]).collect(Collectors.toList()));
+    return Optional.of(tokens.stream()
+                           .map(x -> sym.terminalNames[x.sym])
+                           .collect(Collectors.toList()));
   }
 }
