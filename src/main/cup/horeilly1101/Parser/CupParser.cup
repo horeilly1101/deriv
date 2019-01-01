@@ -1,5 +1,17 @@
 /* Our expression language */
 
+//package horeilly1101.Parser;
+
+//import java_cup.runtime.XMLElement;
+//import horeilly1101.Expression.Expression;
+//import static horeilly1101.Expression.Log.*;
+//import static horeilly1101.Expression.Mult.*;
+//import static horeilly1101.Expression.Add.*;
+//import static horeilly1101.Expression.Constant.*;
+//import static horeilly1101.Expression.Trig.*;
+//import static horeilly1101.Expression.Variable.*;
+//import static horeilly1101.Expression.Power.*;
+
 /* Terminals (tokens returned by the scanner). */
 terminal                    PLUS, MINUS, TIMES, LPAREN, RPAREN, DIVIDE;
 terminal                    CARROT, LN, LOG, SQRT, COMMA, ECON;
@@ -9,20 +21,22 @@ terminal Integer            NUMBER;
 /* Non terminals */
 non terminal Expression     expr, term, factor, base;
 
-expr ::= expr:e PLUS term:t                             {: RESULT = add(e, t); :}
+/* Grammar Definition */
+expr    ::= expr:e PLUS term:t                          {: RESULT = add(e, t); :}
+        | expr:e MINUS MINUS term:t                     {: RESULT = add(e, t); :}
         | expr:e PLUS MINUS term:t                      {: RESULT = add(e, negate(t)); :}
         | expr:e MINUS term:t                           {: RESULT = add(e, negate(t)); :}
         | term:t                                        {: RESULT = t; :}
         ;
-term ::= term:t TIMES factor:f                          {: RESULT = mult(t, f); :}
-        | term:t factor:f                               {: RESULT = mult(t, f); :}
+term    ::= term:t TIMES factor:f                       {: RESULT = mult(t, f); :}
+        | term:t factor:f                               {: RESULT = mult(t, f); :} // implicit multiplication
         | term:t DIVIDE factor:f                        {: RESULT = div(t, f); :}
         | factor:f                                      {: RESULT = f; :}
         ;
-factor ::= base:b CARROT factor:f                       {: RESULT = power(b, f); :}
+factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :}
         | base:b                                        {: RESULT = b; :}
         ;
-base ::= NUMBER:n                                       {: RESULT = constant(n); :}
+base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
         | ECON                                          {: RESULT = e(); :}
         | VARIABLE:x                                    {: RESULT = var(x); :}
         | LPAREN expr:e RPAREN                          {: RESULT = e; :}

@@ -65,4 +65,6 @@ Trig        = (sin|cos|tan|csc|sec|cot)
 
 "^"             { return symbol(sym.CARROT); }
 
-.               { throw new RuntimeException("Illegal character <"+ yytext()+">"); }
+","             { return symbol(sym.COMMA); }
+
+.               { return symbol(sym.error); }

@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static horeilly1101.Parser.Scanner.*;
+import static horeilly1101.Parser.Parser.*;
 import static horeilly1101.Parser.FlexScanner.*;
 
 public class ScannerTest {

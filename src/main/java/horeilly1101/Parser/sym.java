@@ -7,41 +7,26 @@ package horeilly1101.Parser;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int CARROT = 8;
-  public static final int MINUS = 3;
-  public static final int DIVIDE = 7;
-  public static final int LN = 9;
-  public static final int NUMBER = 16;
-  public static final int TRIG = 15;
-  public static final int VARIABLE = 14;
-  public static final int EOF = 0;
-  public static final int PLUS = 2;
-  public static final int ECON = 13;
-  public static final int COMMA = 12;
-  public static final int error = 1;
-  public static final int RPAREN = 6;
-  public static final int SQRT = 11;
-  public static final int TIMES = 4;
-  public static final int LPAREN = 5;
-  public static final int LOG = 10;
-  public static final String[] terminalNames = new String[] {
-  "EOF",
-  "error",
-  "PLUS",
-  "MINUS",
-  "TIMES",
-  "LPAREN",
-  "RPAREN",
-  "DIVIDE",
-  "CARROT",
-  "LN",
-  "LOG",
-  "SQRT",
-  "COMMA",
-  "ECON",
-  "VARIABLE",
-  "TRIG",
-  "NUMBER"
+  int CARROT = 8;
+  int MINUS = 3;
+  int DIVIDE = 7;
+  int LN = 9;
+  int NUMBER = 16;
+  int TRIG = 15;
+  int VARIABLE = 14;
+  int EOF = 0;
+  int PLUS = 2;
+  int ECON = 13;
+  int COMMA = 12;
+  int error = 1;
+  int RPAREN = 6;
+  int SQRT = 11;
+  int TIMES = 4;
+  int LPAREN = 5;
+  int LOG = 10;
+  String[] terminalNames = new String[] {
+    "EOF", "error", "PLUS", "MINUS", "TIMES", "LPAREN", "RPAREN", "DIVIDE",
+    "CARROT", "LN", "LOG", "SQRT", "COMMA", "ECON", "VARIABLE", "TRIG", "NUMBER"
   };
 }
 

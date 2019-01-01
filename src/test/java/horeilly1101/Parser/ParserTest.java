@@ -21,5 +21,14 @@ public class ParserTest {
 
     String str4 = "xx";
     System.out.println(parse(str4));
+
+    String str5 = "xlog(5, x)";
+    System.out.println(parse(str5));
+
+    String str6 = "xlog(e, x)";
+    System.out.println(parse(str6));
+
+    String str7 = "xlog(e, &)";
+    System.out.println(parse(str7));
   }
 }
