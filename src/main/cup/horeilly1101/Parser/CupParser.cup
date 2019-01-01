@@ -7,31 +7,28 @@ terminal String             VARIABLE, TRIG;
 terminal Integer            NUMBER;
 
 /* Non terminals */
-non terminal Expression     expr, value;
+non terminal Expression     expr, term, factor, base;
 
-/* Precedences */
-precedence right            CARROT;
-precedence left             PLUS, MINUS;
-precedence left             TIMES, DIVIDE;
-
-/* The grammar rules */
-expr    ::= expr:e1 CARROT expr:e2                      {: RESULT = power(e1, e2); :}
-        | value:v expr:e                                {: RESULT = mult(v, e); :} // implicit multiplication
-        | expr:e1 TIMES expr:e2                         {: RESULT = mult(e1, e2); :}
-        | expr:e1 DIVIDE expr:e2                        {: RESULT = div(e1, e2); :}
-        | expr:e1 PLUS MINUS expr:e2                    {: RESULT = add(e1, negate(e2)); :}
-        | expr:e1 PLUS expr:e2                          {: RESULT = add(e1, e2); :}
-        | expr:e1 MINUS expr:e2                         {: RESULT = add(e1, negate(e2)); :}
+expr ::= expr:e PLUS term:t                             {: RESULT = add(e, t); :}
+        | expr:e PLUS MINUS term:t                      {: RESULT = add(e, negate(t)); :}
+        | expr:e MINUS term:t                           {: RESULT = add(e, negate(t)); :}
+        | term:t                                        {: RESULT = t; :}
+        ;
+term ::= term:t TIMES factor:f                          {: RESULT = mult(t, f); :}
+        | term:t factor:f                               {: RESULT = mult(t, f); :}
+        | term:t DIVIDE factor:f                        {: RESULT = div(t, f); :}
+        | factor:f                                      {: RESULT = f; :}
+        ;
+factor ::= base:b CARROT factor:f                       {: RESULT = power(b, f); :}
+        | base:b                                        {: RESULT = b; :}
+        ;
+base ::= NUMBER:n                                       {: RESULT = constant(n); :}
+        | ECON                                          {: RESULT = e(); :}
+        | VARIABLE:x                                    {: RESULT = var(x); :}
+        | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         | TRIG:t LPAREN expr:e RPAREN                   {: RESULT = trig(t, e); :}
         | LN LPAREN expr:e RPAREN                       {: RESULT = ln(e); :}
         | LOG LPAREN expr:e RPAREN                      {: RESULT = log(constant(10), e); :}
         | SQRT LPAREN expr:e RPAREN                     {: RESULT = poly(e, -2); :}
         | LOG LPAREN expr:e1 COMMA expr:e2 RPAREN       {: RESULT = log(e1, e2); :}
-        | value:v                                       {: RESULT = v; :}
-        ;
-
-value   ::= NUMBER:n                                    {: RESULT = constant(n); :}
-        | ECON                                          {: RESULT = e(); :}
-        | VARIABLE:x                                    {: RESULT = var(x); :}
-        | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         ;

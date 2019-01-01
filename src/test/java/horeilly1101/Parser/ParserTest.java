@@ -3,7 +3,6 @@ package horeilly1101.Parser;
 import org.junit.Test;
 
 import static horeilly1101.Parser.Parser.*;
-import static horeilly1101.Parser.Scanner.*;
 
 public class ParserTest {
   @Test
@@ -16,5 +15,11 @@ public class ParserTest {
 
     String str2 = "(x + 5)sin(x)";
     System.out.println(parse(str2));
+
+    String str3 = "x ^ 5 + 7x^2 - x + 9";
+    System.out.println(parse(str3));
+
+    String str4 = "xx";
+    System.out.println(parse(str4));
   }
 }

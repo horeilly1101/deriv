@@ -11,8 +11,8 @@ import java_cup.runtime.*;
 
 public class Scanner {
   /**
-   * Scans a String into a list of Token objects. We want to filter out
-   * the WHITESPACE tokens and break the scanner if a FAIL token pops up.
+   * Scans a String into a list of the names of the tokens. This method
+   * only really exists for debugging.
    */
   static Optional<List<String>> read(String input) {
     FlexScanner flex = new FlexScanner(new StringReader(input));
