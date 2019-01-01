@@ -39,6 +39,12 @@ public class DivTest {
   }
 
   @Test
+  public void addTest() {
+    Expression hey = add(constant(9), div(multID(), constant(4)), constant(3), constant(6));
+    assertEquals(add(div(multID(), constant(4)), constant(18)), hey);
+  }
+
+  @Test
   public void evaluateTest() {
     // x / 3
     Expression ex = div(x(), constant(3));

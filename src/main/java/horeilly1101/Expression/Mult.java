@@ -74,9 +74,8 @@ public class Mult implements Expression {
   public Expression getConstantFactor() {
     List<Expression> constants = factors.stream()
                                     .filter(x -> x.isConstant()
-                                                     || (x.isPower()
-                                                             && x.getBase().isConstant()
-                                                             && x.getExponent().isNegative()))
+                                                     || (x.getBase().isConstant()
+                                                             && x.getExponent().equals(constant(-1))))
                                     .collect(toList());
 
     return constants.isEmpty()
@@ -86,9 +85,14 @@ public class Mult implements Expression {
 
   @Override
   public Expression getSymbolicFactors() {
-    return mult(factors.stream()
-                    .filter(x -> !x.isConstant())
-                    .collect(toList()));
+    List<Expression> symbolic = factors.stream()
+                                    .filter(x -> !x.isConstant()
+                                                     && !(x.getBase().isConstant()
+                                                             && x.getExponent().equals(constant(-1))))
+                                    .collect(toList());
+    return symbolic.isEmpty()
+               ? multID()
+               : mult(symbolic);
   }
 
   @Override
@@ -252,7 +256,7 @@ public class Mult implements Expression {
     denConstants /= gcf;
 
     // multiplicative identity?
-    if (numConstants == 1 && noConstants.isEmpty()) {
+    if (numConstants == 1 && denConstants == 1 && noConstants.isEmpty()) {
       noConstants.add(multID());
       // zero?
     } else if (numConstants == 0) {
@@ -336,7 +340,7 @@ public class Mult implements Expression {
     }
 
     // ensure there aren't extraneous 1 multiples
-    return !(bases.contains(multID()) && dencount != factors.size() - 1);
+    return !(bases.contains(multID()) && factors.size() != 1);
   }
 
   /**

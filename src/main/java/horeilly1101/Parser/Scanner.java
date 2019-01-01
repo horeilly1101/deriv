@@ -25,7 +25,7 @@ public class Scanner {
       // we need to catch the exceptions
       try {
         current = flex.next_token();
-      } catch (IOException|RuntimeException e) {
+      } catch (Exception e) {
         return Optional.empty();
       }
 

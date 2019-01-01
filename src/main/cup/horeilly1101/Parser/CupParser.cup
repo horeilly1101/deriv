@@ -16,7 +16,7 @@ precedence left             TIMES, DIVIDE;
 
 /* The grammar rules */
 expr    ::= expr:e1 CARROT expr:e2                      {: RESULT = power(e1, e2); :}
-        | expr:e1 expr:e2                               {: RESULT = mult(e1, e2); :} // implicit multiplication
+        | value:v expr:e                                {: RESULT = mult(v, e); :} // implicit multiplication
         | expr:e1 TIMES expr:e2                         {: RESULT = mult(e1, e2); :}
         | expr:e1 DIVIDE expr:e2                        {: RESULT = div(e1, e2); :}
         | expr:e1 PLUS MINUS expr:e2                    {: RESULT = add(e1, negate(e2)); :}
@@ -27,11 +27,11 @@ expr    ::= expr:e1 CARROT expr:e2                      {: RESULT = power(e1, e2
         | LOG LPAREN expr:e RPAREN                      {: RESULT = log(constant(10), e); :}
         | SQRT LPAREN expr:e RPAREN                     {: RESULT = poly(e, -2); :}
         | LOG LPAREN expr:e1 COMMA expr:e2 RPAREN       {: RESULT = log(e1, e2); :}
-        | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         | value:v                                       {: RESULT = v; :}
         ;
 
 value   ::= NUMBER:n                                    {: RESULT = constant(n); :}
         | ECON                                          {: RESULT = e(); :}
         | VARIABLE:x                                    {: RESULT = var(x); :}
+        | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         ;

@@ -2,16 +2,19 @@ package horeilly1101.Parser;
 
 import org.junit.Test;
 
-import java.io.StringReader;
+import static horeilly1101.Parser.Parser.*;
+import static horeilly1101.Parser.Scanner.*;
 
 public class ParserTest {
   @Test
   public void parseTest() {
-    Parser parser = new Parser(new FlexScanner(new StringReader("(x ^ y) ^ z")));
-    try {
-      System.out.println(parser.parse().value);
-    } catch (Exception e) {
-      System.out.println(e);
-    }
+    String str = "sin(x) + 12";
+    System.out.println(parse(str));
+
+    String str1 = "1 + 12";
+    System.out.println(parse(str1));
+
+    String str2 = "(x + 5)sin(x)";
+    System.out.println(parse(str2));
   }
 }

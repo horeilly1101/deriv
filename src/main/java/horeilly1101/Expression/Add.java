@@ -224,6 +224,7 @@ public class Add implements Expression {
   private static Boolean isSimplified(List<Expression> terms) {
     // we want to make sure there is at most 1 constant in factors
     int conCount = 0;
+    int denConCount = 0;
     Set<Expression> bases = new HashSet<>();
 
     for (Expression term : terms) {
@@ -231,11 +232,17 @@ public class Add implements Expression {
         conCount += 1;
       }
 
+      if (term.getBase().isConstant() && term.getExponent().equals(constant(-1))) {
+        denConCount += 1;
+      }
+
       // all of these conditions imply factors is not simplified
       if (conCount > 1
+              || denConCount > 1
               || (term.equals(addID()) && terms.size() > 1)
               || term.isAdd()
-              || bases.contains(term.getSymbolicFactors())) {
+              || bases.contains(term.getSymbolicFactors())
+                     && !term.getSymbolicFactors().equals(multID())) {
         return false;
       }
 
