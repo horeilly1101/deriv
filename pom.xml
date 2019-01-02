@@ -15,6 +15,7 @@
     </properties>
 
     <dependencies>
+        <!-- junit5 testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -22,6 +23,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- sparkjava -->
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
@@ -41,6 +43,14 @@
             <artifactId>java-cup</artifactId>
             <version>11b</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+
     </dependencies>
 
 </project>
