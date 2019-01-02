@@ -46,9 +46,9 @@ In particular, you should not allow forward slashes, brackets, carrots, or blank
 
 ## Polymorphic Design
 
-Definition: An **Expression** is the broad data structure that allows us to put functions
-together and take their derivatives. Every function is an implementation of an Expression -- this
-is the key design detail that glues the project together. It is implemented by
+Definition: **Expression** is the data structure that allows us to put functions together and take their 
+derivatives. Every function is an implementation of an Expression -- this is the key design detail that glues 
+the project together. It is implemented by
 
 - *Mult*: a mult is a list of expressions, multiplied together
 - *Add*: an add is a list of expressions, added together
@@ -68,10 +68,15 @@ For examples of how to use these classes, see the provided unit tests.
 ## Parser
 
 The scanner is built using [jflex](http://jflex.de/manual.html), and the parser is built using 
-[CUP](http://jflex.de/manual.html). You can find the grammar rules used in 
+[CUP](http://jflex.de/manual.html). You can find the grammar rules for expressions in 
 [FlexScanner.jflex](src/main/jflex/com/deriv/parser/FlexScanner.jflex) and 
 [CupParser.cup](src/main/cup/com/deriv/parser/CupParser.cup). Given the style of these two files, the 
 grammar should be pretty easy to understand, even if you aren't familiar with jflex or CUP.
+
+The order of operations should work as intended, as should smaller details like adding and subtracting
+negative numbers and using implicit multiplication. Also, multiplication, division, addition, and 
+subtraction are left associative, while exponentiation is right associative. This property of the 
+grammar is meant to help increase clarity.
 
 ## Misc.
 
