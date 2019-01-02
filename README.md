@@ -11,21 +11,27 @@ at localhost:4567. There are two different requests you can make. The first is
 (e.g. x^2 * ln(x)) and "wrt" is the variable that "expression" should be differentiated with respect to (e.g. x). 
 This request returns a JSON object of the form
 
-    {  
-        "expression"    :   expression,
-        "result"        :   differentiated expression,
-        "wrt"           :   wrt 
+    { 
+        "data" :   
+            {  
+                "expression" : expression,
+                "result" : differentiated expression,
+                "wrt" : wrt 
+            }
     }
     
 And the second is `localhost:4567/evaluate/:expression/:var/:val`, where "expression" is the expression to be 
 evaluated (e.g. x^2 * ln(x)), "var" is the variable that should be evaluated (e.g. x), and "val" is the number 
 that "expression" should be evaluated with (e.g. 5). This request returns a JSON object of the form
               
-    {  
-        "expression"    :   expression,
-        "result"        :   evaluated expression,
-        "var"           :   var,
-        "val"            :   val
+    { 
+        "data" :   
+            {  
+                "expression" : expression,
+                "result" : differentiated expression,
+                "var" : var,
+                "val" : val, 
+            }
     }
     
 NOTE: You should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
