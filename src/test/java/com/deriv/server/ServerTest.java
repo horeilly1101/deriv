@@ -14,7 +14,5 @@ public class ServerTest {
     List<Integer> lst = Stream.of(1, 2, 3).collect(Collectors.toList());
     JSONArray obj = (new JSONArray());
     System.out.println(obj);
-
-    throw new RuntimeException();
   }
 }

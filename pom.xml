@@ -8,6 +8,7 @@
     <artifactId>deriv</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- configures junit5 to work with maven, needed for Travis -->
     <build>
         <plugins>
             <plugin>
