@@ -1,6 +1,6 @@
 # deriv
 
-An open source derivative calculator REST API. (In progress!)
+An open source derivative calculator REST API.
 
 ## Expression
 
@@ -25,14 +25,15 @@ For examples of how to use these classes, see the provided unit tests.
 
 ## Parser
 
-The scanner was built using [jflex](http://jflex.de/manual.html), and the parser was built using 
-[CUP](http://jflex.de/manual.html). You can find the grammar rules usedin FlexScanner.jflex and CupParser.cup. 
-Given the style of these two files, the grammar should be pretty easy to understand, even if you aren't 
-familiar with jflex or CUP.
+The scanner is built using [jflex](http://jflex.de/manual.html), and the parser is built using 
+[CUP](http://jflex.de/manual.html). You can find the grammar rules used in 
+[FlexScanner.jflex](src/main/jflex/com/deriv/parser/FlexScanner.jflex) and 
+[CupParser.cup](src/main/cup/com/deriv/parser/CupParser.cup). Given the style of these two files, the 
+grammar should be pretty easy to understand, even if you aren't familiar with jflex or CUP.
 
 ## Server
 
-Coming soon!
+The server is built using 
 
 ## Dependencies
 
