@@ -50,7 +50,7 @@ public class Add implements Expression {
     return add(Arrays.asList(terms));
   }
 
-  private List<Expression> getTerms() {
+  List<Expression> getTerms() {
     return terms;
   }
 
@@ -84,13 +84,14 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    // We use brackets for adds so that it's easier to debug
-    // when comparing to mults
-    return "[" + terms.get(0).toString()
+    return "(" + terms.get(0).toString()
                + terms.subList(1, terms.size()).stream()
-                     .map(Expression::toString)
-                     .reduce("", (a, b) -> a + " + " + b)
-               + "]";
+                     // we want to print to subtraction
+                     .map(x -> x.isNegative()
+                                   ? " - " + negate(x).toString()
+                                   : " + " + x.toString())
+                     .reduce("", (a, b) -> a + b)
+               + ")";
   }
 
   public Expression evaluate(String var, Double input) {

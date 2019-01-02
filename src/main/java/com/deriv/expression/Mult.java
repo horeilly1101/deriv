@@ -42,7 +42,7 @@ public class Mult implements Expression {
                                       .sorted()
                                       .collect(toList());
 
-    return lengthCheck(simplified);
+    return finalCheck(simplified);
   }
 
   /**
@@ -136,10 +136,10 @@ public class Mult implements Expression {
       return mult(num).toString() + " / " + mult(den).toString();
     }
 
-    return "(" + factors.get(0).toString()
+    return factors.get(0).toString()
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
-                     .reduce("", (a, b) -> a + " * " + b) + ")";
+                     .reduce("", (a, b) -> a  + b);
   }
 
   public Expression evaluate(String var, Double input) {
@@ -360,11 +360,24 @@ public class Mult implements Expression {
   }
 
   /**
-   * This method checks whether or not a list of factors has more than
-   * one element. If it does, then it creates a mult. If it has just one
-   * object, it just returns the object.
+   * This method checks 2 things. First, it checks if factors is just a list of a constant and an Add.
+   * If this is the case, we want to distribute the constant among the terms and return an Add.
+   * Second, it checks whether or not a list of factors has more than one element. If it does, then it
+   * creates a mult. If it has just one object, it just returns the object.
    */
-  private static Expression lengthCheck(List<Expression> factors) {
+  private static Expression finalCheck(List<Expression> factors) {
+    if (factors.size() == 2) {
+      List<Expression> con = factors.stream().filter(Expression::isConstant).collect(toList());
+      List<Expression> remain = factors.stream().filter(Expression::isAdd).collect(toList());
+      if (con.size() == 1 && remain.size() == 1) {
+        // distribute the constant amongst the terms
+        return add(
+            remain.get(0).asAdd().getTerms().stream()
+                .map(x -> mult(con.get(0), x))
+                .collect(toList()));
+      }
+    }
+
     return factors.size() == 1 ? factors.get(0) : new Mult(factors);
   }
 }

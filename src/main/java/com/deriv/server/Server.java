@@ -1,7 +1,6 @@
 package com.deriv.server;
 
 import com.deriv.expression.Expression;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.Optional;
 
@@ -35,9 +34,10 @@ public class Server {
       // url variables
       String expr = req.params(":expr");
       String var = req.params(":var");
+      // need to check val
       String val = req.params(":val");
 
-      // evaluate derivative, if possible
+      // evaluate expression, if possible
       Optional<Expression> oParsed = parse(expr);
       String result = oParsed.isPresent()
                           ? oParsed.get().evaluate(var, new Double(val)).toString()

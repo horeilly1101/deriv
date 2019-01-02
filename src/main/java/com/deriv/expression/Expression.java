@@ -46,11 +46,9 @@ public interface Expression extends Comparable {
    * 2.0 * x should be equal to x * 2.0.)
    */
   default int compareTo(Object o) {
-    // constants shouldcome first
-
-    // polynomials go in decreasing order of exponent
-    if (this.isPower() || o.getClass().equals(Power.class)) {
-      return this.getExponent().compareTo(((Expression) o).getExponent());
+    // constants should come first
+    if (this.isConstant() && !o.getClass().equals(Constant.class)) {
+      return -1 * Math.abs(this.toString().compareTo(o.toString()));
     }
 
     return this.toString().compareTo(o.toString());
