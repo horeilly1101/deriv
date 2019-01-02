@@ -8,7 +8,7 @@ The server is built using [Spark](http://sparkjava.com/), and you can run the se
 [Server.java](src/main/java/com/deriv/server/Server.java) in the server module. The server will then be available
 at localhost:4567. There are two different requests you can make. The first is
 `localhost:4567/differentiate/:expression/:wrt`, where "expression" is the expression to be differentiated 
-(e.g. x^2 * ln(x)) and "wrt" is the variable that "expression" should be differentiated with respect to (e.g. "x"). 
+(e.g. x^2 * ln(x)) and "wrt" is the variable that "expression" should be differentiated with respect to (e.g. x). 
 This request returns a JSON object of the form
 
     {  
@@ -18,7 +18,7 @@ This request returns a JSON object of the form
     }
     
 And the second is `localhost:4567/evaluate/:expression/:var/:val`, where "expression" is the expression to be 
-evaluated (e.g. x^2 * ln(x)), "var" is the variable that should be evaluated (e.g. "x"), and "val" is the number 
+evaluated (e.g. x^2 * ln(x)), "var" is the variable that should be evaluated (e.g. x), and "val" is the number 
 that "expression" should be evaluated with (e.g. 5). This request returns a JSON object of the form
               
     {  
@@ -78,3 +78,4 @@ grammar should be pretty easy to understand, even if you aren't familiar with jf
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
 - +90% of the Expression classes are covered by unit tests.
+- Uses [JSON-Java](https://github.com/stleary/JSON-java) to create JSON objects.
