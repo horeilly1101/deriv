@@ -25,7 +25,7 @@ that "expression" should be evaluated with (e.g. 5). This request returns a JSON
         "expression"    :   expression,
         "result"        :   evaluated expression,
         "var"           :   var,
-        "val            :   val
+        "val"            :   val
     }
     
 NOTE: You should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
@@ -34,6 +34,14 @@ Instead, use %2F, its ASCII encoding reference. You can find a list of similar e
 [here](https://www.w3schools.com/tags/ref_urlencode.asp).
 
 In particular, you should not allow forward slashes, brackets, carrots, or blank spaces in your URLs.
+
+|    Symbol   | URL Code |
+|:-----------:|----------|
+|      /      |    %2F   |
+|      ^      |    %5E   |
+|      [      |    %5B   |
+|      ]      |    %5D   |
+| blank space |    %20   |
 
 ## Polymorphic Design
 
