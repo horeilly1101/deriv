@@ -29,9 +29,10 @@ that "expression" should be evaluated with (e.g. 5). This request returns a JSON
     }
     
 NOTE: You should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
-For example, you cannot use "/" to represent division when querying the server, as that is a reserved character.
-Instead, use %2F, its ASCII encoding reference. You can find a list of similar encoding references
-[here](https://www.w3schools.com/tags/ref_urlencode.asp).
+For example, you can't use "/" to represent division when querying the server, as that is a reserved character.
+Instead, use %2F, its ASCII encoding reference. You can find a comprehensive list of URL encoding references
+[here](https://www.w3schools.com/tags/ref_urlencode.asp), but I've put the important ones (for this project) down
+below.
 
 In particular, you should not allow forward slashes, brackets, carrots, or blank spaces in your URLs.
 
@@ -45,7 +46,7 @@ In particular, you should not allow forward slashes, brackets, carrots, or blank
 
 ## Polymorphic Design
 
-Definition: An **Expression** is the all-encompassing data structure that allows us to put functions
+Definition: An **Expression** is the broad data structure that allows us to put functions
 together and take their derivatives. Every function is an implementation of an Expression -- this
 is the key design detail that glues the project together. It is implemented by
 
@@ -60,7 +61,7 @@ is the key design detail that glues the project together. It is implemented by
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
 available are integrals, inverse functions, and more obscure functions, but these may all be added later on.) It's
 interesting to note that the hardest part of this project has been simplifying the expressions before they're
-instantiated. The design, derivatives, evaluations -- all of that was easy compared to the simplifications.
+instantiated. The design, derivatives, evaluations -- all of that was easy compared to the simplification stage.
 
 For examples of how to use these classes, see the provided unit tests.
 
