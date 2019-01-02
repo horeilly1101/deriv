@@ -31,21 +31,23 @@ public class Server {
                  .put("result", result);
     });
 
-//    get("/evaluate/:expr/:at/:with", (req, res) -> {
-//      // url variables
-//      String expr = req.params(":expr");
-//      String at = req.params(":at");
-//      String with = req.params(":with");
-//
-//      // evaluate derivative, if possible
-//      Optional<Expression> oParsed = parse(expr);
-//      String result = oParsed.isPresent()
-//                          ? oParsed.get().evaluate(at, ).toString()
-//                          : "ERROR";
-//
-//      return (new JSONObject())
-//                 .put("expression", expr)
-//                 .put("result", result);
-//    });
+    get("/evaluate/:expr/:var/:val", (req, res) -> {
+      // url variables
+      String expr = req.params(":expr");
+      String var = req.params(":var");
+      String val = req.params(":val");
+
+      // evaluate derivative, if possible
+      Optional<Expression> oParsed = parse(expr);
+      String result = oParsed.isPresent()
+                          ? oParsed.get().evaluate(var, new Double(val)).toString()
+                          : "ERROR";
+
+      return (new JSONObject())
+                 .put("expression", expr)
+                 .put("result", result)
+                 .put("var", var)
+                 .put("val", val);
+    });
   }
 }
