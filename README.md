@@ -1,4 +1,4 @@
-# deriv
+# deriv [![Build Status](https://travis-ci.com/horeilly1101/deriv.svg?branch=master)](https://travis-ci.com/horeilly1101/deriv)
 
 An open source derivative calculator REST API.
 
