@@ -32,7 +32,7 @@ term    ::= term:t TIMES factor:f                       {: RESULT = mult(t, f); 
         | term:t DIVIDE factor:f                        {: RESULT = div(t, f); :}
         | factor:f                                      {: RESULT = f; :}
         ;
-factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :}
+factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :} // right associative
         | base:b                                        {: RESULT = b; :}
         ;
 base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
