@@ -1,7 +1,6 @@
 package com.deriv.server;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

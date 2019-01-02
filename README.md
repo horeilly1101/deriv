@@ -2,9 +2,42 @@
 
 An open source derivative calculator REST API.
 
-## Expression
+## Server
 
-Definition: An Expression is the all-encompassing data structure that allows us to put functions
+The server is built using [Spark](http://sparkjava.com/), and you can run the server by running 
+[Server.java](src/main/java/com/deriv/server/Server.java) in the server module. The server will then be available
+at localhost:4567. There are two different requests you can make. The first is
+`localhost:4567/differentiate/:expression/:wrt`, where "expression" is the expression to be differentiated 
+(e.g. x^2 * ln(x)) and "wrt" is the variable that "expression" should be differentiated with respect to (e.g. "x"). 
+This request returns a JSON object of the form
+
+    {  
+        "expression"    :   expression,
+        "result"        :   differentiated expression,
+        "wrt"           :   wrt 
+    }
+    
+And the second is `localhost:4567/evaluate/:expression/:var/:val`, where "expression" is the expression to be 
+evaluated (e.g. x^2 * ln(x)), "var" is the variable that should be evaluated (e.g. "x"), and "val" is the number 
+that "expression" should be evaluated with (e.g. 5). This request returns a JSON object of the form
+              
+    {  
+        "expression"    :   expression,
+        "result"        :   evaluated expression,
+        "var"           :   var,
+        "val            :   val
+    }
+    
+NOTE: You should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
+For example, you cannot use "/" to represent division when querying the server, as that is a reserved character.
+Instead, use %2F, its ASCII encoding reference. You can find a list of similar encoding references
+[here](https://www.w3schools.com/tags/ref_urlencode.asp).
+
+In particular, you should not allow forward slashes, brackets, carrots, or blank spaces in your URLs.
+
+## Polymorphic Design
+
+Definition: An **Expression** is the all-encompassing data structure that allows us to put functions
 together and take their derivatives. Every function is an implementation of an Expression -- this
 is the key design detail that glues the project together. It is implemented by
 
@@ -30,10 +63,6 @@ The scanner is built using [jflex](http://jflex.de/manual.html), and the parser 
 [FlexScanner.jflex](src/main/jflex/com/deriv/parser/FlexScanner.jflex) and 
 [CupParser.cup](src/main/cup/com/deriv/parser/CupParser.cup). Given the style of these two files, the 
 grammar should be pretty easy to understand, even if you aren't familiar with jflex or CUP.
-
-## Server
-
-The server is built using 
 
 ## Dependencies
 
