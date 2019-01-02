@@ -25,7 +25,10 @@ For examples of how to use these classes, see the provided unit tests.
 
 ## Parser
 
-Coming soon!
+The scanner was built using [jflex](http://jflex.de/manual.html), and the parser was built using 
+[CUP](http://jflex.de/manual.html). You can find the grammar rules usedin FlexScanner.jflex and CupParser.cup. 
+Given the style of these two files, the grammar should be pretty easy to understand, even if you aren't 
+familiar with jflex or CUP.
 
 ## Server
 

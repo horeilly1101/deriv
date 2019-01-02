@@ -13,17 +13,21 @@ public class Server {
   public static void main(String[] args) {
     get("/differentiate/:expr/:wrt", (req, res) -> {
       // url variables
-      String expr = req.params(":expr");
+      String exprString = req.params(":expr");
       String wrt = req.params(":wrt");
 
       // evaluate derivative, if possible
-      Optional<Expression> oParsed = parse(expr);
+      Optional<Expression> oParsed = parse(exprString);
+      String expression = oParsed.isPresent()
+                              ? oParsed.get().toString()
+                              : "ERROR";
       String result = oParsed.isPresent()
                           ? oParsed.get().differentiate(wrt).toString()
                           : "ERROR";
 
       return (new JSONObject())
-                 .put("expression", expr)
+                 .put("expression", expression)
+                 .put("wrt", wrt)
                  .put("result", result);
     });
 
