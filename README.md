@@ -64,6 +64,8 @@ The scanner is built using [jflex](http://jflex.de/manual.html), and the parser 
 [CupParser.cup](src/main/cup/com/deriv/parser/CupParser.cup). Given the style of these two files, the 
 grammar should be pretty easy to understand, even if you aren't familiar with jflex or CUP.
 
-## Dependencies
+## Misc.
 
-Handled with Maven.
+- Dependencies are handled with Maven.
+- All code was written in IntelliJ IDEA.
+- +90% of the Expression classes are covered by unit tests.
