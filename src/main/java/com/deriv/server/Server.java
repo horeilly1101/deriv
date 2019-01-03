@@ -18,6 +18,7 @@ public class Server {
 
   // runs the server on localhost:4567
   public static void main(String[] args) {
+
     // the GET call that differentiates an expression
     get("/differentiate/:expr/:var", (req, res) -> {
       // url variables
@@ -78,7 +79,7 @@ public class Server {
       // attempt to evaluate expression
       Optional<Expression> oEval = oVal.flatMap(vl ->
                                                     oVar.flatMap(vr ->
-                                                                     oExpr.map(ex -> ex.evaluate(vr, vl))));
+                                                                     oExpr.flatMap(ex -> ex.evaluate(vr, vl))));
 
       // return the evaluation if possible, otherwise an error
       return oEval.isPresent()

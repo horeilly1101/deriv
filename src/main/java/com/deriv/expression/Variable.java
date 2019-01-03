@@ -1,5 +1,7 @@
 package com.deriv.expression;
 
+import java.util.Optional;
+
 public class Variable implements Expression {
   String var;
 
@@ -55,9 +57,11 @@ public class Variable implements Expression {
     return var;
   }
 
-  public Expression evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Double input) {
     // update later
-    return var.equals(this.var) ? Constant.constant((int) Math.round(input)) : this;
+    return var.equals(this.var)
+               ? Optional.of(Constant.constant((int) Math.round(input)))
+               : Optional.of(this);
   }
 
   public Expression differentiate(String wrt) {

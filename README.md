@@ -82,7 +82,7 @@ grammar should be pretty easy to understand, even if you aren't familiar with jf
 The order of operations should work as intended, as should smaller details like adding and subtracting
 negative numbers and using implicit multiplication. Also, multiplication, division, addition, and 
 subtraction are left associative, while exponentiation is right associative. This property of the 
-grammar is meant to help increase clarity.
+grammar is meant to increase clarity.
 
 ## Misc.
 

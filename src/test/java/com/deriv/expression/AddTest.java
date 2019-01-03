@@ -69,11 +69,11 @@ public class AddTest {
   public void evaluateTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    assertEquals(constant(6), ex.evaluate("x", 2.0));
+    assertEquals(constant(6), ex.evaluate("x", 2.0).get());
 
     // x + a + 3, where a is a constant
     Expression ex2 = add(x(), constant("a"), constant(3));
-    assertEquals(add(constant("a"), constant(6)), ex2.evaluate("x", 3.0));
+    assertEquals(add(constant("a"), constant(6)), ex2.evaluate("x", 3.0).get());
   }
 
   @Test

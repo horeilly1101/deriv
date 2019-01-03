@@ -1,5 +1,7 @@
 package com.deriv.expression;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
@@ -65,8 +67,16 @@ public class Log implements Expression {
                : "log(" + base.toString() + ", " + result.toString() + ")";
   }
 
-  public Expression evaluate(String var, Double val) {
-    return log(base.evaluate(var, val), result.evaluate(var, val));
+  public Optional<Expression> evaluate(String var, Double val) {
+    if (result.isConstant() && result.asConstant().getVal() <= 0) {
+      return Optional.empty();
+    }
+
+    return base.evaluate(var, val)
+               .flatMap(ba -> result.evaluate(var, val)
+                                  .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0
+                                                     ? Optional.empty()
+                                                     : Optional.of(log(ba, re))));
   }
 
   public Expression differentiate(String var) {

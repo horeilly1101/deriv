@@ -1,5 +1,6 @@
 package com.deriv.expression;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.deriv.expression.Constant.*;
@@ -111,10 +112,13 @@ public class Power implements Expression {
     return base.toString() + " ^ " + exponent.toString();
   }
 
-  public Expression evaluate(String var, Double input) {
-    return power(
-        base.evaluate(var, input),
-        exponent.evaluate(var, input));
+  public Optional<Expression> evaluate(String var, Double input) {
+    return base.evaluate(var, input)
+               .flatMap(ba -> exponent.evaluate(var, input)
+                                  // make sure we're not dividing by zero
+                                  .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
+                                                     ? Optional.empty()
+                                                     : Optional.of(power(ba, ex))));
   }
 
   public Expression differentiate(String var) {

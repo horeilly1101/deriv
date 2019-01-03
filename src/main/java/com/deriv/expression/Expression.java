@@ -1,5 +1,7 @@
 package com.deriv.expression;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Constant.*;
 
 /**
@@ -29,7 +31,9 @@ public interface Expression extends Comparable {
    */
   // future: should be able to evaluate with an Expression
   // e.g. evaluate at e
-  Expression evaluate(String var, Double input);
+  Optional<Expression> evaluate(String var, Double input);
+
+//  Expression evaluate(String var, Double input);
 
   /**
    * Takes the derivative of the given expression.

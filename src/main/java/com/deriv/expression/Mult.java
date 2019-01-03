@@ -7,6 +7,7 @@ import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
+import static java.util.stream.Collectors.toMap;
 
 public class Mult implements Expression {
   private List<Expression> factors;
@@ -142,11 +143,18 @@ public class Mult implements Expression {
                      .reduce("", (a, b) -> a  + b);
   }
 
-  public Expression evaluate(String var, Double input) {
-    // multiplies factors together
-    return mult(factors.stream()
-                  .map(x -> x.evaluate(var, input))
-                  .collect(toList()));
+  public Optional<Expression> evaluate(String var, Double input) {
+    // multiplies terms together
+    List<Optional<Expression>> eval = factors.stream()
+                                          .map(x -> x.evaluate(var, input))
+                                          .collect(toList());
+
+    // make sure each term was evaluated
+    return eval.stream().filter(Optional::isPresent).count() == eval.size()
+               ? Optional.of(
+                   mult(
+                       eval.stream().map(Optional::get).collect(toList())))
+               : Optional.empty();
   }
 
   public Expression differentiate(String var) {

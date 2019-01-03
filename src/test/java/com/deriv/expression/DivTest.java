@@ -48,15 +48,15 @@ public class DivTest {
   public void evaluateTest() {
     // x / 3
     Expression ex = div(x(), constant(3));
-    assertEquals(constant(27), ex.evaluate("x", 81.0));
+    assertEquals(constant(27), ex.evaluate("x", 81.0).get());
 
     // (x + 1) / 3
     Expression ex2 = div(add(x(), multID()), constant(3));
-    assertEquals(constant(27), ex2.evaluate("x", 80.0));
+    assertEquals(constant(27), ex2.evaluate("x", 80.0).get());
 
     // ln(x + 1) / x
     Expression ex3 = div(ln(add(x(), multID())), x());
-    assertEquals(ln(constant(2)), ex3.evaluate("x", 1.0));
+    assertEquals(ln(constant(2)), ex3.evaluate("x", 1.0).get());
   }
 
   @Test
@@ -68,8 +68,8 @@ public class DivTest {
 //    assertEquals(result, ex.differentiate("x"));
   }
 
-  @Test
-  public void denomTest() {
-    System.out.println(add(div(multID(), x()), div(multID(), x())));
-  }
+//  @Test
+//  public void denomTest() {
+//    System.out.println(div(multID(), constant(4)));
+//  }
 }

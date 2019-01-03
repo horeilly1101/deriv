@@ -1,6 +1,8 @@
 package com.deriv.expression;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;
@@ -99,12 +101,19 @@ public class Add implements Expression {
                + ")";
   }
 
-  public Expression evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Double input) {
     // adds terms together
-    return add(terms.stream()
-                   .map(x -> x.evaluate(var, input))
-                   .collect(toList()));
-  }
+    List<Optional<Expression>> eval = terms.stream()
+                                           .map(x -> x.evaluate(var, input))
+                                           .collect(toList());
+
+    // make sure each term was evaluated
+    return eval.stream().filter(Optional::isPresent).count() == eval.size()
+               ? Optional.of(
+                   add(
+                       eval.stream().map(Optional::get).collect(toList())))
+               : Optional.empty();
+   }
 
   public Expression differentiate(String var) {
     // linearity of differentiation

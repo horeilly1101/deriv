@@ -64,11 +64,11 @@ public class MultTest {
   public void evaluateTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
-    assertEquals(constant(8), ex.evaluate("x", 2.0));
+    assertEquals(constant(8), ex.evaluate("x", 2.0).get());
 
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
-    assertEquals(mult(constant("a"), constant(9)), ex2.evaluate("x", 3.0));
+    assertEquals(mult(constant("a"), constant(9)), ex2.evaluate("x", 3.0).get());
   }
 
   @Test

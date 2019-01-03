@@ -1,5 +1,7 @@
 package com.deriv.expression;
 
+import java.util.Optional;
+
 public class Constant implements Expression {
   private Integer val;
 
@@ -83,8 +85,8 @@ public class Constant implements Expression {
     return val.toString();
   }
 
-  public Expression evaluate(String var, Double input) {
-    return this;
+  public Optional<Expression> evaluate(String var, Double input) {
+    return Optional.of(this);
   }
 
   public Expression differentiate(String var) {

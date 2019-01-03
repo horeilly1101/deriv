@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
@@ -131,9 +132,9 @@ public class Trig implements Expression {
     return this.func + "(" + this.inside.toString() + ")";
   }
 
-  public Expression evaluate(String var, Double val) {
-    return evalMap.get(this.func)
-               .apply(inside.evaluate(var, val));
+  public Optional<Expression> evaluate(String var, Double val) {
+    return inside.evaluate(var, val)
+               .map(x -> evalMap.get(this.func).apply(x));
   }
 
   public Expression differentiate(String var) {

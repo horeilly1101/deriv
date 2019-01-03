@@ -32,8 +32,8 @@ public class LogTest {
   public void evaluateTest() {
     // log(2, x)
     Expression lg = log(constant(2), x());
-    assertEquals(multID(), lg.evaluate("x", 2.0));
-    assertEquals(log(constant(2), constant(5)), lg.evaluate("x", 5.0));
+    assertEquals(multID(), lg.evaluate("x", 2.0).get());
+    assertEquals(log(constant(2), constant(5)), lg.evaluate("x", 5.0).get());
   }
 
   @Test
