@@ -68,6 +68,13 @@ public class Add implements Expression {
   }
 
   @Override
+  public Boolean isNegative() {
+    return terms.stream()
+               .map(Expression::isNegative)
+               .reduce(true, (a, b) -> a && b);
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

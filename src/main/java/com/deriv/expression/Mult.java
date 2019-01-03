@@ -1,13 +1,11 @@
 package com.deriv.expression;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
-import static java.util.stream.Collectors.toMap;
 
 public class Mult implements Expression {
   private List<Expression> factors;
@@ -158,7 +156,7 @@ public class Mult implements Expression {
     return firstFactor
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
-                     .reduce("", (a, b) -> a  + b);
+                     .reduce("", (a, b) -> a + b);
   }
 
   public Optional<Expression> evaluate(String var, Double input) {
