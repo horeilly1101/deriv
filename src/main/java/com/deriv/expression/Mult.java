@@ -98,7 +98,28 @@ public class Mult implements Expression {
 
   @Override
   public Boolean isNegative() {
-    return this.getConstantFactor().isNegative();
+    Expression constantFactor = this.getConstantFactor();
+
+    return constantFactor.getNumerator().isNegative()
+               || constantFactor.getDenominator().isNegative();
+  }
+
+  @Override
+  public Expression getNumerator() {
+    List<Expression> num = factors.stream()
+                               .filter(x -> !x.getExponent().isNegative())
+                               .collect(toList());
+    return num.isEmpty() ? multID() : mult(num);
+  }
+
+  @Override
+  public Expression getDenominator() {
+    List<Expression> den = factors.stream()
+                               .filter(x -> x.getExponent().isNegative())
+                               .map(y -> poly(y, -1))
+                               .collect(toList());
+
+    return den.isEmpty() ? multID() : mult(den);
   }
 
   @Override
@@ -120,24 +141,21 @@ public class Mult implements Expression {
 
   @Override
   public String toString() {
-    List<Expression> den = this.getFactors()
-                               .stream()
-                               .filter(x -> x.getExponent().isNegative())
-                               .map(y -> poly(y, -1))
-                               .collect(toList());
+    Expression den = this.getDenominator();
 
-    if (den.size() > 0) {
-      List<Expression> num = this.getFactors()
-                                 .stream()
-                                 .filter(x -> !x.getExponent().isNegative())
-                                 .collect(toList());
-      num = num.size() > 0 ? num : Stream.of(multID()).collect(toList());
+    if (!den.equals(multID())) {
+      Expression num = this.getNumerator();
 
       // probably the easiest way to write this
-      return mult(num).toString() + " / " + mult(den).toString();
+      return num.toString() + " / " + den.toString();
     }
 
-    return factors.get(0).toString()
+    // calculate first factor to properly handle multiplying by -1
+    String firstFactor = factors.get(0).equals(constant(-1))
+                             ? "-"
+                             : factors.get(0).toString();
+
+    return firstFactor
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
                      .reduce("", (a, b) -> a  + b);
