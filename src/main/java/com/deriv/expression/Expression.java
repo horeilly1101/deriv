@@ -48,9 +48,9 @@ public interface Expression extends Comparable {
    */
   default int compareTo(Object o) {
     // constants should come first
-    if (this.isConstant() && !o.getClass().equals(Constant.class)) {
-      return -1 * Math.abs(this.toString().compareTo(o.toString()));
-    }
+//    if (this.isConstant() && !o.getClass().equals(Constant.class)) {
+//      return -1 * Math.abs(this.toString().compareTo(o.toString()));
+//    }
 
     return this.toString().compareTo(o.toString());
   }
