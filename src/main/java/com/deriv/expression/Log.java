@@ -68,10 +68,6 @@ public class Log implements Expression {
   }
 
   public Optional<Expression> evaluate(String var, Double val) {
-    if (result.isConstant() && result.asConstant().getVal() <= 0) {
-      return Optional.empty();
-    }
-
     return base.evaluate(var, val)
                .flatMap(ba -> result.evaluate(var, val)
                                   .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0

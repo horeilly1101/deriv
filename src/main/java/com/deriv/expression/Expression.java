@@ -27,13 +27,10 @@ public interface Expression extends Comparable {
    *
    * @param var -- a string variable name
    * @param input -- the number to be plugged into var
-   * @return Expression solution
+   * @return Optional<Expression> solution
    */
-  // future: should be able to evaluate with an Expression
-  // e.g. evaluate at e
   Optional<Expression> evaluate(String var, Double input);
-
-//  Expression evaluate(String var, Double input);
+  // should be able to evaluate at any expression value
 
   /**
    * Takes the derivative of the given expression.
