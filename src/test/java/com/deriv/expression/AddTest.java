@@ -2,6 +2,8 @@ package com.deriv.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Add.*;
@@ -9,25 +11,25 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Trig.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class AddTest {
+class AddTest {
 
   @Test
-  public void addTest() {
+  void addTest() {
     // we first want to make sure the stack doesn't overflow
     // this has been a recurring problem
     add(x(), e());
   }
 
-//  @Test
-//  public void emptyListTest() {
-//    // we want to make sure this throws an exception
-//    add();
-//  }
+  @Test
+  void emptyListTest() {
+    // we want to make sure this throws an exception
+    assertThrows(RuntimeException.class, Add::add);
+  }
 
   @Test
-  public void commutativityTest() {
+  void commutativityTest() {
     // x + sin(x)
     Expression ex = add(x(), sin(x()));
     // sin(x) + x
@@ -36,14 +38,14 @@ public class AddTest {
   }
 
   @Test
-  public void nestingTest() {
+  void nestingTest() {
     // x + (x + (x + (x + ln(x))))
     Expression ex = add(x(), add(x(), add(x(), add(x(), ln(x())))));
     assertEquals(add(mult(x(), constant(4)), ln(x())), ex);
   }
 
   @Test
-  public void constantTest() {
+  void constantTest() {
     // 2 + 3 + 4
     Expression ex = add(constant(2), constant(3), constant(4));
     assertEquals(constant(9), ex);
@@ -51,33 +53,96 @@ public class AddTest {
     // 0 + ln(x)
     Expression ex2 = add(addID(), ln(x()));
     assertEquals(ln(x()), ex2);
+
+    // 1 + -1
+    Expression ex3 = add(multID(), negate(multID()));
+    assertEquals(addID(), ex3);
   }
 
   @Test
-  public void countTest() {
+  void getConstantTermTest() {
+    // x^2 + x
+    Expression ex = add(poly(x(), 2), x());
+    assertEquals(addID(), ex.getConstantTerm());
+
+    // x + 2
+    Expression ex2 = add(x(), constant(2));
+    assertEquals(constant(2), ex2.getConstantTerm());
+
+    // x + 1/2 + 1/3 + 4
+    Expression ex3 = add(x(), div(multID(), constant(2)), div(multID(), constant(3)), constant(4));
+    assertEquals(add(div(multID(), constant(2)), div(multID(), constant(3)), constant(4)), ex3.getConstantTerm());
+  }
+
+  @Test
+  void getSymbolicTerms() {
+    // x^2 + x
+    Expression ex = add(poly(x(), 2), x());
+    assertEquals(add(poly(x(), 2), x()), ex.getSymbolicTerms());
+
+    // x + 2
+    Expression ex2 = add(x(), constant(2));
+    assertEquals(x(), ex2.getSymbolicTerms());
+
+    // x^2 + x + 1/2 + 1/3 + 4
+    Expression ex3 = add(poly(x(), 2), x(), div(multID(), constant(2)), div(multID(), constant(3)), constant(4));
+    assertEquals(add(poly(x(), 2), x()), ex3.getSymbolicTerms());
+  }
+
+  @Test
+  void isNegativeTest() {
+    // -1 + -cos(x)
+    Expression ex = add(constant(-1), negate(cos(x())));
+    assertTrue(ex.isNegative());
+
+    // -ln(x) + -log(x)
+    Expression ex2 = add(negate(ln(x())), negate(log(constant(10), x())));
+    assertTrue(ex2.isNegative());
+
+    // -1 + -cos(x) + sin(x)
+    Expression ex3 = add(negate(multID()), negate(cos(x())), sin(x()));
+    assertFalse(ex3.isNegative());
+  }
+
+  @Test
+  void countTest() {
     // ln(x) + ln(x) + ln(x)
     Expression ex = add(ln(x()), ln(x()), ln(x()));
     assertEquals(mult(ln(x()), constant(3)), ex);
   }
 
   @Test
-  public void factorsTest() {
-
+  void divAddTest() {
+    // this shouldn't cause the stack to overflow
+    // 1/2 + 1/3 + 1/4
+    Expression ex = add(
+        div(multID(), constant(2)),
+        div(multID(), constant(3)),
+        div(multID(), constant(4)));
   }
 
   @Test
-  public void evaluateTest() {
+  void evaluateTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    assertEquals(constant(6), ex.evaluate("x", 2.0).get());
+    Optional<Expression> eval = ex.evaluate("x", 2.0);
+    assertTrue(eval.isPresent());
+    assertEquals(constant(6), eval.get());
 
     // x + a + 3, where a is a constant
     Expression ex2 = add(x(), constant("a"), constant(3));
-    assertEquals(add(constant("a"), constant(6)), ex2.evaluate("x", 3.0).get());
+    Optional<Expression> eval2 = ex2.evaluate("x", 3.0);
+    assertTrue(eval2.isPresent());
+    assertEquals(add(constant("a"), constant(6)), eval2.get());
+
+    // x + 1/x
+    // can't divide by 0!
+    Expression ex3 = add(x(), poly(x(), -1));
+    assertEquals(Optional.empty(), ex3.evaluate("x", 0.0));
   }
 
   @Test
-  public void derivativeTest() {
+  void derivativeTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
     assertEquals(constant(2), ex.differentiate("x"));

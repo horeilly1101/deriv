@@ -30,7 +30,7 @@ public interface Expression extends Comparable {
    * @return Optional<Expression> solution
    */
   Optional<Expression> evaluate(String var, Double input);
-  // future: should be able to evaluate at any expression value
+  // future: should be able to evaluate at any expression value, not string
 
   /**
    * Takes the derivative of the given expression.
@@ -140,7 +140,7 @@ public interface Expression extends Comparable {
     return this;
   }
 
-  default Constant getConstantTerm() {
+  default Expression getConstantTerm() {
     return Constant.addID();
   }
 

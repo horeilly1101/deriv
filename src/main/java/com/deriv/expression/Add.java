@@ -57,14 +57,26 @@ public class Add implements Expression {
   }
 
   @Override
-  public Constant getConstantTerm() {
-    List<Expression> constant = terms.stream().filter(Expression::isConstant).collect(toList());
-    return constant.isEmpty() ? addID() : constant.get(0).asConstant();
+  public Expression getConstantTerm() {
+    List<Expression> constant = terms.stream()
+                                    .filter(x -> x.isConstant()
+                                                     || (x.getBase().isConstant()
+                                                             && x.getExponent().equals(constant(-1))))
+                                    .collect(toList());
+
+    return constant.isEmpty()
+               ? addID()
+               : add(constant);
   }
 
   @Override
   public Expression getSymbolicTerms() {
-    return add(terms.stream().filter(x -> !x.isConstant()).collect(toList()));
+    List<Expression> symbolic = terms.stream()
+                                    .filter(x -> !x.isConstant()
+                                                     && !(x.getBase().isConstant()
+                                                              && x.getExponent().equals(constant(-1))))
+                                    .collect(toList());
+    return add(symbolic);
   }
 
   @Override
@@ -246,7 +258,7 @@ public class Add implements Expression {
   private static Boolean isSimplified(List<Expression> terms) {
     // we want to make sure there is at most 1 constant in factors
     int conCount = 0;
-    int denConCount = 0;
+//    int denConCount = 0;
     Set<Expression> bases = new HashSet<>();
 
     for (Expression term : terms) {
@@ -254,13 +266,13 @@ public class Add implements Expression {
         conCount += 1;
       }
 
-      if (term.getBase().isConstant() && term.getExponent().equals(constant(-1))) {
-        denConCount += 1;
-      }
+//      if (term.getBase().isConstant() && term.getExponent().equals(constant(-1))) {
+//        denConCount += 1;
+//      }
 
       // all of these conditions imply factors is not simplified
       if (conCount > 1
-              || denConCount > 1
+//              || denConCount > 1
               || (term.equals(addID()) && terms.size() > 1)
               || term.isAdd()
               || bases.contains(term.getSymbolicFactors())
