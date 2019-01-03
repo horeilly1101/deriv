@@ -84,7 +84,12 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    return "(" + terms.get(0).toString()
+    // want to be able to negate first term
+    String firstTerm = terms.get(0).isNegative()
+                           ? "-" + negate(terms.get(0)).toString()
+                           : terms.get(0).toString();
+
+    return "(" + firstTerm
                + terms.subList(1, terms.size()).stream()
                      // we want to print to subtraction
                      .map(x -> x.isNegative()
