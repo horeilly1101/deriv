@@ -68,6 +68,48 @@ class ParserTest {
   }
 
   @Test
+  void minusMinusTest() {
+    String str = "sin(x) - -12";
+    Expression ex = add(sin(x()), constant(12));
+    testHelper(ex, str);
+
+    String str2 = "1 - -12";
+    Expression ex2 = constant(13);
+    testHelper(ex2, str2);
+
+    String str3 = "1 - -1 - -1 - -1 - -1";
+    Expression ex3 = constant(5);
+    testHelper(ex3, str3);
+
+    String str4 = "5 - -0";
+    Expression ex4 = constant(5);
+    testHelper(ex4, str4);
+  }
+
+  @Test
+  void plusMinusTest() {
+    String str = "sin(x) + -12";
+    Expression ex = add(sin(x()), constant(-12));
+    testHelper(ex, str);
+
+    String str2 = "1 + -12";
+    Expression ex2 = constant(-11);
+    testHelper(ex2, str2);
+
+    String str3 = "1 + -1 + -1 + -1 + -1";
+    Expression ex3 = constant(-3);
+    testHelper(ex3, str3);
+
+    String str4 = "5 + -0";
+    Expression ex4 = constant(5);
+    testHelper(ex4, str4);
+
+    String str5 = "5 + -(ln(x) + sin(x))";
+    Expression ex5 = add(constant(5), negate(add(ln(x()), sin(x()))));
+    testHelper(ex5, str5);
+  }
+
+  @Test
   void multTest() {
     String str = "sin(x) * 12";
     Expression ex = mult(sin(x()), constant(12));
