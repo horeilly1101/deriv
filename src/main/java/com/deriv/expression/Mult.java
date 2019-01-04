@@ -156,7 +156,7 @@ public class Mult implements Expression {
     return firstFactor
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
-                     .reduce("", (a, b) -> a + b);
+                     .reduce("", (a, b) -> a + " * " + b);
   }
 
   public Optional<Expression> evaluate(String var, Double input) {

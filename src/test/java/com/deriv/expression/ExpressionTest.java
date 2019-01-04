@@ -69,6 +69,7 @@ public class ExpressionTest {
     assertEquals(multID(), mult.getConstantFactor());
     assertEquals(mult, mult.getSymbolicFactors());
     assertEquals(addID(), mult.getConstantTerm());
+    assertEquals(mult, mult.getSymbolicTerms());
 
     // x + 1
     Expression ad = add(x(), multID());
@@ -76,12 +77,15 @@ public class ExpressionTest {
     assertEquals(multID(), ad.getConstantTerm());
     assertEquals(x(), ad.getSymbolicTerms());
     assertEquals(multID(), ad.getExponent());
+    assertEquals(ad, ad.getNumerator());
+    assertEquals(multID(), ad.getDenominator());
 
     // x ^ 2
     Expression pow = poly(x(), 2);
 
     assertEquals(constant(2), pow.getExponent());
     assertEquals(x(), pow.getBase());
-    assertEquals(pow, pow.getSymbolicFactors());
+    assertEquals(multID(), pow.getConstantFactor());
+    assertFalse(pow.isNegative());
   }
 }
