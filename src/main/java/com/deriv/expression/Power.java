@@ -73,7 +73,7 @@ public class Power implements Expression {
     return power(base, constant(exponent));
   }
 
-  static Expression exponential(Integer base, Expression exponent) {
+  public static Expression exponential(Integer base, Expression exponent) {
     return new Power(constant(base), exponent);
   }
 

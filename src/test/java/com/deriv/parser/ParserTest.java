@@ -11,6 +11,7 @@ import static com.deriv.expression.Log.ln;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Trig.*;
+import static com.deriv.expression.Power.*;
 import static com.deriv.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -169,6 +170,29 @@ class ParserTest {
 
     String str5 = "5 / 1";
     Expression ex5 = constant(5);
+    testHelper(ex5, str5);
+  }
+
+  @Test
+  void carrotTest() {
+    String str = "x ^ 5 + x ^ 2 - x + 9";
+    Expression ex = add(poly(x(), 5), poly(x(), 2), negate(x()), constant(9));
+    testHelper(ex, str);
+
+    // BROKEN
+//    String str2 = "x ^ -1";
+//    System.out.println(parse(str2));
+
+    String str3 = "(x + 5) ^ x";
+    Expression ex3 = power(add(x(), constant(5)), x());
+    testHelper(ex3, str3);
+
+    String str4 = "x ^ (x + 5)";
+    Expression ex4 = power(x(), add(x(), constant(5)));
+    testHelper(ex4, str4);
+
+    String str5 = "5 ^ x";
+    Expression ex5 = exponential(5, x());
     testHelper(ex5, str5);
   }
 

@@ -28,7 +28,6 @@ public class Parser {
       try {
         current = flex.next_token();
       } catch (IOException e) {
-        System.out.println(e.toString());
         return Optional.empty();
       }
 
