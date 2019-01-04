@@ -149,4 +149,28 @@ class ScannerTest {
     List<Integer> ex6 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
     testHelper(ex6, str6);
   }
+
+  @Test
+  void numberTest() {
+    String str = "4.5";
+    List<Integer> ex = listof(sym.NUMBER);
+    testHelper(ex, str);
+
+    String str2 = "53";
+    testHelper(ex, str2);
+
+    String str3 = "34.9";
+    testHelper(ex, str3);
+
+    String str4 = "0.432525";
+    testHelper(ex, str4);
+
+    String str5 = "0";
+    testHelper(ex, str5);
+  }
+
+  @Test
+  void breakTest() {
+
+  }
 }
