@@ -88,4 +88,46 @@ class ExpressionTest {
     assertEquals(multID(), pow.getConstantFactor());
     assertFalse(pow.isNegative());
   }
+
+  @Test
+  void equalityTest() {
+    // to increase code coverage, we need to test the same thing for each
+    // implementation of Expression
+    int num = 5;
+
+    // x + 1
+    Expression ex = add(multID(), x());
+    assertNotEquals(ex, 5);
+    assertEquals(ex, ex);
+
+    // 1
+    Expression ex2 = multID();
+    assertNotEquals(ex2, num);
+    assertEquals(ex2, ex2);
+
+    // ln(x)
+    Expression ex3 = ln(x());
+    assertNotEquals(ex3, num);
+    assertEquals(ex3, ex3);
+
+    // 2x
+    Expression ex4 = mult(constant(2), x());
+    assertNotEquals(ex4, num);
+    assertEquals(ex4, ex4);
+
+    // x ^ 2
+    Expression ex5 = poly(x(), 2);
+    assertNotEquals(ex5, num);
+    assertEquals(ex5, ex5);
+
+    // sin(x)
+    Expression ex6 = sin(x());
+    assertNotEquals(ex6, num);
+    assertEquals(ex6, ex6);
+
+    // y
+    Expression ex7 = var("y");
+    assertNotEquals(ex7, num);
+    assertEquals(ex7, ex7);
+  }
 }
