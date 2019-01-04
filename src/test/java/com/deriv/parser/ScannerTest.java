@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.deriv.parser.Parser.read;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ScannerTest {
   /**
@@ -90,7 +89,8 @@ class ScannerTest {
     testHelper(ex, str);
 
     String str2 = "5 ^ ^ x";
-    List<Integer> ex2 = listof(sym.NUMBER, sym.CARROT, sym.DIVIDE, sym.VARIABLE);
+    List<Integer> ex2 = listof(sym.NUMBER, sym.CARROT, sym.CARROT, sym.VARIABLE);
+    System.out.println(read(str2));
     testHelper(ex2, str2);
   }
 
@@ -152,25 +152,23 @@ class ScannerTest {
 
   @Test
   void numberTest() {
-    String str = "4.5";
+    String str = "53";
     List<Integer> ex = listof(sym.NUMBER);
     testHelper(ex, str);
 
-    String str2 = "53";
+    String str2 = "432525";
     testHelper(ex, str2);
 
-    String str3 = "34.9";
+    String str3 = "0";
     testHelper(ex, str3);
-
-    String str4 = "0.432525";
-    testHelper(ex, str4);
-
-    String str5 = "0";
-    testHelper(ex, str5);
   }
 
   @Test
   void breakTest() {
+    String str = " ^ + &";
+    assertFalse(read(str).isPresent());
 
+    String str2 = "2.3.4";
+    assertFalse(read(str2).isPresent());
   }
 }
