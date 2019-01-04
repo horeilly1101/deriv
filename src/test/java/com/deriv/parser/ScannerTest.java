@@ -115,4 +115,38 @@ class ScannerTest {
     List<Integer> ex3 = listof(sym.LN, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
     testHelper(ex3, str3);
   }
+
+  @Test
+  void bracketTest() {
+    String str = "[]";
+    List<Integer> ex = listof(sym.LBRACK, sym.RBRACK);
+    testHelper(ex, str);
+  }
+
+  @Test
+  void trigTest() {
+    String str = "sin(x)";
+    List<Integer> ex = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex, str);
+
+    String str2 = "cos(x)";
+    List<Integer> ex2 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex2, str2);
+
+    String str3 = "tan(x)";
+    List<Integer> ex3 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex3, str3);
+
+    String str4 = "csc(x)";
+    List<Integer> ex4 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex4, str4);
+
+    String str5 = "sec(x)";
+    List<Integer> ex5 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex5, str5);
+
+    String str6 = "cot(x)";
+    List<Integer> ex6 = listof(sym.TRIG, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex6, str6);
+  }
 }
