@@ -115,7 +115,7 @@ class AddTest {
   void divAddTest() {
     // this shouldn't cause the stack to overflow
     // 1/2 + 1/3 + 1/4
-    Expression ex = add(
+    add(
         div(multID(), constant(2)),
         div(multID(), constant(3)),
         div(multID(), constant(4)));

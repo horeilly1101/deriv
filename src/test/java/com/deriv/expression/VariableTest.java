@@ -2,21 +2,36 @@ package com.deriv.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Variable.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class VariableTest {
-
-//  @Test(expected = RuntimeException.class)
-//  public void eTest() {
-//    // should throw an exception
-//    var("e");
-//  }
+class VariableTest {
 
   @Test
-  public void derivativeTest() {
+  void eTest() {
+    // should throw an exception
+    assertThrows(RuntimeException.class, () -> var("e"));
+  }
+
+  @Test
+  void evaluateTest() {
+    // x
+    Optional<Expression> ex = x().evaluate("x", 5.0);
+    assertTrue(ex.isPresent());
+    assertEquals(constant(5), ex.get());
+
+    // y
+    Optional<Expression> ex2 = var("y").evaluate("x", 4.0);
+    assertTrue(ex2.isPresent());
+    assertEquals(var("y"), ex2.get());
+  }
+
+  @Test
+  void derivativeTest() {
     // x
     Expression xVar = x();
     assertEquals(multID(), xVar.differentiate("x"));
@@ -29,7 +44,7 @@ public class VariableTest {
   }
 
   @Test
-  public void multiDerivativeTest() {
+  void multiDerivativeTest() {
     // x * y
     Expression ex = mult(x(), var("y"));
     assertEquals(x(), ex.differentiate("y"));
