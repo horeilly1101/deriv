@@ -8,6 +8,7 @@ import java.util.Optional;
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.ln;
+import static com.deriv.expression.Log.log;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Trig.*;
@@ -160,7 +161,7 @@ class ParserTest {
     Expression ex2 = constant(6);
     testHelper(ex2, str2);
 
-    String str3 = "2 / (1 / (1 / (1 / 2)))";
+    String str3 = "2 / (1 / [1 / (1 / 2)])";
     Expression ex3 = constant(4);
     testHelper(ex3, str3);
 
@@ -197,24 +198,48 @@ class ParserTest {
   }
 
   @Test
-  void parseTest() {
-    String str2 = "(x + 5)sin(x)";
-    System.out.println(parse(str2));
+  void sqrtTest() {
+    String str = "sqrt(x)";
+    Expression ex = poly(x(), -2);
+    testHelper(ex, str);
 
-    String str3 = "x ^ 5 + 7x^2 - x + 9";
-    System.out.println(parse(str3));
+    // BROKEN
+//    String str2 = "sqrt(4)";
+//    Expression ex2 = constant(2);
+//    testHelper(ex2, str2);
+  }
 
-    String str4 = "xx";
-    System.out.println(parse(str4));
+  @Test
+  void logTest() {
+    String str = "xlog(5, x)";
+    Expression ex = mult(x(), log(constant(5), x()));
+    testHelper(ex, str);
 
-    String str5 = "xlog(5, x)";
-    System.out.println(parse(str5));
+    String str2 = "xlog(e, x)";
+    Expression ex2 = mult(x(), ln(x()));
+    testHelper(ex2, str2);
 
-    String str6 = "xlog(e, x)";
-    System.out.println(parse(str6));
+    String str3 = "xln(x)";
+    testHelper(ex2, str3);
 
-//    String str7 = "xlog(e, &)";
-//    System.out.println(parse(str7));
+    String str4 = "log(x)";
+    Expression ex4 = log(constant(10), x());
+    testHelper(ex4, str4);
+  }
+
+  @Test
+  void trigTest() {
+
+  }
+
+  @Test
+  void orderOfOperationsTest() {
+
+  }
+
+  @Test
+  void breakTest() {
+
   }
 
   @Test

@@ -43,6 +43,6 @@ base    ::= NUMBER:n                                    {: RESULT = constant(n);
         | TRIG:t LPAREN expr:e RPAREN                   {: RESULT = trig(t, e); :}
         | LN LPAREN expr:e RPAREN                       {: RESULT = ln(e); :}
         | LOG LPAREN expr:e RPAREN                      {: RESULT = log(constant(10), e); :}
-        | SQRT LPAREN expr:e RPAREN                     {: RESULT = poly(e, -2); :}
+        | SQRT LPAREN expr:e RPAREN                     {: RESULT = power(e, div(multID(), constant(2))); :}
         | LOG LPAREN expr:e1 COMMA expr:e2 RPAREN       {: RESULT = log(e1, e2); :}
         ;
