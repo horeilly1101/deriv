@@ -69,6 +69,7 @@ class ParserTest {
 
   @Test
   void minusMinusTest() {
+    // minus minus should be equal to a plus
     String str = "sin(x) - -12";
     Expression ex = add(sin(x()), constant(12));
     testHelper(ex, str);
@@ -88,6 +89,7 @@ class ParserTest {
 
   @Test
   void plusMinusTest() {
+    // plus minus should be equal to a minus
     String str = "sin(x) + -12";
     Expression ex = add(sin(x()), constant(-12));
     testHelper(ex, str);
@@ -126,6 +128,36 @@ class ParserTest {
     String str4 = "5 * 0";
     Expression ex4 = addID();
     testHelper(ex4, str4);
+  }
+
+  @Test
+  void implicitMultiplicationTest() {
+    String str = "12sin(x)";
+    Expression ex = mult(sin(x()), constant(12));
+    testHelper(ex, str);
+  }
+
+  @Test
+  void divTest() {
+    String str = "sin(x) / 12";
+    Expression ex = div(sin(x()), constant(12));
+    testHelper(ex, str);
+
+    String str2 = "12 / 2";
+    Expression ex2 = constant(6);
+    testHelper(ex2, str2);
+
+    String str3 = "2 / (1 / (1 / (1 / 2)))";
+    Expression ex3 = constant(4);
+    testHelper(ex3, str3);
+
+    String str4 = "0 / 5";
+    Expression ex4 = addID();
+    testHelper(ex4, str4);
+
+    String str5 = "5 / 1";
+    Expression ex5 = constant(5);
+    testHelper(ex5, str5);
   }
 
   @Test
