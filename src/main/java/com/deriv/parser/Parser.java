@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 
 public class Parser {
   /**
-   * Scans a String into a list of the names of the tokens. This method
-   * only really exists for debugging.
+   * Scans a String into a list of the symbols of the tokens. This method
+   * only really exists for debugging and unit testing.
    */
-  static Optional<List<String>> read(String input) {
+  static Optional<List<Integer>> read(String input) {
     FlexScanner flex = new FlexScanner(new StringReader(input));
     List<Symbol> tokens = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Parser {
     }
 
     return Optional.of(tokens.stream()
-                           .map(x -> sym.terminalNames[x.sym])
+                           .map(x -> x.sym)
                            .collect(Collectors.toList()));
   }
 

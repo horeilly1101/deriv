@@ -51,11 +51,11 @@ public class Constant implements Expression {
     return this.getVal() < 0;
   }
 
-  static Constant multID() {
+  public static Constant multID() {
     return constant(1);
   }
 
-  static Constant addID() {
+  public static Constant addID() {
     return constant(0);
   }
 

@@ -31,7 +31,7 @@ public class Variable implements Expression {
     return new Variable(var);
   }
 
-  static Expression x() {
+  public static Expression x() {
     return new Variable("x");
   }
 

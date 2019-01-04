@@ -86,27 +86,27 @@ public class Trig implements Expression {
     return new Trig(func, inside);
   }
 
-  static Expression sin(Expression inside) {
+  public static Expression sin(Expression inside) {
     return new Trig("sin", inside);
   }
 
-  static Expression cos(Expression inside) {
+  public static Expression cos(Expression inside) {
     return new Trig("cos", inside);
   }
 
-  static Expression tan(Expression inside) {
+  public static Expression tan(Expression inside) {
     return new Trig("tan", inside);
   }
 
-  static Expression csc(Expression inside) {
+  public static Expression csc(Expression inside) {
     return new Trig("csc", inside);
   }
 
-  static Expression sec(Expression inside) {
+  public static Expression sec(Expression inside) {
     return new Trig("sec", inside);
   }
 
-  static Expression cot(Expression inside) {
+  public static Expression cot(Expression inside) {
     return new Trig("cot", inside);
   }
 
