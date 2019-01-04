@@ -33,6 +33,9 @@ class ScannerTest {
     String str = "   ";
     List<Integer> ex = listof();
     testHelper(ex, str);
+
+    String str2 = "  \t  \n  \t\t  ";
+    testHelper(ex, str2);
   }
 
   @Test
@@ -161,6 +164,13 @@ class ScannerTest {
 
     String str3 = "0";
     testHelper(ex, str3);
+  }
+
+  @Test
+  void variableTest() {
+    String str = "si";
+    List<Integer> ex = listof(sym.VARIABLE, sym.VARIABLE);
+    testHelper(ex, str);
   }
 
   @Test
