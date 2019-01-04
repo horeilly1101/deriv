@@ -8,12 +8,12 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Trig.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TrigTest {
+class TrigTest {
 
   @Test
-  public void trigTest() {
+  void trigTest() {
     // we want to make sure everything is instantiated without exceptions
     sin(x());
     cos(x());
@@ -21,10 +21,16 @@ public class TrigTest {
     csc(x());
     sec(x());
     cot(x());
+    trig("sin", x());
   }
 
   @Test
-  public void evaluateTest() {
+  void exceptionTest() {
+    assertThrows(RuntimeException.class, () -> trig("invalid", x()));
+  }
+
+  @Test
+  void evaluateTest() {
     // sin(x)
     Expression si = sin(x());
     assertEquals(sin(multID()), si.evaluate("x", 1.0).get());
@@ -51,7 +57,7 @@ public class TrigTest {
   }
 
   @Test
-  public void basicDifferentiateTest() {
+  void basicDifferentiateTest() {
     // we're just checking the derivatives that are hard coded in
     // sin(x)
     Expression si = sin(x());
@@ -79,11 +85,9 @@ public class TrigTest {
   }
 
   @Test
-  public void chainDifferentiateTest() {
-    // we'll check out some chain rules
+  void chainDifferentiateTest() {
     // sin(ln(x))
     Expression si = sin(ln(x()));
-
     assertEquals(div(cos(ln(x())), x()), si.differentiate("x"));
 
     // cos(sin(x))
