@@ -19,12 +19,6 @@ public class Add implements Expression {
    * the terms in an expression.
    */
   private Add(List<Expression> terms) {
-    // important check
-    // mostly for debugging
-    if (terms.size() < 2) {
-      throw new RuntimeException("Add was created with less than two factors!");
-    }
-
     this.terms = terms;
   }
 
@@ -105,17 +99,9 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    // want to be able to negate first term
-    String firstTerm = terms.get(0).isNegative()
-                           ? "-" + negate(terms.get(0)).toString()
-                           : terms.get(0).toString();
-
-    return "(" + firstTerm
+    return "(" + terms.get(0)
                + terms.subList(1, terms.size()).stream()
-                     // we want to print to subtraction
-                     .map(x -> x.isNegative()
-                                   ? " - " + negate(x).toString()
-                                   : " + " + x.toString())
+                     .map(Expression::toString)
                      .reduce("", (a, b) -> a + b)
                + ")";
   }

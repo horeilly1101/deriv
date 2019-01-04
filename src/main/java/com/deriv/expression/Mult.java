@@ -18,12 +18,6 @@ public class Mult implements Expression {
    * to the factors in an expression.
    */
   private Mult(List<Expression> factors) {
-    // important check
-    // mostly for debugging
-    if (factors.size() < 2) {
-      throw new RuntimeException("Mult was created with fewer than two factors!");
-    }
-
     this.factors = factors;
   }
 
@@ -403,6 +397,6 @@ public class Mult implements Expression {
       }
     }
 
-    return factors.size() == 1 ? factors.get(0) : new Mult(factors);
+    return factors.size() > 1 ? new Mult(factors) : factors.get(0);
   }
 }

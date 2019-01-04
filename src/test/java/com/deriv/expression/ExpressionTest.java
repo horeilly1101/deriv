@@ -87,6 +87,11 @@ class ExpressionTest {
     assertEquals(x(), pow.getBase());
     assertEquals(multID(), pow.getConstantFactor());
     assertFalse(pow.isNegative());
+
+    // one more test to really beat up the Mult getters
+    Expression mult2 = mult(constant(2), poly(constant(3), -1));
+    assertEquals(multID(), mult2.getSymbolicFactors());
+    assertEquals(mult2, mult2.getConstantFactor());
   }
 
   @Test

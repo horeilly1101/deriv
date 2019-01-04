@@ -88,5 +88,5 @@ grammar is meant to increase clarity.
 
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
-- +98% of the Expression classes are covered by unit tests.
+- 100% of the lines of code in /expression are covered by unit tests.
 - Uses [JSON-Java](https://github.com/stleary/JSON-java) to create JSON objects.
