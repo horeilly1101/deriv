@@ -171,6 +171,30 @@ class ScannerTest {
     String str = "si";
     List<Integer> ex = listof(sym.VARIABLE, sym.VARIABLE);
     testHelper(ex, str);
+
+    String str2 = "co";
+    testHelper(ex, str2);
+
+    String str3 = "ta";
+    testHelper(ex, str3);
+
+    String str4 = "cs";
+    testHelper(ex, str4);
+
+    String str5 = "s";
+    List<Integer> ex5 = listof(sym.VARIABLE);
+    testHelper(ex5, str5);
+
+    String str6 = "l";
+    List<Integer> ex6 = listof(sym.VARIABLE);
+    testHelper(ex6, str6);
+
+    String str7 = "lo";
+    testHelper(ex, str7);
+
+    String str8 = "sqr";
+    List<Integer> ex8 = listof(sym.VARIABLE, sym.VARIABLE, sym.VARIABLE);
+    testHelper(ex8, str8);
   }
 
   @Test
@@ -178,7 +202,11 @@ class ScannerTest {
     String str = " ^ + &";
     assertFalse(read(str).isPresent());
 
-    String str2 = "2.3.4";
+    String str2 = "2.34";
     assertFalse(read(str2).isPresent());
+
+    // BROKEN
+//    String str3 = "034";
+//    assertFalse(read(str3).isPresent());
   }
 }
