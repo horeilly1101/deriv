@@ -135,6 +135,18 @@ class ParserTest {
     String str = "12sin(x)";
     Expression ex = mult(sin(x()), constant(12));
     testHelper(ex, str);
+
+    String str2 = "ln(x)cos(x)tan(x)";
+    Expression ex2 = mult(ln(x()), cos(x()), tan(x()));
+    testHelper(ex2, str2);
+
+    // BROKEN
+//    String str3 = "x ^ 2sin(x)";
+//    System.out.println(parse(str3));
+
+    String str4 = "xsin(x) / x";
+    Expression ex4 = sin(x());
+    testHelper(ex4, str4);
   }
 
   @Test
