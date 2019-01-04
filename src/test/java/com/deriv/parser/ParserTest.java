@@ -239,7 +239,14 @@ class ParserTest {
 
   @Test
   void breakTest() {
+    String str = "x +";
+    assertEquals(Optional.empty(), parse(str));
 
+    String str2 = "x + + 5";
+    assertEquals(Optional.empty(), parse(str2));
+
+    String str3 = "8 & 4";
+    assertEquals(Optional.empty(), parse(str3));
   }
 
   @Test
