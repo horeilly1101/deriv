@@ -82,4 +82,37 @@ class ScannerTest {
     List<Integer> ex2 = listof(sym.NUMBER, sym.DIVIDE, sym.DIVIDE, sym.VARIABLE);
     testHelper(ex2, str2);
   }
+
+  @Test
+  void carrotTest() {
+    String str = "5 ^ x";
+    List<Integer> ex = listof(sym.NUMBER, sym.CARROT, sym.VARIABLE);
+    testHelper(ex, str);
+
+    String str2 = "5 ^ ^ x";
+    List<Integer> ex2 = listof(sym.NUMBER, sym.CARROT, sym.DIVIDE, sym.VARIABLE);
+    testHelper(ex2, str2);
+  }
+
+  @Test
+  void sqrtTest() {
+    String str = "sqrt(x)";
+    List<Integer> ex = listof(sym.SQRT, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex, str);
+  }
+
+  @Test
+  void logTest() {
+    String str = "log(5, x)";
+    List<Integer> ex = listof(sym.LOG, sym.LPAREN, sym.NUMBER, sym.COMMA, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex, str);
+
+    String str2 = "log(4)";
+    List<Integer> ex2 = listof(sym.LOG, sym.LPAREN, sym.NUMBER, sym.RPAREN);
+    testHelper(ex2, str2);
+
+    String str3 = "ln(x)";
+    List<Integer> ex3 = listof(sym.LN, sym.LPAREN, sym.VARIABLE, sym.RPAREN);
+    testHelper(ex3, str3);
+  }
 }
