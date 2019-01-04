@@ -10,18 +10,18 @@ import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-public class PowerTest {
+class PowerTest {
   @Test
-  public void powerTest() {
+  void powerTest() {
     // make sure everything runs properly
     power(x(), x());
   }
 
   @Test
-  public void simplifyTest() {
+  void simplifyTest() {
     // 2.0 ^ 3.0
     Expression ex = power(constant(2), constant(3));
     assertEquals(constant(8), ex);
@@ -41,21 +41,38 @@ public class PowerTest {
     // 2 ^ -2
     Expression ex5 = poly(constant(2), -2);
     assertEquals(poly(constant(4), -1), ex5);
+
+    // 1 ^ x
+    Expression ex6 = power(multID(), x());
+    assertEquals(multID(), ex6);
+
+    // (xln(x)) ^ 2
+    Expression ex7 = poly(mult(x(), ln(x())), 2);
+    assertEquals(mult(poly(x(), 2), poly(ln(x()), 2)), ex7);
+
+    Expression ex8 = poly(poly(x(), 2), 3);
+    assertEquals(poly(x(), 6), ex8);
   }
 
   @Test
-  public void evaluateTest() {
+  void evaluateTest() {
     // 5 ^ x
     Expression ex = exponential(5, x());
-    assertEquals(constant(125), ex.evaluate("x", 3.0).get());
+    Optional<Expression> eval = ex.evaluate("x", 3.0);
+    assertTrue(eval.isPresent());
+    assertEquals(constant(125), eval.get());
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);
-    assertEquals(constant(16), ex2.evaluate("x", 2.0).get());
+    Optional<Expression> eval2 = ex2.evaluate("x", 2.0);
+    assertTrue(eval2.isPresent());
+    assertEquals(constant(16), eval2.get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
-    assertEquals(constant(27), ex3.evaluate("x", 3.0).get());
+    Optional<Expression> eval3 = ex3.evaluate("x", 3.0);
+    assertTrue(eval3.isPresent());
+    assertEquals(constant(27), eval3.get());
 
     // 1 / 0
     Expression ex4 = poly(x(), -1);
@@ -63,7 +80,7 @@ public class PowerTest {
   }
 
   @Test
-  public void differentiateTest() {
+  void differentiateTest() {
     // 5 ^ x
     Expression ex = exponential(3, x());
     assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate("x"));

@@ -66,9 +66,6 @@ public class Power implements Expression {
       return power(base.getBase(), mult(exponent, base.getExponent()));
     }
 
-
-    // idea: we don't want to ever default to a power with a negative exponent
-    // bad design
     return new Power(base, exponent);
   }
 

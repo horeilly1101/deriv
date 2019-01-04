@@ -11,10 +11,10 @@ import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExpressionTest {
+class ExpressionTest {
 
   @Test
-  public void typeCheckTest() {
+  void typeCheckTest() {
     Expression mult = mult(x(), e());
     assertTrue(mult.isMult());
 
@@ -38,7 +38,7 @@ public class ExpressionTest {
   }
 
   @Test
-  public void typeCastTest() {
+  void typeCastTest() {
     Expression mult = mult(x(), e());
     assertTrue(mult.asMult().isMult());
 
@@ -62,7 +62,7 @@ public class ExpressionTest {
   }
 
   @Test
-  public void getterTest() {
+  void getterTest() {
     // e * x
     Expression mult = mult(x(), e());
 

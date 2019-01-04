@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import static com.deriv.expression.Constant.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ConstantTest {
+class ConstantTest {
 
   @Test
-  public void derivativeTest() {
+  void derivativeTest() {
     // constants are tested pretty hard by the other unit tests,
     // so I'm just going to check their derivatives for the sake
     // of completeness

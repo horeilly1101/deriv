@@ -393,6 +393,7 @@ public class Mult implements Expression {
     if (factors.size() == 2) {
       List<Expression> con = factors.stream().filter(Expression::isConstant).collect(toList());
       List<Expression> remain = factors.stream().filter(Expression::isAdd).collect(toList());
+
       if (con.size() == 1 && remain.size() == 1) {
         // distribute the constant amongst the terms
         return add(

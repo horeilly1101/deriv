@@ -2,23 +2,27 @@ package com.deriv.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LogTest {
+class LogTest {
 
   @Test
-  public void logTest() {
+  void logTest() {
     // check that the stack doesn't overflow
     log(x(), poly(x(), 2));
   }
 
   @Test
-  public void simplifyTest() {
+  void simplifyTest() {
     // log(x, x ^ 2)
     Expression lg = log(x(), poly(x(), 2));
     assertEquals(constant(2), lg);
@@ -29,15 +33,27 @@ public class LogTest {
   }
 
   @Test
-  public void evaluateTest() {
+  void evaluateTest() {
     // log(2, x)
     Expression lg = log(constant(2), x());
-    assertEquals(multID(), lg.evaluate("x", 2.0).get());
-    assertEquals(log(constant(2), constant(5)), lg.evaluate("x", 5.0).get());
+
+    // evaluate at 2
+    Optional<Expression> eval = lg.evaluate("x", 2.0);
+    assertTrue(eval.isPresent());
+    assertEquals(multID(), eval.get());
+
+    // evaluate at 5
+    Optional<Expression> eval2 = lg.evaluate("x", 5.0);
+    assertTrue(eval2.isPresent());
+    assertEquals(log(constant(2), constant(5)), eval2.get());
+
+    // evaluate at -1
+    Optional<Expression> eval3 = lg.evaluate("x", -1.0);
+    assertFalse(eval3.isPresent());
   }
 
   @Test
-  public void differentiateTest() {
+  void differentiateTest() {
     // ln(x)
     Expression ln = ln(x());
     assertEquals(div(multID(), x()), ln.differentiate("x"));

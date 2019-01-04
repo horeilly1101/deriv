@@ -2,6 +2,8 @@ package com.deriv.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Add.*;
@@ -9,25 +11,25 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Trig.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Power.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class MultTest {
+class MultTest {
 
   @Test
-  public void multTest() {
+  void multTest() {
     // we first want to make sure the stack doesn't overflow
     // this has been a recurring problem
     mult(x(), e());
   }
 
-//  @Test(expected = RuntimeException.class)
-//  public void emptyListTest() {
-//    // we want to make sure this throws an exception
-//    mult();
-//  }
+  @Test
+  void emptyListTest() {
+    // we want to make sure this throws an exception
+    assertThrows(RuntimeException.class, Mult::mult);
+  }
 
   @Test
-  public void commutativityTest() {
+  void commutativityTest() {
     // x * sin(x)
     Expression ex = mult(x(), sin(x()));
     // sin(x) * x
@@ -36,14 +38,14 @@ public class MultTest {
   }
 
   @Test
-  public void nestingTest() {
+  void nestingTest() {
     // x * (x * (x * (x * ln(x))))
     Expression ex = mult(x(), mult(x(), mult(x(), mult(x(), ln(x())))));
     assertEquals(mult(poly(x(), 4), ln(x())), ex);
   }
 
   @Test
-  public void constantTest() {
+  void constantTest() {
     // 2 * 3 * 4
     Expression ex = mult(constant(2), constant(3), constant(4));
     assertEquals(constant(24), ex);
@@ -54,25 +56,63 @@ public class MultTest {
   }
 
   @Test
-  public void exponentTest() {
+  void exponentTest() {
     // ln(x) * ln(x) * ln(x)
     Expression ex = mult(ln(x()), ln(x()), ln(x()));
     assertEquals(power(ln(x()), constant(3)), ex);
   }
 
   @Test
-  public void evaluateTest() {
-    // x * x * 2
-    Expression ex = mult(x(), x(), constant(2));
-    assertEquals(constant(8), ex.evaluate("x", 2.0).get());
+  void isNegativeTest() {
+    // -x
+    Expression ex = mult(constant(-1), x());
+    assertTrue(ex.isNegative());
 
-    // x * a * 3, where a is a constant
-    Expression ex2 = mult(x(), constant("a"), constant(3));
-    assertEquals(mult(constant("a"), constant(9)), ex2.evaluate("x", 3.0).get());
+    // -2 / x ^ 2
+    Expression ex2 = mult(constant(-2), poly(x(), -2));
+    assertTrue(ex2.isNegative());
+
+    // xln(x)
+    Expression ex3 = mult(x(), ln(x()));
+    assertFalse(ex3.isNegative());
   }
 
   @Test
-  public void derivativeTest() {
+  void negateTest() {
+    // -x
+    Expression ex = negate(x());
+    assertTrue(ex.isNegative());
+  }
+
+  @Test
+  void distributeTest() {
+    // 2(x + ln(x))
+    Expression ex = mult(constant(2), add(x(), ln(x())));
+    assertEquals(add(mult(constant(2), x()), mult(constant(2), ln(x()))), ex);
+  }
+
+  @Test
+  void evaluateTest() {
+    // x * x * 2
+    Expression ex = mult(x(), x(), constant(2));
+    Optional<Expression> eval = ex.evaluate("x", 2.0);
+    assertTrue(eval.isPresent());
+    assertEquals(constant(8), eval.get());
+
+    // x * a * 3, where a is a constant
+    Expression ex2 = mult(x(), constant("a"), constant(3));
+    Optional<Expression> eval2 = ex2.evaluate("x", 3.0);
+    assertTrue(eval2.isPresent());
+    assertEquals(mult(constant("a"), constant(9)), eval2.get());
+
+    // 3 / x
+    Expression ex3 = div(constant(3), x());
+    Optional<Expression> eval3 = ex3.evaluate("x", 0.0);
+    assertFalse(eval3.isPresent());
+  }
+
+  @Test
+  void derivativeTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
     assertEquals(mult(constant(4), x()), ex.differentiate("x"));
@@ -91,7 +131,8 @@ public class MultTest {
   }
 
   @Test
-  public void stringTest() {
+  void stringTest() {
+    // x / ln(x)
     Expression ex = mult(x(), poly(ln(x()), -1));
     System.out.println(ex);
   }
