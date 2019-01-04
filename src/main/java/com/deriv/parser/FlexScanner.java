@@ -354,83 +354,12 @@ public class FlexScanner implements java_cup.runtime.Scanner {
       zzReader.close();
   }
 
-
-  /**
-   * Resets the scanner to read from a new input stream.
-   * Does not close the old reader.
-   *
-   * All internal variables are reset, the old input stream 
-   * <b>cannot</b> be reused (internal buffer is discarded and lost).
-   * Lexical state is set to <tt>ZZ_INITIAL</tt>.
-   *
-   * Internal scan buffer is resized down to its initial length, if it has grown.
-   *
-   * @param reader   the new input stream 
-   */
-  public final void yyreset(java.io.Reader reader) {
-    zzReader = reader;
-    zzAtBOL  = true;
-    zzAtEOF  = false;
-    zzEOFDone = false;
-    zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = 0;
-    zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
-    zzLexicalState = YYINITIAL;
-    if (zzBuffer.length > ZZ_BUFFERSIZE)
-      zzBuffer = new char[ZZ_BUFFERSIZE];
-  }
-
-
-  /**
-   * Returns the current lexical state.
-   */
-  public final int yystate() {
-    return zzLexicalState;
-  }
-
-
-  /**
-   * Enters a new lexical state
-   *
-   * @param newState the new lexical state
-   */
-  public final void yybegin(int newState) {
-    zzLexicalState = newState;
-  }
-
-
   /**
    * Returns the text matched by the current regular expression.
    */
   public final String yytext() {
     return new String( zzBuffer, zzStartRead, zzMarkedPos-zzStartRead );
   }
-
-
-  /**
-   * Returns the character at position <tt>pos</tt> from the 
-   * matched text. 
-   * 
-   * It is equivalent to yytext().charAt(pos), but faster
-   *
-   * @param pos the position of the character to fetch. 
-   *            A value from 0 to yylength()-1.
-   *
-   * @return the character at position pos
-   */
-  public final char yycharat(int pos) {
-    return zzBuffer[zzStartRead+pos];
-  }
-
-
-  /**
-   * Returns the length of the matched text region.
-   */
-  public final int yylength() {
-    return zzMarkedPos-zzStartRead;
-  }
-
 
   /**
    * Reports an error that occured while scanning.
@@ -456,24 +385,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
     }
 
     throw new Error(message);
-  } 
-
-
-  /**
-   * Pushes the specified amount of characters back into the input stream.
-   *
-   * They will be read again by then next call of the scanning method
-   *
-   * @param number  the number of characters to be read again.
-   *                This number must not be greater than yylength()!
-   */
-  public void yypushback(int number)  {
-    if ( number > yylength() )
-      zzScanError(ZZ_PUSHBACK_2BIG);
-
-    zzMarkedPos -= number;
   }
-
 
   /**
    * Contains user EOF-code, which will be executed exactly once,
