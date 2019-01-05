@@ -113,6 +113,7 @@ class ExpressionTest {
     // ln(x)
     Expression ex3 = ln(x());
     assertNotEquals(ex3, num);
+    assertNotEquals(ex3, log(constant(10), x()));
     assertEquals(ex3, ex3);
 
     // 2x
@@ -123,6 +124,7 @@ class ExpressionTest {
     // x ^ 2
     Expression ex5 = poly(x(), 2);
     assertNotEquals(ex5, num);
+    assertNotEquals(ex5, poly(x(), 3));
     assertEquals(ex5, ex5);
 
     // sin(x)
