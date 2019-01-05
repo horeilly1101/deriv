@@ -174,14 +174,13 @@ public class Mult implements Expression {
               ));
   }
 
-  /*
-  Private, static classs to help simplify Mult objects when instantiated.
+  /**
+  Private, static class to help simplify Mult objects when instantiated.
 
   The below methods are probably the ugliest ones you'll see in this project,
   but they've been thoroughly tested, and they each serve an important role
   in simplifying mults.
    */
-
   private static class MultSimplifier implements Simplifier {
     private List<Expression> unFactors;
 
@@ -242,7 +241,8 @@ public class Mult implements Expression {
     public Simplifier simplify() {
       return this.isSimplified()
                  ? this
-                 : this.withoutNesting().simplifyConstantFactors().simplifyFactors().simplify();
+                 : this.withoutNesting().simplifyConstantFactors().simplifyFactors()
+                       .simplify();
     }
 
     /**

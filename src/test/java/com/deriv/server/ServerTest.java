@@ -3,15 +3,6 @@ package com.deriv.server;
 import com.deriv.expression.Expression;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import spark.Response;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Locale;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.constant;
