@@ -2,7 +2,6 @@ package com.deriv.server;
 
 import com.deriv.expression.Expression;
 import org.json.JSONObject;
-import spark.Request;
 import spark.Response;
 
 import java.util.Optional;
