@@ -15,14 +15,14 @@ public class Server {
    * An easy constructor for an empty JSON Object. Helps clean up
    * the code a little bit.
    */
-  private static JSONObject jobject() {
+  static JSONObject jobject() {
     return new JSONObject();
   }
 
   /**
    * Attempts to parse a string to an optional (Expression) variable.
    */
-  private static Optional<String> parseVar(String var) {
+  static Optional<String> parseVar(String var) {
     return var.length() == 1
                ? parse(var).map(Expression::toString)
                : Optional.empty();
@@ -31,7 +31,7 @@ public class Server {
   /**
    * Attempts to parse a String to an optional Double.
    */
-  private static Optional<Double> parseDouble(String val) {
+  static Optional<Double> parseDouble(String val) {
     Optional<Double> oVal;
     try {
       oVal = Optional.of(new Double(val));
@@ -44,7 +44,7 @@ public class Server {
   /**
    * Attempts to differentiate an expression using monadic error handling.
    */
-  private static Optional<Expression> oDifferentiate(String expr, String var) {
+  static Optional<Expression> oDifferentiate(String expr, String var) {
     // attempt to parse var
     Optional<String> oVar = parseVar(var);
 
@@ -59,7 +59,7 @@ public class Server {
   /**
    * Attempts to evaluate an expression using monadic error handling.
    */
-  private static Optional<Expression> oEvaluate(String expr,
+  static Optional<Expression> oEvaluate(String expr,
                                                 String var,
                                                 String val) {
     // attempt to parse val
@@ -79,7 +79,7 @@ public class Server {
   /**
    * Returns a JSON object error message.
    */
-  private static JSONObject error(Response res) {
+  static JSONObject error(Response res) {
     res.status(400); // client error
     return jobject()
               .put("error", "invalid input(s)");
@@ -88,7 +88,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the differentiate route.
    */
-  private static JSONObject diffObject(Expression result, String expr, String var) {
+  static JSONObject diffObject(Expression result, String expr, String var) {
     return jobject()
               .put("data",
                   jobject()
@@ -102,7 +102,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the evaluate route.
    */
-  private static JSONObject evalObject(Expression result, String expr, String var, String val) {
+  static JSONObject evalObject(Expression result, String expr, String var, String val) {
     return jobject()
                .put("data",
                    jobject()
@@ -114,47 +114,38 @@ public class Server {
                );
   }
 
-  /**
-   * Performs the "differentiate" get call.
-   */
-  private static JSONObject differentiateGet(Request req, Response res) {
-    String expr = req.params(":expr");
-    String var = req.params(":var");
-
-    // attempt to differentiate expression
-    Optional<Expression> oDeriv = oDifferentiate(expr, var);
-
-    // return the derivative if possible, otherwise an error
-    return oDeriv.isPresent()
-               ? diffObject(oDeriv.get(), expr, var)
-               : error(res);
-  }
-
-  /**
-   * Performs the "evaluate" get call.
-   */
-  private static JSONObject evaluateGet(Request req, Response res) {
-    // url variables
-    String expr = req.params(":expr");
-    String var = req.params(":var");
-    String val = req.params(":val");
-
-    // attempt to evaluate expression
-    Optional<Expression> oEval = oEvaluate(expr, var, val);
-
-    // return the evaluation if possible, otherwise an error
-    return oEval.isPresent()
-               ? evalObject(oEval.get(), expr, var, val)
-               : error(res);
-  }
-
   // runs the server on localhost:4567
   public static void main(String[] args) {
 
     // the GET call that differentiates an expression
-    get("/differentiate/:expr/:var", Server::differentiateGet);
+    get("/differentiate/:expr/:var", (req, res) -> {
+      // url variables
+      String expr = req.params(":expr");
+      String var = req.params(":var");
+
+      // attempt to differentiate expression
+      Optional<Expression> oDeriv = oDifferentiate(expr, var);
+
+      // return the derivative if possible, otherwise an error
+      return oDeriv.isPresent()
+                 ? diffObject(oDeriv.get(), expr, var)
+                 : error(res);
+    });
 
     // the GET call that evaluates an expression
-    get("/evaluate/:expr/:var/:val", Server::evaluateGet);
+    get("/evaluate/:expr/:var/:val", (req, res) -> {
+      // url variables
+      String expr = req.params(":expr");
+      String var = req.params(":var");
+      String val = req.params(":val");
+
+      // attempt to evaluate expression
+      Optional<Expression> oEval = oEvaluate(expr, var, val);
+
+      // return the evaluation if possible, otherwise an error
+      return oEval.isPresent()
+                 ? evalObject(oEval.get(), expr, var, val)
+                 : error(res);
+    });
   }
 }
