@@ -86,7 +86,7 @@ negative numbers and using implicit multiplication. Also, multiplication, divisi
 subtraction are left associative, while exponentiation is right associative. This property of the 
 grammar is meant to increase clarity.
 
-## Misc.
+## Notes
 
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.

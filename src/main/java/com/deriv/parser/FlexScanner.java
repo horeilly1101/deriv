@@ -547,101 +547,84 @@ public class FlexScanner implements java_cup.runtime.Scanner {
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
-          case 1: 
-            { return symbol(sym.error);
-            } 
-            // fall through
-          case 20: break;
+          case 1:
+            {
+              return symbol(sym.error);
+            }
           case 2: 
             { /* ignore */
             } 
             // fall through
           case 21: break;
           case 3: 
-            { return symbol(sym.NUMBER, new Integer(yytext()));
-            } 
-            // fall through
-          case 22: break;
+            {
+              return symbol(sym.NUMBER, new Integer(yytext()));
+            }
           case 4: 
-            { return symbol(sym.VARIABLE, yytext());
-            } 
-            // fall through
-          case 23: break;
+            {
+              return symbol(sym.VARIABLE, yytext());
+            }
           case 5: 
-            { return symbol(sym.ECON);
-            } 
-            // fall through
-          case 24: break;
+            {
+              return symbol(sym.ECON);
+            }
           case 6: 
-            { return symbol(sym.LPAREN);
-            } 
-            // fall through
-          case 25: break;
+            {
+              return symbol(sym.LPAREN);
+            }
           case 7: 
-            { return symbol(sym.RPAREN);
-            } 
-            // fall through
-          case 26: break;
+            {
+              return symbol(sym.RPAREN);
+            }
           case 8: 
-            { return symbol(sym.LBRACK);
-            } 
-            // fall through
-          case 27: break;
+            {
+              return symbol(sym.LBRACK);
+            }
           case 9: 
-            { return symbol(sym.RBRACK);
-            } 
-            // fall through
-          case 28: break;
+            {
+              return symbol(sym.RBRACK);
+            }
           case 10: 
-            { return symbol(sym.PLUS);
-            } 
-            // fall through
-          case 29: break;
+            {
+              return symbol(sym.PLUS);
+            }
           case 11: 
-            { return symbol(sym.MINUS);
-            } 
-            // fall through
-          case 30: break;
+            {
+              return symbol(sym.MINUS);
+            }
           case 12: 
-            { return symbol(sym.TIMES);
-            } 
-            // fall through
-          case 31: break;
+            {
+              return symbol(sym.TIMES);
+            }
           case 13: 
-            { return symbol(sym.DIVIDE);
-            } 
-            // fall through
-          case 32: break;
+            {
+              return symbol(sym.DIVIDE);
+            }
           case 14: 
-            { return symbol(sym.CARROT);
-            } 
-            // fall through
-          case 33: break;
+            {
+              return symbol(sym.CARROT);
+            }
           case 15: 
-            { return symbol(sym.COMMA);
-            } 
-            // fall through
-          case 34: break;
+            {
+              return symbol(sym.COMMA);
+            }
           case 16: 
-            { return symbol(sym.LN);
-            } 
-            // fall through
-          case 35: break;
+            {
+              return symbol(sym.LN);
+            }
           case 17: 
-            { return symbol(sym.TRIG, yytext());
+            {
+              return symbol(sym.TRIG, yytext());
             } 
-            // fall through
-          case 36: break;
+
           case 18: 
-            { return symbol(sym.LOG);
-            } 
-            // fall through
-          case 37: break;
+            {
+              return symbol(sym.LOG);
+            }
           case 19: 
-            { return symbol(sym.SQRT);
-            } 
-            // fall through
-          case 38: break;
+            {
+              return symbol(sym.SQRT);
+            }
           default:
             zzScanError(ZZ_NO_MATCH);
         }
