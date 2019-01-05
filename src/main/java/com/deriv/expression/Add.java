@@ -1,8 +1,6 @@
 package com.deriv.expression;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;
@@ -121,10 +119,10 @@ public class Add implements Expression {
                    .collect(toList()));
   }
 
-  /*
-  Private, static methods to help simplify instantiated objects
+  /**
+   * AddSimplifier exists to help us simplify and make consistent
+   * the construction of Add objects.
    */
-
   private static class AddSimplifier implements Simplifier {
     List<Expression> unTerms;
 
