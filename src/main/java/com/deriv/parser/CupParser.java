@@ -24,15 +24,15 @@ public class CupParser extends java_cup.runtime.lr_parser {
 }
 
   /** Default constructor. */
-  @Deprecated
-  public CupParser() {super();}
+//  @Deprecated
+//  public CupParser() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
   public CupParser(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */
-  public CupParser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+//  public CupParser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
 
   /** Production table. */
   protected static final short _production_table[][] = 
