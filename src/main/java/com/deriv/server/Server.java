@@ -78,7 +78,7 @@ public class Server {
   /**
    * Returns a JSON object error message.
    */
-  static JSONObject error(Response res) {
+  private  static JSONObject error(Response res) {
     res.status(400); // client error
     return jobject()
               .put("error", "invalid input(s)");

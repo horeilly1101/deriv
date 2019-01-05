@@ -142,7 +142,6 @@ class ParserTest {
     Expression ex2 = mult(ln(x()), cos(x()), tan(x()));
     testHelper(ex2, str2);
 
-    // BROKEN
 //    String str3 = "x ^ 2sin(x)";
 //    System.out.println(parse(str3));
 
@@ -180,7 +179,6 @@ class ParserTest {
     Expression ex = add(poly(x(), 5), poly(x(), 2), negate(x()), constant(9));
     testHelper(ex, str);
 
-    // BROKEN
 //    String str2 = "x ^ -1";
 //    System.out.println(parse(str2));
 
@@ -200,13 +198,8 @@ class ParserTest {
   @Test
   void sqrtTest() {
     String str = "sqrt(x)";
-    Expression ex = poly(x(), -2);
+    Expression ex = power(x(), div(multID(), constant(2)));
     testHelper(ex, str);
-
-    // BROKEN
-//    String str2 = "sqrt(4)";
-//    Expression ex2 = constant(2);
-//    testHelper(ex2, str2);
   }
 
   @Test

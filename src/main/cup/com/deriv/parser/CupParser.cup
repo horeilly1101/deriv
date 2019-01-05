@@ -2,7 +2,7 @@
 
 //package com.deriv.parser;
 //
-//import com.deriv.expression.Expression];
+//import com.deriv.expression.Expression;
 //import static com.deriv.expression.Log.*;
 //import static com.deriv.expression.Mult.*;
 //import static com.deriv.expression.Add.*;

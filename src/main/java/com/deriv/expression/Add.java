@@ -1,7 +1,6 @@
 package com.deriv.expression;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;

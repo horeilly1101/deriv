@@ -23,9 +23,9 @@ public class CupParser extends java_cup.runtime.lr_parser {
     return sym.class;
 }
 
-//  /** Default constructor. */
-//  @Deprecated
-//  public CupParser() {super();}
+  /** Default constructor. */
+  @Deprecated
+  public CupParser() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
@@ -515,7 +515,7 @@ class CUP$CupParser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$CupParser$stack.elementAt(CUP$CupParser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$CupParser$stack.elementAt(CUP$CupParser$top-1)).right;
 		Expression e = (Expression)((java_cup.runtime.Symbol) CUP$CupParser$stack.elementAt(CUP$CupParser$top-1)).value;
-		 RESULT = poly(e, -2); 
+		 RESULT = power(e, div(multID(), constant(2))); 
               CUP$CupParser$result = parser.getSymbolFactory().newSymbol("base",3, ((java_cup.runtime.Symbol)CUP$CupParser$stack.elementAt(CUP$CupParser$top-3)), ((java_cup.runtime.Symbol)CUP$CupParser$stack.peek()), RESULT);
             }
           return CUP$CupParser$result;
