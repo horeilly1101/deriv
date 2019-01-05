@@ -222,7 +222,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
    */
   private int yycolumn;
 
-  /** 
+  /**
    * zzAtBOL == true iff the scanner is currently at the beginning of a line
    */
   private boolean zzAtBOL = true;
