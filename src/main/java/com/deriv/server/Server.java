@@ -16,6 +16,103 @@ public class Server {
     return new JSONObject();
   }
 
+  /**
+   * Attempts to parse a string to an optional (Expression) variable.
+   */
+  private static Optional<String> parseVar(String var) {
+    return var.length() == 1
+               ? parse(var).map(Expression::toString)
+               : Optional.empty();
+  }
+
+  /**
+   * Attempts to parse a String to an optional Double.
+   */
+  private static Optional<Double> parseDouble(String val) {
+    Optional<Double> oVal;
+    try {
+      oVal = Optional.of(new Double(val));
+    } catch (NumberFormatException e) {
+      oVal = Optional.empty();
+    }
+    return oVal;
+  }
+
+  /**
+   * Attempts to differentiate an expression using monadic error handling.
+   */
+  private static Optional<Expression> oDifferentiate(String expr, String var) {
+    // attempt to parse var
+    Optional<String> oVar = parseVar(var);
+
+    // attempt to parse expr
+    Optional<Expression> oExpr = parse(expr);
+
+    // attempt to differentiate function
+    return oVar.flatMap(vr ->
+                            oExpr.map(ex -> ex.differentiate(vr)));
+  }
+
+  /**
+   * Attempts to evaluate an expression using monadic error handling.
+   */
+  private static Optional<Expression> oEvaluate(String expr,
+                                                String var,
+                                                String val) {
+    // attempt to parse val
+    Optional<Double> oVal = parseDouble(val);
+
+    // attempt to parse var
+    Optional<String> oVar = parseVar(var);
+
+    // attempt to parse expr
+    Optional<Expression> oExpr = parse(expr);
+
+    return oVal.flatMap(vl ->
+                            oVar.flatMap(vr ->
+                                             oExpr.flatMap(ex -> ex.evaluate(vr, vl))));
+  }
+
+  /**
+   * Returns a JSON object error message.
+   */
+  private static JSONObject error() {
+    return jobject()
+              .put("error",
+                  jobject()
+                      .put("code", 400)
+                      .put("problem", "input(s) not valid"));
+  }
+
+  /**
+   * Returns a JSON object corresponding to the differentiate route.
+   */
+  private static JSONObject diffObject(Expression result, String expr, String var) {
+    return jobject()
+              .put("data",
+                  jobject()
+                      // the gets are checked, because oDeriv is checked
+                      .put("expression", expr)
+                      .put("result", result.toString())
+                      .put("var", var)
+              );
+  }
+
+  /**
+   * Returns a JSON object corresponding to the evaluate route.
+   */
+  private static JSONObject evalObject(Expression result, String expr, String var, String val) {
+    return jobject()
+               .put("data",
+                   jobject()
+                       // the gets are checked, because oEval is checked
+                       .put("expression", expr)
+                       .put("result", result.toString())
+                       .put("var", var)
+                       .put("val", val)
+               );
+  }
+
   // runs the server on localhost:4567
   public static void main(String[] args) {
 
@@ -25,32 +122,13 @@ public class Server {
       String expr = req.params(":expr");
       String var = req.params(":var");
 
-      // attempt to parse var
-      Optional<String> oVar = var.length() == 1
-                                  ? parse(var).map(Expression::toString)
-                                  : Optional.empty();
-
-      // attempt to parse expr
-      Optional<Expression> oExpr = parse(expr);
-
       // attempt to differentiate expression
-      Optional<Expression> oDeriv = oVar.flatMap(vr ->
-                                                    oExpr.map(ex -> ex.differentiate(vr)));
+      Optional<Expression> oDeriv = oDifferentiate(expr, var);
 
       // return the derivative if possible, otherwise an error
       return oDeriv.isPresent()
-                 ? jobject()
-                       .put("data",
-                           jobject()
-                               .put("expression", oExpr.get().toString())
-                               .put("result", oDeriv.get().toString())
-                               .put("var", oVar.get())
-                       )
-                 : jobject()
-                       .put("error",
-                           jobject()
-                               .put("code", 400)
-                               .put("problem", "input(s) not valid"));
+                 ? diffObject(oDeriv.get(), expr, var)
+                 : error();
     });
 
     // the GET call that evaluates an expression
@@ -60,42 +138,13 @@ public class Server {
       String var = req.params(":var");
       String val = req.params(":val");
 
-      // attempt to parse val
-      Optional<Double> oVal;
-      try {
-        oVal = Optional.of(new Double(val));
-      } catch (NumberFormatException e) {
-        oVal = Optional.empty();
-      }
-
-      // attempt to parse var
-      Optional<String> oVar = var.length() == 1
-                                      ? parse(var).map(Expression::toString)
-                                      : Optional.empty();
-
-      // attempt to parse expr
-      Optional<Expression> oExpr = parse(expr);
-
       // attempt to evaluate expression
-      Optional<Expression> oEval = oVal.flatMap(vl ->
-                                                    oVar.flatMap(vr ->
-                                                                     oExpr.flatMap(ex -> ex.evaluate(vr, vl))));
+      Optional<Expression> oEval = oEvaluate(expr, var, val);
 
       // return the evaluation if possible, otherwise an error
       return oEval.isPresent()
-                 ? jobject()
-                     .put("data",
-                         jobject()
-                           .put("expression", oExpr.get().toString())
-                           .put("result", oEval.get().toString())
-                           .put("var", oVar.get())
-                           .put("val", oVal.get().toString())
-                     )
-                 : jobject()
-                       .put("error",
-                           jobject()
-                               .put("code", 400)
-                               .put("problem", "input(s) not valid"));
+                 ? evalObject(oEval.get(), expr, var, val)
+                 : error();
     });
   }
 }
