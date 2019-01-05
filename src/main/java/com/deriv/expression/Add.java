@@ -29,13 +29,7 @@ public class Add implements Expression {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
-      // we want to add together all the divs
-
-      List<Expression> simplified = simplify(terms).stream()
-                                        // reverse order
-                                        .sorted((x, y) -> -1 * x.compareTo(y))
-                                        .collect(toList());
-      return simplified.size() > 1 ? new Add(simplified) : simplified.get(0);
+      return (new AddSimplifier(terms)).simplify().toExpression();
     }
   }
 
@@ -131,144 +125,150 @@ public class Add implements Expression {
   Private, static methods to help simplify instantiated objects
    */
 
-  /**
-   * This function brings together all the simplify functions. It runs
-   * recursively until there is nothing left to simplify.
-   *
-   * (Everything but the (possible) recursive call runs in expected linear
-   * time.)
-   */
-  private static List<Expression> simplify(List<Expression> terms) {
-    return terms.size() > 1 && !isSimplified(terms)
-               ? simplify(
-                   simplifyTerms(
-                     simplifyConstantTerms(
-                         withoutNesting(terms))))
-               : terms;
-  }
+  private static class AddSimplifier implements Simplifier {
+    List<Expression> unTerms;
 
-  /**
-   * This method simplifies a list of terms by ensuring terms
-   * are taken to the proper constants. (e.g. we want to write x + x
-   * as 2.0 * x.)
-   *
-   * @return List<Expression> simplified
-   */
-  private static List<Expression> simplifyTerms(List<Expression> terms) {
-    // maintain a hash map of factors we've already seen
-    // this allows us to compute this function in linear time
-    HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
-
-    for (Expression term : terms) {
-      if (powerMap.containsKey(term.getSymbolicFactors())) {
-        List<Expression> newList = powerMap.get(term.getSymbolicFactors());
-
-        newList.add(term.getConstantFactor());
-        powerMap.replace(term.getSymbolicFactors(), newList);
-
-      } else {
-        List<Expression> newList = new ArrayList<>();
-
-        newList.add(term.getConstantFactor());
-        powerMap.put(term.getSymbolicFactors(), newList);
-      }
+    private AddSimplifier(List<Expression> unTerms) {
+      this.unTerms = unTerms;
     }
 
-    // add up the constants
-    return powerMap.keySet().stream()
-               .map(key -> mult(
-                   key,
-                   add(powerMap.get(key))))
-               .collect(toList());
-  }
-
-  /**
-   * This method simplifies a list of factors to get rid of extraneous
-   * constant factors. (e.g. adding 0.0)
-   *
-   * @return List<Expression> simplified
-   */
-  private static List<Expression> simplifyConstantTerms(List<Expression> factors) {
-    // keep track of constants' values
-    List<Expression> noConstants = new ArrayList<>();
-    Integer constants = 0;
-
-    for (Expression factor : factors) {
-      if (factor.isConstant()) {
-        // checked cast
-        constants += factor.asConstant().getVal();
-      } else {
-        noConstants.add(factor);
-      }
-    }
-
-    // multiplicative identity?
-    if (constants == 0.0 && noConstants.isEmpty()) {
-      noConstants.add(addID());
-      // zero?
-    } else if (constants != 0.0) {
-      noConstants.add(constant(constants));
-    }
-
-    return noConstants;
-  }
-
-  /**
-   * This method simplifies a list of terms by taking advantage of
-   * the associativity of addition. (i.e. a Mult object multiplied
-   * by a Mult object should not yield a Mult object of two Mult objects.
-   * It should yield a Mult object of whatever was in the original objects,
-   * flatmapped together.)
-   *
-   * @return List<Expression> simplified
-   */
-  private static List<Expression> withoutNesting(List<Expression> terms) {
-    List<Expression> newList = new ArrayList<>();
-
-    for (Expression term : terms) {
-      if (term.isAdd()) {
-        // checked cast
-        newList.addAll(term.asAdd().getTerms());
-      } else {
-        newList.add(term);
-      }
-    }
-
-    return newList;
-  }
-
-  /**
-   * This function checks whether or not the given list of Expressions
-   * can form a simplified Add object.
-   */
-  private static Boolean isSimplified(List<Expression> terms) {
-    // we want to make sure there is at most 1 constant in factors
-    int conCount = 0;
+    /**
+     * This function checks whether or not the given list of Expressions
+     * can form a simplified Add object.
+     */
+    public Boolean isSimplified() {
+      // we want to make sure there is at most 1 constant in factors
+      int conCount = 0;
 //    int denConCount = 0;
-    Set<Expression> bases = new HashSet<>();
+      Set<Expression> bases = new HashSet<>();
 
-    for (Expression term : terms) {
-      if (term.isConstant()) {
-        conCount += 1;
-      }
+      for (Expression term : unTerms) {
+        if (term.isConstant()) {
+          conCount += 1;
+        }
 
 //      if (term.getBase().isConstant() && term.getExponent().equals(constant(-1))) {
 //        denConCount += 1;
 //      }
 
-      // all of these conditions imply factors is not simplified
-      if (conCount > 1
+        // all of these conditions imply factors is not simplified
+        if (conCount > 1
 //              || denConCount > 1
-              || (term.equals(addID()) && terms.size() > 1)
-              || term.isAdd()
-              || bases.contains(term.getSymbolicFactors())
-                     && !term.getSymbolicFactors().equals(multID())) {
-        return false;
+                || (term.equals(addID()) && unTerms.size() > 1)
+                || term.isAdd()
+                || bases.contains(term.getSymbolicFactors())
+                       && !term.getSymbolicFactors().equals(multID())) {
+          return false;
+        }
+
+        bases.add(term.getSymbolicFactors());
       }
 
-      bases.add(term.getSymbolicFactors());
+      return true;
     }
 
-    return true;
+    /**
+     * This function brings together all the simplify functions. It runs
+     * recursively until there is nothing left to simplify.
+     *
+     * (Everything but the (possible) recursive call runs in expected linear
+     * time.)
+     */
+    public Simplifier simplify() {
+      return unTerms.size() > 1 && !this.isSimplified()
+                 ? this.withoutNesting().simplifyConstantTerms().simplifyTerms().simplify()
+                 : this;
+    }
+
+    public Expression toExpression() {
+      List<Expression> simplified = unTerms.stream()
+                                    .sorted((a, b) -> -1 * a.compareTo(b))
+                                    .collect(toList());
+
+      return simplified.size() > 1
+                 ? new Add(simplified)
+                 : simplified.get(0);
+    }
+
+    /**
+     * This method adds terms with common factors. (e.g. It would take
+     * x + 2x and output 3 * x.)
+     */
+    AddSimplifier simplifyTerms() {
+      // maintain a hash map of factors we've already seen
+      // this allows us to compute this function in linear time
+      HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
+
+      for (Expression term : unTerms) {
+        if (powerMap.containsKey(term.getSymbolicFactors())) {
+          List<Expression> newList = powerMap.get(term.getSymbolicFactors());
+
+          newList.add(term.getConstantFactor());
+          powerMap.replace(term.getSymbolicFactors(), newList);
+
+        } else {
+          List<Expression> newList = new ArrayList<>();
+
+          newList.add(term.getConstantFactor());
+          powerMap.put(term.getSymbolicFactors(), newList);
+        }
+      }
+
+      // add up the constants
+      List<Expression> result = powerMap.keySet().stream()
+                                   .map(key -> mult(
+                                       key,
+                                       add(powerMap.get(key))))
+                                   .collect(toList());
+
+      return new AddSimplifier(result);
+    }
+
+    /**
+     * This method adds up the values of constant elements of unTerms.
+     */
+    AddSimplifier simplifyConstantTerms() {
+      // keep track of constants' values
+      List<Expression> noConstants = new ArrayList<>();
+      Integer constants = 0;
+
+      for (Expression term : unTerms) {
+        if (term.isConstant()) {
+          // checked cast
+          constants += term.asConstant().getVal();
+        } else {
+          noConstants.add(term);
+        }
+      }
+
+      // multiplicative identity?
+      if (constants == 0.0 && noConstants.isEmpty()) {
+        noConstants.add(addID());
+        // zero?
+      } else if (constants != 0.0) {
+        noConstants.add(constant(constants));
+      }
+
+      return new AddSimplifier(noConstants);
+    }
+
+    /**
+     * This function ensures there is no nesting in unTerms. (i.e. none
+     * of its elements are Add objects.)
+     */
+    AddSimplifier withoutNesting() {
+      List<Expression> newList = new ArrayList<>();
+
+      for (Expression term : unTerms) {
+        if (term.isAdd()) {
+          // checked cast
+          newList.addAll(term.asAdd().getTerms());
+        } else {
+          newList.add(term);
+        }
+      }
+
+      return new AddSimplifier(newList);
+    }
   }
 }
