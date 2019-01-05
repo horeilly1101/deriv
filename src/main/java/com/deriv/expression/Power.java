@@ -1,11 +1,13 @@
 package com.deriv.expression;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
+import static java.util.stream.Collectors.toList;
 
 public class Power implements Expression {
   private Expression base;
@@ -85,6 +87,16 @@ public class Power implements Expression {
   @Override
   public Expression getBase() {
     return base;
+  }
+
+  @Override
+  public Expression getNumerator() {
+    return exponent.isNegative() ? multID() : this;
+  }
+
+  @Override
+  public Expression getDenominator() {
+    return exponent.isNegative() ? poly(this, -1) : multID();
   }
 
   @Override

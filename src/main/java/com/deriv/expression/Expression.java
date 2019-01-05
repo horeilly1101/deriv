@@ -136,14 +136,6 @@ public interface Expression extends Comparable {
     return this;
   }
 
-  default Expression getConstantTerm() {
-    return Constant.addID();
-  }
-
-  default Expression getSymbolicTerms() {
-    return this;
-  }
-
   default Expression getNumerator() {
     return this;
   }

@@ -60,36 +60,6 @@ class AddTest {
   }
 
   @Test
-  void getConstantTermTest() {
-    // x^2 + x
-    Expression ex = add(poly(x(), 2), x());
-    assertEquals(addID(), ex.getConstantTerm());
-
-    // x + 2
-    Expression ex2 = add(x(), constant(2));
-    assertEquals(constant(2), ex2.getConstantTerm());
-
-    // x + 1/2 + 1/3 + 4
-    Expression ex3 = add(x(), div(multID(), constant(2)), div(multID(), constant(3)), constant(4));
-    assertEquals(add(div(multID(), constant(2)), div(multID(), constant(3)), constant(4)), ex3.getConstantTerm());
-  }
-
-  @Test
-  void getSymbolicTerms() {
-    // x^2 + x
-    Expression ex = add(poly(x(), 2), x());
-    assertEquals(add(poly(x(), 2), x()), ex.getSymbolicTerms());
-
-    // x + 2
-    Expression ex2 = add(x(), constant(2));
-    assertEquals(x(), ex2.getSymbolicTerms());
-
-    // x^2 + x + 1/2 + 1/3 + 4
-    Expression ex3 = add(poly(x(), 2), x(), div(multID(), constant(2)), div(multID(), constant(3)), constant(4));
-    assertEquals(add(poly(x(), 2), x()), ex3.getSymbolicTerms());
-  }
-
-  @Test
   void isNegativeTest() {
     // -1 + -cos(x)
     Expression ex = add(constant(-1), negate(cos(x())));
@@ -115,10 +85,11 @@ class AddTest {
   void divAddTest() {
     // this shouldn't cause the stack to overflow
     // 1/2 + 1/3 + 1/4
-    add(
+    Expression hey = add(
         div(multID(), constant(2)),
         div(multID(), constant(3)),
         div(multID(), constant(4)));
+    System.out.println(hey);
   }
 
   @Test
@@ -158,5 +129,11 @@ class AddTest {
     // x + sin(x)
     Expression ex4 = add(x(), sin(x()));
     assertEquals(add(multID(), cos(x())), ex4.differentiate("x"));
+  }
+
+  @Test
+  void hey() {
+    System.out.println(add(poly(x(), 2), x()));
+    System.out.println(div(add(poly(x(), 2), x()), x()));
   }
 }

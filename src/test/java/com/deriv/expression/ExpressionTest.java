@@ -68,14 +68,10 @@ class ExpressionTest {
 
     assertEquals(multID(), mult.getConstantFactor());
     assertEquals(mult, mult.getSymbolicFactors());
-    assertEquals(addID(), mult.getConstantTerm());
-    assertEquals(mult, mult.getSymbolicTerms());
 
     // x + 1
     Expression ad = add(x(), multID());
 
-    assertEquals(multID(), ad.getConstantTerm());
-    assertEquals(x(), ad.getSymbolicTerms());
     assertEquals(multID(), ad.getExponent());
     assertEquals(ad, ad.getNumerator());
     assertEquals(multID(), ad.getDenominator());

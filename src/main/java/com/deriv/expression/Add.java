@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;
@@ -43,29 +44,6 @@ public class Add implements Expression {
   }
 
   @Override
-  public Expression getConstantTerm() {
-    List<Expression> constant = terms.stream()
-                                    .filter(x -> x.isConstant()
-                                                     || (x.getBase().isConstant()
-                                                             && x.getExponent().equals(constant(-1))))
-                                    .collect(toList());
-
-    return constant.isEmpty()
-               ? addID()
-               : add(constant);
-  }
-
-  @Override
-  public Expression getSymbolicTerms() {
-    List<Expression> symbolic = terms.stream()
-                                    .filter(x -> !x.isConstant()
-                                                     && !(x.getBase().isConstant()
-                                                              && x.getExponent().equals(constant(-1))))
-                                    .collect(toList());
-    return add(symbolic);
-  }
-
-  @Override
   public Boolean isNegative() {
     return terms.stream()
                .map(Expression::isNegative)
@@ -94,7 +72,7 @@ public class Add implements Expression {
     return "(" + terms.get(0)
                + terms.subList(1, terms.size()).stream()
                      .map(Expression::toString)
-                     .reduce("", (a, b) -> a + b)
+                     .reduce("", (a, b) -> a + " + " + b)
                + ")";
   }
 
@@ -180,12 +158,13 @@ public class Add implements Expression {
 
     public Expression toExpression() {
       List<Expression> simplified = unTerms.stream()
-                                    .sorted((a, b) -> -1 * a.compareTo(b))
-                                    .collect(toList());
+                                        .sorted((a, b) -> -1 * a.compareTo(b))
+                                        .collect(toList());
 
       return simplified.size() > 1
                  ? new Add(simplified)
                  : simplified.get(0);
+
     }
 
     /**
