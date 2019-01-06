@@ -118,6 +118,9 @@ public interface Expression extends Comparable {
   /*
   Each Expression is implicitly a Mult, a Div, an Add, and a Power,
   so the following getter functions are justified.
+
+  Of course, each of these methods is overridden in the necessary
+  implementations.
    */
 
   default Expression getExponent() {

@@ -1,13 +1,11 @@
 package com.deriv.expression;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
-import static java.util.stream.Collectors.toList;
 
 public class Power implements Expression {
   private Expression base;
@@ -28,47 +26,7 @@ public class Power implements Expression {
    * Use this to instantiate a power.
    */
   public static Expression power(Expression base, Expression exponent) {
-    // is exponent 1?
-    if (exponent.equals(Constant.multID())) {
-      return base;
-    }
-
-    // is base 1?
-    if (base.equals(multID())) {
-      return multID();
-    }
-
-    // is it 0?
-    if (exponent.equals(Constant.addID())) {
-      return Constant.multID();
-    }
-
-    // is the whole expression a denominator constant?
-    if (base.isConstant() && exponent.isConstant() && exponent.asConstant().isNegative()) {
-      return new Power(power(base, negate(exponent)), constant(-1));
-    }
-
-    // is the whole expression a constant?
-    if (base.isConstant() && exponent.isConstant() && !exponent.asConstant().isNegative()) {
-      return constant((int)
-                          Math.round(
-                              Math.pow(
-                                  base.asConstant().getVal(),
-                                  exponent.asConstant().getVal())));
-    }
-
-    // is the base a mult?
-    if (base.isMult()) {
-      return mult(base.asMult().getFactors().stream()
-                 .map(x -> power(x, exponent)).collect(Collectors.toList()));
-    }
-
-    // is the base a power?
-    if (base.isPower()) {
-      return power(base.getBase(), mult(exponent, base.getExponent()));
-    }
-
-    return new Power(base, exponent);
+    return (new PowerSimplifier(base, exponent)).simplify().toExpression();
   }
 
   public static Expression poly(Expression base, Integer exponent) {
@@ -76,7 +34,7 @@ public class Power implements Expression {
   }
 
   public static Expression exponential(Integer base, Expression exponent) {
-    return new Power(constant(base), exponent);
+    return power(constant(base), exponent);
   }
 
   @Override
@@ -118,7 +76,9 @@ public class Power implements Expression {
 
   @Override
   public String toString() {
-    return "(" + base.toString() + " ^ " + exponent.toString() + ")";
+    return this.exponent.isNegative()
+               ? "(1 / " + power(base, negate(exponent)) + ")"
+               : "(" + base.toString() + " ^ " + exponent.toString() + ")";
   }
 
   public Optional<Expression> evaluate(String var, Double input) {
@@ -140,5 +100,92 @@ public class Power implements Expression {
         power(base, exponent),
         mult(exponent, ln(base))
             .differentiate(var));
+  }
+
+  /**
+   * Tests whether or not a Power is simplified, for testing purposes.
+   */
+  Boolean isSimplified() {
+    return (new PowerSimplifier(base, exponent)).isSimplified();
+  }
+
+  /*
+  Private, static class to help us simplify power instantiations.
+   */
+  private static class PowerSimplifier implements Simplifier {
+    private Expression unBase;
+    private Expression unExponent;
+
+    PowerSimplifier(Expression unBase, Expression unExponent) {
+      this.unBase = unBase;
+      this.unExponent = unExponent;
+    }
+
+    /**
+     * Is the PowerSimplifier instance simplified? See the comments in @PowerSimplifier.simplify()
+     * for more detailed descriptions of what the boolean declarations mean.
+     */
+    public Boolean isSimplified() {
+      return !((unBase.isConstant() && unExponent.isConstant() && unExponent.asConstant().isNegative())
+                 || (unBase.isConstant() && unExponent.isConstant() && !unExponent.asConstant().isNegative())
+                 || unBase.isMult()
+                 || unBase.isPower());
+    }
+
+    /**
+     * Simplifies an a PowerSimplifier object.
+     */
+    public Simplifier simplify() {
+      // is the whole expression a denominator constant?
+      if (unBase.isConstant() && unExponent.isConstant() && unExponent.asConstant().isNegative()) {
+        return new PowerSimplifier(power(unBase, negate(unExponent)), constant(-1));
+      }
+
+      // is the whole expression a constant?
+      if (unBase.isConstant() && unExponent.isConstant() && !unExponent.asConstant().isNegative()) {
+        // this ugly stack of code just takes the base to the specified power and casts it
+        // to an integer
+        return new PowerSimplifier(constant((int)
+                            Math.round(
+                                Math.pow(
+                                    unBase.asConstant().getVal(),
+                                    unExponent.asConstant().getVal()))), multID());
+      }
+
+      // is the base a mult?
+      if (unBase.isMult()) {
+        return new PowerSimplifier(mult(unBase.asMult().getFactors().stream()
+                        .map(x -> power(x, unExponent)).collect(Collectors.toList())), multID());
+      }
+
+      // is the base a power?
+      if (unBase.isPower()) {
+        return new PowerSimplifier(unBase.getBase(), mult(unExponent, unBase.getExponent()));
+      }
+
+      return this;
+    }
+
+    /**
+     * Converts a PowerSimplifier object to an Expression.
+     */
+    public Expression toExpression() {
+      // is exponent 1?
+      if (unExponent.equals(Constant.multID())) {
+        return unBase;
+      }
+
+      // is base 1?
+      if (unBase.equals(multID())) {
+        return multID();
+      }
+
+      // is it 0?
+      if (unExponent.equals(Constant.addID())) {
+        return multID();
+      }
+
+      return new Power(unBase, unExponent);
+    }
   }
 }

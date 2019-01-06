@@ -52,6 +52,7 @@ class PowerTest {
 
     Expression ex8 = poly(poly(x(), 2), 3);
     assertEquals(poly(x(), 6), ex8);
+    assertTrue(ex8.asPower().isSimplified());
   }
 
   @Test
