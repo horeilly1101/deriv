@@ -99,6 +99,8 @@ public class Add implements Expression {
   /**
    * AddSimplifier exists to help us simplify and make consistent
    * the construction of Add objects.
+   *
+   * You shouldn't mess with this code!
    */
   private static class AddSimplifier implements Simplifier {
     List<Expression> unTerms;
