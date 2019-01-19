@@ -59,25 +59,25 @@ class PowerTest {
   void evaluateTest() {
     // 5 ^ x
     Expression ex = exponential(5, x());
-    Optional<Expression> eval = ex.evaluate("x", 3.0);
+    Optional<Expression> eval = ex.evaluate("x", constant(3));
     assertTrue(eval.isPresent());
     assertEquals(constant(125), eval.get());
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);
-    Optional<Expression> eval2 = ex2.evaluate("x", 2.0);
+    Optional<Expression> eval2 = ex2.evaluate("x", constant(2));
     assertTrue(eval2.isPresent());
     assertEquals(constant(16), eval2.get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
-    Optional<Expression> eval3 = ex3.evaluate("x", 3.0);
+    Optional<Expression> eval3 = ex3.evaluate("x", constant(3));
     assertTrue(eval3.isPresent());
     assertEquals(constant(27), eval3.get());
 
     // 1 / 0
     Expression ex4 = poly(x(), -1);
-    assertEquals(Optional.empty(), ex4.evaluate("x", 0.0));
+    assertEquals(Optional.empty(), ex4.evaluate("x", addID()));
   }
 
   @Test

@@ -20,12 +20,12 @@ class VariableTest {
   @Test
   void evaluateTest() {
     // x
-    Optional<Expression> ex = x().evaluate("x", 5.0);
+    Optional<Expression> ex = x().evaluate("x", constant(5));
     assertTrue(ex.isPresent());
     assertEquals(constant(5), ex.get());
 
     // y
-    Optional<Expression> ex2 = var("y").evaluate("x", 4.0);
+    Optional<Expression> ex2 = var("y").evaluate("x", constant(4));
     assertTrue(ex2.isPresent());
     assertEquals(var("y"), ex2.get());
   }

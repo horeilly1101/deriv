@@ -52,15 +52,15 @@ class DivTest {
   void evaluateTest() {
     // x / 3
     Expression ex = div(x(), constant(3));
-    assertEquals(constant(27), ex.evaluate("x", 81.0).get());
+    assertEquals(constant(27), ex.evaluate("x", constant(81)).get());
 
     // (x + 1) / 3
     Expression ex2 = div(add(x(), multID()), constant(3));
-    assertEquals(constant(27), ex2.evaluate("x", 80.0).get());
+    assertEquals(constant(27), ex2.evaluate("x", constant(80)).get());
 
     // ln(x + 1) / x
     Expression ex3 = div(ln(add(x(), multID())), x());
-    assertEquals(ln(constant(2)), ex3.evaluate("x", 1.0).get());
+    assertEquals(ln(constant(2)), ex3.evaluate("x", multID()).get());
   }
 
   @Test

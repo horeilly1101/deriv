@@ -144,7 +144,7 @@ public class Mult implements Expression {
                + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Expression input) {
     // multiplies terms together
     List<Optional<Expression>> eval = factors.stream()
                                           .map(x -> x.evaluate(var, input))

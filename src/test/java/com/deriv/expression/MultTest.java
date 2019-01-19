@@ -95,19 +95,19 @@ class MultTest {
   void evaluateTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
-    Optional<Expression> eval = ex.evaluate("x", 2.0);
+    Optional<Expression> eval = ex.evaluate("x", constant(2));
     assertTrue(eval.isPresent());
     assertEquals(constant(8), eval.get());
 
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
-    Optional<Expression> eval2 = ex2.evaluate("x", 3.0);
+    Optional<Expression> eval2 = ex2.evaluate("x", constant(3));
     assertTrue(eval2.isPresent());
     assertEquals(mult(constant("a"), constant(9)), eval2.get());
 
     // 3 / x
     Expression ex3 = div(constant(3), x());
-    Optional<Expression> eval3 = ex3.evaluate("x", 0.0);
+    Optional<Expression> eval3 = ex3.evaluate("x", addID());
     assertFalse(eval3.isPresent());
   }
 

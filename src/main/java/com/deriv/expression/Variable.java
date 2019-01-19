@@ -57,10 +57,10 @@ public class Variable implements Expression {
     return var;
   }
 
-  public Optional<Expression> evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Expression input) {
     // update later
     return var.equals(this.var)
-               ? Optional.of(Constant.constant((int) Math.round(input)))
+               ? Optional.of(input)
                : Optional.of(this);
   }
 
@@ -68,10 +68,4 @@ public class Variable implements Expression {
     return wrt.equals(var) ? Constant.multID() : Constant.addID();
   }
 
-//  private static Expression toConstant(Double input) {
-//    int length = input.toString().length();
-//    int decimalPlace = input.toString().lastIndexOf(".") + 1;
-//
-//    return div();
-//  }
 }

@@ -33,27 +33,27 @@ class TrigTest {
   void evaluateTest() {
     // sin(x)
     Expression si = sin(x());
-    assertEquals(sin(multID()), si.evaluate("x", 1.0).get());
+    assertEquals(sin(multID()), si.evaluate("x", multID()).get());
 
     // cos(x)
     Expression co = cos(x());
-    assertEquals(cos(constant(2)), co.evaluate("x", 2.0).get());
+    assertEquals(cos(constant(2)), co.evaluate("x", constant(2)).get());
 
     // tan(x)
     Expression ta = tan(x());
-    assertEquals(tan(constant(2)), ta.evaluate("x", 2.0).get());
+    assertEquals(tan(constant(2)), ta.evaluate("x", constant(2)).get());
 
     // csc(x)
     Expression cs = csc(x());
-    assertEquals(csc(constant(2)), cs.evaluate("x", 2.0).get());
+    assertEquals(csc(constant(2)), cs.evaluate("x", constant(2)).get());
 
     // sec(x)
     Expression se = sec(x());
-    assertEquals(sec(constant(2)), se.evaluate("x", 2.0).get());
+    assertEquals(sec(constant(2)), se.evaluate("x", constant(2)).get());
 
     // cot(x)
     Expression cota = cot(x());
-    assertEquals(cot(constant(2)), cota.evaluate("x", 2.0).get());
+    assertEquals(cot(constant(2)), cota.evaluate("x", constant(2)).get());
   }
 
   @Test

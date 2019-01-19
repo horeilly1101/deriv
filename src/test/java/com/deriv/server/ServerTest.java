@@ -27,18 +27,6 @@ class ServerTest {
 
     Optional<String> oVar2 = parseVar("xyz");
     assertFalse(oVar2.isPresent());
-
-    // test parseDouble
-    Optional<Double> oVal = parseDouble("5.4");
-    assertTrue(oVal.isPresent());
-    assertEquals((Double) 5.4, oVal.get());
-
-    Optional<Double> oVal2 = parseDouble("5");
-    assertTrue(oVal2.isPresent());
-    assertEquals((Double) 5.0, oVal2.get());
-
-    Optional<Double> oVal3 = parseDouble("5.4.9");
-    assertFalse(oVal3.isPresent());
   }
 
   @Test

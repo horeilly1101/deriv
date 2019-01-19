@@ -28,19 +28,6 @@ public class Server {
   }
 
   /**
-   * Attempts to parse a String to an optional Double.
-   */
-  static Optional<Double> parseDouble(String val) {
-    Optional<Double> oVal;
-    try {
-      oVal = Optional.of(new Double(val));
-    } catch (NumberFormatException e) {
-      oVal = Optional.empty();
-    }
-    return oVal;
-  }
-
-  /**
    * Attempts to differentiate an expression using monadic error handling.
    */
   static Optional<Expression> oDifferentiate(String expr, String var) {
@@ -62,7 +49,7 @@ public class Server {
                                                 String var,
                                                 String val) {
     // attempt to parse val
-    Optional<Double> oVal = parseDouble(val);
+    Optional<Expression> oVal = parse(val);
 
     // attempt to parse var
     Optional<String> oVar = parseVar(var);

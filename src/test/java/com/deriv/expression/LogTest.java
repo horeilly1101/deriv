@@ -38,17 +38,17 @@ class LogTest {
     Expression lg = log(constant(2), x());
 
     // evaluate at 2
-    Optional<Expression> eval = lg.evaluate("x", 2.0);
+    Optional<Expression> eval = lg.evaluate("x", constant(2));
     assertTrue(eval.isPresent());
     assertEquals(multID(), eval.get());
 
     // evaluate at 5
-    Optional<Expression> eval2 = lg.evaluate("x", 5.0);
+    Optional<Expression> eval2 = lg.evaluate("x", constant(5));
     assertTrue(eval2.isPresent());
     assertEquals(log(constant(2), constant(5)), eval2.get());
 
     // evaluate at -1
-    Optional<Expression> eval3 = lg.evaluate("x", -1.0);
+    Optional<Expression> eval3 = lg.evaluate("x", negate(multID()));
     assertFalse(eval3.isPresent());
   }
 

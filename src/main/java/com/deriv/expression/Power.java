@@ -81,7 +81,7 @@ public class Power implements Expression {
                : "(" + base.toString() + ")" + " ^ " + "(" + exponent.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Expression input) {
     return base.evaluate(var, input)
                .flatMap(ba -> exponent.evaluate(var, input)
                                   // make sure we're not dividing by zero

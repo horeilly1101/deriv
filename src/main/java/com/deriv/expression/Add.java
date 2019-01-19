@@ -75,7 +75,7 @@ public class Add implements Expression {
                + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Expression input) {
     // adds terms together
     List<Optional<Expression>> eval = terms.stream()
                                            .map(x -> x.evaluate(var, input))

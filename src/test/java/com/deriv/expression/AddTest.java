@@ -96,20 +96,20 @@ class AddTest {
   void evaluateTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    Optional<Expression> eval = ex.evaluate("x", 2.0);
+    Optional<Expression> eval = ex.evaluate("x", constant(2));
     assertTrue(eval.isPresent());
     assertEquals(constant(6), eval.get());
 
     // x + a + 3, where a is a constant
     Expression ex2 = add(x(), constant("a"), constant(3));
-    Optional<Expression> eval2 = ex2.evaluate("x", 3.0);
+    Optional<Expression> eval2 = ex2.evaluate("x", constant(3));
     assertTrue(eval2.isPresent());
     assertEquals(add(constant("a"), constant(6)), eval2.get());
 
     // x + 1/x
     // can't divide by 0!
     Expression ex3 = add(x(), poly(x(), -1));
-    assertEquals(Optional.empty(), ex3.evaluate("x", 0.0));
+    assertEquals(Optional.empty(), ex3.evaluate("x", addID()));
   }
 
   @Test

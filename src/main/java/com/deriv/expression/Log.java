@@ -71,7 +71,7 @@ public class Log implements Expression {
                : "log(" + base.toString() + ", " + result.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Double val) {
+  public Optional<Expression> evaluate(String var, Expression val) {
     return base.evaluate(var, val)
                .flatMap(ba -> result.evaluate(var, val)
                                   .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0

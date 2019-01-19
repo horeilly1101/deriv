@@ -134,7 +134,7 @@ public class Trig implements Expression {
                : this.func + "(" + this.inside.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Double val) {
+  public Optional<Expression> evaluate(String var, Expression val) {
     return inside.evaluate(var, val)
                .map(x -> evalMap.get(this.func).apply(x));
   }

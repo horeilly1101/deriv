@@ -85,7 +85,7 @@ public class Constant implements Expression {
     return val.toString();
   }
 
-  public Optional<Expression> evaluate(String var, Double input) {
+  public Optional<Expression> evaluate(String var, Expression input) {
     return Optional.of(this);
   }
 
