@@ -55,6 +55,7 @@ public class Parser {
   public static Optional<Expression> parse(String input) {
     // initialize the parser
     CupParser parser = new CupParser(new FlexScanner(new StringReader(input)));
+
     try {
       // attempt to parse
       Object result = parser.parse().value;
