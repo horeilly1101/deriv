@@ -62,6 +62,10 @@ public class Log implements Expression {
 
   @Override
   public String toString() {
+    if ((this.result.isAdd() || this.result.isMult()) && this.base.equals(e())) {
+      return "ln" + this.result.toString();
+    }
+
     return (base.equals(e()))
                ? "ln(" + result.toString() + ")"
                : "log(" + base.toString() + ", " + result.toString() + ")";

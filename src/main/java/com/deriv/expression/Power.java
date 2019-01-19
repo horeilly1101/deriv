@@ -77,8 +77,8 @@ public class Power implements Expression {
   @Override
   public String toString() {
     return this.exponent.isNegative()
-               ? "(1 / " + power(base, negate(exponent)) + ")"
-               : "(" + base.toString() + " ^ " + exponent.toString() + ")";
+               ? "1 / " + power(base, negate(exponent)).toString()
+               : "(" + base.toString() + ")" + " ^ " + "(" + exponent.toString() + ")";
   }
 
   public Optional<Expression> evaluate(String var, Double input) {

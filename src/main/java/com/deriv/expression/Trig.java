@@ -129,7 +129,9 @@ public class Trig implements Expression {
 
   @Override
   public String toString() {
-    return this.func + "(" + this.inside.toString() + ")";
+    return this.inside.isMult() || this.inside.isAdd()
+               ? this.func + this.inside.toString()
+               : this.func + "(" + this.inside.toString() + ")";
   }
 
   public Optional<Expression> evaluate(String var, Double val) {

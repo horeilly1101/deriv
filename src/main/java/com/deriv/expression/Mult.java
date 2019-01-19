@@ -137,15 +137,11 @@ public class Mult implements Expression {
       return num.toString() + " / " + den.toString();
     }
 
-    // calculate first factor to properly handle multiplying by -1
-    String firstFactor = factors.get(0).equals(constant(-1))
-                             ? "-"
-                             : factors.get(0).toString();
-
-    return firstFactor
+    return "(" + factors.get(0).toString()
                + factors.subList(1, factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
-                     .reduce("", (a, b) -> a + " * " + b);
+                     .reduce("", (a, b) -> a + " * " + b)
+               + ")";
   }
 
   public Optional<Expression> evaluate(String var, Double input) {
