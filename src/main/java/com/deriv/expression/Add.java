@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
-public class Add implements Expression {
+public class Add extends AExpression {
   private List<Expression> terms;
 
   /**

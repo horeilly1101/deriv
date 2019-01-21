@@ -7,7 +7,7 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 
-public class Power implements Expression {
+public class Power extends AExpression {
   private Expression base;
   private Expression exponent;
 

@@ -1,6 +1,8 @@
 package com.deriv.parser;
 
 import com.deriv.expression.Expression;
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.DefaultSymbolFactory;
 import java_cup.runtime.Symbol;
 
 import java.io.IOException;

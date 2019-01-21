@@ -31,6 +31,7 @@ class ParserTest {
   void addTest() {
     String str = "sin(x) + 12";
     Expression ex = add(sin(x()), constant(12));
+    System.out.println(ex);
     testHelper(ex, str);
 
     String str2 = "1 + 12";

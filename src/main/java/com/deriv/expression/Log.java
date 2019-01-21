@@ -5,7 +5,7 @@ import java.util.Optional;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
-public class Log implements Expression {
+public class Log extends AExpression {
   private Expression base;
   private Expression result;
 

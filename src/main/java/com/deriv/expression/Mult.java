@@ -7,7 +7,7 @@ import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
 
-public class Mult implements Expression {
+public class Mult extends AExpression {
   private List<Expression> factors;
 
   /**
@@ -191,10 +191,10 @@ public class Mult implements Expression {
     public Boolean isSimplified() {
       // we want to make sure there is at most 1 constant in numerator and denominator
       int numCount = 0;
-      Constant num = multID();
+      Constant num = multID().asConstant();
 
       int dencount = 0;
-      Constant den = multID();
+      Constant den = multID().asConstant();
 
       Set<Expression> bases = new HashSet<>();
 

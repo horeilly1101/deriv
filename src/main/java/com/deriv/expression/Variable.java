@@ -2,7 +2,7 @@ package com.deriv.expression;
 
 import java.util.Optional;
 
-public class Variable implements Expression {
+public class Variable extends AExpression {
   String var;
 
   /**

@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Trig implements Expression {
+public class Trig extends AExpression {
   // maps to ensure cleaner code (i.e. no long "if" statements)
   private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
   private Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
