@@ -3,7 +3,20 @@ package com.deriv.expression;
 import java.util.Optional;
 
 public class Constant implements Expression {
+  /**
+   * The integer value of a constant.
+   */
   private Integer val;
+
+  /**
+   * Singleton instance of the constant 1.
+   */
+  private static Expression MULT_ID = constant(1);
+
+  /**
+   * Singleton instance of the constant 0.
+   */
+  private static Expression ADD_ID = constant(0);
 
   /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
@@ -19,7 +32,15 @@ public class Constant implements Expression {
    * Use this to create new constants. This method is for constants
    * that are explicitly numbers.
    */
-  public static Constant constant(Integer val) {
+  public static Expression constant(Integer val) {
+    if (val == 1) {
+      return MULT_ID;
+    }
+
+    if (val == 0) {
+      return ADD_ID;
+    }
+
     return new Constant(val);
   }
 
@@ -51,12 +72,12 @@ public class Constant implements Expression {
     return this.getVal() < 0;
   }
 
-  public static Constant multID() {
-    return constant(1);
+  public static Expression multID() {
+    return MULT_ID;
   }
 
-  public static Constant addID() {
-    return constant(0);
+  public static Expression addID() {
+    return ADD_ID;
   }
 
   public static Expression e() {
