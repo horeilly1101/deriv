@@ -82,9 +82,19 @@ public class Log extends AExpression {
   public Expression differentiate(String var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
-    return base.equals(e())
-               // derivative of natural log
-               ? mult(result.differentiate(var), div(multID(), result))
-               : div(ln(result), ln(base)).differentiate(var);
+
+    // if log is a natural log
+    if (base.equals(e())) {
+      Expression firstDerivative = result.differentiate(var);
+
+      return mult(firstDerivative, div(multID(), result))
+               .addStep(Step.LOG_RULE, this)
+               .extendSteps(firstDerivative.getSteps());
+    }
+
+    Expression secondDerivative = div(ln(result), ln(base)).differentiate(var);
+
+    return secondDerivative.addStep(Step.LOG_RULE, this)
+             .extendSteps(secondDerivative.getSteps());
   }
 }

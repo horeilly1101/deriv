@@ -95,11 +95,14 @@ public class Power extends AExpression {
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
     // this is what you'll get.
+    Expression firstDerivative = mult(exponent, ln(base))
+                                   .differentiate(var);
 
     return Mult.mult(
         power(base, exponent),
-        mult(exponent, ln(base))
-            .differentiate(var));
+        firstDerivative)
+             .addStep(Step.POWER_RULE, this)
+             .extendSteps(firstDerivative.getSteps());
   }
 
   /**

@@ -111,6 +111,6 @@ public class Constant extends AExpression {
   }
 
   public Expression differentiate(String var) {
-    return addID();
+    return addID().addStep(Step.CONSTANT_RULE, this);
   }
 }

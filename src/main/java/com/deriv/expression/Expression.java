@@ -10,7 +10,7 @@ import static com.deriv.expression.AExpression.*;
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
  *
- * This interface is implemented by:
+ * This interface is implemented by AExpression which is extended by:
  * - Mult
  * - Add
  * - Log
@@ -130,10 +130,6 @@ public interface Expression extends Comparable {
 
   default Variable asVariable() {
     return (Variable) this;
-  }
-
-  default AExpression asAExpression() {
-    return (AExpression) this;
   }
 
   /*

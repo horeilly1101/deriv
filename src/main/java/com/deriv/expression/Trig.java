@@ -1,21 +1,115 @@
 package com.deriv.expression;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Trig extends AExpression {
-  // maps to ensure cleaner code (i.e. no long "if" statements)
-  private Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
-  private Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
-
   private String func;
   private Expression inside;
+
+  // valid trig functions
+  private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
+                               .collect(Collectors.toSet());
+
+  // maps to ensure cleaner code (i.e. no long "if" statements)
+  private static Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
+  static {
+    // define functions for evaluating expressions
+    evalMap.put("sin", Trig::sin);
+    evalMap.put("cos", Trig::cos);
+    evalMap.put("tan", Trig::tan);
+    evalMap.put("csc", Trig::csc);
+    evalMap.put("sec", Trig::sec);
+    evalMap.put("cot", Trig::cot);
+  }
+
+  private static Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
+  static {
+    // define functions for evaluating derivatives
+    derivMap.put("sin",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          deriv,
+          cos(ex.inside))
+                 // add steps
+                 .addStep(Step.SIN, ex)
+                 .extendSteps(deriv.getSteps());
+      });
+
+    derivMap.put("cos",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          Constant.constant(-1),
+          deriv,
+          sin(ex.inside))
+                 // add steps
+                 .addStep(Step.COS, ex)
+                 .extendSteps(deriv.getSteps());
+      });
+
+    derivMap.put("tan",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          deriv,
+          Power.poly(
+            sec(ex.inside),
+            2))
+
+          // add steps
+          .addStep(Step.TAN, ex)
+          .extendSteps(deriv.getSteps());
+      });
+
+    derivMap.put("csc",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          Constant.constant(-1),
+          deriv,
+          csc(ex.inside),
+          cot(ex.inside))
+                 .addStep(Step.CSC, ex)
+                 .extendSteps(deriv.getSteps());
+      });
+
+    derivMap.put("sec",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          deriv,
+          sec(ex.inside),
+          tan(ex.inside));
+      });
+
+    derivMap.put("cot",
+      (ex, var) -> {
+        // calculate inside derivative
+        Expression deriv = ex.inside.differentiate(var);
+
+        return Mult.mult(
+          Constant.constant(-1),
+          deriv,
+          Power.poly(
+            csc(ex.inside),
+            2));
+      });
+  }
 
   /**
    * Instantiates a Trig object. Avoid using as much as possible! Instead, use
@@ -27,58 +121,9 @@ public class Trig extends AExpression {
   private Trig(String func, Expression inside) {
     this.func = func;
     this.inside = inside;
-
-    // define functions for evaluating expressions
-    evalMap.put("sin", Trig::sin);
-    evalMap.put("cos", Trig::cos);
-    evalMap.put("tan", Trig::tan);
-    evalMap.put("csc", Trig::csc);
-    evalMap.put("sec", Trig::sec);
-    evalMap.put("cot", Trig::cot);
-
-    // define functions for evaluating derivatives
-    derivMap.put("sin",
-        (x, var) -> Mult.mult(
-            x.inside.differentiate(var),
-            cos(inside)));
-
-    derivMap.put("cos",
-        (x, var) -> Mult.mult(
-            Constant.constant(-1),
-            x.inside.differentiate(var),
-            sin(inside)));
-
-    derivMap.put("tan",
-        (x, var) -> Mult.mult(
-            x.inside.differentiate(var),
-            Power.poly(
-                sec(inside),
-                2)));
-
-    derivMap.put("csc",
-        (x, var) -> Mult.mult(
-            Constant.constant(-1),
-            x.inside.differentiate(var),
-            csc(inside),
-            cot(inside)));
-
-    derivMap.put("sec",
-        (x, var) -> Mult.mult(
-            x.inside.differentiate(var),
-            sec(inside),
-            tan(inside)));
-
-    derivMap.put("cot",
-        (x, var) -> Mult.mult(
-            Constant.constant(-1),
-            x.inside.differentiate(var),
-            Power.poly(
-                csc(inside),
-                2)));
   }
 
   public static Expression trig(String func, Expression inside) {
-    Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot").collect(Collectors.toSet());
     if (!valid.contains(func)) {
       throw new RuntimeException("Not a valid trig function!");
     }
@@ -140,6 +185,7 @@ public class Trig extends AExpression {
   }
 
   public Expression differentiate(String var) {
-    return derivMap.get(this.func).apply(this, var);
+    return derivMap.get(this.func)
+             .apply(this, var);
   }
 }
