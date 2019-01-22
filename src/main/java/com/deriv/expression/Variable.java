@@ -65,7 +65,9 @@ public class Variable extends AExpression {
   }
 
   public Expression differentiate(String wrt) {
-    return wrt.equals(var) ? Constant.multID() : Constant.addID();
+    return wrt.equals(var)
+             ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
+             : Constant.addID().addStep(Step.CONSTANT_RULE, this);
   }
 
 }

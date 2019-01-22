@@ -14,10 +14,13 @@ public class Trig extends AExpression {
   private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
                                .collect(Collectors.toSet());
 
-  // maps to ensure cleaner code (i.e. no long "if" statements)
+  /*
+   maps to ensure cleaner code (i.e. no long "if" statements)
+    */
+
+  // define functions for evaluating expressions
   private static Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
   static {
-    // define functions for evaluating expressions
     evalMap.put("sin", Trig::sin);
     evalMap.put("cos", Trig::cos);
     evalMap.put("tan", Trig::tan);
@@ -26,9 +29,9 @@ public class Trig extends AExpression {
     evalMap.put("cot", Trig::cot);
   }
 
+  // define functions for evaluating derivatives
   private static Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
   static {
-    // define functions for evaluating derivatives
     derivMap.put("sin",
       (ex, var) -> {
         // calculate inside derivative
