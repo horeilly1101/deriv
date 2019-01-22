@@ -71,7 +71,7 @@ public class Log extends AExpression {
                : "log(" + base.toString() + ", " + result.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Expression val) {
+  public Optional<Expression> evaluate(Variable var, Expression val) {
     return base.evaluate(var, val)
                .flatMap(ba -> result.evaluate(var, val)
                                   .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0
@@ -79,7 +79,7 @@ public class Log extends AExpression {
                                                      : Optional.of(log(ba, re))));
   }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 

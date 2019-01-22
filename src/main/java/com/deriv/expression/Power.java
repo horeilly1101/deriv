@@ -1,10 +1,7 @@
 package com.deriv.expression;
 
 import com.deriv.simplifier.PowerSimplifier;
-import com.deriv.simplifier.Simplifier;
-
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
@@ -29,7 +26,7 @@ public class Power extends AExpression {
    * Use this to instantiate a power.
    */
   public static Expression power(Expression base, Expression exponent) {
-    return (new PowerSimplifierComplete(base, exponent)).simplify().toExpression();
+    return new PowerSimplifierComplete(base, exponent).simplify().toExpression();
   }
 
   public static Expression poly(Expression base, Integer exponent) {
@@ -84,7 +81,7 @@ public class Power extends AExpression {
                : "(" + base.toString() + ")" + " ^ " + "(" + exponent.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Expression input) {
+  public Optional<Expression> evaluate(Variable var, Expression input) {
     return base.evaluate(var, input)
                .flatMap(ba -> exponent.evaluate(var, input)
                                   // make sure we're not dividing by zero
@@ -93,7 +90,7 @@ public class Power extends AExpression {
                                                      : Optional.of(power(ba, ex))));
   }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
@@ -112,7 +109,7 @@ public class Power extends AExpression {
    * Tests whether or not a Power is simplified, for testing purposes.
    */
   Boolean isSimplified() {
-    return (new PowerSimplifierComplete(base, exponent)).isSimplified();
+    return new PowerSimplifierComplete(base, exponent).isSimplified();
   }
 
   private static class PowerSimplifierComplete extends PowerSimplifier {
@@ -120,7 +117,6 @@ public class Power extends AExpression {
       super(unBase, unExponent);
     }
 
-    @Override
     public Expression toExpression() {
       // is exponent 1?
       if (unExponent.equals(Constant.multID())) {
@@ -132,7 +128,7 @@ public class Power extends AExpression {
         return multID();
       }
 
-      // is it 0?
+      // is exponent 0?
       if (unExponent.equals(Constant.addID())) {
         return multID();
       }

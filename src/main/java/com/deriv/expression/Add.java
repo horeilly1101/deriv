@@ -1,14 +1,10 @@
 package com.deriv.expression;
 
 import com.deriv.simplifier.AddSimplifier;
-import com.deriv.simplifier.Simplifier;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
-import static com.deriv.expression.Constant.*;
-import static com.deriv.expression.Mult.*;
 
 public class Add extends AExpression {
   private List<Expression> terms;
@@ -79,7 +75,7 @@ public class Add extends AExpression {
                + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Expression input) {
+  public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
     List<Optional<Expression>> eval = terms.stream()
                                            .map(x -> x.evaluate(var, input))
@@ -93,7 +89,7 @@ public class Add extends AExpression {
                : Optional.empty();
    }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     // linearity of differentiation
     List<Expression> newTerms = terms.stream()
                                   .map(x -> x.differentiate(var))
@@ -115,7 +111,6 @@ public class Add extends AExpression {
       super(unTerms);
     }
 
-    @Override
     public Expression toExpression() {
       List<Expression> simplified = unTerms.stream()
                                 .sorted((a, b) -> -1 * a.compareTo(b))

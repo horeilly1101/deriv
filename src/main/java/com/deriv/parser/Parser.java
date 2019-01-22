@@ -1,6 +1,7 @@
 package com.deriv.parser;
 
 import com.deriv.expression.Expression;
+import com.deriv.expression.Variable;
 import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.DefaultSymbolFactory;
 import java_cup.runtime.Symbol;
@@ -77,5 +78,12 @@ public class Parser {
       // handle exceptions
       return Optional.empty();
     }
+  }
+
+  /**
+   * Parses a String into an Optional of Variable.
+   */
+  public Optional<Variable> parseVariable() {
+    return parse().flatMap(x -> x.isVariable() ? Optional.of(x.asVariable()) : Optional.empty());
   }
 }

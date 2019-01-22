@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.deriv.parser.Parser.read;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScannerTest {
@@ -15,7 +14,7 @@ class ScannerTest {
    * and (b) that the parsed expression is equal to the expected expression.
    */
   private static void testHelper(List<Integer> expected, String input) {
-    Optional<List<Integer>> parsed = read(input);
+    Optional<List<Integer>> parsed = new Parser(input).read();
     assertTrue(parsed.isPresent());
     assertEquals(expected, parsed.get());
   }
@@ -93,7 +92,6 @@ class ScannerTest {
 
     String str2 = "5 ^ ^ x";
     List<Integer> ex2 = listof(sym.NUMBER, sym.CARROT, sym.CARROT, sym.VARIABLE);
-    System.out.println(read(str2));
     testHelper(ex2, str2);
   }
 
@@ -200,10 +198,10 @@ class ScannerTest {
   @Test
   void breakTest() {
     String str = " ^ + &";
-    assertFalse(read(str).isPresent());
+    assertFalse(new Parser(str).read().isPresent());
 
     String str2 = "2.34";
-    assertFalse(read(str2).isPresent());
+    assertFalse(new Parser(str2).read().isPresent());
 
     // BROKEN
 //    String str3 = "034";

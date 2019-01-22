@@ -30,7 +30,7 @@ public class Trig extends AExpression {
   }
 
   // define functions for evaluating derivatives
-  private static Map<String, BiFunction<Trig, String, Expression>> derivMap = new TreeMap<>();
+  private static Map<String, BiFunction<Trig, Variable, Expression>> derivMap = new TreeMap<>();
   static {
     derivMap.put("sin",
       (ex, var) -> {
@@ -186,12 +186,12 @@ public class Trig extends AExpression {
                : this.func + "(" + this.inside.toString() + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Expression val) {
+  public Optional<Expression> evaluate(Variable var, Expression val) {
     return inside.evaluate(var, val)
                .map(x -> evalMap.get(this.func).apply(x));
   }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     return derivMap.get(this.func)
              .apply(this, var);
   }

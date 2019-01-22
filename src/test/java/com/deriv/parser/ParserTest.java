@@ -13,7 +13,6 @@ import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Variable.*;
 import static com.deriv.expression.Trig.*;
 import static com.deriv.expression.Power.*;
-import static com.deriv.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
@@ -22,7 +21,7 @@ class ParserTest {
    * and (b) that the parsed expression is equal to the expected expression.
    */
   private static void testHelper(Expression expected, String input) {
-    Optional<Expression> parsed = parse(input);
+    Optional<Expression> parsed = new Parser(input).parse();
     assertTrue(parsed.isPresent());
     assertEquals(expected, parsed.get());
   }
@@ -234,13 +233,13 @@ class ParserTest {
   @Test
   void breakTest() {
     String str = "x +";
-    assertEquals(Optional.empty(), parse(str));
+    assertEquals(Optional.empty(), new Parser(str).parse());
 
     String str2 = "x + + 5";
-    assertEquals(Optional.empty(), parse(str2));
+    assertEquals(Optional.empty(), new Parser(str2).parse());
 
     String str3 = "8 & 4";
-    assertEquals(Optional.empty(), parse(str3));
+    assertEquals(Optional.empty(), new Parser(str3).parse());
   }
 
   @Test

@@ -15,12 +15,14 @@ import static com.deriv.expression.Add.*;
  * AddSimplifier exists to help us simplify and make consistent
  * the construction of Add objects.
  */
-public class AddSimplifier implements Simplifier {
+public abstract class AddSimplifier implements Simplifier {
   protected List<Expression> unTerms;
 
   public AddSimplifier(List<Expression> unTerms) {
     this.unTerms = unTerms;
   }
+
+  public abstract Expression toExpression();
 
   /**
    * This function checks whether or not the given list of Expressions
@@ -65,20 +67,21 @@ public class AddSimplifier implements Simplifier {
    * time.)
    */
   public Simplifier simplify() {
-    return unTerms.size() > 1 && !this.isSimplified()
-             ? this.withoutNesting().simplifyConstantTerms().simplifyTerms().simplify()
-             : this;
-  }
+    if (unTerms.size() > 1 && !this.isSimplified()) {
+      this.withoutNesting();
+      this.simplifyConstantTerms();
+      this.simplifyTerms();
+      return this.simplify();
+    }
 
-  public Expression toExpression() {
-    throw new RuntimeException("This method is overridden in the Add class!");
+    return this;
   }
 
   /**
    * This method adds terms with common factors. (e.g. It would take
    * x + 2x and output 3 * x.)
    */
-  private AddSimplifier simplifyTerms() {
+  private void simplifyTerms() {
     // maintain a hash map of factors we've already seen
     // this allows us to compute this function in linear time
     HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
@@ -99,19 +102,17 @@ public class AddSimplifier implements Simplifier {
     }
 
     // add up the constants
-    List<Expression> result = powerMap.keySet().stream()
+    this.unTerms = powerMap.keySet().stream()
                                 .map(key -> mult(
                                   key,
                                   add(powerMap.get(key))))
                                 .collect(toList());
-
-    return new AddSimplifier(result);
   }
 
   /**
    * This method adds up the values of constant elements of unTerms.
    */
-  private AddSimplifier simplifyConstantTerms() {
+  private void simplifyConstantTerms() {
     // keep track of constants' values
     List<Expression> noConstants = new ArrayList<>();
     Integer constants = 0;
@@ -133,14 +134,14 @@ public class AddSimplifier implements Simplifier {
       noConstants.add(constant(constants));
     }
 
-    return new AddSimplifier(noConstants);
+    this.unTerms = noConstants;
   }
 
   /**
    * This function ensures there is no nesting in unTerms. (i.e. none
    * of its elements are Add objects.)
    */
-  private AddSimplifier withoutNesting() {
+  private void withoutNesting() {
     List<Expression> newList = new ArrayList<>();
 
     for (Expression term : unTerms) {
@@ -152,6 +153,6 @@ public class AddSimplifier implements Simplifier {
       }
     }
 
-    return new AddSimplifier(newList);
+    this.unTerms = newList;
   }
 }

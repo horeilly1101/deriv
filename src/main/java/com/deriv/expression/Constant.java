@@ -88,11 +88,11 @@ public class Constant extends AExpression {
     return val.toString();
   }
 
-  public Optional<Expression> evaluate(String var, Expression input) {
+  public Optional<Expression> evaluate(Variable var, Expression input) {
     return Optional.of(this);
   }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     return addID().addStep(Step.CONSTANT_RULE, this);
   }
 }

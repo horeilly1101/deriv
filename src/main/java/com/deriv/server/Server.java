@@ -2,15 +2,14 @@ package com.deriv.server;
 
 import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
+import com.deriv.expression.Variable;
+import com.deriv.parser.Parser;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import spark.Response;
-
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.deriv.parser.Parser.parse;
 import static spark.Spark.*;
 
 public class Server {
@@ -23,23 +22,14 @@ public class Server {
   }
 
   /**
-   * Attempts to parse a string to an optional (Expression) variable.
-   */
-  static Optional<String> parseVar(String var) {
-    return var.length() == 1
-               ? parse(var).map(Expression::toString)
-               : Optional.empty();
-  }
-
-  /**
    * Attempts to differentiate an expression using monadic error handling.
    */
   static Optional<Expression> oDifferentiate(String expr, String var) {
     // attempt to parse var
-    Optional<String> oVar = parseVar(var);
+    Optional<Variable> oVar = new Parser(var).parseVariable();
 
     // attempt to parse expr
-    Optional<Expression> oExpr = parse(expr);
+    Optional<Expression> oExpr = new Parser(expr).parse();
 
     // attempt to differentiate function
     return oVar.flatMap(vr ->
@@ -53,13 +43,13 @@ public class Server {
                                                 String var,
                                                 String val) {
     // attempt to parse val
-    Optional<Expression> oVal = parse(val);
+    Optional<Expression> oVal = new Parser(val).parse();
 
     // attempt to parse var
-    Optional<String> oVar = parseVar(var);
+    Optional<Variable> oVar = new Parser(var).parseVariable();
 
     // attempt to parse expr
-    Optional<Expression> oExpr = parse(expr);
+    Optional<Expression> oExpr = new Parser(expr).parse();
 
     return oVal.flatMap(vl ->
                             oVar.flatMap(vr ->

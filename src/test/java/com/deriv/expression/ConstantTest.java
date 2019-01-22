@@ -3,6 +3,7 @@ package com.deriv.expression;
 import org.junit.jupiter.api.Test;
 
 import static com.deriv.expression.Constant.*;
+import static com.deriv.expression.Variable.x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConstantTest {
@@ -14,9 +15,9 @@ class ConstantTest {
     // of completeness
 
     Expression c = constant("c");
-    assertEquals(addID(), c.differentiate("x"));
+    assertEquals(addID(), c.differentiate(x().asVariable()));
 
     Expression one = multID();
-    assertEquals(addID(), one.differentiate("x"));
+    assertEquals(addID(), one.differentiate(x().asVariable()));
   }
 }

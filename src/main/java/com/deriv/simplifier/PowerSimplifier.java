@@ -9,10 +9,10 @@ import static com.deriv.expression.Mult.mult;
 import static com.deriv.expression.Mult.negate;
 import static com.deriv.expression.Power.power;
 
-/*
+/**
   Private, static class to help us simplify power instantiations.
-   */
-public class PowerSimplifier implements Simplifier {
+ */
+public abstract class PowerSimplifier implements Simplifier {
   protected Expression unBase;
   protected Expression unExponent;
 
@@ -20,6 +20,11 @@ public class PowerSimplifier implements Simplifier {
     this.unBase = unBase;
     this.unExponent = unExponent;
   }
+
+  /**
+   * Converts a PowerSimplifier object to an Expression.
+   */
+  public abstract Expression toExpression();
 
   /**
    * Is the PowerSimplifier instance simplified? See the comments in @PowerSimplifier.simplify()
@@ -38,38 +43,42 @@ public class PowerSimplifier implements Simplifier {
   public Simplifier simplify() {
     // is the whole expression a denominator constant?
     if (unBase.isConstant() && unExponent.isConstant() && unExponent.asConstant().isNegative()) {
-      return new PowerSimplifier(power(unBase, negate(unExponent)), constant(-1));
+      this.unBase = power(unBase, negate(unExponent));
+      this.unExponent = constant(-1);
+
+      return this;
     }
 
     // is the whole expression a constant?
-    if (unBase.isConstant() && unExponent.isConstant() && !unExponent.asConstant().isNegative()) {
+    if (unBase.isConstant() && unExponent.isConstant() && !unExponent.isNegative()) {
       // this ugly stack of code just takes the base to the specified power and casts it
       // to an integer
-      return new PowerSimplifier(constant((int)
-                                            Math.round(
-                                              Math.pow(
-                                                unBase.asConstant().getVal(),
-                                                unExponent.asConstant().getVal()))), multID());
+      this.unBase = constant((int) Math.round(Math.pow(
+                                                  unBase.asConstant().getVal(),
+                                                  unExponent.asConstant().getVal())));
+      this.unExponent = multID();
+
+      return this;
     }
 
     // is the base a mult?
     if (unBase.isMult()) {
-      return new PowerSimplifier(mult(unBase.asMult().getFactors().stream()
-                                        .map(x -> power(x, unExponent)).collect(Collectors.toList())), multID());
+      this.unBase = mult(unBase.asMult().getFactors().stream()
+                                        .map(x -> power(x, unExponent)).collect(Collectors.toList()));
+      this.unExponent = multID();
+
+      return this;
     }
 
     // is the base a power?
     if (unBase.isPower()) {
-      return new PowerSimplifier(unBase.getBase(), mult(unExponent, unBase.getExponent()));
+      Expression beforeBase = unBase;
+      this.unBase = unBase.getBase();
+      this.unExponent = mult(unExponent, beforeBase.getExponent());
+
+      return this;
     }
 
     return this;
-  }
-
-  /**
-   * Converts a PowerSimplifier object to an Expression.
-   */
-  public Expression toExpression() {
-    throw new RuntimeException("This method is overridden in the Power class!");
   }
 }

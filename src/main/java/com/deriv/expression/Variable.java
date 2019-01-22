@@ -57,15 +57,15 @@ public class Variable extends AExpression {
     return var;
   }
 
-  public Optional<Expression> evaluate(String var, Expression input) {
+  public Optional<Expression> evaluate(Variable var, Expression input) {
     // update later
-    return var.equals(this.var)
+    return var.equals(this)
                ? Optional.of(input)
                : Optional.of(this);
   }
 
-  public Expression differentiate(String wrt) {
-    return wrt.equals(var)
+  public Expression differentiate(Variable wrt) {
+    return wrt.equals(this)
              ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
              : Constant.addID().addStep(Step.CONSTANT_RULE, this);
   }

@@ -1,8 +1,6 @@
 package com.deriv.expression;
 
 import com.deriv.simplifier.MultSimplifier;
-import com.deriv.simplifier.Simplifier;
-
 import java.util.*;
 
 import static com.deriv.expression.Add.*;
@@ -33,7 +31,7 @@ public class Mult extends AExpression {
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
 
-    return (new MultSimplifierComplete(factors)).simplify().toExpression();
+    return new MultSimplifierComplete(factors).simplify().toExpression();
   }
 
   /**
@@ -147,7 +145,7 @@ public class Mult extends AExpression {
                + ")";
   }
 
-  public Optional<Expression> evaluate(String var, Expression input) {
+  public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
     List<Optional<Expression>> eval = factors.stream()
                                           .map(x -> x.evaluate(var, input))
@@ -161,7 +159,7 @@ public class Mult extends AExpression {
                : Optional.empty();
   }
 
-  public Expression differentiate(String var) {
+  public Expression differentiate(Variable var) {
     // always compute product rule down the middle of the list of factors
     int mid = factors.size() / 2;
 
@@ -192,7 +190,6 @@ public class Mult extends AExpression {
       super(unFactors);
     }
 
-    @Override
     public Expression toExpression() {
       if (unFactors.size() == 2) {
         List<Expression> con = unFactors.stream()

@@ -40,17 +40,17 @@ class LogTest {
     Expression lg = log(constant(2), x());
 
     // evaluate at 2
-    Optional<Expression> eval = lg.evaluate("x", constant(2));
+    Optional<Expression> eval = lg.evaluate(x().asVariable(), constant(2));
     assertTrue(eval.isPresent());
     assertEquals(multID(), eval.get());
 
     // evaluate at 5
-    Optional<Expression> eval2 = lg.evaluate("x", constant(5));
+    Optional<Expression> eval2 = lg.evaluate(x().asVariable(), constant(5));
     assertTrue(eval2.isPresent());
     assertEquals(log(constant(2), constant(5)), eval2.get());
 
     // evaluate at -1
-    Optional<Expression> eval3 = lg.evaluate("x", negate(multID()));
+    Optional<Expression> eval3 = lg.evaluate(x().asVariable(), negate(multID()));
     assertFalse(eval3.isPresent());
   }
 
@@ -58,21 +58,21 @@ class LogTest {
   void differentiateTest() {
     // ln(x)
     Expression ln = ln(x());
-    assertEquals(div(multID(), x()), ln.differentiate("x"));
+    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
 
-    System.out.println(ln.differentiate("x").getSteps());
+    System.out.println(ln.differentiate(x().asVariable()).getSteps());
 
     // log(e, x)
     Expression ln2 = log(e(), x());
-    assertEquals(ln.differentiate("x"), ln2.differentiate("x"));
+    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
 
-    System.out.println(ln2.differentiate("x").getSteps());
+    System.out.println(ln2.differentiate(x().asVariable()).getSteps());
 
     // log(2, x)
     Expression lg = log(constant(2), x());
-    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate("x"));
+    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
 
-    System.out.println(lg.differentiate("x").getSteps());
+    System.out.println(lg.differentiate(x().asVariable()).getSteps());
 
     List<Integer> hey = new ArrayList<>();
     hey.add(1);

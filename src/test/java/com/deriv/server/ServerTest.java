@@ -19,17 +19,6 @@ class ServerTest {
   }
 
   @Test
-  void parseTest() {
-    // test parseVar
-    Optional<String> oVar = parseVar("x");
-    assertTrue(oVar.isPresent());
-    assertEquals("x", oVar.get());
-
-    Optional<String> oVar2 = parseVar("xyz");
-    assertFalse(oVar2.isPresent());
-  }
-
-  @Test
   void oDifferentiateTest() {
     String str = "x ^ 2";
     Expression ex = mult(constant(2), x());

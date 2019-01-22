@@ -19,12 +19,20 @@ import static java.util.stream.Collectors.toList;
  but they've been thoroughly tested, and they each serve an important role
  in simplifying mults.
  */
-public class MultSimplifier implements Simplifier {
+public abstract class MultSimplifier implements Simplifier {
   protected List<Expression> unFactors;
 
   public MultSimplifier(List<Expression> unFactors) {
     this.unFactors = unFactors;
   }
+
+  /**
+   * This method checks 2 things. First, it checks if factors is just a list of a constant and an Add.
+   * If this is the case, we want to distribute the constant among the terms and return an Add.
+   * Second, it checks whether or not a list of factors has more than one element. If it does, then it
+   * creates a mult. If it has just one object, it just returns the object.
+   */
+  public abstract Expression toExpression();
 
   /**
    * This function figures out whether or not the list of factors is
@@ -77,30 +85,24 @@ public class MultSimplifier implements Simplifier {
    * time.)
    */
   public Simplifier simplify() {
-    return this.isSimplified()
-             ? this
-             : this.withoutNesting().simplifyConstantFactors().simplifyFactors()
-                 .simplify();
-  }
+    if (this.isSimplified()) {
+      return this;
+    }
 
-  /**
-   * This method checks 2 things. First, it checks if factors is just a list of a constant and an Add.
-   * If this is the case, we want to distribute the constant among the terms and return an Add.
-   * Second, it checks whether or not a list of factors has more than one element. If it does, then it
-   * creates a mult. If it has just one object, it just returns the object.
-   */
-  public Expression toExpression() {
-    throw new RuntimeException("This method is overridden in the Mult class!");
+    // begin the simplification process
+    this.withoutNesting();
+    this.simplifyConstantFactors();
+    this.simplifyFactors();
+
+    return this.simplify();
   }
 
   /**
    * This method simplifies a list of factors by ensuring factors
    * are taken to the proper exponents. (e.g. we want to write x * x
    * as x ^ 2.0.)
-   *
-   * @return List<Expression> simplified
    */
-  private MultSimplifier simplifyFactors() {
+  private void simplifyFactors() {
     HashMap<Expression, List<Expression>> powerMap = new HashMap<>();
 
     for (Expression fac : unFactors) {
@@ -116,13 +118,11 @@ public class MultSimplifier implements Simplifier {
     }
 
     // add up the exponents
-    List<Expression> result = powerMap.keySet().stream()
+    this.unFactors = powerMap.keySet().stream()
                                 .map(key -> power(
                                   key,
                                   add(powerMap.get(key))))
                                 .collect(toList());
-
-    return new MultSimplifier(result);
   }
 
   /**
@@ -137,10 +137,8 @@ public class MultSimplifier implements Simplifier {
    * This method also simplifies constants in the numerator and denominator
    * by dividing each by the greatest common factor. (Check out Euclid's
    * algorithm down below.)
-   *
-   * @return MultSimplifier simplified
    */
-  private MultSimplifier simplifyConstantFactors() {
+  private void simplifyConstantFactors() {
     // keep track of constant values in the numerator and the denominator
     List<Expression> noConstants = new ArrayList<>();
     int numConstants = 1;
@@ -182,7 +180,7 @@ public class MultSimplifier implements Simplifier {
       noConstants.add(poly(constant(denConstants), -1));
     }
 
-    return new MultSimplifier(noConstants);
+    this.unFactors = noConstants;
   }
 
   /**
@@ -191,10 +189,8 @@ public class MultSimplifier implements Simplifier {
    * by a Mult object should not yield a Mult object of two Mult objects.
    * It should yield a Mult object of whatever was in the original objects,
    * flatmapped together.)
-   *
-   * @return MultSimplifier simplified
    */
-  private MultSimplifier withoutNesting() {
+  private void withoutNesting() {
     List<Expression> newList = new ArrayList<>();
 
     for (Expression factor : unFactors) {
@@ -207,7 +203,7 @@ public class MultSimplifier implements Simplifier {
       }
     }
 
-    return new MultSimplifier(newList);
+    this.unFactors = newList;
   }
 
   /**
