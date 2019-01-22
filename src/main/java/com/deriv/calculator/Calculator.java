@@ -12,23 +12,31 @@ public class Calculator {
     this.oExpression = new Parser(inputString).parse();
   }
 
+  Calculator(Optional<Expression> oExpression) {
+    this.oExpression = oExpression;
+  }
+
   @Override
   public String toString() {
-    return oExpression.toString();
+    if (oExpression.isPresent()) {
+      return oExpression.get().toString();
+    }
+    return "";
   }
 
   public Optional<Expression> toOExpression() {
     return oExpression;
   }
 
-  public Optional<Expression> differentiate(String wrt) {
-    return new Parser(wrt).parseVariable().flatMap(var -> oExpression.map(ex -> ex.differentiate(var)));
+  public Calculator differentiate(String wrt) {
+    return new Calculator(new Parser(wrt).parseVariable().flatMap(var -> oExpression.map(ex -> ex.differentiate(var))));
   }
 
-  public Optional<Expression> evaluate(String var, String val) {
-    return new Parser(var).parseVariable()
-             .flatMap(vr -> new Parser(val).parse()
-                              .flatMap(vl -> oExpression
-                                               .flatMap(ex -> ex.evaluate(vr, vl))));
+  public Calculator evaluate(String var, String val) {
+    return new Calculator(
+      new Parser(var).parseVariable()
+        .flatMap(vr -> new Parser(val).parse()
+                         .flatMap(vl -> oExpression
+                                          .flatMap(ex -> ex.evaluate(vr, vl)))));
   }
 }
