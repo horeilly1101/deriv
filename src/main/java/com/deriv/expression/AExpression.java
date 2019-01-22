@@ -17,6 +17,11 @@ abstract class AExpression implements Expression {
       this.expression = expression;
     }
 
+    @Override
+    public String toString() {
+      return "(" + step.toString() + ", " + expression.toString() + ")";
+    }
+
     Step getStep() {
       return step;
     }
@@ -30,17 +35,19 @@ abstract class AExpression implements Expression {
     }
   }
 
-  void addStep(Step step, Expression expression) {
+  public Expression addStep(Step step, Expression expression) {
     steps.add(Tuple.of(step, expression));
+    return this;
   }
 
-  void extendSteps(List<Tuple> otherSteps) {
+  public Expression extendSteps(List<Tuple> otherSteps) {
     steps.addAll(otherSteps);
+    return this;
   }
 
-  List<Tuple> steps = new ArrayList<>();
+  private List<Tuple> steps = new ArrayList<>();
 
-  List<Tuple> getSteps() {
+  public List<Tuple> getSteps() {
     return steps;
   }
 }

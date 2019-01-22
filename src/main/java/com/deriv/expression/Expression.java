@@ -1,5 +1,6 @@
 package com.deriv.expression;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -39,6 +40,21 @@ public interface Expression extends Comparable {
    * @return Expression derivative
    */
   Expression differentiate(String var);
+
+  /**
+   * @return the steps taken to differentiate the given expression.
+   */
+  List<Tuple> getSteps();
+
+  /**
+   * Adds the given Step and Expression to the Expression's step list.
+   */
+  Expression addStep(Step step, Expression expression);
+
+  /**
+   * Adds the given list of Tuples to the Expression's step list.
+   */
+  Expression extendSteps(List<Tuple> otherSteps);
 
   /**
    * This method compares an expression with a given object. This
@@ -113,6 +129,10 @@ public interface Expression extends Comparable {
 
   default Variable asVariable() {
     return (Variable) this;
+  }
+
+  default AExpression asAExpression() {
+    return (AExpression) this;
   }
 
   /*

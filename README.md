@@ -90,6 +90,7 @@ grammar is meant to increase clarity.
 
 ## Notes
 
+- The entirety of the project was built using the Composite Design Pattern.
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
 - +96% of the lines of code in expression are covered by unit tests.
