@@ -46,7 +46,6 @@ public abstract class AExpression implements Expression {
   }
 
   public Expression addStepLeft(Step step, Expression expression) {
-//    steps.add(Tuple.of(step, expression));
     steps.add(0, Tuple.of(step, expression));
     return this;
   }
