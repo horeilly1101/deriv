@@ -126,6 +126,8 @@ class AddTest {
     Expression ex3 = add(x(), ln(x()));
     assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate("x"));
 
+    System.out.println(ex3.differentiate("x").getSteps());
+
     // x + sin(x)
     Expression ex4 = add(x(), sin(x()));
     assertEquals(add(multID(), cos(x())), ex4.differentiate("x"));

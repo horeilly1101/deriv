@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 import static com.deriv.expression.Constant.*;
@@ -91,9 +92,16 @@ public class Add extends AExpression {
 
   public Expression differentiate(String var) {
     // linearity of differentiation
-    return add(terms.stream()
-                   .map(x -> x.differentiate(var))
-                   .collect(toList()));
+    List<Expression> newTerms = terms.stream()
+                                  .map(x -> x.differentiate(var))
+                                  .collect(toList());
+
+    return add(newTerms)
+             .addStep(Step.LINEARITY, this)
+             .extendSteps(newTerms
+                            .stream()
+                            .flatMap(x -> x.getSteps().stream())
+                            .collect(Collectors.toList()));
   }
 
   /**

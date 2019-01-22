@@ -117,8 +117,6 @@ class MultTest {
     Expression ex = mult(x(), x(), constant(2));
     assertEquals(mult(constant(4), x()), ex.differentiate("x"));
 
-    System.out.println(ex.differentiate("x").getSteps());
-
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
     assertEquals(mult(constant("a"), constant(3)), ex2.differentiate("x"));
