@@ -9,16 +9,6 @@ public class Constant extends AExpression {
   private Integer val;
 
   /**
-   * Singleton instance of the constant 1.
-   */
-  private static Expression MULT_ID = new Constant(1);
-
-  /**
-   * Singleton instance of the constant 0.
-   */
-  private static Expression ADD_ID = new Constant(0);
-
-  /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
    * easy constructor below instead.
    *
@@ -33,14 +23,6 @@ public class Constant extends AExpression {
    * that are explicitly numbers.
    */
   public static Expression constant(Integer val) {
-    if (val == 1) {
-      return MULT_ID;
-    }
-
-    if (val == 0) {
-      return ADD_ID;
-    }
-
     return new Constant(val);
   }
 
@@ -73,11 +55,11 @@ public class Constant extends AExpression {
   }
 
   public static Expression multID() {
-    return MULT_ID;
+    return constant(1);
   }
 
   public static Expression addID() {
-    return ADD_ID;
+    return constant(0);
   }
 
   public static Expression e() {

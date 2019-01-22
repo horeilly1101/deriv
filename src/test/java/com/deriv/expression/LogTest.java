@@ -2,6 +2,8 @@ package com.deriv.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.deriv.expression.Log.*;
@@ -58,12 +60,23 @@ class LogTest {
     Expression ln = ln(x());
     assertEquals(div(multID(), x()), ln.differentiate("x"));
 
+    System.out.println(ln.differentiate("x").getSteps());
+
     // log(e, x)
     Expression ln2 = log(e(), x());
     assertEquals(ln.differentiate("x"), ln2.differentiate("x"));
 
+    System.out.println(ln2.differentiate("x").getSteps());
+
     // log(2, x)
     Expression lg = log(constant(2), x());
     assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate("x"));
+
+    System.out.println(lg.differentiate("x").getSteps());
+
+    List<Integer> hey = new ArrayList<>();
+    hey.add(1);
+    hey.add(2);
+    System.out.println(hey);
   }
 }

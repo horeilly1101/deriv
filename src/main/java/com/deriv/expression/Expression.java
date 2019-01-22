@@ -53,6 +53,11 @@ public interface Expression extends Comparable {
   Expression addStep(Step step, Expression expression);
 
   /**
+   * Adds the given Step and Expression to the left side of the Expression's step list.
+   */
+  Expression addStepLeft(Step step, Expression expression);
+
+  /**
    * Adds the given list of Tuples to the Expression's step list.
    */
   Expression extendSteps(List<Tuple> otherSteps);

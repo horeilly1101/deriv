@@ -2,14 +2,18 @@ package com.deriv.expression;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-abstract class AExpression implements Expression {
+import org.json.JSONArray;
+
+public abstract class AExpression implements Expression {
   enum Step {
     LINEARITY, LOG_RULE, PRODUCT_RULE, POWER_RULE, SIN, COS, TAN,
     CSC, SEC, COT, VARIABLE_RULE, CONSTANT_RULE
   }
 
-  static class Tuple {
+  public static class Tuple {
     private final Step step;
     private final Expression expression;
 
@@ -20,7 +24,7 @@ abstract class AExpression implements Expression {
 
     @Override
     public String toString() {
-      return "(" + step.toString() + ", " + expression.toString() + ")";
+      return "[" + step.toString() + ", " + expression.toString() + "]";
     }
 
     Step getStep() {
@@ -38,6 +42,12 @@ abstract class AExpression implements Expression {
 
   public Expression addStep(Step step, Expression expression) {
     steps.add(Tuple.of(step, expression));
+    return this;
+  }
+
+  public Expression addStepLeft(Step step, Expression expression) {
+//    steps.add(Tuple.of(step, expression));
+    steps.add(0, Tuple.of(step, expression));
     return this;
   }
 

@@ -1,10 +1,12 @@
 package com.deriv.server;
 
+import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
 import org.json.JSONObject;
+import org.json.JSONArray;
 import spark.Response;
-
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.deriv.parser.Parser.parse;
 import static spark.Spark.*;
@@ -82,6 +84,9 @@ public class Server {
                       .put("expression", expr)
                       .put("result", result.toString())
                       .put("var", var)
+                      .put("steps", new JSONArray(result.getSteps().stream()
+                                                    .map(AExpression.Tuple::toString)
+                                                    .collect(Collectors.toList())))
               );
   }
 

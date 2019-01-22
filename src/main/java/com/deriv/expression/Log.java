@@ -94,7 +94,7 @@ public class Log extends AExpression {
 
     Expression secondDerivative = div(ln(result), ln(base)).differentiate(var);
 
-    return secondDerivative.addStep(Step.LOG_RULE, this)
-             .extendSteps(secondDerivative.getSteps());
+    return secondDerivative
+             .addStepLeft(Step.LOG_RULE, this);
   }
 }
