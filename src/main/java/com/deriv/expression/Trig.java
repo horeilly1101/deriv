@@ -97,7 +97,9 @@ public class Trig extends AExpression {
         return Mult.mult(
           deriv,
           sec(ex.inside),
-          tan(ex.inside));
+          tan(ex.inside))
+                 .addStep(Step.SEC, ex)
+                 .extendSteps(deriv.getSteps());
       });
 
     derivMap.put("cot",
@@ -110,7 +112,9 @@ public class Trig extends AExpression {
           deriv,
           Power.poly(
             csc(ex.inside),
-            2));
+            2))
+                 .addStep(Step.COT, ex)
+                 .extendSteps(deriv.getSteps());
       });
   }
 
