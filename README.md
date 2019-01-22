@@ -18,7 +18,10 @@ This request returns a JSON object of the form
             {  
                 "expression" : expression,
                 "result" : differentiated expression,
-                "var" : var 
+                "var" : var,
+                "steps" : [ 
+                            steps 
+                          ]
             }
     }
     
