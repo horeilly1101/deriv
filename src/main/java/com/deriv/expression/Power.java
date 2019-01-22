@@ -78,7 +78,7 @@ public class Power extends AExpression {
   public String toString() {
     return this.exponent.isNegative()
                ? "1 / " + power(base, negate(exponent)).toString()
-               : "(" + base.toString() + ")" + " ^ " + "(" + exponent.toString() + ")";
+               : base.toString() + " ^ " + exponent.toString();
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
