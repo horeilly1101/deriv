@@ -13,12 +13,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Parser {
+  private String inputString;
+
+  public Parser(String inputString) {
+    this.inputString = inputString;
+  }
+
   /**
    * Scans a String into a list of the symbols of the tokens. This method
    * only really exists for debugging and unit testing.
    */
-  static Optional<List<Integer>> read(String input) {
-    FlexScanner flex = new FlexScanner(new StringReader(input));
+  Optional<List<Integer>> read() {
+    FlexScanner flex = new FlexScanner(new StringReader(inputString));
     List<Symbol> tokens = new ArrayList<>();
 
     // iterate until loop breaks
@@ -54,9 +60,9 @@ public class Parser {
   /**
    * Parses a String into an Optional of Expression.
    */
-  public static Optional<Expression> parse(String input) {
+  public Optional<Expression> parse() {
     // initialize the parser
-    CupParser parser = new CupParser(new FlexScanner(new StringReader(input)));
+    CupParser parser = new CupParser(new FlexScanner(new StringReader(inputString)));
 
     try {
       // attempt to parse

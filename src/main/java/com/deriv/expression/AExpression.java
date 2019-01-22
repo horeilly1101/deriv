@@ -2,10 +2,6 @@ package com.deriv.expression;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.json.JSONArray;
 
 public abstract class AExpression implements Expression {
   enum Step {
@@ -25,14 +21,6 @@ public abstract class AExpression implements Expression {
     @Override
     public String toString() {
       return "[" + step.toString() + ", " + expression.toString() + "]";
-    }
-
-    Step getStep() {
-      return step;
-    }
-
-    Expression getExpression() {
-      return expression;
     }
 
     static Tuple of(Step step, Expression expression) {

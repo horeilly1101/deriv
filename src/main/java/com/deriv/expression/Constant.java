@@ -35,7 +35,7 @@ public class Constant extends AExpression {
     return new Variable(val);
   }
 
-  Integer getVal() {
+  public Integer getVal() {
     return val;
   }
 

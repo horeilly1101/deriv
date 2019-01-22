@@ -1,4 +1,6 @@
-package com.deriv.expression;
+package com.deriv.simplifier;
+
+import com.deriv.expression.Expression;
 
 /**
  * A simplifier is used to simplify the construction of an Expression

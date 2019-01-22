@@ -31,7 +31,7 @@ public interface Expression extends Comparable {
    * @param input -- the number to be plugged into var
    * @return Optional<Expression> solution
    */
-  Optional<Expression> evaluate(String var, Expression input);
+  Optional<Expression> evaluate(Variable var, Expression input);
   // future: should be able to evaluate at any expression value, not string
 
   /**
@@ -40,7 +40,7 @@ public interface Expression extends Comparable {
    * @param var -- a string variable name
    * @return Expression derivative
    */
-  Expression differentiate(String var);
+  Expression differentiate(Variable var);
 
   /**
    * @return the steps taken to differentiate the given expression.
