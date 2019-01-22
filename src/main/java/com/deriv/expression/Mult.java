@@ -159,14 +159,23 @@ public class Mult extends AExpression {
   }
 
   public Expression differentiate(String var) {
+    addStep(Step.PRODUCT_RULE, this);
+
+    // always compute product rule down the middle of the list of factors
+    int mid = factors.size() / 2;
+    Expression firstDerivative = mult(factors.subList(0, mid)).differentiate(var);
+    Expression secondDerivative = mult(factors.subList(mid, factors.size())).differentiate(var);
+
+    //
+
     return add(
               mult(
-                  factors.get(0),
-                  mult(factors.subList(1, factors.size())).differentiate(var)
+                  mult(factors.subList(0, mid)),
+                  secondDerivative
               ),
               mult(
-                  factors.get(0).differentiate(var),
-                  mult(factors.subList(1, factors.size()))
+                  firstDerivative,
+                  mult(factors.subList(mid, factors.size()))
               ));
   }
 
