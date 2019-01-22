@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
+import static com.deriv.expression.AExpression.*;
 
 /**
  * An Expression is the all-encompassing data structure that allows
