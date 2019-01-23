@@ -1,8 +1,10 @@
 package com.deriv.calculator;
 
+import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
 import com.deriv.parser.Parser;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Calculator {
@@ -30,6 +32,10 @@ public class Calculator {
 
   public Calculator differentiate(String wrt) {
     return new Calculator(new Parser(wrt).parseVariable().flatMap(var -> oExpression.map(ex -> ex.differentiate(var))));
+  }
+
+  public Optional<List<AExpression.Tuple>> derivativeSteps(String wrt) {
+    return this.differentiate(wrt).oExpression.map(Expression::getSteps);
   }
 
   public Calculator evaluate(String var, String val) {

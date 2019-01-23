@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AExpression implements Expression {
-  enum Step {
+  public enum Step {
     LINEARITY, LOG_RULE, PRODUCT_RULE, POWER_RULE, SIN, COS, TAN,
     CSC, SEC, COT, VARIABLE_RULE, CONSTANT_RULE
   }

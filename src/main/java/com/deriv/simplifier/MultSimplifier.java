@@ -90,9 +90,9 @@ public abstract class MultSimplifier implements Simplifier {
     }
 
     // begin the simplification process
-    this.withoutNesting();
-    this.simplifyConstantFactors();
-    this.simplifyFactors();
+    withoutNesting();
+    simplifyConstantFactors();
+    simplifyFactors();
 
     return this.simplify();
   }

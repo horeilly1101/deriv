@@ -68,10 +68,10 @@ public abstract class AddSimplifier implements Simplifier {
    */
   public Simplifier simplify() {
     if (unTerms.size() > 1 && !this.isSimplified()) {
-      this.withoutNesting();
-      this.simplifyConstantTerms();
-      this.simplifyTerms();
-      return this.simplify();
+      withoutNesting();
+      simplifyConstantTerms();
+      simplifyTerms();
+      return simplify();
     }
 
     return this;
