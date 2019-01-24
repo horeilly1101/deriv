@@ -69,7 +69,6 @@ public class Trig extends AExpression {
           Power.poly(
             sec(ex.inside),
             2))
-
           // add steps
           .addStep(Step.TAN, ex)
           .extendSteps(deriv.getSteps());
@@ -85,6 +84,7 @@ public class Trig extends AExpression {
           deriv,
           csc(ex.inside),
           cot(ex.inside))
+                 // add steps
                  .addStep(Step.CSC, ex)
                  .extendSteps(deriv.getSteps());
       });
@@ -98,6 +98,7 @@ public class Trig extends AExpression {
           deriv,
           sec(ex.inside),
           tan(ex.inside))
+                 // add steps
                  .addStep(Step.SEC, ex)
                  .extendSteps(deriv.getSteps());
       });
@@ -113,6 +114,7 @@ public class Trig extends AExpression {
           Power.poly(
             csc(ex.inside),
             2))
+                 // add steps
                  .addStep(Step.COT, ex)
                  .extendSteps(deriv.getSteps());
       });

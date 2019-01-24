@@ -74,6 +74,8 @@ public class Calculator {
     return variableCache.computeIfAbsent(inputString, str -> new Parser(str).parseVariable());
   }
 
+
+
   /**
    * Differentiates the input String with respect to the input variable
    * and returns an Optional of Expression.
@@ -82,7 +84,6 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-//    return differentiateCache.
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
                                .map(ex -> differentiateCache.computeIfAbsent(
