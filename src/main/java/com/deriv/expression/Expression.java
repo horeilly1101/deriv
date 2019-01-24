@@ -22,7 +22,7 @@ import static com.deriv.expression.Constant.*;
  *
  * Questions about how it all works? Email horeilly1101@gmail.com
  */
-public interface Expression extends Comparable {
+public interface Expression extends Comparable<Expression> {
   /**
    * Plugs an input into the value of whatever variable is
    * in the function, and then evaluates the rest of the
@@ -69,7 +69,7 @@ public interface Expression extends Comparable {
    * data structures. It also makes equality less strict. (i.e.
    * 2.0 * x should be equal to x * 2.0.)
    */
-  default int compareTo(Object o) {
+  default int compareTo(Expression o) {
     // constants should come first
     return this.toString().compareTo(o.toString());
   }
