@@ -60,6 +60,7 @@ public class Calculator {
    * @return an Optional of the Expression
    */
   public Optional<Expression> toOExpression(String inputString) {
+    // only parse if the given expression has not already been parsed to an expression
     return expressionCache.computeIfAbsent(inputString, str -> new Parser(str).parse());
   }
 
@@ -69,6 +70,7 @@ public class Calculator {
    * @return an Optional of the Variable
    */
   public Optional<Variable> toOVariable(String inputString) {
+    // only parse if the given string has not already been parsed to a variable
     return variableCache.computeIfAbsent(inputString, str -> new Parser(str).parseVariable());
   }
 
@@ -83,7 +85,9 @@ public class Calculator {
 //    return differentiateCache.
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> differentiateCache.computeIfAbsent(Tuple.of(ex, var), tup -> tup.getFirstItem().differentiate(tup.getSecondItem())))); // differentiate
+                               .map(ex -> differentiateCache.computeIfAbsent(
+                                 Tuple.of(ex, var), // create tuple to store computation
+                                 tup -> tup.getFirstItem().differentiate(tup.getSecondItem())))); // differentiate
   }
 
   /**
