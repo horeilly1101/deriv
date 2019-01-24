@@ -1,10 +1,10 @@
 package com.deriv.expression;
 
+import com.deriv.util.*;
 import java.util.List;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
-import static com.deriv.expression.AExpression.*;
 
 /**
  * An Expression is the all-encompassing data structure that allows
@@ -45,7 +45,7 @@ public interface Expression extends Comparable {
   /**
    * @return the steps taken to differentiate the given expression.
    */
-  List<Tuple> getSteps();
+  List<Tuple<Step, Expression>> getSteps();
 
   /**
    * Adds the given Step and Expression to the Expression's step list.
@@ -60,7 +60,7 @@ public interface Expression extends Comparable {
   /**
    * Adds the given list of Tuples to the Expression's step list.
    */
-  Expression extendSteps(List<Tuple> otherSteps);
+  Expression extendSteps(List<Tuple<Step, Expression>> otherSteps);
 
   /**
    * This method compares an expression with a given object. This
