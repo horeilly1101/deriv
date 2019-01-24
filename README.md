@@ -94,8 +94,9 @@ grammar is meant to increase clarity.
 ## Notes
 
 - The Calculator class is built with memoization EVERYWHERE, so recomputing anything in this class can be
-done in constant time. If you want to use this project as a library, you should focus your attention on the
-Calculator class.
+done in constant time. Also, since the caches are implemented as ConcurrentHashMaps, you can run multiple 
+operations on the same Calculator object in parallel, and the results will be stored as usual.
+- If you want to use this project as a library, you should focus your attention on the Calculator class.
 - The Expression functionality was built using the Composite Design Pattern.
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
