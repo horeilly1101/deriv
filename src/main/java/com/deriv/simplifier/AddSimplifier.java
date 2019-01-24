@@ -66,15 +66,16 @@ public abstract class AddSimplifier implements Simplifier {
    * (Everything but the (possible) recursive call runs in expected linear
    * time.)
    */
-  public Simplifier simplify() {
+  public void simplify() {
     if (unTerms.size() > 1 && !this.isSimplified()) {
+      // run through our simplification procedures
       withoutNesting();
       simplifyConstantTerms();
       simplifyTerms();
-      return simplify();
-    }
 
-    return this;
+      // repeat until fully simplified
+      simplify();
+    }
   }
 
   /**

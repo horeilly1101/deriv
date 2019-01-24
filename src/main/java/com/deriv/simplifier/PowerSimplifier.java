@@ -40,45 +40,35 @@ public abstract class PowerSimplifier implements Simplifier {
   /**
    * Simplifies an a PowerSimplifier object.
    */
-  public Simplifier simplify() {
+  public void simplify() {
     // is the whole expression a denominator constant?
     if (unBase.isConstant() && unExponent.isConstant() && unExponent.asConstant().isNegative()) {
       this.unBase = power(unBase, negate(unExponent));
       this.unExponent = constant(-1);
-
-      return this;
     }
 
     // is the whole expression a constant?
-    if (unBase.isConstant() && unExponent.isConstant() && !unExponent.isNegative()) {
+    else if (unBase.isConstant() && unExponent.isConstant() && !unExponent.isNegative()) {
       // this ugly stack of code just takes the base to the specified power and casts it
       // to an integer
       this.unBase = constant((int) Math.round(Math.pow(
                                                   unBase.asConstant().getVal(),
                                                   unExponent.asConstant().getVal())));
       this.unExponent = multID();
-
-      return this;
     }
 
     // is the base a mult?
-    if (unBase.isMult()) {
+    else if (unBase.isMult()) {
       this.unBase = mult(unBase.asMult().getFactors().stream()
                                         .map(x -> power(x, unExponent)).collect(Collectors.toList()));
       this.unExponent = multID();
-
-      return this;
     }
 
     // is the base a power?
-    if (unBase.isPower()) {
+    else if (unBase.isPower()) {
       Expression beforeBase = unBase;
       this.unBase = unBase.getBase();
       this.unExponent = mult(unExponent, beforeBase.getExponent());
-
-      return this;
     }
-
-    return this;
   }
 }

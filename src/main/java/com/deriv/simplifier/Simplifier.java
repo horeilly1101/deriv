@@ -19,10 +19,18 @@ public interface Simplifier {
   /**
    * Simplifies a simplifier.
    */
-  Simplifier simplify();
+  void simplify();
 
   /**
    * Converts a simplifier to an Expression.
    */
   Expression toExpression();
+
+  /**
+   * Simplifies a simplifier, and then outputs it to an Expression.
+   */
+  default Expression simplifyToExpression() {
+    simplify();
+    return toExpression();
+  }
 }

@@ -31,7 +31,7 @@ public class Mult extends AExpression {
       throw new RuntimeException("Don't instantiate a term with an empty list!");
     }
 
-    return new MultSimplifierComplete(factors).simplify().toExpression();
+    return new MultSimplifierComplete(factors).simplifyToExpression();
   }
 
   /**

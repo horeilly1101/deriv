@@ -26,7 +26,7 @@ public class Power extends AExpression {
    * Use this to instantiate a power.
    */
   public static Expression power(Expression base, Expression exponent) {
-    return new PowerSimplifierComplete(base, exponent).simplify().toExpression();
+    return new PowerSimplifierComplete(base, exponent).simplifyToExpression();
   }
 
   public static Expression poly(Expression base, Integer exponent) {

@@ -84,17 +84,16 @@ public abstract class MultSimplifier implements Simplifier {
    * (Everything but the (possible) recursive call runs in expected linear
    * time.)
    */
-  public Simplifier simplify() {
-    if (this.isSimplified()) {
-      return this;
+  public void simplify() {
+    if (!isSimplified()) {
+      // run through our simplification procedures
+      withoutNesting();
+      simplifyConstantFactors();
+      simplifyFactors();
+
+      // repeat until fully simplified
+      simplify();
     }
-
-    // begin the simplification process
-    withoutNesting();
-    simplifyConstantFactors();
-    simplifyFactors();
-
-    return this.simplify();
   }
 
   /**

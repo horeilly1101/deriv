@@ -27,7 +27,7 @@ public class Add extends AExpression {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
     } else {
-      return new AddSimplifierComplete(terms).simplify().toExpression();
+      return new AddSimplifierComplete(terms).simplifyToExpression();
     }
   }
 
