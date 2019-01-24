@@ -1,6 +1,5 @@
 package com.deriv.server;
 
-import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.parser.Parser;

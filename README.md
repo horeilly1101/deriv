@@ -93,7 +93,10 @@ grammar is meant to increase clarity.
 
 ## Notes
 
-- The entirety of the project was built using the Composite Design Pattern.
+- The Calculator class is built with memoization EVERYWHERE, so recomputing anything in this class can be
+done in constant time. If you want to use this project as a library, you should focus your attention on the
+Calculator class.
+- The Expression functionality was built using the Composite Design Pattern.
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
 - +96% of the lines of code in expression are covered by unit tests.
