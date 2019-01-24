@@ -1,5 +1,6 @@
 package com.deriv.server;
 
+import com.deriv.calculator.Calculator;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.parser.Parser;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 import static spark.Spark.*;
 
 public class Server {
+  private static Calculator calc = new Calculator();
+
   /**
    * An easy constructor for an empty JSON Object. Helps clean up
    * the code a little bit.
@@ -22,44 +25,9 @@ public class Server {
   }
 
   /**
-   * Attempts to differentiate an expression using monadic error handling.
-   */
-  static Optional<Expression> oDifferentiate(String expr, String var) {
-    // attempt to parse var
-    Optional<Variable> oVar = new Parser(var).parseVariable();
-
-    // attempt to parse expr
-    Optional<Expression> oExpr = new Parser(expr).parse();
-
-    // attempt to differentiate function
-    return oVar.flatMap(vr ->
-                            oExpr.map(ex -> ex.differentiate(vr)));
-  }
-
-  /**
-   * Attempts to evaluate an expression using monadic error handling.
-   */
-  static Optional<Expression> oEvaluate(String expr,
-                                                String var,
-                                                String val) {
-    // attempt to parse val
-    Optional<Expression> oVal = new Parser(val).parse();
-
-    // attempt to parse var
-    Optional<Variable> oVar = new Parser(var).parseVariable();
-
-    // attempt to parse expr
-    Optional<Expression> oExpr = new Parser(expr).parse();
-
-    return oVal.flatMap(vl ->
-                            oVar.flatMap(vr ->
-                                             oExpr.flatMap(ex -> ex.evaluate(vr, vl))));
-  }
-
-  /**
    * Returns a JSON object error message.
    */
-  private  static JSONObject error(Response res) {
+  private static  JSONObject error(Response res) {
     res.status(400); // client error
     return jobject()
               .put("error", "invalid input(s)");
@@ -68,7 +36,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the differentiate route.
    */
-  static JSONObject diffObject(Expression result, String expr, String var) {
+  static JSONObject diffObject(Expression result, Expression expr, Variable var) {
     return jobject()
               .put("data",
                   jobject()
@@ -85,15 +53,15 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the evaluate route.
    */
-  static JSONObject evalObject(Expression result, String expr, String var, String val) {
+  static JSONObject evalObject(Expression result, Expression expr, Variable var, Expression val) {
     return jobject()
                .put("data",
                    jobject()
                        // the gets are checked, because oEval is checked
-                       .put("expression", expr)
+                       .put("expression", expr.toString())
                        .put("result", result.toString())
-                       .put("var", var)
-                       .put("val", val)
+                       .put("var", var.toString())
+                       .put("val", val.toString())
                );
   }
 
@@ -107,11 +75,11 @@ public class Server {
       String var = req.params(":var");
 
       // attempt to differentiate expression
-      Optional<Expression> oDeriv = oDifferentiate(expr, var);
+      Optional<Expression> oDeriv = calc.differentiate(expr, var);
 
       // return the derivative if possible, otherwise an error
       return oDeriv.isPresent()
-                 ? diffObject(oDeriv.get(), expr, var)
+                 ? diffObject(oDeriv.get(), calc.toOExpression(expr).get(), calc.toOVariable(var).get())
                  : error(res);
     });
 
@@ -123,11 +91,15 @@ public class Server {
       String val = req.params(":val");
 
       // attempt to evaluate expression
-      Optional<Expression> oEval = oEvaluate(expr, var, val);
+      Optional<Expression> oEval = calc.evaluate(expr, var, val);
 
       // return the evaluation if possible, otherwise an error
       return oEval.isPresent()
-                 ? evalObject(oEval.get(), expr, var, val)
+                 ? evalObject(
+                    oEval.get(),
+                    calc.toOExpression(expr).get(),
+                    calc.toOVariable(var).get(),
+                    calc.toOExpression(val).get())
                  : error(res);
     });
   }

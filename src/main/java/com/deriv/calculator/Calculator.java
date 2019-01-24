@@ -42,7 +42,7 @@ public class Calculator {
   /**
    * Constructor for our Calculator.
    */
-  Calculator() { }
+  public Calculator() { }
 
   /**
    * Simplifies the given String representation of an expression.
