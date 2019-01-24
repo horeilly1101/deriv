@@ -13,13 +13,29 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Allows the use to differentiate and evaluate arbitrary functions just
- * by inputting in a string representation of an expression.
+ * by inputting in a string representation of an expression. Implemented with memoization, so
+ * recomputing values should take a constant amount of time.
  */
 public class Calculator {
+  /**
+   * Map to memoize expression parsing.
+   */
   private final Map<String, Optional<Expression>> expressionCache = new ConcurrentHashMap<>();
+
+  /**
+   * Map to memoize variable parsing.
+   */
   private final Map<String, Optional<Variable>> variableCache = new ConcurrentHashMap<>();
-  private final Map<Tuple<Expression, Variable>, Optional<Expression>>
+
+  /**
+   * Map to memoize derivative computing.
+   */
+  private final Map<Tuple<Expression, Variable>, Expression>
     differentiateCache = new ConcurrentHashMap<>();
+
+  /**
+   * Map to memoize evaluation computing.
+   */
   private final Map<ThreeTuple<Expression, Variable, Expression>, Optional<Expression>>
     evaluateCache = new ConcurrentHashMap<>();
 
@@ -48,6 +64,15 @@ public class Calculator {
   }
 
   /**
+   * Parses the input String and returns an Optional of Variable.
+   *
+   * @return an Optional of the Variable
+   */
+  public Optional<Variable> toOVariable(String inputString) {
+    return variableCache.computeIfAbsent(inputString, str -> new Parser(str).parseVariable());
+  }
+
+  /**
    * Differentiates the input String with respect to the input variable
    * and returns an Optional of Expression.
    *
@@ -55,9 +80,10 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-    return new Parser(wrt).parseVariable() // parse the variable
+//    return differentiateCache.
+    return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> ex.differentiate(var))); // differentiate
+                               .map(ex -> differentiateCache.computeIfAbsent(Tuple.of(ex, var), tup -> tup.getFirstItem().differentiate(tup.getSecondItem())))); // differentiate
   }
 
   /**
@@ -65,16 +91,29 @@ public class Calculator {
    * of an expression.
    *
    * @param wrt the variable
-   * @return
+   * @return an optional list of the steps
    */
-  public Optional<List<AExpression.Tuple>> derivativeSteps(String expressionString, String wrt) {
+  public Optional<List<Tuple<AExpression.Step, Expression>>> derivativeSteps(String expressionString, String wrt) {
     return differentiate(expressionString, wrt).map(Expression::getSteps);
   }
 
+  /**
+   * Evaluates the given expression at the given variable with the given value and returns an Optional
+   * of Expression.
+   *
+   * @param expressionString String representation of Expression
+   * @param var input variable
+   * @param val input value
+   * @return an Optional of the resulting expression
+   */
   public Optional<Expression> evaluate(String expressionString, String var, String val) {
-    return new Parser(var).parseVariable() // parse variable
-             .flatMap(vr -> new Parser(val).parse() // parse value
-                              .flatMap(vl -> toOExpression(expressionString) // parse expression
-                                               .flatMap(ex -> ex.evaluate(vr, vl)))); // evaluate
+    return toOVariable(var) // parse variable
+             .flatMap(vr -> toOExpression(val) // parse value
+               .flatMap(vl -> toOExpression(expressionString) // parse expression
+                 .flatMap(ex -> evaluateCache.computeIfAbsent( // check cache for computation
+                   ThreeTuple.of(ex, vr, vl), // create tuple to store computation
+                   tup -> tup.getFirstItem().evaluate( // evaluate
+                     tup.getSecondItem(), // plug in var
+                     tup.getThirdItem()))))); // plug in val
   }
 }

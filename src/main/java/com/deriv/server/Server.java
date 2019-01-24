@@ -4,6 +4,7 @@ import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.parser.Parser;
+import com.deriv.util.Tuple;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import spark.Response;
@@ -77,7 +78,7 @@ public class Server {
                       .put("result", result.toString())
                       .put("var", var)
                       .put("steps", new JSONArray(result.getSteps().stream()
-                                                    .map(AExpression.Tuple::toString)
+                                                    .map(Tuple::toString)
                                                     .collect(Collectors.toList())))
               );
   }
