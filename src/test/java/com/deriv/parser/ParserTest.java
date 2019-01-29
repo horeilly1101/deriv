@@ -142,12 +142,23 @@ class ParserTest {
     Expression ex2 = mult(ln(x()), cos(x()), tan(x()));
     testHelper(ex2, str2);
 
-//    String str3 = "x ^ 2sin(x)";
-//    System.out.println(parse(str3));
+    /*
+     * Notice how implicit multiplication is handled in the exponent!
+     * This is the best way to handle ambiguity in the parser. See the
+     * next example for the correct way to put a mult in the exponent.
+     */
 
-    String str4 = "xsin(x) / x";
-    Expression ex4 = sin(x());
+    String str3 = "x ^ 2sin(x)";
+    Expression ex3 = mult(poly(x(), 2), sin(x())); // read this carefully!
+    testHelper(ex3, str3);
+
+    String str4 = "x ^ (2sin(x))";
+    Expression ex4 = power(x(), mult(constant(2), sin(x()))); // read this carefully!
     testHelper(ex4, str4);
+
+    String str5 = "xsin(x) / x";
+    Expression ex5 = sin(x());
+    testHelper(ex5, str5);
   }
 
   @Test
@@ -179,8 +190,10 @@ class ParserTest {
     Expression ex = add(poly(x(), 5), poly(x(), 2), negate(x()), constant(9));
     testHelper(ex, str);
 
-//    String str2 = "x ^ -1";
-//    System.out.println(parse(str2));
+    // TODO
+    String str2 = "x ^ -x";
+    Parser p = new Parser(str2);
+    System.out.println(p.parse());
 
     String str3 = "(x + 5) ^ x";
     Expression ex3 = power(add(x(), constant(5)), x());
@@ -193,6 +206,13 @@ class ParserTest {
     String str5 = "5 ^ x";
     Expression ex5 = exponential(5, x());
     testHelper(ex5, str5);
+  }
+
+  @Test
+  void negateTest() {
+    String str2 = "-x";
+    Parser p = new Parser(str2);
+    System.out.println(p.parse());
   }
 
   @Test

@@ -22,20 +22,25 @@ non terminal Expression     expr, term, factor, base;
 
 /* Grammar Definition */
 expr    ::= expr:e PLUS term:t                          {: RESULT = add(e, t); :}
-        | expr:e MINUS MINUS term:t                     {: RESULT = add(e, t); :}
-        | expr:e PLUS MINUS term:t                      {: RESULT = add(e, negate(t)); :}
+//        | MINUS expr:e                                  {: RESULT = negate(e); :}
+//        | expr:e MINUS MINUS term:t                     {: RESULT = add(e, t); :}
+//        | expr:e PLUS MINUS term:t                      {: RESULT = add(e, negate(t)); :}
         | expr:e MINUS term:t                           {: RESULT = add(e, negate(t)); :}
         | term:t                                        {: RESULT = t; :}
         ;
 term    ::= term:t TIMES factor:f                       {: RESULT = mult(t, f); :}
         | term:t factor:f                               {: RESULT = mult(t, f); :} // implicit multiplication
         | term:t DIVIDE factor:f                        {: RESULT = div(t, f); :}
+        | MINUS factor:f                                {: RESULT = negate(f); :}
         | factor:f                                      {: RESULT = f; :}
         ;
 factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :} // right associative
+        | base:b CARROT MINUS factor:f                  {: RESULT = power(b, negate(f)); :}
         | base:b                                        {: RESULT = b; :}
         ;
+
 base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
+//        | MINUS base:b                                  {: RESULT = negate(b); :}
         | ECON                                          {: RESULT = e(); :}
         | VARIABLE:x                                    {: RESULT = var(x); :}
         | LPAREN expr:e RPAREN                          {: RESULT = e; :}
