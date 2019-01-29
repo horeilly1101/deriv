@@ -190,10 +190,9 @@ class ParserTest {
     Expression ex = add(poly(x(), 5), poly(x(), 2), negate(x()), constant(9));
     testHelper(ex, str);
 
-    // TODO
     String str2 = "x ^ -x";
-    Parser p = new Parser(str2);
-    System.out.println(p.parse());
+    Expression ex2 = power(x(), negate(x()));
+    testHelper(ex2, str2);
 
     String str3 = "(x + 5) ^ x";
     Expression ex3 = power(add(x(), constant(5)), x());
@@ -210,9 +209,13 @@ class ParserTest {
 
   @Test
   void negateTest() {
-    String str2 = "-x";
-    Parser p = new Parser(str2);
-    System.out.println(p.parse());
+    String str = "-x";
+    Expression ex = negate(x());
+    testHelper(ex, str);
+
+    String str2 = "-sin(x)";
+    Expression ex2 = negate(sin(x()));
+    testHelper(ex2, str2);
   }
 
   @Test
