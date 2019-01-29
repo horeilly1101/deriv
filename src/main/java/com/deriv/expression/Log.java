@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
-import java.util.Optional;
+import
+  java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
@@ -94,7 +95,6 @@ public class Log extends AExpression {
 
     Expression secondDerivative = div(ln(result), ln(base)).differentiate(var);
 
-    return secondDerivative
-             .addStepLeft(Step.LOG_RULE, this);
+    return secondDerivative.addStepLeft(Step.LOG_RULE, this);
   }
 }

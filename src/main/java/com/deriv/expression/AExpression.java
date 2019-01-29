@@ -3,6 +3,8 @@ package com.deriv.expression;
 import com.deriv.util.Tuple;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Abstract class that implements Expression and is extended by:
@@ -24,6 +26,11 @@ public abstract class AExpression implements Expression {
   private List<Tuple<Step, Expression>> steps = new ArrayList<>();
 
   /**
+   * Evaluated derivatives.
+   */
+  private Map<Tuple<Expression, Variable>, Expression> derivativeCache = new ConcurrentHashMap<>();
+
+  /**
    * Enumerations of all currently supported steps.
    */
   public enum Step {
@@ -38,6 +45,7 @@ public abstract class AExpression implements Expression {
    * @return the input expression, with its steps list mutated
    */
   public Expression addStep(Step step, Expression ex) {
+
     steps.add(Tuple.of(step, ex));
     return this;
   }

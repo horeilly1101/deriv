@@ -3,7 +3,6 @@ package com.deriv.server;
 import com.deriv.calculator.Calculator;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import com.deriv.parser.Parser;
 import com.deriv.util.Tuple;
 import org.json.JSONObject;
 import org.json.JSONArray;

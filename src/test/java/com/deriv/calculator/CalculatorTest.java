@@ -6,7 +6,8 @@ public class CalculatorTest {
   @Test
   void differentiateTest() {
     Calculator calc = new Calculator();
-    System.out.println(calc.differentiate("x ^ 2", "x").get());
+    System.out.println(calc.differentiate("x", "x").get());
+    System.out.println(calc.differentiate("x", "x").get());
   }
 
   @Test
