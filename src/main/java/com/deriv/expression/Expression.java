@@ -44,22 +44,33 @@ public interface Expression extends Comparable<Expression> {
   Expression differentiate(Variable var);
 
   /**
+   * Gets the steps taken to differentiate the given expression.
+   *
    * @return the steps taken to differentiate the given expression.
    */
   List<Tuple<Step, Expression>> getSteps();
 
   /**
    * Adds the given Step and Expression to the Expression's step list.
+   *
+   * @return the resulting expression
    */
   Expression addStep(Step step, Expression expression);
 
   /**
    * Adds the given Step and Expression to the left side of the Expression's step list.
+   *
+   * @param step -- the step to be added
+   * @param expression -- the expression the step was used on
+   * @return the resulting expression
    */
   Expression addStepLeft(Step step, Expression expression);
 
   /**
    * Adds the given list of Tuples to the Expression's step list.
+   *
+   * @param otherSteps -- the list of steps to be extened on the existing steps
+   * @return the resulting expression
    */
   Expression extendSteps(List<Tuple<Step, Expression>> otherSteps);
 
@@ -68,14 +79,17 @@ public interface Expression extends Comparable<Expression> {
    * is important, as it allows us to define an ordering on our
    * data structures. It also makes equality less strict. (i.e.
    * 2.0 * x should be equal to x * 2.0.)
+   *
+   * @param ex -- the expression to be compared
+   * @return an integer value relating the expressions
    */
-  default int compareTo(Expression o) {
+  default int compareTo(Expression ex) {
     // constants should come first
-    return this.toString().compareTo(o.toString());
+    return this.toString().compareTo(ex.toString());
   }
 
   /*
-  Type check functions
+   * Type check functions
    */
 
   default Boolean isMult() {
@@ -107,7 +121,7 @@ public interface Expression extends Comparable<Expression> {
   }
 
   /*
-  Type cast functions
+   * Type cast functions
    */
 
   default Mult asMult() {
@@ -146,6 +160,7 @@ public interface Expression extends Comparable<Expression> {
    * implementations.
    */
 
+  // TODO make abstract!
   default Expression getExponent() {
     return multID();
   }
