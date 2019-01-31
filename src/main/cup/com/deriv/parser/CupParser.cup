@@ -28,16 +28,16 @@ expr    ::= expr:e PLUS term:t                          {: RESULT = add(e, t); :
 term    ::= term:t TIMES factor:f                       {: RESULT = mult(t, f); :}
         | term:t factor:f                               {: RESULT = mult(t, f); :} // implicit multiplication
         | term:t DIVIDE factor:f                        {: RESULT = div(t, f); :}
-        | MINUS factor:f                                {: RESULT = negate(f); :}
+        | MINUS factor:f                                {: RESULT = negate(f); :} // implicit negation
         | factor:f                                      {: RESULT = f; :}
         ;
 factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :} // right associative
-        | base:b CARROT MINUS factor:f                  {: RESULT = power(b, negate(f)); :}
+        | base:b CARROT MINUS factor:f                  {: RESULT = power(b, negate(f)); :} // important check
         | base:b                                        {: RESULT = b; :}
         ;
 
 base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
-        | ECON                                          {: RESULT = e(); :}
+        | ECON                                          {: RESULT = e(); :} // e constant
         | VARIABLE:x                                    {: RESULT = var(x); :}
         | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         | LBRACK expr:e RBRACK                          {: RESULT = e; :}

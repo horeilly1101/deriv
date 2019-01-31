@@ -203,8 +203,8 @@ class ScannerTest {
     String str2 = "2.34";
     assertFalse(new Parser(str2).read().isPresent());
 
-    // BROKEN
+    // returns two numbers
 //    String str3 = "034";
-//    assertFalse(read(str3).isPresent());
+//    System.out.println(new Parser(str3).read().get());
   }
 }
