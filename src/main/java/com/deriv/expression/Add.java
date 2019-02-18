@@ -78,7 +78,7 @@ public class Add extends AExpression {
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
     List<Optional<Expression>> eval = terms.stream()
-                                           .map(x -> x.evaluate(var, input))
+                                        .map(x -> x.evaluate(var, input))
                                            .collect(toList());
 
     // make sure each term was evaluated

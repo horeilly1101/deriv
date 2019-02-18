@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 import static spark.Spark.*;
 
 public class Server {
-  private static Calculator calc = new Calculator();
-
   /**
    * An easy constructor for an empty JSON Object. Helps clean up
    * the code a little bit.
@@ -41,7 +39,7 @@ public class Server {
                   jobject()
                       // the gets are checked, because oDeriv is checked
                       .put("expression", expr)
-                      .put("result", result.toString())
+                      .put("result", result)
                       .put("var", var)
                       .put("steps", new JSONArray(result.getSteps().stream()
                                                     .map(Tuple::toString)
@@ -66,6 +64,8 @@ public class Server {
 
   // runs the server on localhost:4567
   public static void main(String[] args) {
+    // declare calculator
+    Calculator calc = new Calculator();
 
     // the GET call that differentiates an expression
     get("/differentiate/:expr/:var", (req, res) -> {

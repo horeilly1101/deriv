@@ -43,6 +43,12 @@ public interface Expression extends Comparable<Expression> {
    */
   Expression differentiate(Variable var);
 
+//  Expression derivativeStep(Variable var);
+//
+//  Expression updateSteps();
+//
+//  Expression updateCache(Expression originalExpression, Variable var);
+
   /**
    * Gets the steps taken to differentiate the given expression.
    *

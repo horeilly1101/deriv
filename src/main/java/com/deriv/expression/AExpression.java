@@ -38,6 +38,22 @@ public abstract class AExpression implements Expression {
     CSC, SEC, COT, VARIABLE_RULE, CONSTANT_RULE
   }
 
+//  /**
+//   * We implement differentiate as a template method so that we can handle the cache and
+//   * the addition of steps with cleaner code.
+//   *
+//   * @return differentiated expression
+//   */
+//  public Expression differentiate(Variable var) {
+//    return derivativeStep(var).updateSteps().updateCache(this, var);
+//  }
+//
+//  public Expression updateCache(Expression originalExpression, Variable var) {
+//    return derivativeCache.computeIfAbsent(
+//      Tuple.of(originalExpression, var),
+//      tup -> tup.getFirstItem().differentiate(tup.getSecondItem()));
+//  }
+
   /**
    * Appends a step to the right of the list of step-expression tuples.
    *
