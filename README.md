@@ -8,7 +8,7 @@ An open source derivative calculator REST API (and Java library). Now with steps
 
 The server is built using [Spark](http://sparkjava.com/), and you can run the server by running 
 [Server.java](src/main/java/com/deriv/server/Server.java) in the server module. The server will then be available
-at localhost:4567. There are two different requests you can make. The first is
+at `localhost:4567`. There are two different requests you can make. The first is
 `localhost:4567/differentiate/:expression/:var`, where "expression" is the expression to be differentiated 
 (e.g. x^2 * ln(x)) and "var" is the variable that "expression" should be differentiated with respect to (e.g. x). 
 This request returns a JSON object of the form
