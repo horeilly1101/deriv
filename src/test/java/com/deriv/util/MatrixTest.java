@@ -8,14 +8,14 @@ import static com.deriv.expression.Constant.*;
 public class MatrixTest {
   @Test
   void matrixTest() {
-    Expression[][] arr = new Expression[][] {{ addID(), multID() }, { addID(), addID() }};
+    Expression[][] arr = new Expression[][] {{ constant(2), multID() }, { constant(4), constant(3) }};
     Matrix<Expression> mat = Matrix.make(arr);
     System.out.println(mat);
 
-    Expression[][] arr2 = new Expression[][] {{ multID(), multID() }, { addID(), addID() }};
+    Expression[][] arr2 = new Expression[][] {{ multID(), addID() }, { addID(), multID() }};
     Matrix<Expression> mat2 = Matrix.make(arr2);
     System.out.println(mat2);
 
-    System.out.println(mat.plus(mat2));
+    System.out.println(mat.times(mat2));
   }
 }

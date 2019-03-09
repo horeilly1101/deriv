@@ -163,7 +163,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < input.getWidth(); j++) {
         for (int k = 0; k < this._width; k++) {
-          // something
+          newData[i][j] = newData[i][j].plus(this.get(i, k).times(input.get(k, j)));
         }
       }
     }
