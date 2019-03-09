@@ -1,5 +1,6 @@
 package com.deriv.util;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -12,6 +13,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
   private T[][] _data;
   private int _width;
   private int _height;
+  private Class<?> _clazz;
 
   /**
    * Private constructor for a matrix.
@@ -20,7 +22,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
    * @param _width width of the matrix.
    * @param _height height of the matrix.
    */
-  Matrix(T[][] _data, int _width, int _height) {
+  Matrix(T[][] _data, int _width, int _height, Class<?> _clazz) {
     if (_width == 0 || _height == 0) {
       throw new RuntimeException("You can't create an empty matrix!");
     }
@@ -28,6 +30,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     this._data = _data;
     this._width = _width;
     this._height = _height;
+    this._clazz = _clazz;
   }
 
   @Override
@@ -61,15 +64,22 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
 
     int width = _data[0].length;
 
+    if (width == 0) {
+      throw new RuntimeException("Input arrays cannot be empty!");
+    }
+
     // we need each row to have the same length
-    for (int i = 0; i < height; i++) {
-      if (_data[i].length != width) {
+    for (T[] dat : _data) {
+      if (dat.length != width) {
         throw new RuntimeException("Each row must have the same number of elements!");
       }
     }
 
+    // get the class of the input objects
+    Class<?> clazz = _data[0][0].getClass();
+
     // construct matrix
-    return new Matrix<>(_data, width, height);
+    return new Matrix<>(_data, width, height, clazz);
   }
 
   /**
@@ -110,7 +120,6 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public Matrix<T> times(Matrix<T> input) {
     if (this._width != input.getHeight()) {
       throw new RuntimeException("The dimensions of these matrices don't match up!");
@@ -118,7 +127,8 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
 
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
-    T[][] newData = (T[][]) new Object[this._height][input.getWidth()];
+    @SuppressWarnings("unchecked")
+    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
 
     // initialize the array
     for (int i = 0; i < this._height; i++) {
@@ -135,11 +145,10 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
       }
     }
 
-    return new Matrix<>(newData, input.getWidth(), this._height);
+    return new Matrix<>(newData, input.getWidth(), this._height, this._clazz);
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public Matrix<T> plus(Matrix<T> input) {
     if (this._width != input.getWidth() || this._height != input.getHeight()) {
       throw new RuntimeException("The dimensions of these matrices don't match up!");
@@ -147,8 +156,9 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
 
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
-    T[] newDa = (T[]) new Object[this._height];
-    T[][] newData = (T[][]) new Object[this._height][this._width];
+    @SuppressWarnings("unchecked")
+    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
+
 
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < this._width; j++) {
@@ -156,15 +166,15 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
       }
     }
 
-    return new Matrix<>(newData, this._width, this._height);
+    return new Matrix<>(newData, this._width, this._height, this._clazz);
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public Matrix<T> getAddID() {
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
-    T[][] newData = (T[][]) new Object[this._height][this._width];
+    @SuppressWarnings("unchecked")
+    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
 
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < this._width; j++) {
@@ -172,6 +182,6 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
       }
     }
 
-    return new Matrix<>(newData, this._width, this._height);
+    return new Matrix<>(newData, this._width, this._height, this._clazz);
   }
 }
