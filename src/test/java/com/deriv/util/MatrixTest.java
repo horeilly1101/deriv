@@ -17,5 +17,8 @@ public class MatrixTest {
     System.out.println(mat2);
 
     System.out.println(mat.times(mat2));
+
+    Vector<Expression> vec = Vector.of(addID(), multID(), constant(2), constant(3));
+    System.out.println(vec);
   }
 }

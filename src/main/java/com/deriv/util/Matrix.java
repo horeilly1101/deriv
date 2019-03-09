@@ -1,5 +1,7 @@
 package com.deriv.util;
 
+import com.sun.net.ssl.TrustManagerFactorySpi;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -58,6 +60,13 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     }
     result.append("]");
     return result.toString();
+  }
+
+  @SuppressWarnings("unchecked")
+  static <T extends Arithmetic<T>> T[][] empty2DArray(Class<T> clazz, int height, int width) {
+    // to trick the compiler, we have to create an Object array and then
+    // cast it to the generic we want
+    return (T[][]) Array.newInstance(clazz, height, width);
   }
 
   /**
@@ -124,6 +133,24 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
   }
 
   /**
+   * Getter method for the matrix data.
+   *
+   * @return _data.
+   */
+  public T[][] getData() {
+    return _data;
+  }
+
+  /**
+   * Getter method for the class of the data in the matrix.
+   *
+   * @return desired class.
+   */
+  public Class<T> getClazz() {
+    return _clazz;
+  }
+
+  /**
    * Gets the desired element from the matrix. (Indexing starts at 0!)
    *
    * @param i row index
@@ -148,18 +175,17 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
       throw new RuntimeException("The dimensions of these matrices don't match up!");
     }
 
-    // to trick the compiler, we have to create an Object array and then
-    // cast it to the generic we want
-    @SuppressWarnings("unchecked")
-    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, input.getWidth());
+    // initialize empty 2D array
+    T[][] newData = empty2DArray(_clazz, _height, input.getWidth());
 
-    // initialize the array
+    // fill in the array
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < input.getWidth(); j++) {
         newData[i][j] = this.get(0, 0).getAddID();
       }
     }
 
+    // compute the matrix product
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < input.getWidth(); j++) {
         for (int k = 0; k < this._width; k++) {
@@ -177,11 +203,8 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
       throw new RuntimeException("The dimensions of these matrices don't match up!");
     }
 
-    // to trick the compiler, we have to create an Object array and then
-    // cast it to the generic we want
-    @SuppressWarnings("unchecked")
-    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
-
+    // initialize empty 2D array
+    T[][] newData = empty2DArray(_clazz, _height, _width);
 
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < this._width; j++) {
@@ -194,10 +217,8 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
 
   @Override
   public Matrix<T> getAddID() {
-    // to trick the compiler, we have to create an Object array and then
-    // cast it to the generic we want
-    @SuppressWarnings("unchecked")
-    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
+    // initialize empty 2D array
+    T[][] newData = empty2DArray(_clazz, _height, _width);
 
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < this._width; j++) {

@@ -27,4 +27,6 @@ public interface Arithmetic<T extends Arithmetic<T>> {
    * @return additive identity.
    */
   T getAddID();
+
+//  T timesScalar(T input)
 }
