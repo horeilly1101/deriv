@@ -1,9 +1,7 @@
 package com.deriv.simplifier;
 
 import com.deriv.expression.Expression;
-
 import java.util.*;
-
 import static com.deriv.expression.Constant.addID;
 import static com.deriv.expression.Constant.constant;
 import static com.deriv.expression.Constant.multID;

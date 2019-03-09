@@ -22,7 +22,7 @@ import static com.deriv.expression.Constant.*;
  *
  * Questions about how it all works? Email horeilly1101@gmail.com
  */
-public interface Expression extends Comparable<Expression> {
+public interface Expression extends Comparable<Expression>, Arithmetic<Expression> {
   /**
    * Plugs an input into the value of whatever variable is
    * in the function, and then evaluates the rest of the

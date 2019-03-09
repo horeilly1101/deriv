@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.deriv.expression.Add.add;
+import static com.deriv.expression.Constant.addID;
+import static com.deriv.expression.Mult.mult;
+
 /**
  * Abstract class that implements Expression and is extended by:
  * - Mult
@@ -26,11 +30,6 @@ public abstract class AExpression implements Expression {
   private List<Tuple<Step, Expression>> steps = new ArrayList<>();
 
   /**
-   * Evaluated derivatives.
-   */
-  private Map<Tuple<Expression, Variable>, Expression> derivativeCache = new ConcurrentHashMap<>();
-
-  /**
    * Enumerations of all currently supported steps.
    */
   public enum Step {
@@ -38,6 +37,11 @@ public abstract class AExpression implements Expression {
     CSC, SEC, COT, VARIABLE_RULE, CONSTANT_RULE
   }
 
+//  /**
+//   * Evaluated derivatives.
+//   */
+//  private Map<Tuple<Expression, Variable>, Expression> derivativeCache = new ConcurrentHashMap<>();
+//
 //  /**
 //   * We implement differentiate as a template method so that we can handle the cache and
 //   * the addition of steps with cleaner code.
@@ -96,5 +100,20 @@ public abstract class AExpression implements Expression {
    */
   public List<Tuple<Step, Expression>> getSteps() {
     return steps;
+  }
+
+  @Override
+  public Expression times(Expression input) {
+    return mult(this, input);
+  }
+
+  @Override
+  public Expression plus(Expression input) {
+    return add(this, input);
+  }
+
+  @Override
+  public Expression getAddID() {
+    return addID();
   }
 }
