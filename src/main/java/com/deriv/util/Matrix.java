@@ -18,7 +18,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
    * @param _width width of the matrix.
    * @param _height height of the matrix.
    */
-  private Matrix(T[][] _data, int _width, int _height) {
+  Matrix(T[][] _data, int _width, int _height) {
     if (_width == 0 || _height == 0) {
       throw new RuntimeException("You can't create an empty matrix!");
     }
