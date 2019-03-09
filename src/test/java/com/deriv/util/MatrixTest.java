@@ -12,7 +12,7 @@ public class MatrixTest {
     Matrix<Expression> mat = Matrix.make(arr);
     System.out.println(mat);
 
-    Expression[][] arr2 = new Expression[][] {{ multID(), addID() }, { addID(), multID() }};
+    Expression[][] arr2 = new Expression[][] {{ multID()}, { multID() }};
     Matrix<Expression> mat2 = Matrix.make(arr2);
     System.out.println(mat2);
 

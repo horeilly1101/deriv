@@ -151,7 +151,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
     @SuppressWarnings("unchecked")
-    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, _width);
+    T[][] newData = (T[][]) Array.newInstance(_clazz, _height, input.getWidth());
 
     // initialize the array
     for (int i = 0; i < this._height; i++) {
