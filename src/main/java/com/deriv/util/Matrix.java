@@ -10,10 +10,25 @@ import java.util.Arrays;
  * @param <T> generic type parameter.
  */
 public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
+  /**
+   * An array of arrays that represents our matrix.
+   */
   private T[][] _data;
+
+  /**
+   * The width of our matrix.
+   */
   private int _width;
+
+  /**
+   * The height of our matrix.
+   */
   private int _height;
-  private Class<?> _clazz;
+
+  /**
+   * The class of the elements in our matrix.
+   */
+  private Class<T> _clazz;
 
   /**
    * Private constructor for a matrix.
@@ -22,7 +37,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
    * @param _width width of the matrix.
    * @param _height height of the matrix.
    */
-  Matrix(T[][] _data, int _width, int _height, Class<?> _clazz) {
+  Matrix(T[][] _data, int _width, int _height, Class<T> _clazz) {
     if (_width == 0 || _height == 0) {
       throw new RuntimeException("You can't create an empty matrix!");
     }
@@ -69,14 +84,22 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     }
 
     // we need each row to have the same length
-    for (T[] dat : _data) {
-      if (dat.length != width) {
+    for (T[] row : _data) {
+      if (row.length != width) {
         throw new RuntimeException("Each row must have the same number of elements!");
+      }
+
+      // we can't let elements be null
+      for (T elem : row) {
+        if (elem == null) {
+          throw new RuntimeException("Matrix elements cannot be null!");
+        }
       }
     }
 
     // get the class of the input objects
-    Class<?> clazz = _data[0][0].getClass();
+    @SuppressWarnings("unchecked")
+    Class<T> clazz = (Class<T>) _data[0][0].getClass();
 
     // construct matrix
     return new Matrix<>(_data, width, height, clazz);
