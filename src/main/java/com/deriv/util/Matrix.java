@@ -79,7 +79,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
     // initialize the array
     for (int i = 0; i < this._height; i++) {
       for (int j = 0; j < input.getWidth(); j++) {
-        newData[i][j] = input.get(0, 0).getAddID();
+        newData[i][j] = this.get(0, 0).getAddID();
       }
     }
 
@@ -115,10 +115,18 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public Matrix<T> getAddID() {
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
-//    T[][] newData = (T[][]) new Object[this._height][this._width];
-    return null;
+    T[][] newData = (T[][]) new Object[this._height][this._width];
+
+    for (int i = 0; i < this._height; i++) {
+      for (int j = 0; j < this._width; j++) {
+        newData[i][j] = this.get(0, 0).getAddID();
+      }
+    }
+
+    return new Matrix<>(newData, this._width, this._height);
   }
 }
