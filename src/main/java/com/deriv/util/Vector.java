@@ -5,12 +5,19 @@ package com.deriv.util;
  *
  * @param <T> input parameter.
  */
-public class Vector<T extends Arithmetic<T>> extends Matrix<T> {
+public class Vector<T extends Composable<T>> extends Matrix<T> {
   private Vector(T[][] _data, int _height, Class<T> _clazz) {
     super(_data, 1, _height, _clazz);
   }
 
-  public static <T extends Arithmetic<T>> Vector<T> of (T... elements) {
+  /**
+   * Static constructor for a Vector object.
+   *
+   * @param elements
+   * @param <T>
+   * @return
+   */
+  public static <T extends Composable<T>> Vector<T> of (T... elements) {
     int height = elements.length;
 
     // empty arrays provide all kinds of problems, so we don't allow them
@@ -39,6 +46,12 @@ public class Vector<T extends Arithmetic<T>> extends Matrix<T> {
     return new Vector<>(newData, height, clazz);
   }
 
+  /**
+   * Takes the dot product of two vectors.
+   *
+   * @param input vector
+   * @return the computed dot product
+   */
   public T dot(Vector<T> input) {
     if (this.getHeight() != input.getHeight()) {
       throw new RuntimeException("Vectors must have the same height!");

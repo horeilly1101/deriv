@@ -5,7 +5,6 @@ import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.parser.Parser;
 import com.deriv.util.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

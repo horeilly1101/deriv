@@ -1,6 +1,9 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.simplifier.AddSimplifier;
+import com.deriv.util.Tuple;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,10 +92,10 @@ public class Add extends AExpression {
                : Optional.empty();
    }
 
-  public Expression differentiate(Variable var) {
+  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // linearity of differentiation
     List<Expression> newTerms = terms.stream()
-                                  .map(x -> x.differentiate(var))
+                                  .map(x -> x.derive(var, cache))
                                   .collect(toList());
 
     return add(newTerms)

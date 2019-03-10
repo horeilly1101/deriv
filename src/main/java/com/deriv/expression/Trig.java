@@ -1,5 +1,8 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.util.Tuple;
+
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -193,7 +196,7 @@ public class Trig extends AExpression {
                .map(x -> evalMap.get(this.func).apply(x));
   }
 
-  public Expression differentiate(Variable var) {
+  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     return derivMap.get(this.func)
              .apply(this, var);
   }

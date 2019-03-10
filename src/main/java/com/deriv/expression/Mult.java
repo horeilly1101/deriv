@@ -1,6 +1,9 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.simplifier.MultSimplifier;
+import com.deriv.util.Tuple;
+
 import java.util.*;
 
 import static com.deriv.expression.Add.*;
@@ -159,15 +162,15 @@ public class Mult extends AExpression {
                : Optional.empty();
   }
 
-  public Expression differentiate(Variable var) {
+  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // always compute product rule down the middle of the list of factors
     int mid = factors.size() / 2;
 
     Expression firstDerivative = mult(factors.subList(0, mid))
-                                    .differentiate(var);
+                                    .derive(var, cache);
 
     Expression secondDerivative = mult(factors.subList(mid, factors.size()))
-                                     .differentiate(var);
+                                     .derive(var, cache);
 
     return add(
               mult(

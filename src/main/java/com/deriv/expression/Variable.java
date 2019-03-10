@@ -1,5 +1,8 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.util.Tuple;
+
 import java.util.Optional;
 
 public class Variable extends AExpression {
@@ -64,7 +67,7 @@ public class Variable extends AExpression {
                : Optional.of(this);
   }
 
-  public Expression differentiate(Variable wrt) {
+  public Expression derive(Variable wrt, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     return wrt.equals(this)
              ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
              : Constant.addID().addStep(Step.CONSTANT_RULE, this);

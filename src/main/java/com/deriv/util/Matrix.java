@@ -1,7 +1,5 @@
 package com.deriv.util;
 
-import com.sun.net.ssl.TrustManagerFactorySpi;
-
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -11,7 +9,7 @@ import java.util.Arrays;
  *
  * @param <T> generic type parameter.
  */
-public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
+public class Matrix<T extends Composable<T>> implements Composable<Matrix<T>> {
   /**
    * An array of arrays that represents our matrix.
    */
@@ -63,7 +61,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
   }
 
   @SuppressWarnings("unchecked")
-  static <T extends Arithmetic<T>> T[][] empty2DArray(Class<T> clazz, int height, int width) {
+  static <T extends Composable<T>> T[][] empty2DArray(Class<T> clazz, int height, int width) {
     // to trick the compiler, we have to create an Object array and then
     // cast it to the generic we want
     return (T[][]) Array.newInstance(clazz, height, width);
@@ -78,7 +76,7 @@ public class Matrix<T extends Arithmetic<T>> implements Arithmetic<Matrix<T>> {
    * @param <T> type parameter.
    * @return constructed matrix object.
    */
-  public static <T extends Arithmetic<T>> Matrix<T> make(T[][] _data) {
+  public static <T extends Composable<T>> Matrix<T> make(T[][] _data) {
     int height = _data.length;
 
     // empty arrays provide all kinds of problems, so we don't allow them

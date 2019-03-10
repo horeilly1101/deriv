@@ -1,5 +1,6 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.*;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +23,7 @@ import static com.deriv.expression.Constant.*;
  *
  * Questions about how it all works? Email horeilly1101@gmail.com
  */
-public interface Expression extends Comparable<Expression>, Arithmetic<Expression> {
+public interface Expression extends Comparable<Expression>, Composable<Expression> {
   /**
    * Plugs an input into the value of whatever variable is
    * in the function, and then evaluates the rest of the
@@ -33,7 +34,6 @@ public interface Expression extends Comparable<Expression>, Arithmetic<Expressio
    * @return Optional<Expression> solution
    */
   Optional<Expression> evaluate(Variable var, Expression input);
-  // future: should be able to evaluate at any expression value, not string
 
   /**
    * Takes the derivative of the given expression.
@@ -42,6 +42,8 @@ public interface Expression extends Comparable<Expression>, Arithmetic<Expressio
    * @return Expression derivative
    */
   Expression differentiate(Variable var);
+
+  Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache);
 
 //  Expression derivativeStep(Variable var);
 //

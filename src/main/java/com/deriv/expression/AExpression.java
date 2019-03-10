@@ -1,10 +1,10 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.CacheCmd;
+import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.Tuple;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Constant.addID;
@@ -37,27 +37,6 @@ public abstract class AExpression implements Expression {
     CSC, SEC, COT, VARIABLE_RULE, CONSTANT_RULE
   }
 
-//  /**
-//   * Evaluated derivatives.
-//   */
-//  private Map<Tuple<Expression, Variable>, Expression> derivativeCache = new ConcurrentHashMap<>();
-//
-//  /**
-//   * We implement differentiate as a template method so that we can handle the cache and
-//   * the addition of steps with cleaner code.
-//   *
-//   * @return differentiated expression
-//   */
-//  public Expression differentiate(Variable var) {
-//    return derivativeStep(var).updateSteps().updateCache(this, var);
-//  }
-//
-//  public Expression updateCache(Expression originalExpression, Variable var) {
-//    return derivativeCache.computeIfAbsent(
-//      Tuple.of(originalExpression, var),
-//      tup -> tup.getFirstItem().differentiate(tup.getSecondItem()));
-//  }
-
   /**
    * Appends a step to the right of the list of step-expression tuples.
    *
@@ -68,6 +47,12 @@ public abstract class AExpression implements Expression {
 
     steps.add(Tuple.of(step, ex));
     return this;
+  }
+
+  @Override
+  public Expression differentiate(Variable var) {
+    DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd = new CacheCmd();
+    return derive(var, cacheCmd);
   }
 
   /**
