@@ -167,10 +167,10 @@ public class Mult extends AExpression {
     int mid = factors.size() / 2;
 
     Expression firstDerivative = mult(factors.subList(0, mid))
-                                    .derive(var, cache);
+                                    .deriveCache(var, cache);
 
     Expression secondDerivative = mult(factors.subList(mid, factors.size()))
-                                     .derive(var, cache);
+                                     .deriveCache(var, cache);
 
     return add(
               mult(

@@ -5,6 +5,7 @@ import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.Tuple;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Constant.addID;
@@ -29,6 +30,8 @@ public abstract class AExpression implements Expression {
    */
   private List<Tuple<Step, Expression>> steps = new ArrayList<>();
 
+  private ConcurrentHashMap<Tuple<Expression, Variable>, Expression> dCache = new ConcurrentHashMap<>();
+
   /**
    * Enumerations of all currently supported steps.
    */
@@ -51,8 +54,26 @@ public abstract class AExpression implements Expression {
 
   @Override
   public Expression differentiate(Variable var) {
+    // create the cache
     DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd = new CacheCmd();
-    return derive(var, cacheCmd);
+    Expression derivative = deriveCache(var, cacheCmd);
+    dCache.putAll(cacheCmd.getStorage());
+    return derivative;
+  }
+
+  public Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd) {
+    // these operations are already constant time, so we won't waste space caching them
+    if (this instanceof Variable || this instanceof Constant) {
+      return this.derive(var, cacheCmd);
+    }
+
+    // construct tuple
+    Tuple<Expression, Variable> key = Tuple.of(this, var);
+
+    // compute and store derivative
+    return cacheCmd.computeIfAbsent(key,
+                    x -> x.getFirstItem() // compute derivative
+                      .derive(x.getSecondItem(), cacheCmd));
   }
 
   /**
@@ -76,6 +97,11 @@ public abstract class AExpression implements Expression {
   public Expression extendSteps(List<Tuple<Step, Expression>> otherSteps) {
     steps.addAll(otherSteps);
     return this;
+  }
+
+  @Override
+  public ConcurrentHashMap<Tuple<Expression, Variable>, Expression> getCache() {
+    return dCache;
   }
 
   /**

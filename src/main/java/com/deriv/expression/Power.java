@@ -99,7 +99,7 @@ public class Power extends AExpression {
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
     // this is what you'll get.
     Expression firstDerivative = mult(exponent, ln(base))
-                                   .derive(var, cache);
+                                   .deriveCache(var, cache);
 
     return Mult.mult(
         power(base, exponent),

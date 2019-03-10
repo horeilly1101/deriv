@@ -95,7 +95,7 @@ public class Add extends AExpression {
   public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // linearity of differentiation
     List<Expression> newTerms = terms.stream()
-                                  .map(x -> x.derive(var, cache))
+                                  .map(x -> x.deriveCache(var, cache))
                                   .collect(toList());
 
     return add(newTerms)

@@ -89,14 +89,14 @@ public class Log extends AExpression {
 
     // if log is a natural log
     if (base.equals(e())) {
-      Expression firstDerivative = result.derive(var, cache);
+      Expression firstDerivative = result.deriveCache(var, cache);
 
       return mult(firstDerivative, div(multID(), result))
                .addStep(Step.LOG_RULE, this)
                .extendSteps(firstDerivative.getSteps());
     }
 
-    Expression secondDerivative = div(ln(result), ln(base)).derive(var, cache);
+    Expression secondDerivative = div(ln(result), ln(base)).deriveCache(var, cache);
 
     return secondDerivative.addStepLeft(Step.LOG_RULE, this);
   }

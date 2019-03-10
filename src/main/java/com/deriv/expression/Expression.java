@@ -4,6 +4,8 @@ import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.deriv.expression.AExpression.*;
 
 import static com.deriv.expression.Constant.*;
@@ -43,13 +45,31 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    */
   Expression differentiate(Variable var);
 
+  /**
+   * Takes the derivative of a function and store the result in a cache. If the derivative
+   * has already been computed, this function returns the result in constant time.
+   *
+   * @param var input variable
+   * @param cacheCmd our cache command
+   * @return differentiated expression
+   */
+  Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd);
+
+  /**
+   * Take the derivative of a function. This should only be called by deriveCache.
+   *
+   * @param var input variable
+   * @param cache our cache command
+   * @return differentiated expression
+   */
   Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache);
 
-//  Expression derivativeStep(Variable var);
-//
-//  Expression updateSteps();
-//
-//  Expression updateCache(Expression originalExpression, Variable var);
+  /**
+   * Gets the cache computed from the given expression.
+   *
+   * @return concurrent hashmap cache.
+   */
+  ConcurrentHashMap<Tuple<Expression, Variable>, Expression> getCache();
 
   /**
    * Gets the steps taken to differentiate the given expression.

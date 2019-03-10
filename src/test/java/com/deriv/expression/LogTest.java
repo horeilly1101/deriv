@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 import static com.deriv.expression.Constant.*;
@@ -56,27 +57,21 @@ class LogTest {
 
   @Test
   void differentiateTest() {
-    // ln(x)
-    Expression ln = ln(x());
-    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
+//    // ln(x)
+//    Expression ln = ln(x());
+//    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
+//
+//    // log(e, x)
+//    Expression ln2 = log(e(), x());
+//    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
+//
+//    // log(2, x)
+//    Expression lg = log(constant(2), x());
+//    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
 
-    System.out.println(ln.differentiate(x().asVariable()).getSteps());
+    Expression lg = mult(constant(2), log(constant(10), x()), poly(x(), 2), exponential(5, x()));
+    lg.differentiate(x().asVariable());
 
-    // log(e, x)
-    Expression ln2 = log(e(), x());
-    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
-
-    System.out.println(ln2.differentiate(x().asVariable()).getSteps());
-
-    // log(2, x)
-    Expression lg = log(constant(2), x());
-    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
-
-    System.out.println(lg.differentiate(x().asVariable()).getSteps());
-
-    List<Integer> hey = new ArrayList<>();
-    hey.add(1);
-    hey.add(2);
-    System.out.println(hey);
+    System.out.println(lg.getCache());
   }
 }
