@@ -68,6 +68,7 @@ public class Variable extends AExpression {
   }
 
   public Expression derive(Variable wrt, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+    System.out.println("hey I'm running var");
     return wrt.equals(this)
              ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
              : Constant.addID().addStep(Step.CONSTANT_RULE, this);

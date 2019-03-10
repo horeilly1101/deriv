@@ -83,15 +83,16 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
+    System.out.println("diff cache " + differentiateCache);
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> differentiateCache.computeIfAbsent(
-                                 Tuple.of(ex, var), // create tuple to store computation
-                                 tup -> tup.getFirstItem().differentiate(tup.getSecondItem())))) // differentiate
-                                    .map(res -> { // update the cache with recursively computed derivatives
-                                      differentiateCache.putAll(res.getCache());
-                                      return res;
-                                    });
+                               .map(ex -> {
+                                 Expression result = differentiateCache.computeIfAbsent(
+                                   Tuple.of(ex, var), // create tuple to store computation
+                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem())); // take derivative
+                                 differentiateCache.putAll(ex.getCache()); // store all derivatives in cache
+                                 return result;
+                               }));
   }
 
   /**

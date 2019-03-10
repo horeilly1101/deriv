@@ -64,7 +64,7 @@ public class Server {
 
   // runs the server on localhost:4567
   public static void main(String[] args) {
-    // declare calculator
+    // initialize calculator
     Calculator calc = new Calculator();
 
     // the GET call that differentiates an expression
