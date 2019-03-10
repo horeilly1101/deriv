@@ -1,10 +1,7 @@
 package com.deriv.expression.cmd;
 
 import com.deriv.util.ICmd;
-import com.deriv.util.Matrix;
-
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**

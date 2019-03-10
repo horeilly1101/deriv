@@ -57,21 +57,16 @@ class LogTest {
 
   @Test
   void differentiateTest() {
-//    // ln(x)
-//    Expression ln = ln(x());
-//    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
-//
-//    // log(e, x)
-//    Expression ln2 = log(e(), x());
-//    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
-//
-//    // log(2, x)
-//    Expression lg = log(constant(2), x());
-//    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
+    // ln(x)
+    Expression ln = ln(x());
+    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
 
-    Expression lg = mult(constant(2), log(constant(10), x()), poly(x(), 2), exponential(5, x()));
-    lg.differentiate(x().asVariable());
+    // log(e, x)
+    Expression ln2 = log(e(), x());
+    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
 
-    System.out.println(lg.getCache());
+    // log(2, x)
+    Expression lg = log(constant(2), x());
+    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
   }
 }

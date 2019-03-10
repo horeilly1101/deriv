@@ -22,6 +22,7 @@ public class CacheCmd implements DerivativeCmd<Tuple<Expression, Variable>, Expr
    * Public constructor for a CacheCmd.
    */
   public CacheCmd() {
+    // instantiate a HashMap
     cache = new HashMap<>();
   }
 
