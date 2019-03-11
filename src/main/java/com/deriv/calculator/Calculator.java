@@ -49,8 +49,8 @@ public class Calculator {
    * @param inputString String representation of expression
    * @return an optional of the resulting string
    */
-  public Optional<String> simplify(String inputString) {
-    return toOExpression(inputString).map(Expression::toString);
+  public Optional<Expression> simplify(String inputString) {
+    return toOExpression(inputString);
   }
 
   /**

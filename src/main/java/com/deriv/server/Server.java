@@ -52,14 +52,27 @@ public class Server {
    */
   static JSONObject evalObject(Expression result, Expression expr, Variable var, Expression val) {
     return jobject()
-               .put("data",
-                   jobject()
-                       // the gets are checked, because oEval is checked
-                       .put("expression", expr.toString())
-                       .put("result", result.toString())
-                       .put("var", var.toString())
-                       .put("val", val.toString())
-               );
+             .put("data",
+               jobject()
+                 // the gets are checked, because oEval is checked
+                 .put("expression", expr.toString())
+                 .put("result", result.toString())
+                 .put("var", var.toString())
+                 .put("val", val.toString())
+             );
+  }
+
+  /**
+   * Returns a JSON object corresponding to the simplify route.
+   */
+  static JSONObject simplifyObject(Expression result, String input) {
+    return jobject()
+             .put("data",
+               jobject()
+                 // the gets are checked, because oEval is checked
+                 .put("input", input)
+                 .put("result", result.toString())
+             );
   }
 
   // runs the server on localhost:4567
@@ -100,6 +113,14 @@ public class Server {
                     calc.toOVariable(var).get(),
                     calc.toOExpression(val).get())
                  : error(res);
+    });
+
+    get("/simplify/:expr", (req, res) -> {
+      // expression from url
+      String expr = req.params(":expr");
+
+      // simplify and return JSON object
+      return calc.simplify(expr).map(result -> simplifyObject(result, expr)).orElse(error(res));
     });
   }
 }
