@@ -10,8 +10,8 @@ The server is built using [Spark](http://sparkjava.com/), and you can run the se
 [Server.java](src/main/java/com/deriv/server/Server.java) in the server module. The server will then be available
 at `localhost:4567`. There are **three** different requests you can make. The first is
 `localhost:4567/differentiate/:expression/:var`, where `:expression` is the expression to be differentiated 
-(e.g. x^2 * ln(x)) and `:var` is the variable that "expression" should be differentiated with respect to (e.g. x). 
-This request returns a JSON object of the form
+**(e.g. x^2 * ln(x))** and `:var` is the variable that `:expression` should be differentiated with respect to 
+**(e.g. x)**. This request returns a JSON object of the form
 
     { 
         "data" :   
@@ -26,8 +26,8 @@ This request returns a JSON object of the form
     }
     
 The second is `localhost:4567/evaluate/:expression/:var/:val`, where `:expression` is the expression to be 
-evaluated (e.g. x^2 * ln(x)), `:var` is the variable that should be evaluated (e.g. x), and `:val` is the number 
-that "expression" should be evaluated with (e.g. 5). This request returns a JSON object of the form
+evaluated **(e.g. x^2 * ln(x))**, `:var` is the variable that should be evaluated **(e.g. x)**, and `:val` is the number 
+that `:expression` should be evaluated with **(e.g. 5)**. This request returns a JSON object of the form
               
     { 
         "data" :   
@@ -39,8 +39,8 @@ that "expression" should be evaluated with (e.g. 5). This request returns a JSON
             }
     }
     
-And the third is `localhost:4567/simplify/:expression`, where `:expression` is the expression to be simplified. This
-request returns a JSON object of the form
+And the third is `localhost:4567/simplify/:expression`, where `:expression` is the expression to be simplified
+**(e.g. x + 4x &ast; x + ln(x))**. This request returns a JSON object of the form
 
     { 
         "data" :   
