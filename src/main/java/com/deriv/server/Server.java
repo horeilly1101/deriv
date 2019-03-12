@@ -26,8 +26,7 @@ public class Server {
    */
   private static  JSONObject error(Response res) {
     res.status(400); // client error
-    return jobject()
-              .put("error", "invalid input(s)");
+    return jobject().put("error", "invalid input(s)");
   }
 
   /**
@@ -75,7 +74,11 @@ public class Server {
              );
   }
 
-  // runs the server on localhost:4567
+  /**
+   * Main function that runs the server on localhost:4567.
+   *
+   * @param args command line arguments.
+   */
   public static void main(String[] args) {
     // initialize calculator
     Calculator calc = new Calculator();
