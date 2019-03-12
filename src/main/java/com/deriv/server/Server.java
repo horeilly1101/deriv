@@ -86,13 +86,9 @@ public class Server {
       String expr = req.params(":expr");
       String var = req.params(":var");
 
-      // attempt to differentiate expression
-      Optional<Expression> oDeriv = calc.differentiate(expr, var);
-
-      // return the derivative if possible, otherwise an error
-      return oDeriv.isPresent()
-                 ? diffObject(oDeriv.get(), calc.toOExpression(expr).get(), calc.toOVariable(var).get())
-                 : error(res);
+      return calc.differentiate(expr, var) // differentiate
+               .map(result -> diffObject(result, calc.toOExpression(expr).get(), calc.toOVariable(var).get()))
+               .orElse(error(res)); // error message, if unsuccessful
     });
 
     // the GET call that evaluates an expression
@@ -102,17 +98,13 @@ public class Server {
       String var = req.params(":var");
       String val = req.params(":val");
 
-      // attempt to evaluate expression
-      Optional<Expression> oEval = calc.evaluate(expr, var, val);
-
-      // return the evaluation if possible, otherwise an error
-      return oEval.isPresent()
-                 ? evalObject(
-                    oEval.get(),
-                    calc.toOExpression(expr).get(),
-                    calc.toOVariable(var).get(),
-                    calc.toOExpression(val).get())
-                 : error(res);
+      return calc.evaluate(expr, var, val) // evaluate
+               .map(result -> evalObject( // create json object
+                 result,
+                 calc.toOExpression(expr).get(),
+                 calc.toOVariable(var).get(),
+                 calc.toOExpression(val).get()))
+               .orElse(error(res)); // return an error if unsuccessful
     });
 
     get("/simplify/:expr", (req, res) -> {
