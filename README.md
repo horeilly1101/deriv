@@ -40,7 +40,7 @@ that `:expression` should be evaluated with **(e.g. 5)**. This request returns a
     }
     
 And the third is `localhost:4567/simplify/:expression`, where `:expression` is the expression to be simplified
-**(e.g. x + 4x &ast; x + ln(x))**. This request returns a JSON object of the form
+**(e.g. x^2 + 4x &ast; x + 4/x &ast; x^3)**. This request returns a JSON object of the form
 
     { 
         "data" :   
