@@ -38,16 +38,17 @@ public class Tree<T> {
    *
    * @param children subtrees
    */
-  private Tree(Tree<T>[] children) {
-    this.children = Arrays.asList(children);
+  private Tree(T value, List<Tree<T>> children) {
+    this.value = value;
+    this.children = children;
   }
 
   @Override
   public String toString() {
     return "{"
-             + value.toString() + " "
+             + value.toString()
              + this.children.stream()
-               .map(Objects::toString).reduce("", (a, b) -> a + b)
+               .map(Objects::toString).reduce("", (a, b) -> a + " " +  b)
              + "}";
   }
 
@@ -59,14 +60,15 @@ public class Tree<T> {
    * @param <T> type parameter
    * @return a newly constructed Tree
    */
+  @SafeVarargs
   public static <T> Tree<T> of(T value, Tree<T>... subtrees) {
-    return new Tree<>(subtrees);
+    return new Tree<>(value, Arrays.asList(subtrees));
   }
 
   /**
    * Public, static constructor for a tree node.
    *
-   * @param value of tree ndoe
+   * @param value of tree node
    * @param <T> type parameter
    * @return a newly constructed tree with no children
    */
@@ -74,10 +76,15 @@ public class Tree<T> {
     return new Tree<>(value);
   }
 
-  @SuppressWarnings("unchecked")
-  public Tree<T> add(Tree child) {
+  /**
+   * Adds a child to the Tree.
+   *
+   * @param child to be added
+   * @return resulting tree
+   */
+  public Tree<T> add(Tree<T> child) {
     List<Tree<T>> newChildren = children;
     newChildren.add(child);
-    return new Tree<>(newChildren.toArray((Tree<T>[]) new Object[0]));
+    return new Tree<>(this.value, newChildren);
   }
 }
