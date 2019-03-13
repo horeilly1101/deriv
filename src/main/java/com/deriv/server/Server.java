@@ -7,7 +7,6 @@ import com.deriv.util.Tuple;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import spark.Response;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static spark.Spark.*;
@@ -63,6 +62,12 @@ public class Server {
 
   /**
    * Returns a JSON object corresponding to the simplify route.
+   */
+  /**
+   *
+   * @param result
+   * @param input
+   * @return
    */
   static JSONObject simplifyObject(Expression result, String input) {
     return jobject()

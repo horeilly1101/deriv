@@ -5,7 +5,6 @@ import com.deriv.util.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-
 import com.deriv.expression.AExpression.*;
 
 import static com.deriv.expression.Constant.*;

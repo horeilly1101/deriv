@@ -3,7 +3,6 @@ package com.deriv.expression.cmd;
 import com.deriv.expression.Variable;
 import com.deriv.util.Tuple;
 import com.deriv.expression.Expression;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;

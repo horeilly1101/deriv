@@ -11,9 +11,9 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Allows the use to differentiate and evaluate arbitrary functions just
- * by inputting in a string representation of an expression. Implemented with memoization, so
- * recomputing values should take a constant amount of time.
+ * Allows us to differentiate and evaluate arbitrary functions just by inputting in a string
+ * representation of an expression. Implemented with memoization, so recomputing values should
+ * take a constant amount of time.
  */
 public class Calculator {
   /**
@@ -83,7 +83,6 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-    System.out.println("diff cache " + differentiateCache);
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
                                .map(ex -> {

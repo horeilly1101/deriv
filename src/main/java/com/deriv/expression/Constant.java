@@ -2,7 +2,6 @@ package com.deriv.expression;
 
 import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.Tuple;
-
 import java.util.Optional;
 
 public class Constant extends AExpression {

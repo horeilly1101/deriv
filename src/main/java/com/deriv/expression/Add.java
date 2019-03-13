@@ -3,7 +3,6 @@ package com.deriv.expression;
 import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.simplifier.AddSimplifier;
 import com.deriv.util.Tuple;
-
 import java.util.*;
 import java.util.stream.Collectors;
 

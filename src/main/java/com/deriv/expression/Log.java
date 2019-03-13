@@ -2,9 +2,7 @@ package com.deriv.expression;
 
 import com.deriv.expression.cmd.DerivativeCmd;
 import com.deriv.util.Tuple;
-
-import
-  java.util.Optional;
+import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;

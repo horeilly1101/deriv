@@ -56,7 +56,11 @@ public abstract class AExpression implements Expression {
   public Expression differentiate(Variable var) {
     // create the cache
     DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd = new CacheCmd();
+
+    // compute the desired derivative
     Expression derivative = deriveCache(var, cacheCmd);
+
+    // add all of the computed derivatives to the cache
     dCache.putAll(cacheCmd.getStorage());
     return derivative;
   }
@@ -64,7 +68,7 @@ public abstract class AExpression implements Expression {
   public Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd) {
     // these operations are already constant time, so we won't waste space caching them
     if (this instanceof Variable || this instanceof Constant) {
-      return this.derive(var, cacheCmd);
+      return derive(var, cacheCmd);
     }
 
     // construct tuple
