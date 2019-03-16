@@ -90,6 +90,7 @@ public class Server {
     Calculator calc = new Calculator();
 
     // enable CORS headers
+    // https://stackoverflow.com/questions/45295530/spark-cors-access-control-allow-origin-error
     after((Filter) (request, response) -> {
       response.header("Access-Control-Allow-Origin", "*");
       response.header("Access-Control-Allow-Methods", "GET");
