@@ -6,6 +6,7 @@ import com.deriv.expression.Variable;
 import com.deriv.util.Tuple;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import spark.Filter;
 import spark.Response;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class Server {
    * Returns a JSON object error message.
    */
   private static  JSONObject error(Response res) {
-    res.status(400); // client error
+//    res.status(400); // client error
     return jobject().put("error", "invalid input(s)");
   }
 
@@ -87,6 +88,12 @@ public class Server {
   public static void main(String[] args) {
     // initialize calculator
     Calculator calc = new Calculator();
+
+    // enable CORS headers
+    after((Filter) (request, response) -> {
+      response.header("Access-Control-Allow-Origin", "*");
+      response.header("Access-Control-Allow-Methods", "GET");
+    });
 
     // the GET call that differentiates an expression
     get("/differentiate/:expr/:var", (req, res) -> {

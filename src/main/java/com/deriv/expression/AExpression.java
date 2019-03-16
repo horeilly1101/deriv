@@ -30,6 +30,9 @@ public abstract class AExpression implements Expression {
    */
   private List<Tuple<Step, Expression>> steps = new ArrayList<>();
 
+  /**
+   * Map that keeps track of derivatives that have already been calculated.
+   */
   private ConcurrentHashMap<Tuple<Expression, Variable>, Expression> dCache = new ConcurrentHashMap<>();
 
   /**
@@ -65,6 +68,13 @@ public abstract class AExpression implements Expression {
     return derivative;
   }
 
+  /**
+   * Method that computes a derivative, then adds it to the cache.
+   *
+   * @param var input variable
+   * @param cacheCmd our cache command
+   * @return resulting Expression
+   */
   public Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd) {
     // these operations are already constant time, so we won't waste space caching them
     if (this instanceof Variable || this instanceof Constant) {

@@ -27,8 +27,7 @@ public class CacheCmd implements DerivativeCmd<Tuple<Expression, Variable>, Expr
 
   @Override
   public Expression computeIfAbsent(Tuple<Expression, Variable> key, Function<Tuple<Expression, Variable>, Expression> operation) {
-    cache.computeIfAbsent(key, operation); // keep passing along the cache
-    return cache.get(key);
+    return cache.computeIfAbsent(key, operation); // keep passing along the cache
   }
 
   @Override

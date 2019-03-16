@@ -12,6 +12,9 @@ import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
 
 public class Mult extends AExpression {
+  /**
+   * A list of factors to be multiplied together.
+   */
   private List<Expression> factors;
 
   /**

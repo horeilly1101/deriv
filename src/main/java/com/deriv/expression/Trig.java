@@ -18,8 +18,8 @@ public class Trig extends AExpression {
                                .collect(Collectors.toSet());
 
   /*
-   maps to ensure cleaner code (i.e. no long "if" statements)
-    */
+   Below are maps to ensure cleaner code (i.e. no long "if" statements)
+   */
 
   // define functions for evaluating expressions
   private static Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
