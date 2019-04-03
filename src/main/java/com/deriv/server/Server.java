@@ -37,9 +37,9 @@ public class Server {
               .put("data",
                   jobject()
                       // the gets are checked, because oDeriv is checked
-                      .put("expression", expr)
-                      .put("result", result)
-                      .put("var", var)
+                      .put("expression", expr.toLaTex())
+                      .put("result", result.toLaTex())
+                      .put("var", var.toLaTex())
                       .put("steps", new JSONArray(result.getSteps().stream()
                                                     .map(Tuple::toString)
                                                     .collect(Collectors.toList())))
@@ -104,7 +104,7 @@ public class Server {
 
       return calc.differentiate(expr, var) // differentiate
                .map(result -> diffObject(result, calc.toOExpression(expr).get(), calc.toOVariable(var).get()))
-               .orElse(error(res)); // error message, if unsuccessful
+               .orElseGet(() -> error(res)); // error message, if unsuccessful
     });
 
     // the GET call that evaluates an expression
@@ -120,7 +120,7 @@ public class Server {
                  calc.toOExpression(expr).get(),
                  calc.toOVariable(var).get(),
                  calc.toOExpression(val).get()))
-               .orElse(error(res)); // return an error if unsuccessful
+               .orElseGet(() -> error(res)); // return an error if unsuccessful
     });
 
     get("/simplify/:expr", (req, res) -> {
@@ -128,7 +128,7 @@ public class Server {
       String expr = req.params(":expr");
 
       // simplify and return JSON object
-      return calc.simplify(expr).map(result -> simplifyObject(result, expr)).orElse(error(res));
+      return calc.simplify(expr).map(result -> simplifyObject(result, expr)).orElseGet(() -> error(res));
     });
   }
 }

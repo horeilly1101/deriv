@@ -77,6 +77,14 @@ public class Add extends AExpression {
                + ")";
   }
 
+  @Override
+  public String toLaTex() {
+    return terms.get(0).toLaTex()
+             + terms.subList(1, terms.size()).stream()
+                 .map(Expression::toLaTex)
+                 .reduce("", (a, b) -> a + " + " + b);
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
     List<Optional<Expression>> eval = terms.stream()
@@ -91,7 +99,7 @@ public class Add extends AExpression {
                : Optional.empty();
    }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // linearity of differentiation
     List<Expression> newTerms = terms.stream()
                                   .map(x -> x.deriveCache(var, cache))

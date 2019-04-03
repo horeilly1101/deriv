@@ -50,7 +50,6 @@ public abstract class AExpression implements Expression {
    * @return the input expression, with its steps list mutated
    */
   public Expression addStep(Step step, Expression ex) {
-
     steps.add(Tuple.of(step, ex));
     return this;
   }
@@ -78,7 +77,7 @@ public abstract class AExpression implements Expression {
   public Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd) {
     // these operations are already constant time, so we won't waste space caching them
     if (this instanceof Variable || this instanceof Constant) {
-      return derive(var, cacheCmd);
+      return computeDerivative(var, cacheCmd);
     }
 
     // construct tuple
@@ -87,7 +86,7 @@ public abstract class AExpression implements Expression {
     // compute and store derivative
     return cacheCmd.computeIfAbsent(key,
                     x -> x.getFirstItem() // compute derivative
-                      .derive(x.getSecondItem(), cacheCmd));
+                      .computeDerivative(x.getSecondItem(), cacheCmd));
   }
 
   /**

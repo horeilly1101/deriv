@@ -151,6 +151,23 @@ public class Mult extends AExpression {
                + ")";
   }
 
+  @Override
+  public String toLaTex() {
+    Expression den = this.getDenominator();
+
+    if (!den.equals(multID())) {
+      Expression num = this.getNumerator();
+
+      // probably the easiest way to write this
+      return "\\frac{" + num.toLaTex() + "}{" + den.toLaTex() + "}";
+    }
+
+    return factors.get(0).toLaTex()
+             + factors.subList(1, factors.size()).stream() //  sublist is O(1)
+                 .map(ex -> ex.isAdd() ? "(" + ex.toLaTex() + ")" : ex.toLaTex())
+                 .reduce("", (a, b) -> a + b);
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
     List<Optional<Expression>> eval = factors.stream()
@@ -165,7 +182,7 @@ public class Mult extends AExpression {
                : Optional.empty();
   }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // always compute product rule down the middle of the list of factors
     int mid = factors.size() / 2;
 

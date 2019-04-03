@@ -191,12 +191,17 @@ public class Trig extends AExpression {
                : this.func + "(" + this.inside.toString() + ")";
   }
 
+  @Override
+  public String toLaTex() {
+    return "\\" + this.func + "(" + this.inside.toLaTex() + ")";
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression val) {
     return inside.evaluate(var, val)
                .map(x -> evalMap.get(this.func).apply(x));
   }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     return derivMap.get(this.func)
              .apply(this, var);
   }

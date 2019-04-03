@@ -84,6 +84,14 @@ public class Power extends AExpression {
                : base.toString() + " ^ " + exponent.toString();
   }
 
+  @Override
+  public String toLaTex() {
+    System.out.println("hefadfadfd");
+    return this.exponent.isNegative()
+             ? "\\frac{1}{" + power(base, negate(exponent)).toLaTex() + "}"
+             : base.toLaTex() + " ^{" + exponent.toLaTex() + "}";
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression input) {
     return base.evaluate(var, input)
                .flatMap(ba -> exponent.evaluate(var, input)
@@ -93,7 +101,7 @@ public class Power extends AExpression {
                                                      : Optional.of(power(ba, ex))));
   }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and

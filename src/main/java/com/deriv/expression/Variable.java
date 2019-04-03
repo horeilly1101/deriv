@@ -60,6 +60,11 @@ public class Variable extends AExpression {
     return var;
   }
 
+  @Override
+  public String toLaTex() {
+    return var;
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // update later
     return var.equals(this)
@@ -67,7 +72,7 @@ public class Variable extends AExpression {
                : Optional.of(this);
   }
 
-  public Expression derive(Variable wrt, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable wrt, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     return wrt.equals(this)
              ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
              : Constant.addID().addStep(Step.CONSTANT_RULE, this);

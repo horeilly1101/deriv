@@ -37,7 +37,9 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
   Optional<Expression> evaluate(Variable var, Expression input);
 
   /**
-   * Takes the derivative of the given expression.
+   * Takes the derivative of the given expression. This essentially functions as a template method
+   * to ensure that we can cache computed derivatives, save the steps taken, and perform any other
+   * necessary computations at each call.
    *
    * @param var -- a string variable name
    * @return Expression derivative
@@ -61,7 +63,7 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * @param cache our cache command
    * @return differentiated expression
    */
-  Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache);
+  Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache);
 
   /**
    * Gets the cache computed from the given expression.
@@ -102,6 +104,13 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
   Expression extendSteps(List<Tuple<Step, Expression>> otherSteps);
 
   /**
+   * Returns a latex representation of an expression.
+   *
+   * @return latex representation.
+   */
+  String toLaTex();
+
+  /**
    * This method compares an expression with a given object. This
    * is important, as it allows us to define an ordering on our
    * data structures. It also makes equality less strict. (i.e.
@@ -111,6 +120,7 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * @return an integer value relating the expressions
    */
   default int compareTo(Expression ex) {
+    // TODO
     // constants should come first
     return this.toString().compareTo(ex.toString());
   }

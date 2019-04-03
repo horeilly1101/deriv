@@ -1,9 +1,8 @@
 package com.deriv.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static java.util.stream.Collectors.toSet;
 
 /**
  * Tree data structure.
@@ -20,9 +19,9 @@ public class Tree<T> {
   private T value;
 
   /**
-   * List of subtrees.
+   * Set of subtrees. This enforces the property that each node can have at most edge to each other node.
    */
-  private List<Tree<T>> children;
+  private Set<Tree<T>> children;
 
   /**
    * Empty constructor for a Tree.
@@ -30,7 +29,7 @@ public class Tree<T> {
    */
   private Tree(T value) {
     this.value = value;
-    this.children = new ArrayList<>();
+    this.children = new HashSet<>();
   }
 
   /**
@@ -38,18 +37,17 @@ public class Tree<T> {
    *
    * @param children subtrees
    */
-  private Tree(T value, List<Tree<T>> children) {
+  private Tree(T value, Set<Tree<T>> children) {
     this.value = value;
     this.children = children;
   }
 
   @Override
   public String toString() {
-    return "{"
-             + value.toString()
-             + this.children.stream()
-               .map(Objects::toString).reduce("", (a, b) -> a + " " +  b)
-             + "}";
+    return value.toString()
+             + " : "
+             + this.children.stream().map(x -> x.hasChildren() ? x.toString() : x.getValue())
+                 .collect(toSet()).toString();
   }
 
   /**
@@ -62,7 +60,7 @@ public class Tree<T> {
    */
   @SafeVarargs
   public static <T> Tree<T> of(T value, Tree<T>... subtrees) {
-    return new Tree<>(value, Arrays.asList(subtrees));
+    return new Tree<>(value, new HashSet<>(Arrays.asList(subtrees)));
   }
 
   /**
@@ -77,13 +75,29 @@ public class Tree<T> {
   }
 
   /**
+   * Returns a boolean that tells us whether or not a tree has children.
+   * @return boolean value
+   */
+  public boolean hasChildren() {
+    return this.children.size() > 0;
+  }
+
+  /**
+   * Getter method for the value at the root of our tree.
+   * @return value.
+   */
+  public T getValue() {
+    return value;
+  }
+
+  /**
    * Adds a child to the Tree.
    *
    * @param child to be added
    * @return resulting tree
    */
   public Tree<T> add(Tree<T> child) {
-    List<Tree<T>> newChildren = children;
+    Set<Tree<T>> newChildren = children;
     newChildren.add(child);
     return new Tree<>(this.value, newChildren);
   }

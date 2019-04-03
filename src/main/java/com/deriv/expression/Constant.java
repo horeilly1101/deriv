@@ -90,11 +90,16 @@ public class Constant extends AExpression {
     return val.toString();
   }
 
+  @Override
+  public String toLaTex() {
+    return val.toString();
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression input) {
     return Optional.of(this);
   }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     return addID().addStep(Step.CONSTANT_RULE, this);
   }
 }

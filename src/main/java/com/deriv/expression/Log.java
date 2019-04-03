@@ -73,6 +73,13 @@ public class Log extends AExpression {
                : "log(" + base.toString() + ", " + result.toString() + ")";
   }
 
+  @Override
+  public String toLaTex() {
+    return (base.equals(e()))
+             ? "\\ln(" + result.toLaTex() + ")"
+             : "\\log_{" + base.toLaTex() + "} " + result.toLaTex();
+  }
+
   public Optional<Expression> evaluate(Variable var, Expression val) {
     return base.evaluate(var, val)
                .flatMap(ba -> result.evaluate(var, val)
@@ -81,7 +88,7 @@ public class Log extends AExpression {
                                                      : Optional.of(log(ba, re))));
   }
 
-  public Expression derive(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 
