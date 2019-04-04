@@ -1,7 +1,7 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
-import com.deriv.util.Tuple;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -88,21 +88,21 @@ public class Log extends AExpression {
                                                      : Optional.of(log(ba, re))));
   }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 
     // if log is a natural log
     if (base.equals(e())) {
-      Expression firstDerivative = result.deriveCache(var, cache);
-
-      return mult(firstDerivative, div(multID(), result))
-               .addStep(Step.LOG_RULE, this)
-               .extendSteps(firstDerivative.getSteps());
+      return mult(
+        result.differentiate(var, cacheCmd, stepCmd),
+        div(multID(), result));
     }
 
-    Expression secondDerivative = div(ln(result), ln(base)).deriveCache(var, cache);
+   return div(ln(result), ln(base)).differentiate(var, cacheCmd, stepCmd);
+  }
 
-    return secondDerivative.addStepLeft(Step.LOG_RULE, this);
+  public Step getDerivativeStep() {
+    return Step.LOG_RULE;
   }
 }

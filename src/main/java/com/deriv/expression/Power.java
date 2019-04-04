@@ -1,9 +1,8 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.simplifier.PowerSimplifier;
-import com.deriv.util.Tuple;
-
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -101,19 +100,20 @@ public class Power extends AExpression {
                                                      : Optional.of(power(ba, ex))));
   }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
     // this is what you'll get.
-    Expression firstDerivative = mult(exponent, ln(base))
-                                   .deriveCache(var, cache);
 
     return Mult.mult(
-        power(base, exponent),
-        firstDerivative)
-             .addStep(Step.POWER_RULE, this)
-             .extendSteps(firstDerivative.getSteps());
+      power(base, exponent),
+      mult(exponent, ln(base))
+        .differentiate(var, cacheCmd, stepCmd));
+  }
+
+  public Step getDerivativeStep() {
+    return Step.POWER_RULE;
   }
 
   /**

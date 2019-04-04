@@ -1,5 +1,9 @@
 package com.deriv.expression;
 
+import com.deriv.expression.cmd.CacheCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
+import com.deriv.expression.cmd.StepCmd;
 import org.junit.jupiter.api.Test;
 
 import static com.deriv.expression.Log.*;

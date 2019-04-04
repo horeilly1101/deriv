@@ -1,10 +1,9 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.simplifier.AddSimplifier;
-import com.deriv.util.Tuple;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -99,18 +98,15 @@ public class Add extends AExpression {
                : Optional.empty();
    }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // linearity of differentiation
-    List<Expression> newTerms = terms.stream()
-                                  .map(x -> x.deriveCache(var, cache))
-                                  .collect(toList());
+    return add(terms.stream()
+                 .map(x -> x.differentiate(var, cacheCmd, stepCmd))
+                 .collect(toList()));
+  }
 
-    return add(newTerms)
-             .addStep(Step.LINEARITY, this)
-             .extendSteps(newTerms
-                            .stream()
-                            .flatMap(x -> x.getSteps().stream())
-                            .collect(Collectors.toList()));
+  public Step getDerivativeStep() {
+    return Step.LINEARITY;
   }
 
   /**

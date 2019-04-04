@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.util.*;
 import java.util.List;
 import java.util.Optional;
@@ -52,56 +53,29 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    *
    * @param var input variable
    * @param cacheCmd our cache command
+   * @param stepCmd our step command
    * @return differentiated expression
    */
-  Expression deriveCache(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cacheCmd);
+  Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
 
   /**
-   * Take the derivative of a function. This should only be called by deriveCache.
+   * Take the derivative of a function. This should only be called by deriveCache. And every attempt
+   * to differentiate a function in an implementation of this method should use "differentiate".
    *
    * @param var input variable
-   * @param cache our cache command
+   * @param cacheCmd our cache command
+   * @param stepCmd our step command
    * @return differentiated expression
    */
-  Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache);
+  Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
 
   /**
-   * Gets the cache computed from the given expression.
+   * Get the step needed to differentiate a given Expression implementation. (e.g. a polynomial would return
+   * Step.POWER_RULE.)
    *
-   * @return concurrent hashmap cache.
+   * @return desired step.
    */
-  ConcurrentHashMap<Tuple<Expression, Variable>, Expression> getCache();
-
-  /**
-   * Gets the steps taken to differentiate the given expression.
-   *
-   * @return the steps taken to differentiate the given expression.
-   */
-  List<Tuple<Step, Expression>> getSteps();
-
-  /**
-   * Adds the given Step and Expression to the Expression's step list.
-   *
-   * @return the resulting expression
-   */
-  Expression addStep(Step step, Expression expression);
-
-  /**
-   * Adds the given Step and Expression to the left side of the Expression's step list.
-   *
-   * @param step -- the step to be added
-   * @param expression -- the expression the step was used on
-   * @return the resulting expression
-   */
-  Expression addStepLeft(Step step, Expression expression);
-
-  /**
-   * Adds the given list of Tuples to the Expression's step list.
-   *
-   * @param otherSteps -- the list of steps to be extened on the existing steps
-   * @return the resulting expression
-   */
-  Expression extendSteps(List<Tuple<Step, Expression>> otherSteps);
+  Step getDerivativeStep();
 
   /**
    * Returns a latex representation of an expression.

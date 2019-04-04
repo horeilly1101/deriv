@@ -1,8 +1,12 @@
 package com.deriv.calculator;
 
-import com.deriv.expression.AExpression;
+import com.deriv.expression.AExpression.*;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
+import com.deriv.expression.cmd.CacheCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
+import com.deriv.expression.cmd.StepCmd;
 import com.deriv.parser.Parser;
 import com.deriv.util.*;
 import java.util.List;
@@ -37,6 +41,11 @@ public class Calculator {
    */
   private final Map<ThreeTuple<Expression, Variable, Expression>, Optional<Expression>>
     evaluateCache = new ConcurrentHashMap<>();
+
+  /**
+   * Map to memoize the steps taken to differentiate functions.
+   */
+  private final Map<Expression, IStepCmd> stepCache = new ConcurrentHashMap<>();
 
   /**
    * Constructor for our Calculator.
@@ -83,13 +92,16 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
+    ICacheCmd cacheCmd = new CacheCmd();
+    IStepCmd stepCmd = new StepCmd();
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
                                .map(ex -> {
                                  Expression result = differentiateCache.computeIfAbsent(
                                    Tuple.of(ex, var), // create tuple to store computation
-                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem())); // take derivative
-                                 differentiateCache.putAll(ex.getCache()); // store all derivatives in cache
+                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
+                                 differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
+                                 stepCache.put(ex, stepCmd); // store the steps in the cache
                                  return result;
                                }));
   }
@@ -101,8 +113,20 @@ public class Calculator {
    * @param wrt the variable
    * @return an optional list of the steps
    */
-  public Optional<List<Tuple<AExpression.Step, Expression>>> derivativeSteps(String expressionString, String wrt) {
-    return differentiate(expressionString, wrt).map(Expression::getSteps);
+  public Optional<List<Tuple<Step, Expression>>> derivativeSteps(String expressionString, String wrt) {
+    return null;
+//    return toOVariable(wrt)
+//             .flatMap(var -> toOExpression(expressionString)
+//               .map(ex -> stepCache.computeIfAbsent(ex, given -> {
+//                 ICacheCmd cacheCmd = new CacheCmd();
+//                 IStepCmd stepCmd = new StepCmd();
+//                 differentiateCache.computeIfAbsent(
+//                   Tuple.of(ex, var), // create tuple to store computation
+//                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
+//                 differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
+//                 stepCache.put(ex, stepCmd); // store the steps in the cache
+//                 return stepCmd;
+//             }).getSteps())); // get the computed steps
   }
 
   /**

@@ -11,7 +11,7 @@ import java.util.function.Function;
  * Command that stores calculated derivatives in a cache. This then allows us to
  * "recompute" derivatives for free.
  */
-public class CacheCmd implements DerivativeCmd<Tuple<Expression, Variable>, Expression> {
+public class CacheCmd implements ICacheCmd {
   /**
    * Our instance of the cache.
    */
@@ -26,7 +26,8 @@ public class CacheCmd implements DerivativeCmd<Tuple<Expression, Variable>, Expr
   }
 
   @Override
-  public Expression computeIfAbsent(Tuple<Expression, Variable> key, Function<Tuple<Expression, Variable>, Expression> operation) {
+  public Expression computeIfAbsent(Tuple<Expression, Variable> key, 
+                                    Function<Tuple<Expression, Variable>, Expression> operation) {
     return cache.computeIfAbsent(key, operation); // keep passing along the cache
   }
 

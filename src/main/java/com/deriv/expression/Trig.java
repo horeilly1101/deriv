@@ -1,8 +1,7 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
-import com.deriv.util.Tuple;
-
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -18,7 +17,7 @@ public class Trig extends AExpression {
                                .collect(Collectors.toSet());
 
   /*
-   Below are maps to ensure cleaner code (i.e. no long "if" statements)
+   * Below are maps to ensure cleaner code (i.e. no long "if" statements)
    */
 
   // define functions for evaluating expressions
@@ -42,10 +41,7 @@ public class Trig extends AExpression {
 
         return Mult.mult(
           deriv,
-          cos(ex.inside))
-                 // add steps
-                 .addStep(Step.SIN, ex)
-                 .extendSteps(deriv.getSteps());
+          cos(ex.inside));
       });
 
     derivMap.put("cos",
@@ -56,10 +52,7 @@ public class Trig extends AExpression {
         return Mult.mult(
           Constant.constant(-1),
           deriv,
-          sin(ex.inside))
-                 // add steps
-                 .addStep(Step.COS, ex)
-                 .extendSteps(deriv.getSteps());
+          sin(ex.inside));
       });
 
     derivMap.put("tan",
@@ -71,10 +64,7 @@ public class Trig extends AExpression {
           deriv,
           Power.poly(
             sec(ex.inside),
-            2))
-          // add steps
-          .addStep(Step.TAN, ex)
-          .extendSteps(deriv.getSteps());
+            2));
       });
 
     derivMap.put("csc",
@@ -86,10 +76,7 @@ public class Trig extends AExpression {
           Constant.constant(-1),
           deriv,
           csc(ex.inside),
-          cot(ex.inside))
-                 // add steps
-                 .addStep(Step.CSC, ex)
-                 .extendSteps(deriv.getSteps());
+          cot(ex.inside));
       });
 
     derivMap.put("sec",
@@ -100,10 +87,7 @@ public class Trig extends AExpression {
         return Mult.mult(
           deriv,
           sec(ex.inside),
-          tan(ex.inside))
-                 // add steps
-                 .addStep(Step.SEC, ex)
-                 .extendSteps(deriv.getSteps());
+          tan(ex.inside));
       });
 
     derivMap.put("cot",
@@ -116,10 +100,7 @@ public class Trig extends AExpression {
           deriv,
           Power.poly(
             csc(ex.inside),
-            2))
-                 // add steps
-                 .addStep(Step.COT, ex)
-                 .extendSteps(deriv.getSteps());
+            2));
       });
   }
 
@@ -201,8 +182,12 @@ public class Trig extends AExpression {
                .map(x -> evalMap.get(this.func).apply(x));
   }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     return derivMap.get(this.func)
              .apply(this, var);
+  }
+
+  public Step getDerivativeStep() {
+    return Step.SIN;
   }
 }

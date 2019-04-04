@@ -3,12 +3,10 @@ package com.deriv.server;
 import com.deriv.calculator.Calculator;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import com.deriv.util.Tuple;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import spark.Filter;
 import spark.Response;
-import java.util.stream.Collectors;
 
 import static spark.Spark.*;
 
@@ -40,9 +38,7 @@ public class Server {
                       .put("expression", expr.toLaTex())
                       .put("result", result.toLaTex())
                       .put("var", var.toLaTex())
-                      .put("steps", new JSONArray(result.getSteps().stream()
-                                                    .map(Tuple::toString)
-                                                    .collect(Collectors.toList())))
+                      .put("steps", new JSONArray())
               );
   }
 
@@ -63,8 +59,6 @@ public class Server {
 
   /**
    * Returns a JSON object corresponding to the simplify route.
-   */
-  /**
    *
    * @param result
    * @param input

@@ -1,8 +1,7 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
-import com.deriv.util.Tuple;
-
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import java.util.Optional;
 
 public class Variable extends AExpression {
@@ -72,10 +71,14 @@ public class Variable extends AExpression {
                : Optional.of(this);
   }
 
-  public Expression computeDerivative(Variable wrt, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable wrt, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     return wrt.equals(this)
-             ? Constant.multID().addStep(Step.VARIABLE_RULE, this)
-             : Constant.addID().addStep(Step.CONSTANT_RULE, this);
+             ? Constant.multID()
+             : Constant.addID();
+  }
+
+  public Step getDerivativeStep() {
+    return Step.VARIABLE_RULE;
   }
 
 }

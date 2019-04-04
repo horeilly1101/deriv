@@ -1,9 +1,8 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.simplifier.MultSimplifier;
-import com.deriv.util.Tuple;
-
 import java.util.*;
 
 import static com.deriv.expression.Add.*;
@@ -182,30 +181,25 @@ public class Mult extends AExpression {
                : Optional.empty();
   }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // always compute product rule down the middle of the list of factors
     int mid = factors.size() / 2;
 
-    Expression firstDerivative = mult(factors.subList(0, mid))
-                                    .deriveCache(var, cache);
-
-    Expression secondDerivative = mult(factors.subList(mid, factors.size()))
-                                     .deriveCache(var, cache);
-
     return add(
               mult(
-                  mult(factors.subList(0, mid)),
-                  secondDerivative
+                mult(factors.subList(0, mid)),
+                mult(factors.subList(mid, factors.size()))
+                  .differentiate(var, cacheCmd, stepCmd)
               ),
               mult(
-                  firstDerivative,
-                  mult(factors.subList(mid, factors.size()))
-              ))
-             // add product rule as a step
-             .addStep(Step.PRODUCT_RULE, this)
-             // add the steps of the resulting derivatives
-             .extendSteps(secondDerivative.getSteps())
-             .extendSteps(firstDerivative.getSteps());
+                mult(factors.subList(0, mid))
+                  .differentiate(var, cacheCmd, stepCmd),
+                mult(factors.subList(mid, factors.size()))
+              ));
+  }
+
+  public Step getDerivativeStep() {
+    return Step.PRODUCT_RULE;
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {

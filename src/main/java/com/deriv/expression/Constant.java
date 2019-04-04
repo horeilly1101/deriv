@@ -1,7 +1,7 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.DerivativeCmd;
-import com.deriv.util.Tuple;
+import com.deriv.expression.cmd.ICacheCmd;
+import com.deriv.expression.cmd.IStepCmd;
 import java.util.Optional;
 
 public class Constant extends AExpression {
@@ -99,7 +99,11 @@ public class Constant extends AExpression {
     return Optional.of(this);
   }
 
-  public Expression computeDerivative(Variable var, DerivativeCmd<Tuple<Expression, Variable>, Expression> cache) {
-    return addID().addStep(Step.CONSTANT_RULE, this);
+  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+    return addID();
+  }
+
+  public Step getDerivativeStep() {
+    return Step.CONSTANT_RULE;
   }
 }
