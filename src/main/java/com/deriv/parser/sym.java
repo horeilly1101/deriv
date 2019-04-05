@@ -8,26 +8,26 @@ package com.deriv.parser;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int TIMES = 4;
-  public static final int RBRACK = 8;
-  public static final int PLUS = 2;
-  public static final int RPAREN = 6;
-  public static final int TRIG = 17;
-  public static final int LN = 11;
-  public static final int LBRACK = 7;
-  public static final int SQRT = 13;
-  public static final int VARIABLE = 16;
-  public static final int CARROT = 10;
-  public static final int LPAREN = 5;
-  public static final int LOG = 12;
-  public static final int COMMA = 14;
-  public static final int NUMBER = 18;
-  public static final int ECON = 15;
-  public static final int EOF = 0;
-  public static final int DIVIDE = 9;
-  public static final int MINUS = 3;
-  public static final int error = 1;
-  public static final String[] terminalNames = new String[] {
+  int TIMES = 4;
+  int RBRACK = 8;
+  int PLUS = 2;
+  int RPAREN = 6;
+  int TRIG = 17;
+  int LN = 11;
+  int LBRACK = 7;
+  int SQRT = 13;
+  int VARIABLE = 16;
+  int CARROT = 10;
+  int LPAREN = 5;
+  int LOG = 12;
+  int COMMA = 14;
+  int NUMBER = 18;
+  int ECON = 15;
+  int EOF = 0;
+  int DIVIDE = 9;
+  int MINUS = 3;
+  int error = 1;
+  String[] terminalNames = new String[] {
   "EOF",
   "error",
   "PLUS",
