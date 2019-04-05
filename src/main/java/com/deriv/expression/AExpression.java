@@ -47,11 +47,11 @@ public abstract class AExpression implements Expression {
       return computeDerivative(var, cacheCmd, stepCmd);
     }
 
-    // construct tuple
-    Tuple<Expression, Variable> key = Tuple.of(this, var);
-
     // add step
     stepCmd.addStep(getDerivativeStep(), this);
+
+    // construct tuple
+    Tuple<Expression, Variable> key = Tuple.of(this, var);
 
     // compute and store derivative
     return cacheCmd.computeIfAbsent(key,

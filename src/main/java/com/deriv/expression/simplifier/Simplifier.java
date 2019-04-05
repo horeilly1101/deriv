@@ -1,4 +1,4 @@
-package com.deriv.simplifier;
+package com.deriv.expression.simplifier;
 
 import com.deriv.expression.Expression;
 

@@ -2,7 +2,7 @@ package com.deriv.expression;
 
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.simplifier.AddSimplifier;
+import com.deriv.expression.simplifier.AddSimplifier;
 import java.util.*;
 
 import static java.util.stream.Collectors.*;
