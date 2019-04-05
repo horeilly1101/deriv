@@ -5,7 +5,7 @@ import com.deriv.expression.cmd.IStepCmd;
 import java.util.Optional;
 
 public class Variable extends AExpression {
-  String var;
+  private String _var;
 
   /**
    * This method is only package-private (because I want to use it
@@ -16,8 +16,8 @@ public class Variable extends AExpression {
    * Data definition: a variable is a string name (e.g. "x", "y",
    * etc.).
    */
-  Variable(String var) {
-    this.var = var;
+  Variable(String _var) {
+    this._var = _var;
   }
 
   /**
@@ -46,7 +46,7 @@ public class Variable extends AExpression {
     }
 
     Variable var = (Variable) o;
-    return var.var.equals(this.var);
+    return var._var.equals(this._var);
   }
 
   @Override
@@ -56,12 +56,12 @@ public class Variable extends AExpression {
 
   @Override
   public String toString() {
-    return var;
+    return _var;
   }
 
   @Override
   public String toLaTex() {
-    return var;
+    return _var;
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {

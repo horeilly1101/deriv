@@ -8,19 +8,19 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
 public class Log extends AExpression {
-  private Expression base;
-  private Expression result;
+  private Expression _base;
+  private Expression _result;
 
   /**
    * Instantiates a Log object. Avoid using as much as possible! Instead, use
    * the easy constructor down below. (I should note that throughout the code
-   * base, I use <b>log(a, b)</b> to refer to a logarithm with base a and result b.)
+   * _base, I use <b>log(a, b)</b> to refer to a logarithm with _base a and result b.)
    *
-   * Data definition: a log is two Expressions (a base and a result)
+   * Data definition: a log is two Expressions (a _base and a result)
    */
-  private Log(Expression base, Expression result) {
-    this.base = base;
-    this.result = result;
+  private Log(Expression _base, Expression result) {
+    this._base = _base;
+    this._result = result;
   }
 
   /**
@@ -54,7 +54,7 @@ public class Log extends AExpression {
     }
 
     Log log = (Log) o;
-    return log.base.equals(this.base) && log.result.equals(this.result);
+    return log._base.equals(this._base) && log._result.equals(this._result);
   }
 
   @Override
@@ -64,25 +64,25 @@ public class Log extends AExpression {
 
   @Override
   public String toString() {
-    if ((this.result.isAdd() || this.result.isMult()) && this.base.equals(e())) {
-      return "ln" + this.result.toString();
+    if ((this._result.isAdd() || this._result.isMult()) && this._base.equals(e())) {
+      return "ln" + this._result.toString();
     }
 
-    return (base.equals(e()))
-               ? "ln(" + result.toString() + ")"
-               : "log(" + base.toString() + ", " + result.toString() + ")";
+    return (_base.equals(e()))
+               ? "ln(" + _result.toString() + ")"
+               : "log(" + _base.toString() + ", " + _result.toString() + ")";
   }
 
   @Override
   public String toLaTex() {
-    return (base.equals(e()))
-             ? "\\ln(" + result.toLaTex() + ")"
-             : "\\log_{" + base.toLaTex() + "} " + result.toLaTex();
+    return (_base.equals(e()))
+             ? "\\ln(" + _result.toLaTex() + ")"
+             : "\\log_{" + _base.toLaTex() + "} " + _result.toLaTex();
   }
 
   public Optional<Expression> evaluate(Variable var, Expression val) {
-    return base.evaluate(var, val)
-               .flatMap(ba -> result.evaluate(var, val)
+    return _base.evaluate(var, val)
+               .flatMap(ba -> _result.evaluate(var, val)
                                   .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0
                                                      ? Optional.empty()
                                                      : Optional.of(log(ba, re))));
@@ -93,13 +93,13 @@ public class Log extends AExpression {
     // g, f and this is what you'll get
 
     // if log is a natural log
-    if (base.equals(e())) {
+    if (_base.equals(e())) {
       return mult(
-        result.differentiate(var, cacheCmd, stepCmd),
-        div(multID(), result));
+        _result.differentiate(var, cacheCmd, stepCmd),
+        div(multID(), _result));
     }
 
-   return div(ln(result), ln(base)).differentiate(var, cacheCmd, stepCmd);
+   return div(ln(_result), ln(_base)).differentiate(var, cacheCmd, stepCmd);
   }
 
   public Step getDerivativeStep() {

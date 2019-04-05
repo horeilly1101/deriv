@@ -8,7 +8,7 @@ public class Constant extends AExpression {
   /**
    * The integer value of a constant.
    */
-  private Integer val;
+  private Integer _val;
 
   /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
@@ -16,8 +16,8 @@ public class Constant extends AExpression {
    *
    * Data definition: A constant is a double.
    */
-  private Constant(Integer val) {
-    this.val = val;
+  private Constant(Integer _val) {
+    this._val = _val;
   }
 
   /**
@@ -38,7 +38,7 @@ public class Constant extends AExpression {
   }
 
   public Integer getVal() {
-    return val;
+    return _val;
   }
 
   @Override
@@ -77,7 +77,7 @@ public class Constant extends AExpression {
     }
 
     Constant con = (Constant) o;
-    return con.val.equals(this.val);
+    return con._val.equals(this._val);
   }
 
   @Override
@@ -87,12 +87,12 @@ public class Constant extends AExpression {
 
   @Override
   public String toString() {
-    return val.toString();
+    return _val.toString();
   }
 
   @Override
   public String toLaTex() {
-    return val.toString();
+    return _val.toString();
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {

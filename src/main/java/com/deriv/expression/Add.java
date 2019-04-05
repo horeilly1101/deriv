@@ -8,7 +8,7 @@ import java.util.*;
 import static java.util.stream.Collectors.*;
 
 public class Add extends AExpression {
-  private List<Expression> terms;
+  private List<Expression> _terms;
 
   /**
    * Instantiates an Add. Avoid using as much as possible! Use the easy constructor
@@ -18,12 +18,9 @@ public class Add extends AExpression {
    * the terms in an expression.
    */
   private Add(List<Expression> terms) {
-    this.terms = terms;
+    this._terms = terms;
   }
 
-  /**
-   * Use this function to instantiate an Add object.
-   */
   public static Expression add(List<Expression> terms) {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
@@ -40,12 +37,12 @@ public class Add extends AExpression {
   }
 
   public List<Expression> getTerms() {
-    return terms;
+    return _terms;
   }
 
   @Override
   public Boolean isNegative() {
-    return terms.stream()
+    return _terms.stream()
                .map(Expression::isNegative)
                .reduce(true, (a, b) -> a && b);
   }
@@ -59,7 +56,7 @@ public class Add extends AExpression {
     }
 
     Add ad = (Add) o;
-    return ad.terms.equals(this.terms);
+    return ad._terms.equals(this._terms);
   }
 
   @Override
@@ -69,8 +66,8 @@ public class Add extends AExpression {
 
   @Override
   public String toString() {
-    return "(" + terms.get(0)
-               + terms.subList(1, terms.size()).stream()
+    return "(" + _terms.get(0)
+               + _terms.subList(1, _terms.size()).stream()
                      .map(Expression::toString)
                      .reduce("", (a, b) -> a + " + " + b)
                + ")";
@@ -78,15 +75,15 @@ public class Add extends AExpression {
 
   @Override
   public String toLaTex() {
-    return terms.get(0).toLaTex()
-             + terms.subList(1, terms.size()).stream()
+    return _terms.get(0).toLaTex()
+             + _terms.subList(1, _terms.size()).stream()
                  .map(Expression::toLaTex)
                  .reduce("", (a, b) -> a + " + " + b);
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
-    List<Optional<Expression>> eval = terms.stream()
+    List<Optional<Expression>> eval = _terms.stream()
                                         .map(x -> x.evaluate(var, input))
                                            .collect(toList());
 
@@ -100,7 +97,7 @@ public class Add extends AExpression {
 
   public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // linearity of differentiation
-    return add(terms.stream()
+    return add(_terms.stream()
                  .map(x -> x.differentiate(var, cacheCmd, stepCmd))
                  .collect(toList()));
   }

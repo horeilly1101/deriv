@@ -30,7 +30,7 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * expression.
    *
    * @param var -- a string variable name
-   * @param input -- the number to be plugged into var
+   * @param input -- the number to be plugged into _var
    * @return Optional<Expression> solution
    */
   Optional<Expression> evaluate(Variable var, Expression input);

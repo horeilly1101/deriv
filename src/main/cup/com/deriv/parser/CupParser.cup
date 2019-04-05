@@ -18,7 +18,7 @@ terminal String             VARIABLE, TRIG;
 terminal Integer            NUMBER;
 
 /* Non terminals */
-non terminal Expression     expr, term, factor, base;
+non terminal Expression     expr, term, factor, _base;
 
 /* Grammar Definition */
 expr    ::= expr:e PLUS term:t                          {: RESULT = add(e, t); :}
@@ -31,14 +31,14 @@ term    ::= term:t TIMES factor:f                       {: RESULT = mult(t, f); 
         | MINUS factor:f                                {: RESULT = negate(f); :} // implicit negation
         | factor:f                                      {: RESULT = f; :}
         ;
-factor  ::= base:b CARROT factor:f                      {: RESULT = power(b, f); :} // right associative
-        | base:b CARROT MINUS factor:f                  {: RESULT = power(b, negate(f)); :} // important check
-        | base:b                                        {: RESULT = b; :}
+factor  ::= _base:b CARROT factor:f                      {: RESULT = power(b, f); :} // right associative
+        | _base:b CARROT MINUS factor:f                  {: RESULT = power(b, negate(f)); :} // important check
+        | _base:b                                        {: RESULT = b; :}
         ;
 
-base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
+_base    ::= NUMBER:n                                    {: RESULT = constant(n); :}
         | ECON                                          {: RESULT = e(); :} // e constant
-        | VARIABLE:x                                    {: RESULT = var(x); :}
+        | VARIABLE:x                                    {: RESULT = _var(x); :}
         | LPAREN expr:e RPAREN                          {: RESULT = e; :}
         | LBRACK expr:e RBRACK                          {: RESULT = e; :}
         | TRIG:t LPAREN expr:e RPAREN                   {: RESULT = trig(t, e); :}

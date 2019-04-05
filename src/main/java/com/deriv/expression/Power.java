@@ -10,18 +10,18 @@ import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 
 public class Power extends AExpression {
-  private Expression base;
-  private Expression exponent;
+  private Expression _base;
+  private Expression _exponent;
 
   /**
    * Instantiates a Power object. Avoid using as much as possible! Use the easy constructor
    * instead. (A power is the more general form of a polynomial and an exponential.)
    *
-   * Data definition: a power is two Expressions (a base and an exponent).
+   * Data definition: a power is two Expressions (a _base and an _exponent).
    */
-  Power(Expression base, Expression exponent) {
-    this.base = base;
-    this.exponent = exponent;
+  Power(Expression _base, Expression _exponent) {
+    this._base = _base;
+    this._exponent = _exponent;
   }
 
   /**
@@ -41,22 +41,22 @@ public class Power extends AExpression {
 
   @Override
   public Expression getExponent() {
-    return exponent;
+    return _exponent;
   }
 
   @Override
   public Expression getBase() {
-    return base;
+    return _base;
   }
 
   @Override
   public Expression getNumerator() {
-    return exponent.isNegative() ? multID() : this;
+    return _exponent.isNegative() ? multID() : this;
   }
 
   @Override
   public Expression getDenominator() {
-    return exponent.isNegative() ? poly(this, -1) : multID();
+    return _exponent.isNegative() ? poly(this, -1) : multID();
   }
 
   @Override
@@ -68,7 +68,7 @@ public class Power extends AExpression {
     }
 
     Power pow = (Power) o;
-    return pow.base.equals(this.base) && pow.exponent.equals(this.exponent);
+    return pow._base.equals(this._base) && pow._exponent.equals(this._exponent);
   }
 
   @Override
@@ -78,22 +78,22 @@ public class Power extends AExpression {
 
   @Override
   public String toString() {
-    return this.exponent.isNegative()
-               ? "1 / " + power(base, negate(exponent)).toString()
-               : base.toString() + " ^ " + exponent.toString();
+    return this._exponent.isNegative()
+               ? "1 / " + power(_base, negate(_exponent)).toString()
+               : _base.toString() + " ^ " + _exponent.toString();
   }
 
   @Override
   public String toLaTex() {
     System.out.println("hefadfadfd");
-    return this.exponent.isNegative()
-             ? "\\frac{1}{" + power(base, negate(exponent)).toLaTex() + "}"
-             : base.toLaTex() + " ^{" + exponent.toLaTex() + "}";
+    return this._exponent.isNegative()
+             ? "\\frac{1}{" + power(_base, negate(_exponent)).toLaTex() + "}"
+             : _base.toLaTex() + " ^{" + _exponent.toLaTex() + "}";
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
-    return base.evaluate(var, input)
-               .flatMap(ba -> exponent.evaluate(var, input)
+    return _base.evaluate(var, input)
+               .flatMap(ba -> _exponent.evaluate(var, input)
                                   // make sure we're not dividing by zero
                                   .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
                                                      ? Optional.empty()
@@ -107,8 +107,8 @@ public class Power extends AExpression {
     // this is what you'll get.
 
     return Mult.mult(
-      power(base, exponent),
-      mult(exponent, ln(base))
+      power(_base, _exponent),
+      mult(_exponent, ln(_base))
         .differentiate(var, cacheCmd, stepCmd));
   }
 
@@ -120,7 +120,7 @@ public class Power extends AExpression {
    * Tests whether or not a Power is simplified, for testing purposes.
    */
   Boolean isSimplified() {
-    return new PowerSimplifierComplete(base, exponent).isSimplified();
+    return new PowerSimplifierComplete(_base, _exponent).isSimplified();
   }
 
   private static class PowerSimplifierComplete extends PowerSimplifier {
@@ -129,17 +129,17 @@ public class Power extends AExpression {
     }
 
     public Expression toExpression() {
-      // is exponent 1?
+      // is _exponent 1?
       if (unExponent.equals(Constant.multID())) {
         return unBase;
       }
 
-      // is base 1?
+      // is _base 1?
       if (unBase.equals(multID())) {
         return multID();
       }
 
-      // is exponent 0?
+      // is _exponent 0?
       if (unExponent.equals(Constant.addID())) {
         return multID();
       }

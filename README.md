@@ -9,8 +9,8 @@ An open source derivative calculator REST API (and Java library). Now with steps
 The server is built using [Spark](http://sparkjava.com/), and you can run the server by running 
 [Server.java](src/main/java/com/deriv/server/Server.java) in the server package. The server will then be available
 at `localhost:4567`. There are **three** different requests you can make. The first is
-`localhost:4567/differentiate/:expression/:var`, where `:expression` is the expression to be differentiated 
-**(e.g. x^2 &ast; ln(x))** and `:var` is the variable that `:expression` should be differentiated with respect to 
+`localhost:4567/differentiate/:expression/:_var`, where `:expression` is the expression to be differentiated 
+**(e.g. x^2 &ast; ln(x))** and `:_var` is the variable that `:expression` should be differentiated with respect to 
 **(e.g. x)**. This request returns a JSON object of the form
 
     { 
@@ -18,15 +18,15 @@ at `localhost:4567`. There are **three** different requests you can make. The fi
             {  
                 "expression" : expression,
                 "result" : differentiated expression,
-                "var" : var,
+                "_var" : _var,
                 "steps" : [ 
                             steps 
                           ]
             }
     }
     
-The second is `localhost:4567/evaluate/:expression/:var/:val`, where `:expression` is the expression to be 
-evaluated **(e.g. x^2 &ast; ln(x))**, `:var` is the variable that should be evaluated **(e.g. x)**, and `:val` is the number 
+The second is `localhost:4567/evaluate/:expression/:_var/:_val`, where `:expression` is the expression to be 
+evaluated **(e.g. x^2 &ast; ln(x))**, `:_var` is the variable that should be evaluated **(e.g. x)**, and `:_val` is the number 
 that `:expression` should be evaluated with **(e.g. 5)**. This request returns a JSON object of the form
               
     { 
@@ -34,8 +34,8 @@ that `:expression` should be evaluated with **(e.g. 5)**. This request returns a
             {  
                 "expression" : expression,
                 "result" : evaluated expression,
-                "var" : var,
-                "val" : val, 
+                "_var" : _var,
+                "_val" : _val, 
             }
     }
     
@@ -70,14 +70,16 @@ In particular, you should not allow forward slashes, brackets, carrots, or blank
 
 ## Polymorphic Design
 
+![dashboard](pictures/ExpressionUML.png)
+
 Definition: **Expression** is the data structure that allows us to put functions together and take their 
 derivatives. Every function is an implementation of an Expression -- this is the key design detail that glues 
 the project together. It is implemented by
 
 - *Mult*: a mult is a list of expressions, multiplied together
 - *Add*: an add is a list of expressions, added together
-- *Log*: a log is a base and a result (i.e. log(base, result))
-- *Power*: a power is a base and an exponent (i.e. base ^ exponent)
+- *Log*: a log is a _base and a result (i.e. log(_base, result))
+- *Power*: a power is a _base and an _exponent (i.e. _base ^ _exponent)
 - *Trig*: a trig is a trig function name and an expression
 - *Constant*: a constant is an Integer (unfortunately, arbitrary constants are technically variables)
 - *Variable*: a string name (e.g. "x", "y", etc.)

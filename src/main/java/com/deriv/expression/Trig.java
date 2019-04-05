@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Trig extends AExpression {
-  private String func;
-  private Expression inside;
+  private String _func;
+  private Expression _inside;
 
   // valid trig functions
   private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
@@ -36,70 +36,70 @@ public class Trig extends AExpression {
   static {
     derivMap.put("sin",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           deriv,
-          cos(ex.inside));
+          cos(ex._inside));
       });
 
     derivMap.put("cos",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           Constant.constant(-1),
           deriv,
-          sin(ex.inside));
+          sin(ex._inside));
       });
 
     derivMap.put("tan",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           deriv,
           Power.poly(
-            sec(ex.inside),
+            sec(ex._inside),
             2));
       });
 
     derivMap.put("csc",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           Constant.constant(-1),
           deriv,
-          csc(ex.inside),
-          cot(ex.inside));
+          csc(ex._inside),
+          cot(ex._inside));
       });
 
     derivMap.put("sec",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           deriv,
-          sec(ex.inside),
-          tan(ex.inside));
+          sec(ex._inside),
+          tan(ex._inside));
       });
 
     derivMap.put("cot",
       (ex, var) -> {
-        // calculate inside derivative
-        Expression deriv = ex.inside.differentiate(var);
+        // calculate _inside derivative
+        Expression deriv = ex._inside.differentiate(var);
 
         return Mult.mult(
           Constant.constant(-1),
           deriv,
           Power.poly(
-            csc(ex.inside),
+            csc(ex._inside),
             2));
       });
   }
@@ -111,9 +111,9 @@ public class Trig extends AExpression {
    * Data definition: a trig is a function name (e.g. "sin", "cos", etc.) and
    * an input (Expression).
    */
-  private Trig(String func, Expression inside) {
-    this.func = func;
-    this.inside = inside;
+  private Trig(String _func, Expression _inside) {
+    this._func = _func;
+    this._inside = _inside;
   }
 
   public static Expression trig(String func, Expression inside) {
@@ -157,7 +157,7 @@ public class Trig extends AExpression {
     }
 
     Trig tri = (Trig) o;
-    return tri.func.equals(this.func) && tri.inside.equals(this.inside);
+    return tri._func.equals(this._func) && tri._inside.equals(this._inside);
   }
 
   @Override
@@ -167,23 +167,23 @@ public class Trig extends AExpression {
 
   @Override
   public String toString() {
-    return this.inside.isMult() || this.inside.isAdd()
-               ? this.func + this.inside.toString()
-               : this.func + "(" + this.inside.toString() + ")";
+    return this._inside.isMult() || this._inside.isAdd()
+               ? this._func + this._inside.toString()
+               : this._func + "(" + this._inside.toString() + ")";
   }
 
   @Override
   public String toLaTex() {
-    return "\\" + this.func + "(" + this.inside.toLaTex() + ")";
+    return "\\" + this._func + "(" + this._inside.toLaTex() + ")";
   }
 
   public Optional<Expression> evaluate(Variable var, Expression val) {
-    return inside.evaluate(var, val)
-               .map(x -> evalMap.get(this.func).apply(x));
+    return _inside.evaluate(var, val)
+               .map(x -> evalMap.get(this._func).apply(x));
   }
 
   public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
-    return derivMap.get(this.func)
+    return derivMap.get(this._func)
              .apply(this, var);
   }
 

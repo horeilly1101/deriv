@@ -12,19 +12,19 @@ import static com.deriv.expression.Constant.*;
 
 public class Mult extends AExpression {
   /**
-   * A list of factors to be multiplied together.
+   * A list of _factors to be multiplied together.
    */
-  private List<Expression> factors;
+  private List<Expression> _factors;
 
   /**
    * Instantiates a Mult. Avoid using as much as possible! Use the easy constructor
    * instead.
    *
-   * Data definition: a term is a list of Expressions (factors). This is analogous
-   * to the factors in an expression.
+   * Data definition: a term is a list of Expressions (_factors). This is analogous
+   * to the _factors in an expression.
    */
-  private Mult(List<Expression> factors) {
-    this.factors = factors;
+  private Mult(List<Expression> _factors) {
+    this._factors = _factors;
   }
 
   /**
@@ -61,12 +61,12 @@ public class Mult extends AExpression {
   }
 
   public List<Expression> getFactors() {
-    return factors;
+    return _factors;
   }
 
   @Override
   public Expression getConstantFactor() {
-    List<Expression> constants = factors.stream()
+    List<Expression> constants = _factors.stream()
                                     .filter(x -> x.isConstant()
                                                      || (x.getBase().isConstant()
                                                              && x.getExponent().equals(constant(-1))))
@@ -79,7 +79,7 @@ public class Mult extends AExpression {
 
   @Override
   public Expression getSymbolicFactors() {
-    List<Expression> symbolic = factors.stream()
+    List<Expression> symbolic = _factors.stream()
                                     .filter(x -> !x.isConstant()
                                                      && !(x.getBase().isConstant()
                                                              && x.getExponent().equals(constant(-1))))
@@ -99,7 +99,7 @@ public class Mult extends AExpression {
 
   @Override
   public Expression getNumerator() {
-    List<Expression> num = factors.stream()
+    List<Expression> num = _factors.stream()
                                .filter(x -> !x.getExponent().isNegative())
                                .collect(toList());
     return num.isEmpty() ? multID() : mult(num);
@@ -107,7 +107,7 @@ public class Mult extends AExpression {
 
   @Override
   public Expression getDenominator() {
-    List<Expression> den = factors.stream()
+    List<Expression> den = _factors.stream()
                                .filter(x -> x.getExponent().isNegative())
                                .map(y -> poly(y, -1))
                                .collect(toList());
@@ -124,7 +124,7 @@ public class Mult extends AExpression {
     }
 
     Mult mul = (Mult) o;
-    return mul.factors.equals(this.factors);
+    return mul._factors.equals(this._factors);
   }
 
   @Override
@@ -143,8 +143,8 @@ public class Mult extends AExpression {
       return num.toString() + " / " + den.toString();
     }
 
-    return "(" + factors.get(0).toString()
-               + factors.subList(1, factors.size()).stream() //  sublist is O(1)
+    return "(" + _factors.get(0).toString()
+               + _factors.subList(1, _factors.size()).stream() //  sublist is O(1)
                      .map(Expression::toString)
                      .reduce("", (a, b) -> a + " * " + b)
                + ")";
@@ -161,15 +161,15 @@ public class Mult extends AExpression {
       return "\\frac{" + num.toLaTex() + "}{" + den.toLaTex() + "}";
     }
 
-    return factors.get(0).toLaTex()
-             + factors.subList(1, factors.size()).stream() //  sublist is O(1)
+    return _factors.get(0).toLaTex()
+             + _factors.subList(1, _factors.size()).stream() //  sublist is O(1)
                  .map(ex -> ex.isAdd() ? "(" + ex.toLaTex() + ")" : ex.toLaTex())
                  .reduce("", (a, b) -> a + b);
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
-    List<Optional<Expression>> eval = factors.stream()
+    List<Optional<Expression>> eval = _factors.stream()
                                           .map(x -> x.evaluate(var, input))
                                           .collect(toList());
 
@@ -182,19 +182,19 @@ public class Mult extends AExpression {
   }
 
   public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
-    // always compute product rule down the middle of the list of factors
-    int mid = factors.size() / 2;
+    // always compute product rule down the middle of the list of _factors
+    int mid = _factors.size() / 2;
 
     return add(
               mult(
-                mult(factors.subList(0, mid)),
-                mult(factors.subList(mid, factors.size()))
+                mult(_factors.subList(0, mid)),
+                mult(_factors.subList(mid, _factors.size()))
                   .differentiate(var, cacheCmd, stepCmd)
               ),
               mult(
-                mult(factors.subList(0, mid))
+                mult(_factors.subList(0, mid))
                   .differentiate(var, cacheCmd, stepCmd),
-                mult(factors.subList(mid, factors.size()))
+                mult(_factors.subList(mid, _factors.size()))
               ));
   }
 
@@ -226,7 +226,7 @@ public class Mult extends AExpression {
         }
       }
 
-      // sort the factors
+      // sort the _factors
       List<Expression> simplified = unFactors.stream().sorted().collect(toList());
       return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
     }

@@ -16,12 +16,12 @@ public class CalculatorTest {
     System.out.println(calc.evaluate("x + 2x - 5x", "x", "1").get());
   }
 
-  @Test
-  void derivativeStepsTest() {
-    Calculator calc = new Calculator();
-    System.out.println(calc.derivativeSteps("x", "x").get());
-
-    System.out.println(calc.toOExpression("sin(x)"));
-    System.out.println(calc.derivativeSteps("sin(x)", "x").get());
-  }
+//  @Test
+//  void derivativeStepsTest() {
+//    Calculator calc = new Calculator();
+//    System.out.println(calc.derivativeSteps("x", "x").get());
+//
+//    System.out.println(calc.toOExpression("sin(x)"));
+//    System.out.println(calc.derivativeSteps("sin(x)", "x").get());
+//  }
 }
