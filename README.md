@@ -4,8 +4,6 @@
 
 An open source derivative calculator REST API (and Java library). Now with steps!
 
-![dashboard](pictures/example.png)
-
 ## Server
 
 The server is built using [Spark](http://sparkjava.com/), and you can run the server by running 
