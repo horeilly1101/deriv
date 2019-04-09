@@ -2,10 +2,7 @@ package com.deriv.parser;
 
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import java_cup.runtime.ComplexSymbolFactory;
-import java_cup.runtime.DefaultSymbolFactory;
 import java_cup.runtime.Symbol;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -61,6 +58,7 @@ public class Parser {
   /**
    * Parses a String into an Optional of Expression.
    */
+  @SuppressWarnings("deprecation") // not a problem
   public Optional<Expression> parse() {
     // initialize the parser
     CupParser parser = new CupParser(new FlexScanner(new StringReader(inputString)));
