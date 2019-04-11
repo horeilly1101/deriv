@@ -47,7 +47,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /** 
    * Translates characters to character classes
    */
-  private static final char [] ZZ_CMAP = zzUnpackCMap(ZZ_CMAP_PACKED);
+  private static final char [] ZZ_CMAP = zzUnpackCMap();
 
   /** 
    * Translates DFA states to action switch labels.
@@ -147,7 +147,6 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /* error codes */
   private static final int ZZ_UNKNOWN_ERROR = 0;
   private static final int ZZ_NO_MATCH = 1;
-  private static final int ZZ_PUSHBACK_2BIG = 2;
 
   /* error messages for the codes above */
   private static final String ZZ_ERROR_MSG[] = {
@@ -190,9 +189,6 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /** the current state of the DFA */
   private int zzState;
 
-  /** the current lexical state */
-  private int zzLexicalState = YYINITIAL;
-
   /** this buffer contains the current text to be matched and is
       the source of the yytext() string */
   private char zzBuffer[] = new char[ZZ_BUFFERSIZE];
@@ -213,19 +209,11 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /** number of newlines encountered up to the start of the matched text */
   private int yyline;
 
-  /** the number of characters up to the start of the matched text */
-  private int yychar;
-
   /**
    * the number of characters from the last newline up to the start of the 
    * matched text
    */
   private int yycolumn;
-
-  /**
-   * zzAtBOL == true iff the scanner is currently at the beginning of a line
-   */
-  private boolean zzAtBOL = true;
 
   /** zzAtEOF == true iff the scanner is at the EOF */
   private boolean zzAtEOF;
@@ -241,15 +229,12 @@ public class FlexScanner implements java_cup.runtime.Scanner {
    */
   private int zzFinalHighSurrogate = 0;
 
-  /* user code: */
-    StringBuffer string = new StringBuffer();
-
-    private Symbol symbol(int type) {
-        return new Symbol(type, yyline, yycolumn);
-    }
-    private Symbol symbol(int type, Object value) {
-        return new Symbol(type, yyline, yycolumn, value);
-    }
+  private Symbol symbol(int type) {
+      return new Symbol(type, yyline, yycolumn);
+  }
+  private Symbol symbol(int type, Object value) {
+      return new Symbol(type, yyline, yycolumn, value);
+  }
 
 
   /**
@@ -265,16 +250,15 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /** 
    * Unpacks the compressed character translation table.
    *
-   * @param packed   the packed character translation table
    * @return         the unpacked character translation table
    */
-  private static char [] zzUnpackCMap(String packed) {
+  private static char [] zzUnpackCMap() {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
     while (i < 136) {
-      int  count = packed.charAt(i++);
-      char value = packed.charAt(i++);
+      int  count = FlexScanner.ZZ_CMAP_PACKED.charAt(i++);
+      char value = FlexScanner.ZZ_CMAP_PACKED.charAt(i++);
       do map[j++] = value; while (--count > 0);
     }
     return map;
@@ -346,7 +330,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /**
    * Closes the input stream.
    */
-  public final void yyclose() throws java.io.IOException {
+  private void yyclose() throws java.io.IOException {
     zzAtEOF = true;            /* indicate end of file */
     zzEndRead = zzStartRead;  /* invalidate buffer    */
 
@@ -357,7 +341,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   /**
    * Returns the text matched by the current regular expression.
    */
-  public final String yytext() {
+  private String yytext() {
     return new String( zzBuffer, zzStartRead, zzMarkedPos-zzStartRead );
   }
 
@@ -372,13 +356,11 @@ public class FlexScanner implements java_cup.runtime.Scanner {
    *
    * Usual syntax/scanner level error handling should be done
    * in error fallback rules.
-   *
-   * @param   errorCode  the code of the errormessage to display
    */
-  private void zzScanError(int errorCode) {
+  private void zzScanError() {
     String message;
     try {
-      message = ZZ_ERROR_MSG[errorCode];
+      message = ZZ_ERROR_MSG[FlexScanner.ZZ_NO_MATCH];
     }
     catch (ArrayIndexOutOfBoundsException e) {
       message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
@@ -415,10 +397,6 @@ public class FlexScanner implements java_cup.runtime.Scanner {
     int zzMarkedPosL;
     int zzEndReadL = zzEndRead;
     char [] zzBufferL = zzBuffer;
-    char [] zzCMapL = ZZ_CMAP;
-
-    int [] zzTransL = ZZ_TRANS;
-    int [] zzRowMapL = ZZ_ROWMAP;
     int [] zzAttrL = ZZ_ATTRIBUTE;
 
     while (true) {
@@ -484,7 +462,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
   
-      zzState = ZZ_LEXSTATE[zzLexicalState];
+      zzState = ZZ_LEXSTATE[YYINITIAL];
 
       // set up zzAction for empty match case:
       int zzAttributes = zzAttrL[zzState];
@@ -523,7 +501,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
               zzCurrentPosL += Character.charCount(zzInput);
             }
           }
-          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];
+          int zzNext = ZZ_TRANS[ ZZ_ROWMAP[zzState] + ZZ_CMAP[zzInput] ];
           if (zzNext == -1) break zzForAction;
           zzState = zzNext;
 
@@ -626,7 +604,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
               return symbol(sym.SQRT);
             }
           default:
-            zzScanError(ZZ_NO_MATCH);
+            zzScanError();
         }
       }
     }

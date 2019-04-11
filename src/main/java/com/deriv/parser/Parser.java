@@ -57,6 +57,9 @@ public class Parser {
 
   /**
    * Parses a String into an Optional of Expression.
+   *
+   * Note: The version of CupParser I use is deprecated. However, after looking through the
+   * code, I can find no problem with it. It does exactly what I need it to do.
    */
   @SuppressWarnings("deprecation") // not a problem
   public Optional<Expression> parse() {

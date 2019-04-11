@@ -27,26 +27,4 @@ public interface sym {
   int DIVIDE = 9;
   int MINUS = 3;
   int error = 1;
-  String[] terminalNames = new String[] {
-  "EOF",
-  "error",
-  "PLUS",
-  "MINUS",
-  "TIMES",
-  "LPAREN",
-  "RPAREN",
-  "LBRACK",
-  "RBRACK",
-  "DIVIDE",
-  "CARROT",
-  "LN",
-  "LOG",
-  "SQRT",
-  "COMMA",
-  "ECON",
-  "VARIABLE",
-  "TRIG",
-  "NUMBER"
-  };
 }
-
