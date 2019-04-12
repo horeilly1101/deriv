@@ -1,14 +1,11 @@
 package com.deriv.calculator;
 
-import com.deriv.expression.AExpression.*;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.expression.cmd.*;
 import com.deriv.expression.step.ExpressionWrapper;
-import com.deriv.expression.step.Step;
 import com.deriv.parser.Parser;
 import com.deriv.util.*;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -106,7 +103,7 @@ public class Calculator {
    * @param wrt the variable
    * @return an optional list of the steps
    */
-  public Optional<Tree<ExpressionWrapper>> derivativeSteps(String expressionString, String wrt) {
+  public Optional<Tree<ExpressionWrapper>> differentiateWithSteps(String expressionString, String wrt) {
     return toOVariable(wrt).flatMap(var -> toOExpression(expressionString).map(ex -> ex.differentiateWithSteps(var)));
   }
 

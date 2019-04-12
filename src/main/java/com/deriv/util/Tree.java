@@ -1,6 +1,10 @@
 package com.deriv.util;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -41,6 +45,12 @@ public class Tree<T> {
   private Tree(T value, Set<Tree<T>> children) {
     this.value = value;
     this.children = children;
+  }
+
+  public JSONObject toJSON() {
+    return new JSONObject()
+             .put(value.toString(),
+               new JSONArray(children.stream().map(Tree::toJSON).collect(Collectors.toList())));
   }
 
   @Override
@@ -99,13 +109,4 @@ public class Tree<T> {
   public void add(Tree<T> child) {
     children.add(child);
   }
-
-//  /**
-//   * Add children to the Tree in bulk.
-//   *
-//   * @param children a collection of trees
-//   */
-//  public void addAll(Collection<Tree<T>> children) {
-//    this.children.addAll(children);
-//  }
 }

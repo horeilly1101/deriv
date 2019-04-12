@@ -18,12 +18,12 @@ class ServerTest {
     assertTrue(jobject().isEmpty());
   }
 
-  @Test
-  void diffObjectTest() {
-    Expression func = poly(x(), 2);
-    Expression result = mult(constant(2), x());
-    assertEquals(JSONObject.class, diffObject(result, func, x().asVariable()).getClass());
-  }
+//  @Test
+//  void diffObjectTest() {
+//    Expression func = poly(x(), 2);
+//    Expression result = mult(constant(2), x());
+//    assertEquals(JSONObject.class, diffObject(result, func, x().asVariable()).getClass());
+//  }
 
   @Test
   void evalObjectTest() {

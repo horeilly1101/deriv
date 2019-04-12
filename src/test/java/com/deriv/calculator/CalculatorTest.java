@@ -19,9 +19,9 @@ public class CalculatorTest {
 //  @Test
 //  void derivativeStepsTest() {
 //    Calculator calc = new Calculator();
-//    System.out.println(calc.derivativeSteps("x", "x").get());
+//    System.out.println(calc.differentiateWithSteps("x", "x").get());
 //
 //    System.out.println(calc.toOExpression("sin(x)"));
-//    System.out.println(calc.derivativeSteps("sin(x)", "x").get());
+//    System.out.println(calc.differentiateWithSteps("sin(x)", "x").get());
 //  }
 }
