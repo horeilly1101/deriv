@@ -1,8 +1,6 @@
 package com.deriv.util;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.*;
 import java.util.stream.Collectors;
 

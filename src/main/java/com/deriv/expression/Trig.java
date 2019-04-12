@@ -3,12 +3,12 @@ package com.deriv.expression;
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.step.Step;
-
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.deriv.expression.Mult.mult;
 
 public class Trig extends AExpression {
   private String _func;
@@ -31,79 +31,6 @@ public class Trig extends AExpression {
     evalMap.put("csc", Trig::csc);
     evalMap.put("sec", Trig::sec);
     evalMap.put("cot", Trig::cot);
-  }
-
-  // define functions for evaluating derivatives
-  private static Map<String, BiFunction<Trig, Variable, Expression>> derivMap = new TreeMap<>();
-  static {
-    derivMap.put("sin",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          deriv,
-          cos(ex._inside));
-      });
-
-    derivMap.put("cos",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          Constant.constant(-1),
-          deriv,
-          sin(ex._inside));
-      });
-
-    derivMap.put("tan",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          deriv,
-          Power.poly(
-            sec(ex._inside),
-            2));
-      });
-
-    derivMap.put("csc",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          Constant.constant(-1),
-          deriv,
-          csc(ex._inside),
-          cot(ex._inside));
-      });
-
-    derivMap.put("sec",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          deriv,
-          sec(ex._inside),
-          tan(ex._inside));
-      });
-
-    derivMap.put("cot",
-      (ex, var) -> {
-        // calculate _inside derivative
-        Expression deriv = ex._inside.differentiate(var);
-
-        return Mult.mult(
-          Constant.constant(-1),
-          deriv,
-          Power.poly(
-            csc(ex._inside),
-            2));
-      });
   }
 
   /**
@@ -185,11 +112,74 @@ public class Trig extends AExpression {
   }
 
   public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
-    return derivMap.get(this._func)
-             .apply(this, var);
+    switch (_func) {
+      case "sin":
+        return mult(
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          cos(_inside));
+
+      case "cos":
+        return mult(
+          Constant.constant(-1),
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          sin(_inside));
+
+      case "tan":
+        return mult(
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          Power.poly(
+            sec(_inside),
+            2));
+
+      case "csc":
+        return mult(
+          Constant.constant(-1),
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          csc(_inside),
+          cot(_inside));
+
+      case "sec":
+        return mult(
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          sec(_inside),
+          tan(_inside));
+
+      case "cot":
+        return mult(
+          Constant.constant(-1),
+          _inside.differentiate(var, cacheCmd, stepCmd),
+          Power.poly(
+            csc(_inside),
+            2));
+
+      default:
+        throw new RuntimeException("Why is _func not dealt with in switch statement?");
+
+    }
   }
 
   public Step getDerivativeStep() {
-    return Step.SIN;
+    switch (_func) {
+      case "sin":
+        return Step.SIN;
+
+      case "cos":
+        return Step.COS;
+
+      case "tan":
+        return Step.TAN;
+
+      case "csc":
+        return Step.CSC;
+
+      case "sec":
+        return Step.SEC;
+
+      case "cot":
+        return Step.COT;
+
+      default:
+        throw new RuntimeException("Why is _func not dealt with in switch statement?");
+    }
   }
 }
