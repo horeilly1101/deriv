@@ -31,6 +31,11 @@ public abstract class AExpression implements Expression {
   }
 
   @Override
+  public Expression differentiate(Variable var, ICacheCmd cacheCmd) {
+    return differentiate(var, cacheCmd, new NullStepCmd());
+  }
+
+  @Override
   public Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
     // create a new step
     StepCmd newCmd = new StepCmd(ExpressionWrapper.of(this, this.getDerivativeStep()));

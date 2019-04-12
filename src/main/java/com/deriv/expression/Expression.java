@@ -49,12 +49,11 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * Takes the derivative of a function and store the result in a cache. If the derivative
    * has already been computed, this function returns the result in constant time.
    *
-   * @param var input variable
-   * @param cacheCmd our cache command
-   * @param stepCmd our step command
-   * @return differentiated expression
+   * @param var -- a string variable name
+   * @param cacheCmd -- our cache command
+   * @return Expression derivative
    */
-  Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
+  Expression differentiate(Variable var, ICacheCmd cacheCmd);
 
   /**
    * Takes the derivative of a function and returns the resulting expression and the steps taken
@@ -64,6 +63,17 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * @return resulting expression wrapper
    */
   Tree<ExpressionWrapper> differentiateWithSteps(Variable var);
+
+  /**
+   * Takes the derivative of a function and store the result in a cache. If the derivative
+   * has already been computed, this function returns the result in constant time.
+   *
+   * @param var input variable
+   * @param cacheCmd our cache command
+   * @param stepCmd our step command
+   * @return differentiated expression
+   */
+  Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
 
   /**
    * Returns a latex representation of an expression.
