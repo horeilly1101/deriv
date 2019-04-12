@@ -56,15 +56,15 @@ public abstract class AExpression implements Expression {
   }
 
   @Override
-  public Tree<ExpressionWrapper> differentiateWithSteps(Variable var) {
+  public Tuple<Expression, Tree<ExpressionWrapper>> differentiateWithSteps(Variable var) {
     // create a new step command
     StepCmd stepCmd = new StepCmd(ExpressionWrapper.of(this, this.getDerivativeStep()));
 
     // differentate the expression and store steps
-    this.computeDerivative(var, new NullCacheCmd(), stepCmd);
+    Expression result = this.computeDerivative(var, new NullCacheCmd(), stepCmd);
 
     // return a tree of expression wrappers
-    return stepCmd.getSteps();
+    return Tuple.of(result, stepCmd.getSteps());
   }
 
   /**

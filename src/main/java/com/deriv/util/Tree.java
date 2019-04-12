@@ -47,10 +47,12 @@ public class Tree<T> {
     this.children = children;
   }
 
-  public JSONObject toJSON() {
-    return new JSONObject()
-             .put(value.toString(),
-               new JSONArray(children.stream().map(Tree::toJSON).collect(Collectors.toList())));
+  public JSONArray toJSON() {
+    return hasChildren()
+             ? new JSONArray().put(value)
+                 .put(children.stream().map(Tree::toJSON)
+                        .collect(Collectors.toList()))
+             : new JSONArray().put(value);
   }
 
   @Override

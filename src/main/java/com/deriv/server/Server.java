@@ -31,15 +31,15 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the differentiate route.
    */
-  static JSONObject diffObject(Tree<ExpressionWrapper> result, Expression expr, Variable var) {
+  static JSONObject diffObject(Expression result, Tree<ExpressionWrapper> steps, Expression expr, Variable var) {
     return jobject()
               .put("data",
                   jobject()
                       // the gets are checked, because oDeriv is checked
                       .put("expression", expr.toLaTex())
-                      .put("result", result.getValue().getExpression().toLaTex())
+                      .put("result", result.toLaTex())
                       .put("var", var.toLaTex())
-                      .put("steps", result.toJSON())
+                      .put("steps", steps.toJSON())
               );
   }
 
@@ -51,10 +51,10 @@ public class Server {
              .put("data",
                jobject()
                  // the gets are checked, because oEval is checked
-                 .put("expression", expr.toString())
-                 .put("result", result.toString())
-                 .put("var", var.toString())
-                 .put("val", val.toString())
+                 .put("expression", expr.toLaTex())
+                 .put("result", result.toLaTex())
+                 .put("var", var.toLaTex())
+                 .put("val", val.toLaTex())
              );
   }
 
@@ -98,7 +98,11 @@ public class Server {
       String var = req.params(":var");
 
       return calc.differentiateWithSteps(expr, var) // differentiate
-               .map(result -> diffObject(result, calc.toOExpression(expr).get(), calc.toOVariable(var).get()))
+               .map(result -> diffObject(
+                 result.getFirstItem(),
+                 result.getSecondItem(),
+                 calc.toOExpression(expr).get(),
+                 calc.toOVariable(var).get()))
                .orElseGet(() -> error(res)); // error message, if unsuccessful
     });
 

@@ -103,7 +103,7 @@ public class Calculator {
    * @param wrt the variable
    * @return an optional list of the steps
    */
-  public Optional<Tree<ExpressionWrapper>> differentiateWithSteps(String expressionString, String wrt) {
+  public Optional<Tuple<Expression, Tree<ExpressionWrapper>>> differentiateWithSteps(String expressionString, String wrt) {
     return toOVariable(wrt).flatMap(var -> toOExpression(expressionString).map(ex -> ex.differentiateWithSteps(var)));
   }
 

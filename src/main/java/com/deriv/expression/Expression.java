@@ -62,7 +62,7 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * @param var input variable
    * @return resulting expression wrapper
    */
-  Tree<ExpressionWrapper> differentiateWithSteps(Variable var);
+  Tuple<Expression, Tree<ExpressionWrapper>> differentiateWithSteps(Variable var);
 
   /**
    * Takes the derivative of a function and store the result in a cache. If the derivative
