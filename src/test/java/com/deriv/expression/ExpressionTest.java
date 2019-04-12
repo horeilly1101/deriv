@@ -137,4 +137,10 @@ class ExpressionTest {
     assertNotEquals(ex7, num);
     assertEquals(ex7, ex7);
   }
+
+  @Test
+  void newOne() {
+    Expression expr = add(x(), poly(x(), 2));
+    System.out.println(expr.differentiateWithSteps(x().asVariable()));
+  }
 }

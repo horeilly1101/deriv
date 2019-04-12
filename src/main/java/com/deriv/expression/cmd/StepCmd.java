@@ -1,23 +1,20 @@
 package com.deriv.expression.cmd;
 
-import com.deriv.expression.AExpression.*;
-import com.deriv.expression.Expression;
-import com.deriv.util.Tuple;
-import java.util.ArrayList;
-import java.util.List;
+import com.deriv.expression.step.ExpressionWrapper;
+import com.deriv.util.Tree;
 
 public class StepCmd implements IStepCmd {
-  private List<Tuple<Step, Expression>> steps;
+  private Tree<ExpressionWrapper> steps;
 
-  public StepCmd() {
-    this.steps = new ArrayList<>();
+  public StepCmd(ExpressionWrapper tup) {
+    this.steps = Tree.makeNode(tup);
   }
 
-  public void addStep(Step step, Expression expression) {
-    this.steps.add(Tuple.of(step, expression));
+  public void add(StepCmd cmd) {
+    steps.add(cmd.getSteps());
   }
 
-  public List<Tuple<Step, Expression>> getSteps() {
+  public Tree<ExpressionWrapper> getSteps() {
     return steps;
   }
 }

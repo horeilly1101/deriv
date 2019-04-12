@@ -15,13 +15,13 @@ import java_cup.runtime.*;
 public class FlexScanner implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
-  public static final int YYEOF = -1;
+  private static final int YYEOF = -1;
 
   /** initial size of the lookahead buffer */
   private static final int ZZ_BUFFERSIZE = 16384;
 
   /** lexical states */
-  public static final int YYINITIAL = 0;
+  private static final int YYINITIAL = 0;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -62,7 +62,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static int [] zzUnpackAction() {
     int [] result = new int[31];
     int offset = 0;
-    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
+    zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
   }
 
@@ -93,7 +93,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static int [] zzUnpackRowMap() {
     int [] result = new int[31];
     int offset = 0;
-    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
+    zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
   }
 
@@ -126,7 +126,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static int [] zzUnpackTrans() {
     int [] result = new int[392];
     int offset = 0;
-    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
+    zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
   }
 
@@ -167,7 +167,7 @@ public class FlexScanner implements java_cup.runtime.Scanner {
   private static int [] zzUnpackAttribute() {
     int [] result = new int[31];
     int offset = 0;
-    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
+    zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
   }
 

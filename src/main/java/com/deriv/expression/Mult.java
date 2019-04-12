@@ -3,6 +3,8 @@ package com.deriv.expression;
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.simplifier.MultSimplifier;
+import com.deriv.expression.step.Step;
+
 import java.util.*;
 
 import static com.deriv.expression.Add.*;

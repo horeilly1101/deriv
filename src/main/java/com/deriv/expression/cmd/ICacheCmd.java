@@ -1,5 +1,6 @@
 package com.deriv.expression.cmd;
 
+import com.deriv.expression.AExpression;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
 import com.deriv.util.ICmd;

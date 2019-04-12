@@ -3,12 +3,12 @@ package com.deriv.calculator;
 import org.junit.jupiter.api.Test;
 
 public class CalculatorTest {
-  @Test
-  void differentiateTest() {
-    Calculator calc = new Calculator();
-    System.out.println(calc.differentiate("x", "x").get());
-    System.out.println(calc.differentiate("x", "x").get());
-  }
+//  @Test
+//  void differentiateTest() {
+//    Calculator calc = new Calculator();
+//    System.out.println(calc.differentiate("x", "x").get());
+//    System.out.println(calc.differentiate("x", "x").get());
+//  }
 
   @Test
   void evaluateTest() {

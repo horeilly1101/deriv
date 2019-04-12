@@ -7,6 +7,7 @@ import com.deriv.expression.cmd.CacheCmd;
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.cmd.StepCmd;
+import com.deriv.expression.step.Step;
 import com.deriv.parser.Parser;
 import com.deriv.util.*;
 import java.util.List;
@@ -92,18 +93,19 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-    ICacheCmd cacheCmd = new CacheCmd();
-    IStepCmd stepCmd = new StepCmd();
-    return toOVariable(wrt) // parse the variable
-             .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> {
-                                 Expression result = differentiateCache.computeIfAbsent(
-                                   Tuple.of(ex, var), // create tuple to store computation
-                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
-                                 differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
-                                 stepCache.put(ex, stepCmd); // store the steps in the cache
-                                 return result;
-                               }));
+//    ICacheCmd cacheCmd = new CacheCmd();
+//    IStepCmd stepCmd = new StepCmd();
+//    return toOVariable(wrt) // parse the variable
+//             .flatMap(var -> toOExpression(expressionString) // parse the expression
+//                               .map(ex -> {
+//                                 Expression result = differentiateCache.computeIfAbsent(
+//                                   Tuple.of(ex, var), // create tuple to store computation
+//                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
+//                                 differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
+//                                 stepCache.put(ex, stepCmd); // store the steps in the cache
+//                                 return result;
+//                               }));
+    return null;
   }
 
   /**

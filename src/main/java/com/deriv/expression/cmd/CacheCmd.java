@@ -1,5 +1,7 @@
 package com.deriv.expression.cmd;
 
+import com.deriv.expression.AExpression;
+import com.deriv.expression.Constant;
 import com.deriv.expression.Variable;
 import com.deriv.util.Tuple;
 import com.deriv.expression.Expression;
@@ -26,8 +28,13 @@ public class CacheCmd implements ICacheCmd {
   }
 
   @Override
-  public Expression computeIfAbsent(Tuple<Expression, Variable> key, 
+  public Expression computeIfAbsent(Tuple<Expression, Variable> key,
                                     Function<Tuple<Expression, Variable>, Expression> operation) {
+    // these operations are already constant time, so we won't waste space caching them
+    if (key.getFirstItem() instanceof Variable || key.getFirstItem() instanceof Constant) {
+      return operation.apply(key);
+    }
+
     return cache.computeIfAbsent(key, operation); // keep passing along the cache
   }
 

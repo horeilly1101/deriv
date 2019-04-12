@@ -1,22 +1,20 @@
 package com.deriv.expression.cmd;
 
-import com.deriv.expression.AExpression;
-import com.deriv.expression.Expression;
-import com.deriv.util.Tuple;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.deriv.expression.step.ExpressionWrapper;
+import com.deriv.util.Tree;
 
 public class NullStepCmd implements IStepCmd {
   public NullStepCmd() {
     // no op
   }
 
-  public void addStep(AExpression.Step step, Expression expression) {
+  @Override
+  public void add(StepCmd cmd) {
     // no op
   }
 
-  public List<Tuple<AExpression.Step, Expression>> getSteps() {
-    return new ArrayList<>();
+  @Override
+  public Tree<ExpressionWrapper> getSteps() {
+    throw new RuntimeException("Called for steps on a null step command!");
   }
 }

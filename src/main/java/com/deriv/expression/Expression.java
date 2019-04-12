@@ -2,9 +2,9 @@ package com.deriv.expression;
 
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
+import com.deriv.expression.step.ExpressionWrapper;
 import com.deriv.util.*;
 import java.util.Optional;
-import com.deriv.expression.AExpression.*;
 
 import static com.deriv.expression.Constant.*;
 
@@ -57,23 +57,13 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
   Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
 
   /**
-   * Take the derivative of a function. This should only be called by deriveCache. And every attempt
-   * to differentiate a function in an implementation of this method should use "differentiate".
+   * Takes the derivative of a function and returns the resulting expression and the steps taken
+   * to derive it.
    *
    * @param var input variable
-   * @param cacheCmd our cache command
-   * @param stepCmd our step command
-   * @return differentiated expression
+   * @return resulting expression wrapper
    */
-  Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
-
-  /**
-   * Get the step needed to differentiate a given Expression implementation. (e.g. a polynomial would return
-   * Step.POWER_RULE.)
-   *
-   * @return desired step.
-   */
-  Step getDerivativeStep();
+  Tree<ExpressionWrapper> differentiateWithSteps(Variable var);
 
   /**
    * Returns a latex representation of an expression.
@@ -159,6 +149,10 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
 
   default Variable asVariable() {
     return (Variable) this;
+  }
+
+  default AExpression asAExpression() {
+    return (AExpression) this;
   }
 
   /*

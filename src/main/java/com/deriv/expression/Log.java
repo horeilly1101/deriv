@@ -2,6 +2,8 @@ package com.deriv.expression;
 
 import com.deriv.expression.cmd.ICacheCmd;
 import com.deriv.expression.cmd.IStepCmd;
+import com.deriv.expression.step.Step;
+
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;

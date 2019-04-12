@@ -25,6 +25,7 @@ public class Tree<T> {
 
   /**
    * Empty constructor for a Tree.
+   *
    * @param value of the tree node.
    */
   private Tree(T value) {
@@ -76,6 +77,7 @@ public class Tree<T> {
 
   /**
    * Returns a boolean that tells us whether or not a tree has children.
+   *
    * @return boolean value
    */
   public boolean hasChildren() {
@@ -84,7 +86,6 @@ public class Tree<T> {
 
   /**
    * Getter method for the value at the root of our tree.
-   * @return value.
    */
   public T getValue() {
     return value;
@@ -94,11 +95,17 @@ public class Tree<T> {
    * Adds a child to the Tree.
    *
    * @param child to be added
-   * @return resulting tree
    */
-  public Tree<T> add(Tree<T> child) {
-    Set<Tree<T>> newChildren = children;
-    newChildren.add(child);
-    return new Tree<>(this.value, newChildren);
+  public void add(Tree<T> child) {
+    children.add(child);
   }
+
+//  /**
+//   * Add children to the Tree in bulk.
+//   *
+//   * @param children a collection of trees
+//   */
+//  public void addAll(Collection<Tree<T>> children) {
+//    this.children.addAll(children);
+//  }
 }

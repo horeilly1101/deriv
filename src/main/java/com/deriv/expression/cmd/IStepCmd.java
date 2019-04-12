@@ -1,14 +1,11 @@
 package com.deriv.expression.cmd;
 
-import com.deriv.expression.AExpression.*;
-import com.deriv.expression.Expression;
+import com.deriv.expression.step.ExpressionWrapper;
 import com.deriv.util.ICmd;
-import com.deriv.util.Tuple;
-
-import java.util.List;
+import com.deriv.util.Tree;
 
 public interface IStepCmd extends ICmd {
-  void addStep(Step step, Expression expression);
+  void add(StepCmd cmd);
 
-  List<Tuple<Step, Expression>> getSteps();
+  Tree<ExpressionWrapper> getSteps();
 }
