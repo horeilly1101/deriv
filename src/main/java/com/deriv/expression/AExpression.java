@@ -45,9 +45,9 @@ public abstract class AExpression implements Expression {
 
     // compute and store derivative
     Expression result = cacheCmd.computeIfAbsent(key,
-      x -> x.getFirstItem()
+      x -> x.getItem1()
              .asAExpression()
-             .computeDerivative(x.getSecondItem(), cacheCmd, newCmd)); // compute derivative
+             .computeDerivative(x.getItem2(), cacheCmd, newCmd)); // compute derivative
 
     //  add all subsequent steps
     stepCmd.add(newCmd);

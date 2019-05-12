@@ -25,7 +25,7 @@ public class Tuple1<T> {
     }
 
     Tuple2 tup = (Tuple2) o;
-    return item1.equals(tup.getFirstItem());
+    return item1.equals(tup.getItem1());
   }
 
   @Override

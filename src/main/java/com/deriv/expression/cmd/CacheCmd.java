@@ -30,7 +30,7 @@ public class CacheCmd implements ICacheCmd {
   public Expression computeIfAbsent(Tuple2<Expression, Variable> key,
                                     Function<Tuple2<Expression, Variable>, Expression> operation) {
     // these operations are already constant time, so we won't waste space caching them
-    if (key.getFirstItem() instanceof Variable || key.getFirstItem() instanceof Constant) {
+    if (key.getItem1() instanceof Variable || key.getItem1() instanceof Constant) {
       return operation.apply(key);
     }
 

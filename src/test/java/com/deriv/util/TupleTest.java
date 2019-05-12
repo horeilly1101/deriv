@@ -12,16 +12,16 @@ class TupleTest {
   @Test
   void getTest() {
     Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
-    assertEquals(multID(), tup.getFirstItem()); // check first item1
-    assertEquals(addID(), tup.getSecondItem()); // check second item1
+    assertEquals(multID(), tup.getItem1()); // check first item1
+    assertEquals(addID(), tup.getItem2()); // check second item1
 
     Tuple2<Expression, Expression> tup2 = Tuple2.of(add(multID(), x()), multID());
-    assertEquals(add(multID(), x()), tup2.getFirstItem()); // check first item1
-    assertEquals(multID(), tup2.getSecondItem()); // check second item1
+    assertEquals(add(multID(), x()), tup2.getItem1()); // check first item1
+    assertEquals(multID(), tup2.getItem2()); // check second item1
 
     Tuple2<Double, Double> tup3 = Tuple2.of(new Double("1.5"), new Double("3.6"));
-    assertEquals(new Double("1.5"), tup3.getFirstItem()); // check first item1
-    assertEquals(new Double("3.6"), tup3.getSecondItem()); // check second item1
+    assertEquals(new Double("1.5"), tup3.getItem1()); // check first item1
+    assertEquals(new Double("3.6"), tup3.getItem2()); // check second item1
   }
 
   @Test

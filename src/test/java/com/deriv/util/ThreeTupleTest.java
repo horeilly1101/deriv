@@ -13,19 +13,19 @@ class ThreeTupleTest {
   @Test
   void getTest() {
     Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
-    assertEquals(multID(), tup.getFirstItem()); // check first item1
-    assertEquals(addID(), tup.getSecondItem()); // check second item1
+    assertEquals(multID(), tup.getItem1()); // check first item1
+    assertEquals(addID(), tup.getItem2()); // check second item1
     assertEquals(x(), tup.getItem3()); // check third item1
 
     Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
-    assertEquals(add(multID(), x()), tup2.getFirstItem()); // check first item1
-    assertEquals(multID(), tup2.getSecondItem()); // check second item1
+    assertEquals(add(multID(), x()), tup2.getItem1()); // check first item1
+    assertEquals(multID(), tup2.getItem2()); // check second item1
     assertEquals(addID(), tup2.getItem3());
 
     Tuple3<Double, Double, Double> tup3
       = Tuple3.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
-    assertEquals(new Double("1.5"), tup3.getFirstItem()); // check first item1
-    assertEquals(new Double("3.6"), tup3.getSecondItem()); // check second item1
+    assertEquals(new Double("1.5"), tup3.getItem1()); // check first item1
+    assertEquals(new Double("3.6"), tup3.getItem2()); // check second item1
     assertEquals(new Double("1.0"), tup3.getItem3()); // check third item1
   }
 

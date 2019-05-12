@@ -90,7 +90,7 @@ public class Calculator {
                                .map(ex -> {
                                  Expression result = differentiateCache.computeIfAbsent(
                                    Tuple2.of(ex, var), // create tuple to store computation
-                                   tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
+                                   tup -> tup.getItem1().differentiate(tup.getItem2(), cacheCmd, stepCmd)); // take derivative
                                  differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
                                  return result;
                                }));
@@ -122,8 +122,8 @@ public class Calculator {
                .flatMap(vl -> toOExpression(expressionString) // parse expression
                  .flatMap(ex -> evaluateCache.computeIfAbsent( // check cache for computation
                    Tuple3.of(ex, vr, vl), // create tuple to store computation
-                   tup -> tup.getFirstItem().evaluate( // evaluate
-                     tup.getSecondItem(), // plug in var
+                   tup -> tup.getItem1().evaluate( // evaluate
+                     tup.getItem2(), // plug in var
                      tup.getItem3()))))); // plug in val
   }
 }

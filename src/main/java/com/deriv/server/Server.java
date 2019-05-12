@@ -99,8 +99,8 @@ public class Server {
 
       return calc.differentiateWithSteps(expr, var) // differentiate
                .map(result -> diffObject(
-                 result.getFirstItem(),
-                 result.getSecondItem(),
+                 result.getItem1(),
+                 result.getItem2(),
                  calc.toOExpression(expr).get(),
                  calc.toOVariable(var).get()))
                .orElseGet(() -> error(res)); // error message, if unsuccessful
