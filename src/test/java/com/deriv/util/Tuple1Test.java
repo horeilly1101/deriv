@@ -9,7 +9,7 @@ import static com.deriv.expression.Variable.x;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class Tuple1Test {
+class Tuple1Test {
   @Test
   void getTest() {
     Tuple1<Expression> tup = Tuple1.of(multID());
