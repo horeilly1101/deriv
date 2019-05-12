@@ -4,7 +4,7 @@ import com.deriv.expression.cmd.*;
 import com.deriv.expression.step.ExpressionWrapper;
 import com.deriv.expression.step.Step;
 import com.deriv.util.Tree;
-import com.deriv.util.Tuple;
+import com.deriv.util.Tuple2;
 
 import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Constant.addID;
@@ -41,7 +41,7 @@ public abstract class AExpression implements Expression {
     StepCmd newCmd = new StepCmd(ExpressionWrapper.of(this, this.getDerivativeStep()));
 
     // construct tuple
-    Tuple<Expression, Variable> key = Tuple.of(this, var);
+    Tuple2<Expression, Variable> key = Tuple2.of(this, var);
 
     // compute and store derivative
     Expression result = cacheCmd.computeIfAbsent(key,
@@ -56,7 +56,7 @@ public abstract class AExpression implements Expression {
   }
 
   @Override
-  public Tuple<Expression, Tree<ExpressionWrapper>> differentiateWithSteps(Variable var) {
+  public Tuple2<Expression, Tree<ExpressionWrapper>> differentiateWithSteps(Variable var) {
     // create a new step command
     StepCmd stepCmd = new StepCmd(ExpressionWrapper.of(this, this.getDerivativeStep()));
 
@@ -64,7 +64,7 @@ public abstract class AExpression implements Expression {
     Expression result = this.computeDerivative(var, new NullCacheCmd(), stepCmd);
 
     // return a tree of expression wrappers
-    return Tuple.of(result, stepCmd.getSteps());
+    return Tuple2.of(result, stepCmd.getSteps());
   }
 
   /**

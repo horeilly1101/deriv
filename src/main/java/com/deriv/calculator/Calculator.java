@@ -29,13 +29,13 @@ public class Calculator {
   /**
    * Map to memoize derivative computing.
    */
-  private final Map<Tuple<Expression, Variable>, Expression>
+  private final Map<Tuple2<Expression, Variable>, Expression>
     differentiateCache = new ConcurrentHashMap<>();
 
   /**
    * Map to memoize evaluation computing.
    */
-  private final Map<ThreeTuple<Expression, Variable, Expression>, Optional<Expression>>
+  private final Map<Tuple3<Expression, Variable, Expression>, Optional<Expression>>
     evaluateCache = new ConcurrentHashMap<>();
 
   /**
@@ -89,7 +89,7 @@ public class Calculator {
              .flatMap(var -> toOExpression(expressionString) // parse the expression
                                .map(ex -> {
                                  Expression result = differentiateCache.computeIfAbsent(
-                                   Tuple.of(ex, var), // create tuple to store computation
+                                   Tuple2.of(ex, var), // create tuple to store computation
                                    tup -> tup.getFirstItem().differentiate(tup.getSecondItem(), cacheCmd, stepCmd)); // take derivative
                                  differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
                                  return result;
@@ -103,7 +103,7 @@ public class Calculator {
    * @param wrt the variable
    * @return an optional list of the steps
    */
-  public Optional<Tuple<Expression, Tree<ExpressionWrapper>>> differentiateWithSteps(String expressionString, String wrt) {
+  public Optional<Tuple2<Expression, Tree<ExpressionWrapper>>> differentiateWithSteps(String expressionString, String wrt) {
     return toOVariable(wrt).flatMap(var -> toOExpression(expressionString).map(ex -> ex.differentiateWithSteps(var)));
   }
 
@@ -121,9 +121,9 @@ public class Calculator {
              .flatMap(vr -> toOExpression(val) // parse value
                .flatMap(vl -> toOExpression(expressionString) // parse expression
                  .flatMap(ex -> evaluateCache.computeIfAbsent( // check cache for computation
-                   ThreeTuple.of(ex, vr, vl), // create tuple to store computation
+                   Tuple3.of(ex, vr, vl), // create tuple to store computation
                    tup -> tup.getFirstItem().evaluate( // evaluate
                      tup.getSecondItem(), // plug in var
-                     tup.getThirdItem()))))); // plug in val
+                     tup.getItem3()))))); // plug in val
   }
 }

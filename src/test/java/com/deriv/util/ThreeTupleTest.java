@@ -12,35 +12,35 @@ import static org.junit.jupiter.api.Assertions.*;
 class ThreeTupleTest {
   @Test
   void getTest() {
-    ThreeTuple<Expression, Expression, Expression> tup = ThreeTuple.of(multID(), addID(), x());
-    assertEquals(multID(), tup.getFirstItem()); // check first item
-    assertEquals(addID(), tup.getSecondItem()); // check second item
-    assertEquals(x(), tup.getThirdItem()); // check third item
+    Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
+    assertEquals(multID(), tup.getFirstItem()); // check first item1
+    assertEquals(addID(), tup.getSecondItem()); // check second item1
+    assertEquals(x(), tup.getItem3()); // check third item1
 
-    ThreeTuple<Expression, Expression, Expression> tup2 = ThreeTuple.of(add(multID(), x()), multID(), addID());
-    assertEquals(add(multID(), x()), tup2.getFirstItem()); // check first item
-    assertEquals(multID(), tup2.getSecondItem()); // check second item
-    assertEquals(addID(), tup2.getThirdItem());
+    Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
+    assertEquals(add(multID(), x()), tup2.getFirstItem()); // check first item1
+    assertEquals(multID(), tup2.getSecondItem()); // check second item1
+    assertEquals(addID(), tup2.getItem3());
 
-    ThreeTuple<Double, Double, Double> tup3
-      = ThreeTuple.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
-    assertEquals(new Double("1.5"), tup3.getFirstItem()); // check first item
-    assertEquals(new Double("3.6"), tup3.getSecondItem()); // check second item
-    assertEquals(new Double("1.0"), tup3.getThirdItem()); // check third item
+    Tuple3<Double, Double, Double> tup3
+      = Tuple3.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
+    assertEquals(new Double("1.5"), tup3.getFirstItem()); // check first item1
+    assertEquals(new Double("3.6"), tup3.getSecondItem()); // check second item1
+    assertEquals(new Double("1.0"), tup3.getItem3()); // check third item1
   }
 
   @Test
   void equalsTest() {
-    ThreeTuple<Expression, Expression, Expression> tup = ThreeTuple.of(multID(), addID(), x());
-    assertEquals(ThreeTuple.of(multID(), addID(), x()), tup); // check equality
+    Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
+    assertEquals(Tuple3.of(multID(), addID(), x()), tup); // check equality
 
-    ThreeTuple<Expression, Expression, Expression> tup2 = ThreeTuple.of(add(multID(), x()), multID(), addID());
-    assertEquals(ThreeTuple.of(add(multID(), x()), multID(), addID()), tup2); // check equality again
+    Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
+    assertEquals(Tuple3.of(add(multID(), x()), multID(), addID()), tup2); // check equality again
 
-    ThreeTuple<Double, Double, Double> tup3
-      = ThreeTuple.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
+    Tuple3<Double, Double, Double> tup3
+      = Tuple3.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
     assertNotEquals(
-      ThreeTuple.of(new Double("1.4"), new Double("3.6"), new Double("1.0")),
+      Tuple3.of(new Double("1.4"), new Double("3.6"), new Double("1.0")),
       tup3); // check not equals
   }
 }
