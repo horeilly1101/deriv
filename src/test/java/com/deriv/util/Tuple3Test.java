@@ -9,7 +9,7 @@ import static com.deriv.expression.Constant.multID;
 import static com.deriv.expression.Variable.x;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ThreeTupleTest {
+class Tuple3Test {
   @Test
   void getTest() {
     Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());

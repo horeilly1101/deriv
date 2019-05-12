@@ -8,7 +8,7 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Variable.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TupleTest {
+class Tuple2Test {
   @Test
   void getTest() {
     Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
