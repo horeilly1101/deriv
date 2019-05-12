@@ -33,6 +33,7 @@ class Tuple3Test {
   void equalsTest() {
     Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
     assertEquals(Tuple3.of(multID(), addID(), x()), tup); // check equality
+    tup.hashCode(); // run hashcode
 
     Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
     assertEquals(Tuple3.of(add(multID(), x()), multID(), addID()), tup2); // check equality again

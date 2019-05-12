@@ -26,6 +26,7 @@ class Tuple1Test {
   void equalsTest() {
     Tuple1<Expression> tup = Tuple1.of(multID());
     assertEquals(Tuple1.of(multID()), tup); // check equality
+    tup.hashCode(); // run hashcode
 
     Tuple1<Expression> tup2 = Tuple1.of(add(multID(), x()));
     assertEquals(Tuple1.of(add(multID(), x())), tup2); // check equality again

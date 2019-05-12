@@ -28,6 +28,7 @@ class Tuple2Test {
   void equalsTest() {
     Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
     assertEquals(Tuple2.of(multID(), addID()), tup); // check equality
+    tup.hashCode(); // run hashcode
 
     Tuple2<Expression, Expression> tup2 = Tuple2.of(add(multID(), x()), multID());
     assertEquals(Tuple2.of(add(multID(), x()), multID()), tup2); // check equality again
