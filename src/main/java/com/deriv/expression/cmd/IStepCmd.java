@@ -1,14 +1,13 @@
 package com.deriv.expression.cmd;
 
 import com.deriv.expression.step.ExpressionWrapper;
-import com.deriv.util.ICmd;
 import com.deriv.util.Tree;
 
 /**
  * Command that allows us to keep track of the steps taken to compute a given
  * derivative.
  */
-public interface IStepCmd extends ICmd {
+public interface IStepCmd {
   /**
    * Add a step to our storage.
    * @param cmd input step

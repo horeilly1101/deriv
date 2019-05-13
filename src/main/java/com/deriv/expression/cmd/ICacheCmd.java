@@ -2,12 +2,11 @@ package com.deriv.expression.cmd;
 
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import com.deriv.util.ICmd;
 import com.deriv.util.Tuple2;
 import java.util.Map;
 import java.util.function.Function;
 
-public interface ICacheCmd extends ICmd {
+public interface ICacheCmd {
   /**
    * Store the given key, value pair in a Map. Returns the computed result.
    *

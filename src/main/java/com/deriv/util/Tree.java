@@ -87,7 +87,6 @@ public class Tree<T> {
 
   /**
    * Returns a boolean that tells us whether or not a tree has children.
-   *
    * @return boolean value
    */
   public boolean hasChildren() {
@@ -96,9 +95,18 @@ public class Tree<T> {
 
   /**
    * Getter method for the value at the root of our tree.
+   * @return value
    */
   public T getValue() {
     return value;
+  }
+
+  /**
+   * Getter method for children of a tree.
+   * @return children
+   */
+  public Set<Tree<T>> getChildren() {
+    return children;
   }
 
   /**
