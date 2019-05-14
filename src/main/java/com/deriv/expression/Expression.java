@@ -11,17 +11,6 @@ import static com.deriv.expression.Constant.*;
 /**
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
- *
- * This interface is implemented by AExpression which is extended by:
- * - Mult
- * - Add
- * - Log
- * - Power
- * - Trig
- * - Constant
- * - Variable
- *
- * Questions about how it all works? Email horeilly1101@gmail.com
  */
 public interface Expression extends Comparable<Expression>, Composable<Expression> {
   /**
@@ -98,69 +87,139 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
   }
 
   /*
-   * Type check functions
+   * Below is a list of type check functions. These allows us to
+   * concisely check whether or not a given Expression is an instance
+   * of a certain subclass.
    */
 
+  /**
+   * Checks whether or not a given expression is an instance of Mult.
+   *
+   * @return boolean
+   */
   default Boolean isMult() {
     return this.getClass().equals(Mult.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Add.
+   *
+   * @return boolean
+   */
   default Boolean isAdd() {
     return this.getClass().equals(Add.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Log.
+   *
+   * @return boolean
+   */
   default Boolean isLog() {
     return this.getClass().equals(Log.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Power.
+   *
+   * @return boolean
+   */
   default Boolean isPower() {
     return this.getClass().equals(Power.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Trig.
+   *
+   * @return boolean
+   */
   default Boolean isTrig() {
     return this.getClass().equals(Trig.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Constant.
+   *
+   * @return boolean
+   */
   default Boolean isConstant() {
     return this.getClass().equals(Constant.class);
   }
 
+  /**
+   * Checks whether or not a given expression is an instance of Variable.
+   *
+   * @return boolean
+   */
   default Boolean isVariable() {
     return this.getClass().equals(Variable.class);
   }
 
   /*
-   * Type cast functions
+   * Below is a list of ype cast functions. These allow us to concisely
+   * cast given Expression objects to certain subclasses.
    */
 
+  /**
+   * Cast a given Expression to a Mult.
+   * @return Mult
+   */
   default Mult asMult() {
     return (Mult) this;
   }
 
+  /**
+   * Cast a given Expression to a Add.
+   * @return Add
+   */
   default Add asAdd() {
     return (Add) this;
   }
 
+  /**
+   * Cast a given Expression to a Log.
+   * @return Log
+   */
   default Log asLog() {
     return (Log) this;
   }
 
+  /**
+   * Cast a given Expression to a Power.
+   * @return Power
+   */
   default Power asPower() {
     return (Power) this;
   }
 
+  /**
+   * Cast a given Expression to a Trig.
+   * @return Trig
+   */
   default Trig asTrig() {
     return (Trig) this;
   }
 
+  /**
+   * Cast a given Expression to a Constant.
+   * @return Constant
+   */
   default Constant asConstant() {
     return (Constant) this;
   }
 
+  /**
+   * Cast a given Expression to a Variable.
+   * @return Variable
+   */
   default Variable asVariable() {
     return (Variable) this;
   }
 
+  /**
+   * Cast a given Expression to a AExpression.
+   * @return AExpresssion
+   */
   default AExpression asAExpression() {
     return (AExpression) this;
   }
