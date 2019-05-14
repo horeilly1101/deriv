@@ -172,8 +172,8 @@ public class Mult extends AExpression {
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
     List<Optional<Expression>> eval = _factors.stream()
-                                          .map(x -> x.evaluate(var, input))
-                                          .collect(toList());
+                                        .map(x -> x.evaluate(var, input))
+                                        .collect(toList());
 
     // make sure each term was evaluated
     return eval.stream().filter(Optional::isPresent).count() == eval.size()

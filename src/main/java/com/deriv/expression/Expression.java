@@ -173,7 +173,6 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * implementations.
    */
 
-  // TODO make abstract!
   default Expression getExponent() {
     return multID();
   }
