@@ -1,12 +1,11 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.expression.step.Step;
-
 import java.util.Optional;
 
-public class Variable extends AExpression {
+public class Variable implements Expression {
+  /**
+   * String that represents the variable. (e.g. x)
+   */
   private String _var;
 
   /**
@@ -73,14 +72,10 @@ public class Variable extends AExpression {
                : Optional.of(this);
   }
 
-  public Expression computeDerivative(Variable wrt, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable wrt) {
     return wrt.equals(this)
              ? Constant.multID()
              : Constant.addID();
-  }
-
-  public Step getDerivativeStep() {
-    return Step.VARIABLE_RULE;
   }
 
 }

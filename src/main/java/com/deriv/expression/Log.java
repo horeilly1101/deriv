@@ -1,15 +1,11 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.expression.step.Step;
-
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
-public class Log extends AExpression {
+public class Log implements Expression {
   private Expression _base;
   private Expression _result;
 
@@ -90,21 +86,17 @@ public class Log extends AExpression {
                                                      : Optional.of(log(ba, re))));
   }
 
-  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 
     // if log is a natural log
     if (_base.equals(e())) {
       return mult(
-        _result.differentiate(var, cacheCmd, stepCmd),
+        _result.differentiate(var),
         div(multID(), _result));
     }
 
-   return div(ln(_result), ln(_base)).differentiate(var, cacheCmd, stepCmd);
-  }
-
-  public Step getDerivativeStep() {
-    return Step.LOG_RULE;
+   return div(ln(_result), ln(_base)).differentiate(var);
   }
 }

@@ -1,9 +1,6 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.simplifier.MultSimplifier;
-import com.deriv.expression.step.Step;
 
 import java.util.*;
 
@@ -12,7 +9,7 @@ import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
 
-public class Mult extends AExpression {
+public class Mult implements Expression {
   /**
    * A list of _factors to be multiplied together.
    */
@@ -183,7 +180,7 @@ public class Mult extends AExpression {
                : Optional.empty();
   }
 
-  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable var) {
     // always compute product rule down the middle of the list of _factors
     int mid = _factors.size() / 2;
 
@@ -191,17 +188,13 @@ public class Mult extends AExpression {
               mult(
                 mult(_factors.subList(0, mid)),
                 mult(_factors.subList(mid, _factors.size()))
-                  .differentiate(var, cacheCmd, stepCmd)
+                  .differentiate(var)
               ),
               mult(
                 mult(_factors.subList(0, mid))
-                  .differentiate(var, cacheCmd, stepCmd),
+                  .differentiate(var),
                 mult(_factors.subList(mid, _factors.size()))
               ));
-  }
-
-  public Step getDerivativeStep() {
-    return Step.PRODUCT_RULE;
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {

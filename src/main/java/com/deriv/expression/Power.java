@@ -1,16 +1,13 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.simplifier.PowerSimplifier;
-import com.deriv.expression.step.Step;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 
-public class Power extends AExpression {
+public class Power implements Expression {
   private Expression _base;
   private Expression _exponent;
 
@@ -101,7 +98,7 @@ public class Power extends AExpression {
                                                      : Optional.of(power(ba, ex))));
   }
 
-  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable var) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
@@ -110,11 +107,7 @@ public class Power extends AExpression {
     return Mult.mult(
       power(_base, _exponent),
       mult(_exponent, ln(_base))
-        .differentiate(var, cacheCmd, stepCmd));
-  }
-
-  public Step getDerivativeStep() {
-    return Step.POWER_RULE;
+        .differentiate(var));
   }
 
   /**

@@ -1,15 +1,11 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
 import com.deriv.expression.simplifier.AddSimplifier;
-import com.deriv.expression.step.Step;
-
 import java.util.*;
 
 import static java.util.stream.Collectors.*;
 
-public class Add extends AExpression {
+public class Add implements Expression {
   private List<Expression> _terms;
 
   /**
@@ -97,15 +93,11 @@ public class Add extends AExpression {
                : Optional.empty();
    }
 
-  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable var) {
     // linearity of differentiation
     return add(_terms.stream()
-                 .map(x -> x.differentiate(var, cacheCmd, stepCmd))
+                 .map(x -> x.differentiate(var))
                  .collect(toList()));
-  }
-
-  public Step getDerivativeStep() {
-    return Step.LINEARITY;
   }
 
   /**

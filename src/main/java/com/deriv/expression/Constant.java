@@ -1,12 +1,8 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.expression.step.Step;
-
 import java.util.Optional;
 
-public class Constant extends AExpression {
+public class Constant implements Expression {
   /**
    * The integer value of a constant.
    */
@@ -101,11 +97,7 @@ public class Constant extends AExpression {
     return Optional.of(this);
   }
 
-  public Expression computeDerivative(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd) {
+  public Expression differentiate(Variable var) {
     return addID();
-  }
-
-  public Step getDerivativeStep() {
-    return Step.CONSTANT_RULE;
   }
 }

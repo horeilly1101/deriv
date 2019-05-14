@@ -2,8 +2,6 @@ package com.deriv.calculator;
 
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import com.deriv.expression.cmd.*;
-import com.deriv.expression.step.ExpressionWrapper;
 import com.deriv.parser.Parser;
 import com.deriv.util.*;
 import java.util.Map;
@@ -83,28 +81,13 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-    ICacheCmd cacheCmd = new CacheCmd();
-    IStepCmd stepCmd = new NullStepCmd();
+    // TODO store recursive operations
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> {
-                                 Expression result = differentiateCache.computeIfAbsent(
+                               .map(ex -> differentiateCache.computeIfAbsent(
                                    Tuple2.of(ex, var), // create tuple to store computation
-                                   tup -> tup.getItem1().differentiate(tup.getItem2(), cacheCmd, stepCmd)); // take derivative
-                                 differentiateCache.putAll(cacheCmd.getStorage()); // store all derivatives in cache
-                                 return result;
-                               }));
-  }
-
-  /**
-   * Returns an optional list of the steps taken to differentiate the given string representation
-   * of an expression.
-   *
-   * @param wrt the variable
-   * @return an optional list of the steps
-   */
-  public Optional<Tuple2<Expression, Tree<ExpressionWrapper>>> differentiateWithSteps(String expressionString, String wrt) {
-    return toOVariable(wrt).flatMap(var -> toOExpression(expressionString).map(ex -> ex.differentiateWithSteps(var)));
+                                   tup -> tup.getItem1()
+                                            .differentiate(tup.getItem2()))));
   }
 
   /**

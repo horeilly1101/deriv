@@ -1,8 +1,5 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.expression.step.ExpressionWrapper;
 import com.deriv.util.*;
 import java.util.Optional;
 
@@ -34,35 +31,15 @@ public interface Expression extends Comparable<Expression> {
    */
   Expression differentiate(Variable var);
 
-  /**
-   * Takes the derivative of a function and store the result in a cache. If the derivative
-   * has already been computed, this function returns the result in constant time.
-   *
-   * @param var -- a string variable name
-   * @param cacheCmd -- our cache command
-   * @return Expression derivative
-   */
-  Expression differentiate(Variable var, ICacheCmd cacheCmd);
-
-  /**
-   * Takes the derivative of a function and returns the resulting expression and the steps taken
-   * to derive it.
-   *
-   * @param var input variable
-   * @return resulting expression wrapper
-   */
-  Tuple2<Expression, Tree<ExpressionWrapper>> differentiateWithSteps(Variable var);
-
-  /**
-   * Takes the derivative of a function and store the result in a cache. If the derivative
-   * has already been computed, this function returns the result in constant time.
-   *
-   * @param var input variable
-   * @param cacheCmd our cache command
-   * @param stepCmd our step command
-   * @return differentiated expression
-   */
-  Expression differentiate(Variable var, ICacheCmd cacheCmd, IStepCmd stepCmd);
+//  /**
+//   * Takes the derivative of a function and store the result in a cache. If the derivative
+//   * has already been computed, this function returns the result in constant time.
+//   *
+//   * @param var -- a string variable name
+//   * @param cacheCmd -- our cache command
+//   * @return Expression derivative
+//   */
+//  Expression differentiate(Variable var, ICacheCmd cacheCmd);
 
   /**
    * Returns a latex representation of an expression.
@@ -214,14 +191,6 @@ public interface Expression extends Comparable<Expression> {
    */
   default Variable asVariable() {
     return (Variable) this;
-  }
-
-  /**
-   * Cast a given Expression to a AExpression.
-   * @return AExpresssion
-   */
-  default AExpression asAExpression() {
-    return (AExpression) this;
   }
 
   /*

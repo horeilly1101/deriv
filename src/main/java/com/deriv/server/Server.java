@@ -3,8 +3,6 @@ package com.deriv.server;
 import com.deriv.calculator.Calculator;
 import com.deriv.expression.Expression;
 import com.deriv.expression.Variable;
-import com.deriv.expression.step.ExpressionWrapper;
-import com.deriv.util.Tree;
 import org.json.JSONObject;
 import spark.Filter;
 import spark.Response;
@@ -31,7 +29,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the differentiate route.
    */
-  static JSONObject diffObject(Expression result, Tree<ExpressionWrapper> steps, Expression expr, Variable var) {
+  static JSONObject diffObject(Expression result, Expression expr, Variable var) {
     return jobject()
               .put("data",
                   jobject()
@@ -39,7 +37,6 @@ public class Server {
                       .put("expression", expr.toLaTex())
                       .put("result", result.toLaTex())
                       .put("var", var.toLaTex())
-                      .put("steps", steps.toJSON())
               );
   }
 
@@ -97,10 +94,9 @@ public class Server {
       String expr = req.params(":expr");
       String var = req.params(":var");
 
-      return calc.differentiateWithSteps(expr, var) // differentiate
+      return calc.differentiate(expr, var) // differentiate
                .map(result -> diffObject(
-                 result.getItem1(),
-                 result.getItem2(),
+                 result,
                  calc.toOExpression(expr).get(),
                  calc.toOVariable(var).get()))
                .orElseGet(() -> error(res)); // error message, if unsuccessful
