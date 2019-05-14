@@ -232,30 +232,58 @@ public interface Expression extends Comparable<Expression>, Composable<Expressio
    * implementations.
    */
 
+  /**
+   * Get the exponent of a given expression.
+   * @return exponent
+   */
   default Expression getExponent() {
     return multID();
   }
 
+  /**
+   * Get the base of a given expression.
+   * @return base
+   */
   default Expression getBase() {
     return this;
   }
 
+  /**
+   * Get the constant factor of a given expression.
+   * @return constant factor
+   */
   default Expression getConstantFactor() {
     return multID();
   }
 
+  /**
+   * Get the symbolic factors of a given expression.
+   * @return symbolic factors
+   */
   default Expression getSymbolicFactors() {
     return this;
   }
 
+  /**
+   * Get the numerator of a given expression.
+   * @return numerator
+   */
   default Expression getNumerator() {
     return this;
   }
 
+  /**
+   * Get the denominator of a given expression.
+   * @return denominator
+   */
   default Expression getDenominator() {
     return multID();
   }
 
+  /**
+   * Checks whether or not a given expression is multiplied by -1.
+   * @return boolean
+   */
   default Boolean isNegative() {
     return false;
   }
