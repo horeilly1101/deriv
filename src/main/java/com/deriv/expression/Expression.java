@@ -12,7 +12,7 @@ import static com.deriv.expression.Constant.*;
  * An Expression is the all-encompassing data structure that allows
  * us to differentiate arbitrary functions.
  */
-public interface Expression extends Comparable<Expression>, Composable<Expression> {
+public interface Expression extends Comparable<Expression> {
   /**
    * Plugs an input into the value of whatever variable is
    * in the function, and then evaluates the rest of the
