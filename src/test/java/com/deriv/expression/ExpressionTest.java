@@ -1,9 +1,5 @@
 package com.deriv.expression;
 
-import com.deriv.expression.cmd.CacheCmd;
-import com.deriv.expression.cmd.ICacheCmd;
-import com.deriv.expression.cmd.IStepCmd;
-import com.deriv.expression.cmd.StepCmd;
 import org.junit.jupiter.api.Test;
 
 import static com.deriv.expression.Log.*;
@@ -141,6 +137,6 @@ class ExpressionTest {
   @Test
   void newOne() {
     Expression expr = add(x(), poly(x(), 2));
-    System.out.println(expr.differentiateWithSteps(x().asVariable()));
+    System.out.println(expr.differentiate(x().asVariable()));
   }
 }
