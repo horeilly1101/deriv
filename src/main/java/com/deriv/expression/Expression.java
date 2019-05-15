@@ -1,6 +1,5 @@
 package com.deriv.expression;
 
-import com.deriv.util.*;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -29,7 +28,7 @@ public interface Expression extends Comparable<Expression> {
    * @param var -- a string variable name
    * @return Expression derivative
    */
-  Expression differentiate(Variable var);
+  Optional<Expression> differentiate(Variable var);
 
 //  /**
 //   * Takes the derivative of a function and store the result in a cache. If the derivative
@@ -133,7 +132,7 @@ public interface Expression extends Comparable<Expression> {
   }
 
   /*
-   * Below is a list of ype cast functions. These allow us to concisely
+   * Below is a list of type cast functions. These allow us to concisely
    * cast given Expression objects to certain subclasses.
    */
 

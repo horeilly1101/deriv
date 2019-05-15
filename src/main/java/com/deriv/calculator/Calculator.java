@@ -27,7 +27,7 @@ public class Calculator {
   /**
    * Map to memoize derivative computing.
    */
-  private final Map<Tuple2<Expression, Variable>, Expression>
+  private final Map<Tuple2<Expression, Variable>, Optional<Expression>>
     differentiateCache = new ConcurrentHashMap<>();
 
   /**
@@ -84,7 +84,7 @@ public class Calculator {
     // TODO store recursive operations
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
-                               .map(ex -> differentiateCache.computeIfAbsent(
+                               .flatMap(ex -> differentiateCache.computeIfAbsent(
                                    Tuple2.of(ex, var), // create tuple to store computation
                                    tup -> tup.getItem1()
                                             .differentiate(tup.getItem2()))));

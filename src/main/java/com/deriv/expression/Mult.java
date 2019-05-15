@@ -168,33 +168,27 @@ public class Mult implements Expression {
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
-    List<Optional<Expression>> eval = _factors.stream()
-                                        .map(x -> x.evaluate(var, input))
-                                        .collect(toList());
-
-    // make sure each term was evaluated
-    return eval.stream().filter(Optional::isPresent).count() == eval.size()
-               ? Optional.of(
-                   mult(
-                       eval.stream().map(Optional::get).collect(toList())))
-               : Optional.empty();
+    return Optional.of(_factors.stream()
+                         .map(x -> x.evaluate(var, input))
+                         .filter(Optional::isPresent)
+                         .map(Optional::get)
+                         .collect(toList()))
+             .flatMap(lst -> lst.size() == _factors.size()
+                               ? Optional.of(mult(lst))
+                               : Optional.empty());
   }
 
-  public Expression differentiate(Variable var) {
+  public Optional<Expression> differentiate(Variable var) {
     // always compute product rule down the middle of the list of _factors
     int mid = _factors.size() / 2;
 
-    return add(
-              mult(
-                mult(_factors.subList(0, mid)),
-                mult(_factors.subList(mid, _factors.size()))
-                  .differentiate(var)
-              ),
-              mult(
-                mult(_factors.subList(0, mid))
-                  .differentiate(var),
-                mult(_factors.subList(mid, _factors.size()))
-              ));
+    return mult(_factors.subList(mid, _factors.size()))
+             .differentiate(var)
+             .flatMap(x -> mult(_factors.subList(0, mid))
+                             .differentiate(var)
+                             .map(y -> add(
+                               mult(mult(_factors.subList(0, mid)), x),
+                               mult(y, mult(_factors.subList(mid, _factors.size()))))));
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {

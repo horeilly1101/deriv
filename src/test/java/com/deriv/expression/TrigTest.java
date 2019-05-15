@@ -61,37 +61,37 @@ class TrigTest {
     // we're just checking the derivatives that are hard coded in
     // sin(x)
     Expression si = sin(x());
-    assertEquals(cos(x()), si.differentiate(x().asVariable()));
+    assertEquals(cos(x()), si.differentiate(x().asVariable()).get());
 
     // cos(x)
     Expression co = cos(x());
-    assertEquals(negate(sin(x())), co.differentiate(x().asVariable()));
+    assertEquals(negate(sin(x())), co.differentiate(x().asVariable()).get());
 
     // tan(x)
     Expression ta = tan(x());
-    assertEquals(poly(sec(x()), 2), ta.differentiate(x().asVariable()));
+    assertEquals(poly(sec(x()), 2), ta.differentiate(x().asVariable()).get());
 
     // csc(x)
     Expression cs = csc(x());
-    assertEquals(negate(mult(cot(x()), csc(x()))), cs.differentiate(x().asVariable()));
+    assertEquals(negate(mult(cot(x()), csc(x()))), cs.differentiate(x().asVariable()).get());
 
     // sec(x)
     Expression se = sec(x());
-    assertEquals(mult(tan(x()), sec(x())), se.differentiate(x().asVariable()));
+    assertEquals(mult(tan(x()), sec(x())), se.differentiate(x().asVariable()).get());
 
     // cot(x)
     Expression cota = cot(x());
-    assertEquals(negate(poly(csc(x()), 2)), cota.differentiate(x().asVariable()));
+    assertEquals(negate(poly(csc(x()), 2)), cota.differentiate(x().asVariable()).get());
   }
 
   @Test
   void chainDifferentiateTest() {
     // sin(ln(x))
     Expression si = sin(ln(x()));
-    assertEquals(div(cos(ln(x())), x()), si.differentiate(x().asVariable()));
+    assertEquals(div(cos(ln(x())), x()), si.differentiate(x().asVariable()).get());
 
     // cos(sin(x))
     Expression co = cos(sin(x()));
-    assertEquals(negate(mult(cos(x()), sin(sin(x())))), co.differentiate(x().asVariable()));
+    assertEquals(negate(mult(cos(x()), sin(sin(x())))), co.differentiate(x().asVariable()).get());
   }
 }

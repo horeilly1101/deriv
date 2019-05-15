@@ -116,21 +116,19 @@ class AddTest {
   void derivativeTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    assertEquals(constant(2), ex.differentiate(x().asVariable()));
+    assertEquals(constant(2), ex.differentiate(x().asVariable()).get());
 
     // a * x + 3, where a is a constant
     Expression ex2 = add(mult(x(), constant("a")), constant(3));
-    assertEquals(constant("a"), ex2.differentiate(x().asVariable()));
+    assertEquals(constant("a"), ex2.differentiate(x().asVariable()).get());
 
     // x + ln(x)
     Expression ex3 = add(x(), ln(x()));
-    assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate(x().asVariable()));
-
-//    System.out.println(ex3.differentiate(x().asVariable()).getSteps());
+    assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate(x().asVariable()).get());
 
     // x + sin(x)
     Expression ex4 = add(x(), sin(x()));
-    assertEquals(add(multID(), cos(x())), ex4.differentiate(x().asVariable()));
+    assertEquals(add(multID(), cos(x())), ex4.differentiate(x().asVariable()).get());
   }
 
   @Test

@@ -97,7 +97,7 @@ public class Constant implements Expression {
     return Optional.of(this);
   }
 
-  public Expression differentiate(Variable var) {
-    return addID();
+  public Optional<Expression> differentiate(Variable var) {
+    return Optional.of(addID());
   }
 }

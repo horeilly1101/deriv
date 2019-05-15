@@ -115,19 +115,19 @@ class MultTest {
   void derivativeTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
-    assertEquals(mult(constant(4), x()), ex.differentiate(x().asVariable()));
+    assertEquals(mult(constant(4), x()), ex.differentiate(x().asVariable()).get());
 
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
-    assertEquals(mult(constant("a"), constant(3)), ex2.differentiate(x().asVariable()));
+    assertEquals(mult(constant("a"), constant(3)), ex2.differentiate(x().asVariable()).get());
 
     // x * ln(x)
     Expression ex3 = mult(x(), ln(x()));
-    assertEquals(add(multID(), ln(x())), ex3.differentiate(x().asVariable()));
+    assertEquals(add(multID(), ln(x())), ex3.differentiate(x().asVariable()).get());
 
     // x * sin(x)
     Expression ex4 = mult(x(), sin(x()));
-    assertEquals(add(sin(x()), mult(x(), cos(x()))), ex4.differentiate(x().asVariable()));
+    assertEquals(add(sin(x()), mult(x(), cos(x()))), ex4.differentiate(x().asVariable()).get());
   }
 
   @Test

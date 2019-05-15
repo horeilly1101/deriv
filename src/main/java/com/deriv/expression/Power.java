@@ -83,7 +83,6 @@ public class Power implements Expression {
 
   @Override
   public String toLaTex() {
-    System.out.println("hefadfadfd");
     return this._exponent.isNegative()
              ? "\\frac{1}{" + power(_base, negate(_exponent)).toLaTex() + "}"
              : _base.toLaTex() + " ^{" + _exponent.toLaTex() + "}";
@@ -98,16 +97,15 @@ public class Power implements Expression {
                                                      : Optional.of(power(ba, ex))));
   }
 
-  public Expression differentiate(Variable var) {
+  public Optional<Expression> differentiate(Variable var) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
     // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
     // this is what you'll get.
 
-    return Mult.mult(
-      power(_base, _exponent),
-      mult(_exponent, ln(_base))
-        .differentiate(var));
+    return mult(_exponent, ln(_base))
+             .differentiate(var)
+             .map(x -> mult(power(_base, _exponent), x));
   }
 
   /**

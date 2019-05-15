@@ -72,10 +72,10 @@ public class Variable implements Expression {
                : Optional.of(this);
   }
 
-  public Expression differentiate(Variable wrt) {
-    return wrt.equals(this)
-             ? Constant.multID()
-             : Constant.addID();
+  public Optional<Expression> differentiate(Variable wrt) {
+    return Optional.of(wrt.equals(this)
+                         ? Constant.multID()
+                         : Constant.addID());
   }
 
 }

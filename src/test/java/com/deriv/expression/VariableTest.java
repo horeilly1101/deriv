@@ -34,20 +34,20 @@ class VariableTest {
   void derivativeTest() {
     // x
     Expression xVar = x();
-    assertEquals(multID(), xVar.differentiate(x().asVariable()));
-    assertEquals(addID(), xVar.differentiate(var("y").asVariable()));
+    assertEquals(multID(), xVar.differentiate(x().asVariable()).get());
+    assertEquals(addID(), xVar.differentiate(var("y").asVariable()).get());
 
     // y
     Expression yVar = var("y");
-    assertEquals(multID(), yVar.differentiate(var("y").asVariable()));
-    assertEquals(addID(), yVar.differentiate(x().asVariable()));
+    assertEquals(multID(), yVar.differentiate(var("y").asVariable()).get());
+    assertEquals(addID(), yVar.differentiate(x().asVariable()).get());
   }
 
   @Test
   void multiDerivativeTest() {
     // x * y
     Expression ex = mult(x(), var("y"));
-    assertEquals(x(), ex.differentiate(var("y").asVariable()));
-    assertEquals(var("y"), ex.differentiate(x().asVariable()));
+    assertEquals(x(), ex.differentiate(var("y").asVariable()).get());
+    assertEquals(var("y"), ex.differentiate(x().asVariable()).get());
   }
 }

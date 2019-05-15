@@ -116,50 +116,50 @@ public class Trig implements Expression {
                .map(x -> evalMap.get(this._func).apply(x));
   }
 
-  public Expression differentiate(Variable var) {
-    switch (_func) {
-      case "sin":
-        return mult(
-          _inside.differentiate(var),
-          cos(_inside));
+  public Optional<Expression> differentiate(Variable var) {
+    return _inside.differentiate(var).map(x -> {
+      switch (_func) {
+        case "sin":
+          return mult(x, cos(_inside));
 
-      case "cos":
-        return mult(
-          Constant.constant(-1),
-          _inside.differentiate(var),
-          sin(_inside));
+        case "cos":
+          return mult(
+            Constant.constant(-1),
+            x,
+            sin(_inside));
 
-      case "tan":
-        return mult(
-          _inside.differentiate(var),
-          Power.poly(
-            sec(_inside),
-            2));
+        case "tan":
+          return mult(
+            x,
+            Power.poly(
+              sec(_inside),
+              2));
 
-      case "csc":
-        return mult(
-          Constant.constant(-1),
-          _inside.differentiate(var),
-          csc(_inside),
-          cot(_inside));
-
-      case "sec":
-        return mult(
-          _inside.differentiate(var),
-          sec(_inside),
-          tan(_inside));
-
-      case "cot":
-        return mult(
-          Constant.constant(-1),
-          _inside.differentiate(var),
-          Power.poly(
+        case "csc":
+          return mult(
+            Constant.constant(-1),
+            x,
             csc(_inside),
-            2));
+            cot(_inside));
 
-      default:
-        throw new RuntimeException("Why is _func not dealt with in switch statement?");
+        case "sec":
+          return mult(
+            x,
+            sec(_inside),
+            tan(_inside));
 
-    }
+        case "cot":
+          return mult(
+            Constant.constant(-1),
+            x,
+            Power.poly(
+              csc(_inside),
+              2));
+
+        default:
+          throw new RuntimeException("Why is _func not dealt with in switch statement?");
+
+      }
+    });
   }
 }

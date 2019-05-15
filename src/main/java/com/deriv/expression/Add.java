@@ -2,10 +2,14 @@ package com.deriv.expression;
 
 import com.deriv.expression.simplifier.AddSimplifier;
 import java.util.*;
+import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
 
 public class Add implements Expression {
+  /**
+   * A list of terms to be added together.
+   */
   private List<Expression> _terms;
 
   /**
@@ -79,25 +83,28 @@ public class Add implements Expression {
                  .reduce("", (a, b) -> a + " + " + b);
   }
 
+  private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
+    // combines terms
+    return Optional.of(_terms.stream()
+                         .map(func)
+                         .filter(Optional::isPresent)
+                         .map(Optional::get)
+                         .collect(toList()))
+             .flatMap(lst -> lst.size() == _terms.size()
+                               ? Optional.of(add(lst))
+                               : Optional.empty());
+  }
+
+ @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
-    List<Optional<Expression>> eval = _terms.stream()
-                                        .map(x -> x.evaluate(var, input))
-                                           .collect(toList());
+    return linearityHelper(x -> x.evaluate(var, input));
+  }
 
-    // make sure each term was evaluated
-    return eval.stream().filter(Optional::isPresent).count() == eval.size()
-               ? Optional.of(
-                   add(
-                       eval.stream().map(Optional::get).collect(toList())))
-               : Optional.empty();
-   }
-
-  public Expression differentiate(Variable var) {
+  @Override
+  public Optional<Expression> differentiate(Variable var) {
     // linearity of differentiation
-    return add(_terms.stream()
-                 .map(x -> x.differentiate(var))
-                 .collect(toList()));
+    return linearityHelper(x -> x.differentiate(var));
   }
 
   /**

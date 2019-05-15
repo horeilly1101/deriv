@@ -85,14 +85,14 @@ class PowerTest {
   void differentiateTest() {
     // 5 ^ x
     Expression ex = exponential(3, x());
-    assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate(x().asVariable()));
+    assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate(x().asVariable()).get());
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);
-    assertEquals(mult(constant(4), poly(x(), 3)), ex2.differentiate(x().asVariable()));
+    assertEquals(mult(constant(4), poly(x(), 3)), ex2.differentiate(x().asVariable()).get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
-    assertEquals(mult(add(multID(), ln(x())), power(x(), x())), ex3.differentiate(x().asVariable()));
+    assertEquals(mult(add(multID(), ln(x())), power(x(), x())), ex3.differentiate(x().asVariable()).get());
   }
 }

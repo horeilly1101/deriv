@@ -15,9 +15,9 @@ class ConstantTest {
     // of completeness
 
     Expression c = constant("c");
-    assertEquals(addID(), c.differentiate(x().asVariable()));
+    assertEquals(addID(), c.differentiate(x().asVariable()).get());
 
     Expression one = multID();
-    assertEquals(addID(), one.differentiate(x().asVariable()));
+    assertEquals(addID(), one.differentiate(x().asVariable()).get());
   }
 }

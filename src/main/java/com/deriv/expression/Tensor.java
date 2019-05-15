@@ -12,7 +12,7 @@ public class Tensor implements Expression {
   }
 
   @Override
-  public Expression differentiate(Variable var) {
+  public Optional<Expression> differentiate(Variable var) {
     return null;
   }
 

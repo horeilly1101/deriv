@@ -59,14 +59,14 @@ class LogTest {
   void differentiateTest() {
     // ln(x)
     Expression ln = ln(x());
-    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()));
+    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()).get());
 
     // log(e, x)
     Expression ln2 = log(e(), x());
-    assertEquals(ln.differentiate(x().asVariable()), ln2.differentiate(x().asVariable()));
+    assertEquals(ln.differentiate(x().asVariable()).get(), ln2.differentiate(x().asVariable()).get());
 
     // log(2, x)
     Expression lg = log(constant(2), x());
-    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()));
+    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()).get());
   }
 }

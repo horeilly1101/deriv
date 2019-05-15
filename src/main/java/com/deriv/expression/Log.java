@@ -86,15 +86,14 @@ public class Log implements Expression {
                                                      : Optional.of(log(ba, re))));
   }
 
-  public Expression differentiate(Variable var) {
+  public Optional<Expression> differentiate(Variable var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 
     // if log is a natural log
     if (_base.equals(e())) {
-      return mult(
-        _result.differentiate(var),
-        div(multID(), _result));
+      return _result.differentiate(var)
+               .map(x -> mult(x, div(multID(), _result)));
     }
 
    return div(ln(_result), ln(_base)).differentiate(var);
