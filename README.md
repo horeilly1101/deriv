@@ -18,10 +18,7 @@ at `localhost:4567`. There are **three** different requests you can make. The fi
             {  
                 "expression" : expression,
                 "result" : differentiated expression,
-                "_var" : _var,
-                "steps" : [ 
-                            steps 
-                          ]
+                "var" : var
             }
     }
     
@@ -34,8 +31,8 @@ that `:expression` should be evaluated with **(e.g. 5)**. This request returns a
             {  
                 "expression" : expression,
                 "result" : evaluated expression,
-                "_var" : _var,
-                "_val" : _val, 
+                "var" : var,
+                "val" : val
             }
     }
     
