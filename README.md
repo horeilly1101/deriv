@@ -4,6 +4,16 @@
 
 An open source derivative calculator REST API (and Java library).
 
+## In Development
+
+I began this project wanted to make a symbolic derivative calculator that could differentiate any functions of 
+the form f : R^n -> R. And I did that. But after taking some time to reflect on the project, I realized that
+I actually ended up setting the groundwork for something far more interesting. Why limit myself to functions 
+just of the form described above? Why not try to differentiate vector-valued functions, or, better yet, 
+tensor-valued functions?
+
+So that's what I'm working on right now. Wish me luck.
+
 ## Server
 
 The server is built using [Spark](http://sparkjava.com/), and you can run the server by running 
