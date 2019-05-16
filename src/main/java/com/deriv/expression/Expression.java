@@ -47,6 +47,8 @@ public interface Expression extends Comparable<Expression> {
    */
   String toLaTex();
 
+//  int getDepth();
+
   /**
    * This method compares an expression with a given object. This
    * is important, as it allows us to define an ordering on our
