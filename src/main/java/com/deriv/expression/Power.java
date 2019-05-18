@@ -109,7 +109,7 @@ public class Power implements Expression {
   }
 
   /**
-   * Tests whether or not a Power is simplified, for testing purposes.
+   * Tests whether or not a Power is simplified, for  testing purposes.
    */
   Boolean isSimplified() {
     return new PowerSimplifierComplete(_base, _exponent).isSimplified();

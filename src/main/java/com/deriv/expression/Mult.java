@@ -1,7 +1,6 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.MultSimplifier;
-
 import java.util.*;
 
 import static com.deriv.expression.Add.*;
@@ -168,7 +167,7 @@ public class Mult implements Expression {
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
-    return Optional.of(_factors.stream()
+    return Optional.of(_factors.parallelStream()
                          .map(x -> x.evaluate(var, input))
                          .filter(Optional::isPresent)
                          .map(Optional::get)
@@ -182,13 +181,18 @@ public class Mult implements Expression {
     // always compute product rule down the middle of the list of _factors
     int mid = _factors.size() / 2;
 
-    return mult(_factors.subList(mid, _factors.size()))
-             .differentiate(var)
-             .flatMap(x -> mult(_factors.subList(0, mid))
-                             .differentiate(var)
-                             .map(y -> add(
-                               mult(mult(_factors.subList(0, mid)), x),
-                               mult(y, mult(_factors.subList(mid, _factors.size()))))));
+    // compute derivatives
+    Optional<Expression> firstDerivative = mult(_factors.subList(mid, _factors.size())).differentiate(var);
+    Optional<Expression> secondDerivative = mult(_factors.subList(0, mid)).differentiate(var);
+
+    // combine the derivatives together
+    return firstDerivative
+             .flatMap(x -> secondDerivative
+                             .map(y ->
+                                    add(
+                                      mult(mult(_factors.subList(0, mid)), x),
+                                      mult(y, mult(_factors.subList(mid, _factors.size())))
+                                    )));
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {

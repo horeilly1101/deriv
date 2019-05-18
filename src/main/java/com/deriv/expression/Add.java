@@ -85,7 +85,7 @@ public class Add implements Expression {
 
   private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
     // combines terms
-    return Optional.of(_terms.stream()
+    return Optional.of(_terms.parallelStream()
                          .map(func)
                          .filter(Optional::isPresent)
                          .map(Optional::get)

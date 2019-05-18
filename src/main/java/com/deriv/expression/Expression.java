@@ -1,5 +1,6 @@
 package com.deriv.expression;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -256,5 +257,9 @@ public interface Expression extends Comparable<Expression> {
    */
   default Boolean isNegative() {
     return false;
+  }
+
+  default Integer getDepth() {
+    return 0;
   }
 }

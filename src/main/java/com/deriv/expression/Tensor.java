@@ -3,6 +3,7 @@ package com.deriv.expression;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
@@ -14,12 +15,11 @@ public class Tensor implements Expression {
   }
 
   private static boolean isValid(List<Expression> lines) {
-//    return lines.stream().map(Expression::getDepth)
-//             .reduce((a, b) -> a.equals(b) ? a : -1)
-//             .map(x -> !x.equals(-1))
-//             .orElse(false)
-//             && lines.size() != 0;
-    return true;
+    return lines.stream().map(Expression::getDepth)
+             .reduce((a, b) -> a.equals(b) ? a : -1)
+             .map(x -> !x.equals(-1))
+             .orElse(false)
+             && lines.size() != 0;
   }
 
   public static Expression of(Expression... lines) {
@@ -37,23 +37,43 @@ public class Tensor implements Expression {
   @Override
   public String toString() {
     return _lines.stream()
-             .map(Expression::toString)
+             .map(x -> x.toString())
              .collect(toList()).toString();
+  }
+
+  private String toStringHelper(int indentLevel) {
+    return "";
+  }
+
+  @Override
+  public Integer getDepth() {
+    return 1 + _lines.get(0).getDepth();
+  }
+
+  private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
+    // combines terms
+    return Optional.of(_lines.parallelStream()
+                         .map(func)
+                         .filter(Optional::isPresent)
+                         .map(Optional::get)
+                         .collect(toList()))
+             .flatMap(lst -> lst.size() == _lines.size()
+                               ? Optional.of(of(lst))
+                               : Optional.empty());
   }
 
   @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
-//    return new Tensor(_lines.stream().map(x -> x.evaluate(var, input)).collect(toList())); // TODO
-    return Optional.empty();
+    return linearityHelper(x -> x.evaluate(var, input));
   }
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-    return Optional.empty(); // TODO
+    return linearityHelper(x -> x.differentiate(var));
   }
 
   @Override
   public String toLaTex() {
-    return ""; // TODO
+    return toString(); // TODO
   }
 }
