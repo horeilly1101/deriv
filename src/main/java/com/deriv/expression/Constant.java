@@ -2,6 +2,11 @@ package com.deriv.expression;
 
 import java.util.Optional;
 
+/**
+ * A Constant is a scalar constant.
+ *
+ * Data definition: A constant is a integer.
+ */
 public class Constant implements Expression {
   /**
    * The integer value of a constant.
@@ -11,8 +16,6 @@ public class Constant implements Expression {
   /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
    * easy constructor below instead.
-   *
-   * Data definition: A constant is a double.
    */
   private Constant(Integer _val) {
     this._val = _val;
@@ -35,6 +38,10 @@ public class Constant implements Expression {
     return new Variable(val);
   }
 
+  /**
+   * Getter method for the value of a Constant.
+   * @return val
+   */
   public Integer getVal() {
     return _val;
   }
@@ -54,14 +61,26 @@ public class Constant implements Expression {
     return this.getVal() < 0;
   }
 
+  /**
+   * Static constructor for the multiplicative id.
+   * @return 1
+   */
   public static Expression multID() {
     return constant(1);
   }
 
+  /**
+   * Static constructor for the additive id.
+   * @return 0
+   */
   public static Expression addID() {
     return constant(0);
   }
 
+  /**
+   * Static constructor for the number e.
+   * @return e
+   */
   public static Expression e() {
     return new Variable("e");
   }
@@ -93,10 +112,12 @@ public class Constant implements Expression {
     return _val.toString();
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     return Optional.of(this);
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable var) {
     return Optional.of(addID());
   }

@@ -1,6 +1,5 @@
 package com.deriv.expression;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
@@ -263,6 +262,11 @@ public interface Expression extends Comparable<Expression> {
     return false;
   }
 
+  /**
+   * Getter method for the depth of an expression. The depth of an expression
+   * is how many expressions are composed in tensors within it.
+   * @return depth
+   */
   default Integer getDepth() {
     return 0;
   }
