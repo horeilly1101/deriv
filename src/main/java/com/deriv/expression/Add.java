@@ -6,6 +6,12 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
 
+/**
+ * An Ddd represents several terms, added together.
+ *
+ * Data definition: an add is a list of Expressions (terms). This is analogous to
+ * the terms in an expression.
+ */
 public class Add implements Expression {
   /**
    * A list of terms to be added together.
@@ -15,14 +21,16 @@ public class Add implements Expression {
   /**
    * Instantiates an Add. Avoid using as much as possible! Use the easy constructor
    * instead.
-   *
-   * Data definition: an add is a list of Expressions (terms). This is analogous to
-   * the terms in an expression.
    */
   private Add(List<Expression> terms) {
     this._terms = terms;
   }
 
+  /**
+   * Static constructor for an Add.
+   * @param terms list of expressions
+   * @return Add
+   */
   public static Expression add(List<Expression> terms) {
     if (terms.isEmpty()) {
       throw new RuntimeException("Don't instantiate an add with an empty list!");
@@ -32,12 +40,18 @@ public class Add implements Expression {
   }
 
   /**
-   * Or this one.
+   * Static constructor for an Add.
+   * @param terms array of expressions
+   * @return Add
    */
   public static Expression add(Expression... terms) {
     return add(Arrays.asList(terms));
   }
 
+  /**
+   * Getter method for the terms of an Add.
+   * @return terms
+   */
   public List<Expression> getTerms() {
     return _terms;
   }
@@ -83,6 +97,11 @@ public class Add implements Expression {
                  .reduce("", (a, b) -> a + " + " + b);
   }
 
+  /**
+   * Helper methods that takes advantage of the linearity of add operations.
+   * @param func linear function
+   * @return aggregated result
+   */
   private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
     // combines terms
     return Optional.of(_terms.parallelStream()
@@ -111,10 +130,15 @@ public class Add implements Expression {
    * Extension of AddSimplifier that allows us to create Add objects.
    */
   private static class AddSimplifierComplete extends AddSimplifier {
+    /**
+     * Constructor for an AddSimplifierComplete.
+     * @param unTerms input terms
+     */
     AddSimplifierComplete(List<Expression> unTerms) {
       super(unTerms);
     }
 
+    @Override
     public Expression toExpression() {
       List<Expression> simplified = unTerms.stream()
                                 .sorted((a, b) -> -1 * a.compareTo(b))
