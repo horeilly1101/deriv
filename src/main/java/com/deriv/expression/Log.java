@@ -5,16 +5,26 @@ import java.util.Optional;
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
+/**
+ * A log is the logarithm of an Expression.
+ *
+ * Data definition: a log is two Expressions (a base and a result).
+ */
 public class Log implements Expression {
+  /**
+   * The base of the logarithm.
+   */
   private Expression _base;
+
+  /**
+   * The result (input) of the logarithm.
+   */
   private Expression _result;
 
   /**
    * Instantiates a Log object. Avoid using as much as possible! Instead, use
    * the easy constructor down below. (I should note that throughout the code
-   * _base, I use <b>log(a, b)</b> to refer to a logarithm with _base a and result b.)
-   *
-   * Data definition: a log is two Expressions (a _base and a result)
+   * base, I use <b>log(a, b)</b> to refer to a logarithm with base a and result b.)
    */
   private Log(Expression _base, Expression result) {
     this._base = _base;
@@ -78,6 +88,7 @@ public class Log implements Expression {
              : "\\log_{" + _base.toLaTex() + "} " + _result.toLaTex();
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression val) {
     return _base.evaluate(var, val)
                .flatMap(ba -> _result.evaluate(var, val)
@@ -86,6 +97,7 @@ public class Log implements Expression {
                                                      : Optional.of(log(ba, re))));
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable var) {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
@@ -96,6 +108,7 @@ public class Log implements Expression {
                .map(x -> mult(x, div(multID(), _result)));
     }
 
-   return div(ln(_result), ln(_base)).differentiate(var);
+    // otherwise
+    return div(ln(_result), ln(_base)).differentiate(var);
   }
 }
