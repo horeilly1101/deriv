@@ -35,17 +35,6 @@ public class Tensor implements Expression {
   }
 
   @Override
-  public String toString() {
-    return _lines.stream()
-             .map(x -> x.toString())
-             .collect(toList()).toString();
-  }
-
-  private String toStringHelper(int indentLevel) {
-    return "";
-  }
-
-  @Override
   public Integer getDepth() {
     return 1 + _lines.get(0).getDepth();
   }

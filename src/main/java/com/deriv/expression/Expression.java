@@ -195,6 +195,10 @@ public interface Expression extends Comparable<Expression> {
     return (Variable) this;
   }
 
+  default Tensor asTensor() {
+    return (Tensor) this;
+  }
+
   /*
    * Each Expression is implicitly a Mult, a Div, an Add, and a Power,
    * so the following getter functions are justified.
