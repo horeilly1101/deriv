@@ -8,6 +8,12 @@ import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
 
+/**
+ * A Mult represents several factors, multiplied together.
+ *
+ * Data definition: a term is a list of Expressions (factors). This is analogous
+ * to the factors in an expression.
+ */
 public class Mult implements Expression {
   /**
    * A list of _factors to be multiplied together.
@@ -17,16 +23,15 @@ public class Mult implements Expression {
   /**
    * Instantiates a Mult. Avoid using as much as possible! Use the easy constructor
    * instead.
-   *
-   * Data definition: a term is a list of Expressions (_factors). This is analogous
-   * to the _factors in an expression.
    */
   private Mult(List<Expression> _factors) {
     this._factors = _factors;
   }
 
   /**
-   * Use this to create a mult object.
+   * Static constructor for a Mult object.
+   * @param factors list of expressions
+   * @return Expression
    */
   public static Expression mult(List<Expression> factors) {
     if (factors.isEmpty()) {
@@ -38,26 +43,37 @@ public class Mult implements Expression {
   }
 
   /**
-   * Or use this if you really want to.
+   * Static constructor for a Mult object.
+   * @param factors array of expressions
+   * @return Expression
    */
   public static Expression mult(Expression... factors) {
     return mult(Arrays.asList(factors));
   }
 
   /**
-   * Use this constructor to play with division.
+   * Static constructor for division.
+   * @param numerator input
+   * @param denominator input
+   * @return Expression
    */
   public static Expression div(Expression numerator, Expression denominator) {
     return mult(numerator, poly(denominator, -1));
   }
 
   /**
-   * negates an Expression;
+   * Static method for negating an Expression (i.e. multiplying it by zero)
+   * @param expr input
+   * @return Expression
    */
   public static Expression negate(Expression expr) {
     return mult(constant(-1), expr);
   }
 
+  /**
+   * Getter method for the factors.
+   * @return factors
+   */
   public List<Expression> getFactors() {
     return _factors;
   }
@@ -115,19 +131,19 @@ public class Mult implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Mult)) {
+
+    if (!(o instanceof Mult))
       return false;
-    }
 
     Mult mul = (Mult) o;
-    return mul._factors.equals(this._factors);
+    return mul._factors.equals(_factors);
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 8;
+    return 31 * _factors.hashCode() + 78;
   }
 
   @Override
@@ -165,6 +181,7 @@ public class Mult implements Expression {
                  .reduce("", (a, b) -> a + b);
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
     return Optional.of(_factors.parallelStream()
@@ -177,6 +194,7 @@ public class Mult implements Expression {
                                : Optional.empty());
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable var) {
     // always compute product rule down the middle of the list of _factors
     int mid = _factors.size() / 2;

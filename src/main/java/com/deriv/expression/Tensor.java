@@ -35,6 +35,23 @@ public class Tensor implements Expression {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+
+    if (!(o instanceof Tensor))
+      return false;
+
+    Tensor tensor = (Tensor) o;
+    return _lines.equals(tensor._lines);
+  }
+
+  @Override
+  public int hashCode() {
+    return _lines.hashCode();
+  }
+
+  @Override
   public Integer getDepth() {
     return 1 + _lines.get(0).getDepth();
   }

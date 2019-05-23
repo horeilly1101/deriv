@@ -59,19 +59,19 @@ public class Power implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Power)) {
+
+    if (!(o instanceof Power))
       return false;
-    }
 
     Power pow = (Power) o;
-    return pow._base.equals(this._base) && pow._exponent.equals(this._exponent);
+    return pow._base.equals(_base) && pow._exponent.equals(_exponent);
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 12;
+    return 31 * _base.hashCode() + _exponent.hashCode();
   }
 
   @Override

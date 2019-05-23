@@ -87,19 +87,19 @@ public class Constant implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Constant)) {
+
+    if (!(o instanceof Constant))
       return false;
-    }
 
     Constant con = (Constant) o;
-    return con._val.equals(this._val);
+    return _val.equals(con._val);
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 11;
+    return 31 * _val.hashCode() + 11;
   }
 
   @Override

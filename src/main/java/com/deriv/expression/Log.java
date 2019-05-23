@@ -55,19 +55,19 @@ public class Log implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Log)) {
+
+    if (!(o instanceof Log))
       return false;
-    }
 
     Log log = (Log) o;
-    return log._base.equals(this._base) && log._result.equals(this._result);
+    return log._base.equals(_base) && log._result.equals(_result);
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 8;
+    return 31 * _base.hashCode() + _result.hashCode();
   }
 
   @Override

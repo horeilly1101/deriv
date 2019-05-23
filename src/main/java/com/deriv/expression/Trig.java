@@ -84,11 +84,11 @@ public class Trig implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Trig)) {
+
+    if (!(o instanceof Trig))
       return false;
-    }
 
     Trig tri = (Trig) o;
     return tri._func.equals(this._func) && tri._inside.equals(this._inside);
@@ -96,7 +96,7 @@ public class Trig implements Expression {
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 10;
+    return 31 * _func.hashCode() + _inside.hashCode();
   }
 
   @Override

@@ -7,7 +7,7 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.*;
 
 /**
- * An Ddd represents several terms, added together.
+ * An Add represents several terms, added together.
  *
  * Data definition: an add is a list of Expressions (terms). This is analogous to
  * the terms in an expression.
@@ -65,19 +65,19 @@ public class Add implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Add)) {
+
+    if (!(o instanceof Add))
       return false;
-    }
 
     Add ad = (Add) o;
-    return ad._terms.equals(this._terms);
+    return _terms.equals(ad._terms);
   }
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 9;
+    return 31 * _terms.hashCode() + 7;
   }
 
   @Override

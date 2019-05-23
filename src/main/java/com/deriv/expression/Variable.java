@@ -40,11 +40,12 @@ public class Variable implements Expression {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
+    if (this == o)
       return true;
-    } else if (!(o instanceof Variable)) {
+
+    if (!(o instanceof Variable))
       return false;
-    }
+
 
     Variable var = (Variable) o;
     return var._var.equals(this._var);
@@ -52,7 +53,7 @@ public class Variable implements Expression {
 
   @Override
   public int hashCode() {
-    return this.toString().hashCode() + 12;
+    return _var.hashCode() + 12;
   }
 
   @Override
