@@ -35,6 +35,11 @@ public class Tensor implements Expression {
   }
 
   @Override
+  public String toString() {
+    return _lines.stream().map(Object::toString).collect(toList()).toString();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o)
       return true;
