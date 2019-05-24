@@ -86,17 +86,6 @@ public abstract class AExpression implements Expression {
    */
   abstract Step getDerivativeStep();
 
-  @Override
-  public Expression times(Expression input) {
-    return mult(this, input);
-  }
-
-  @Override
-  public Expression plus(Expression input) {
-    return add(this, input);
-  }
-
-  @Override
   public Expression getAddID() {
     return addID();
   }
