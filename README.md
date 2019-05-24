@@ -113,7 +113,20 @@ to compute the derivatives of products in parallel. There were also a few other 
 algorithms, but found that they did not really improve the runtime. For simplicity, I used sequential algorithms 
 in such cases.
 
-### Parser
+### Caching
+
+Checkout the `steps` branch if you would like to use an (outdated) version of this project that provides derivative
+steps and caching. Currently, the `master` branch does not support this, as I have had to reorganize the project
+to account for Tensors.
+
+Note that, when I say caching, I'm referring to the storing of derivatives that have already been computed, which is 
+more complicated than it first appears. Most of the differentiation algorithms used in this project recursively 
+compute the derivatives of composed expressions using a divide and conquer approach. So it's not enough to simply
+store the result whenever we call `differentiate()` in the calculator or the server—we need to store the results
+throughout the entire process, and then combine them "on the way back up" the recursion. At some point I will update
+this to work with Tensors, but it's not a priority.
+
+### Parsing
 
 The scanner is built using [jflex](http://jflex.de/manual.html), and the parser is built using 
 [CUP](http://jflex.de/manual.html). You can find the grammar rules for expressions in 
