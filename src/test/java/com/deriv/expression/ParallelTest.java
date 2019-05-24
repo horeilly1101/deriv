@@ -12,6 +12,7 @@ import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Constant.constant;
 import static com.deriv.expression.Constant.multID;
 import static com.deriv.expression.Mult.mult;
+import static com.deriv.expression.Power.exponential;
 import static com.deriv.expression.Power.poly;
 import static com.deriv.expression.Variable.x;
 import static java.util.stream.Collectors.toList;
@@ -50,7 +51,7 @@ class ParallelTest {
   }
 
   /**
-   * Helper method that creates a list of sine functions with a linearly increasing
+   * Helper method that creates a list of sine functions with linearly increasing
    * sums inside. (i.e. [sin(x), sin(x + 1), sin(x + 2), ...])
    * @param num number elements plus 1
    * @return list of sine functions
@@ -59,6 +60,19 @@ class ParallelTest {
     return Stream.iterate(0, i -> i + 1)
              .map(i -> sin(add(x(), constant(i))))
              .limit(num).collect(toList());
+  }
+
+  /**
+   * Helper method that creates a list of exponentials with a linearly increasing
+   * base. (i.e. [1^x, 2^x, 3^x, ...])
+   * @param num number elements plus 1
+   * @return list of exponentials
+   */
+  private List<Expression> expoList(int num) {
+    return Stream.iterate(1, i -> i + 1)
+             .map(i -> exponential(i, x()))
+             .limit(num)
+             .collect(Collectors.toList());
   }
 
   /**
@@ -178,5 +192,15 @@ class ParallelTest {
       () -> new ParallelMultDerivative(result.asMult().getFactors(), x().asVariable()),
 
       () -> result.differentiate(x().asVariable())); // sequential
+  }
+
+  @Test
+  void multDerivativeTest2() {
+    Expression result = mult(expoList(500));
+
+    runComparison("multDerivativeTest",
+      () -> new ParallelMultDerivative(result.asMult().getFactors(), x().asVariable()),
+
+      () -> result.differentiate(x().asVariable()));
   }
 }
