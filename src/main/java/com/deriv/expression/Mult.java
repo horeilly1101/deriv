@@ -197,34 +197,35 @@ public class Mult implements Expression {
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-//    // always compute product rule down the middle of the list of factors
-//    int mid = _factors.size() / 2;
-//
-//    // compute derivatives
-//    Optional<Expression> firstDerivative = mult(_factors.subList(mid, _factors.size())).differentiate(var);
-//    Optional<Expression> secondDerivative = mult(_factors.subList(0, mid)).differentiate(var);
-//
-//    // combine the derivatives together
-//    return firstDerivative
-//             .flatMap(x -> secondDerivative
-//                             .map(y ->
-//                                    add(
-//                                      mult(mult(_factors.subList(0, mid)), x),
-//                                      mult(y, mult(_factors.subList(mid, _factors.size())))
-//                                    )));
-
+    /*
+     * Note: my unit tests suggest that this algorithm is faster than its
+     * sequential version. See com.deriv.expresssion.ParallelTest.java for a
+     * description of the sequential version.
+     */
     return new ParallelMultDerivative(_factors, var).compute();
   }
 
   /**
-   * RecursiveTask to compute the derivatives of a Mult in parallel.
+   * RecursiveTask to compute the derivative of a Mult in parallel.
    */
   private static class ParallelMultDerivative extends RecursiveTask<Optional<Expression>> {
+    /**
+     * Input list of factors.
+     */
     private List<Expression> factorList;
+
+    /**
+     * Input variable to differentiate with respect to.
+     */
     private Variable var;
 
-    ParallelMultDerivative(List<Expression> fac, Variable var) {
-      this.factorList = fac;
+    /**
+     * Private constructor for a ParallelMultDerivative.
+     * @param factorList input list of expressions
+     * @param var with respect to
+     */
+    private ParallelMultDerivative(List<Expression> factorList, Variable var) {
+      this.factorList = factorList;
       this.var = var;
     }
 
