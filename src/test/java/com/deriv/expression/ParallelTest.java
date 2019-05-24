@@ -8,10 +8,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.deriv.expression.Add.add;
+import static com.deriv.expression.Constant.constant;
 import static com.deriv.expression.Constant.multID;
+import static com.deriv.expression.Mult.mult;
 import static com.deriv.expression.Power.poly;
 import static com.deriv.expression.Variable.x;
 import static java.util.stream.Collectors.toList;
+import static com.deriv.expression.Trig.*;
 
 class ParallelTest {
   /**
@@ -77,16 +80,18 @@ class ParallelTest {
     runComparison("addEvaluateTest",
       () -> ExpressionUtils.linearityHelper(
         result.asAdd().getTerms(),
-        x -> x.evaluate(x().asVariable(), multID())),
+        x -> x.evaluate(x().asVariable(), multID()))
+              .map(Add::add), // add the results
 
       () -> sequentialLinearityHelper(
         result.asAdd().getTerms(),
-        x -> x.evaluate(x().asVariable(), multID())));
+        x -> x.evaluate(x().asVariable(), multID()))
+              .map(Add::add)); // add the results
   }
 
   @Test
   void addDerivativeTest() {
-    Expression result = add(polyList(20_000));
+    Expression result = add(polyList(10_000));
 
     runComparison("addDerivativeTest",
       () -> ExpressionUtils.linearityHelper(
@@ -96,5 +101,21 @@ class ParallelTest {
       () -> sequentialLinearityHelper(
         result.asAdd().getTerms(),
         x -> x.differentiate(x().asVariable())));
+  }
+
+  @Test
+  void multEvaluateTest() {
+    Expression result = mult(Stream.iterate(0, i -> i + 1)
+                               .map(i -> sin(add(x(), constant(i))))
+                               .limit(10_000).collect(toList()));
+
+    runComparison("multEvaluateTest",
+      () -> ExpressionUtils.linearityHelper(
+        result.asMult().getFactors(),
+        x -> x.evaluate(x().asVariable(), multID())),
+
+      () -> sequentialLinearityHelper(
+        result.asMult().getFactors(),
+        x -> x.evaluate(x().asVariable(), multID())));
   }
 }
