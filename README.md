@@ -92,9 +92,6 @@ the project together. It is implemented by
 - *Variable*: a string name (e.g. "x", "y", etc.)
 - *Tensor*: a tensor is a list of expressions
 
-Note that there are two types of structures that implement Expression: those that use composition and those that
-don't. The use of composition allows us to use some pretty elegant recursive algorithms to do 
-
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
 available are integrals, inverse functions, and more obscure functions, but these may all be added later on.) It's
 interesting to note that the hardest part of this project has been simplifying the expressions before they're
