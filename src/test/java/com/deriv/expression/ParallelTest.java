@@ -32,49 +32,69 @@ class ParallelTest {
                                : Optional.empty());
   }
 
-  @Test
-  void addEvaluateTest() {
-    List<Expression> polySum = Stream.iterate(0, i -> i + 1)
-                              .map(num -> poly(x(), num))
-                              .limit(100000)
-                              .collect(Collectors.toList());
+  /**
+   * Helper method that creates a list of polynomials with a linearly increasing
+   * exponent. (i.e. [1, x, x^2, x^3, ...])
+   * @param num number elements plus 1
+   * @return list of polynomials
+   */
+  private List<Expression> polyList(int num) {
+    return Stream.iterate(0, i -> i + 1)
+             .map(i -> poly(x(), i))
+             .limit(num)
+             .collect(Collectors.toList());
+  }
 
-    Expression result = add(polySum);
-
+  /**
+   * Helper method to compare parallel programs with their equivalent sequential programs.
+   * Prints out results.
+   * @param testName the name of the test
+   * @param parProgram Runnable parallel program
+   * @param seqProgram Runnable sequential program
+   */
+  private void runComparison(String testName, Runnable parProgram, Runnable seqProgram) {
+    // time the parallel program
     long startParallel = System.nanoTime();
-    ExpressionUtils.linearityHelper(result.asAdd().getTerms(), x -> x.evaluate(x().asVariable(), multID()));
+    parProgram.run();
     long endParallel = System.nanoTime();
 
+    // time the sequential program
     long startSequential = System.nanoTime();
-    sequentialLinearityHelper(result.asAdd().getTerms(), x -> x.evaluate(x().asVariable(), multID()));
+    seqProgram.run();
     long endSequential = System.nanoTime();
 
-    System.out.println("-- addEvaluateTest --");
+    // print results
+    System.out.println("-- " + testName +  " --");
     System.out.println("parallel time:   " + (endParallel - startParallel) + " ms");
     System.out.println("sequential time: " + (endSequential - startSequential) + " ms");
     System.out.println();
   }
 
   @Test
+  void addEvaluateTest() {
+    Expression result = add(polyList(100_000));
+
+    runComparison("addEvaluateTest",
+      () -> ExpressionUtils.linearityHelper(
+        result.asAdd().getTerms(),
+        x -> x.evaluate(x().asVariable(), multID())),
+
+      () -> sequentialLinearityHelper(
+        result.asAdd().getTerms(),
+        x -> x.evaluate(x().asVariable(), multID())));
+  }
+
+  @Test
   void addDerivativeTest() {
-    List<Expression> polySum = Stream.iterate(0, i -> i + 1)
-                                 .map(num -> poly(x(), num))
-                                 .limit(10000)
-                                 .collect(Collectors.toList());
+    Expression result = add(polyList(20_000));
 
-    Expression result = add(polySum);
+    runComparison("addDerivativeTest",
+      () -> ExpressionUtils.linearityHelper(
+        result.asAdd().getTerms(),
+        x -> x.differentiate(x().asVariable())),
 
-    long startParallel = System.nanoTime();
-    ExpressionUtils.linearityHelper(result.asAdd().getTerms(), x -> x.differentiate(x().asVariable()));
-    long endParallel = System.nanoTime();
-
-    long startSequential = System.nanoTime();
-    sequentialLinearityHelper(result.asAdd().getTerms(), x -> x.differentiate(x().asVariable()));
-    long endSequential = System.nanoTime();
-
-    System.out.println("-- addDerivativeTest --");
-    System.out.println("parallel time:   " + (endParallel - startParallel) + " ms");
-    System.out.println("sequential time: " + (endSequential - startSequential) + " ms");
-    System.out.println();
+      () -> sequentialLinearityHelper(
+        result.asAdd().getTerms(),
+        x -> x.differentiate(x().asVariable())));
   }
 }
