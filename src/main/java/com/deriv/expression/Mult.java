@@ -2,6 +2,11 @@ package com.deriv.expression;
 
 import com.deriv.expression.simplifier.MultSimplifier;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.RecursiveTask;
+import java.util.function.Function;
 
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Power.*;
@@ -11,12 +16,12 @@ import static com.deriv.expression.Constant.*;
 /**
  * A Mult represents several factors, multiplied together.
  *
- * Data definition: a term is a list of Expressions (factors). This is analogous
+ * Data definition: a Mult is a list of Expressions (factors). This is analogous
  * to the factors in an expression.
  */
 public class Mult implements Expression {
   /**
-   * A list of _factors to be multiplied together.
+   * A list of factors to be multiplied together.
    */
   private List<Expression> _factors;
 
@@ -196,7 +201,7 @@ public class Mult implements Expression {
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-    // always compute product rule down the middle of the list of _factors
+    // always compute product rule down the middle of the list of factors
     int mid = _factors.size() / 2;
 
     // compute derivatives
@@ -214,10 +219,15 @@ public class Mult implements Expression {
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {
+    /**
+     * Constructor for a MultSimplifierComplete.
+     * @param unFactors input
+     */
     MultSimplifierComplete(List<Expression> unFactors) {
       super(unFactors);
     }
 
+    @Override
     public Expression toExpression() {
       if (unFactors.size() == 2) {
         List<Expression> con = unFactors.stream()
