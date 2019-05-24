@@ -2,11 +2,7 @@ package com.deriv.expression;
 
 import com.deriv.expression.simplifier.MultSimplifier;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
-import java.util.function.Function;
 
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Power.*;
@@ -201,21 +197,63 @@ public class Mult implements Expression {
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-    // always compute product rule down the middle of the list of factors
-    int mid = _factors.size() / 2;
+//    // always compute product rule down the middle of the list of factors
+//    int mid = _factors.size() / 2;
+//
+//    // compute derivatives
+//    Optional<Expression> firstDerivative = mult(_factors.subList(mid, _factors.size())).differentiate(var);
+//    Optional<Expression> secondDerivative = mult(_factors.subList(0, mid)).differentiate(var);
+//
+//    // combine the derivatives together
+//    return firstDerivative
+//             .flatMap(x -> secondDerivative
+//                             .map(y ->
+//                                    add(
+//                                      mult(mult(_factors.subList(0, mid)), x),
+//                                      mult(y, mult(_factors.subList(mid, _factors.size())))
+//                                    )));
 
-    // compute derivatives
-    Optional<Expression> firstDerivative = mult(_factors.subList(mid, _factors.size())).differentiate(var);
-    Optional<Expression> secondDerivative = mult(_factors.subList(0, mid)).differentiate(var);
+    return new ParallelMultDerivative(_factors, var).compute();
+  }
 
-    // combine the derivatives together
-    return firstDerivative
-             .flatMap(x -> secondDerivative
-                             .map(y ->
-                                    add(
-                                      mult(mult(_factors.subList(0, mid)), x),
-                                      mult(y, mult(_factors.subList(mid, _factors.size())))
-                                    )));
+  /**
+   * RecursiveTask to compute the derivatives of a Mult in parallel.
+   */
+  private static class ParallelMultDerivative extends RecursiveTask<Optional<Expression>> {
+    private List<Expression> factorList;
+    private Variable var;
+
+    ParallelMultDerivative(List<Expression> fac, Variable var) {
+      this.factorList = fac;
+      this.var = var;
+    }
+
+    @Override
+    public Optional<Expression> compute() {
+      if (factorList.size() < 1) // illegal case
+        return Optional.empty();
+
+      if (factorList.size() == 1) // base case
+        return factorList.get(0).differentiate(var);
+
+      // always compute product rule down the middle of the list of factors
+      int mid = factorList.size() / 2;
+
+      // compute derivatives
+      RecursiveTask<Optional<Expression>> task = new ParallelMultDerivative(factorList.subList(0, mid), var);
+      task.fork(); // fork the first derivative
+      Optional<Expression> secondDerivative = new ParallelMultDerivative(factorList.subList(mid, factorList.size()), var).compute();
+      Optional<Expression> firstDerivative = task.join();
+
+      // combine the derivatives together
+      return firstDerivative
+               .flatMap(x -> secondDerivative
+                               .map(y ->
+                                      add(
+                                        mult(mult(factorList.subList(mid, factorList.size())), x),
+                                        mult(y, (mult(factorList.subList(0, mid))))
+                                      )));
+    }
   }
 
   private static class MultSimplifierComplete extends MultSimplifier {

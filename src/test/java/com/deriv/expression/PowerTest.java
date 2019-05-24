@@ -50,8 +50,8 @@ class PowerTest {
     Expression ex7 = poly(mult(x(), ln(x())), 2);
     assertEquals(mult(poly(x(), 2), poly(ln(x()), 2)), ex7);
 
+    // (x ^ 2) ^ 3
     Expression ex8 = poly(poly(x(), 2), 3);
-    System.out.println(ex8);
     assertEquals(poly(x(), 6), ex8);
     assertTrue(ex8.asPower().isSimplified());
   }
