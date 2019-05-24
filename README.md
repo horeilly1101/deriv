@@ -77,7 +77,7 @@ In particular, you should not allow forward slashes, brackets, carrots, or blank
 
 ## Design
 
-![dashboard](pictures/ExpressionUML.png)
+### Polymorphic Expressions
 
 Definition: **Expression** is the data structure that allows us to put functions together and take their 
 derivatives. Every function is an implementation of an Expression -- this is the key design detail that glues 
@@ -90,6 +90,10 @@ the project together. It is implemented by
 - *Trig*: a trig is a trig function name and an expression
 - *Constant*: a constant is an Integer (unfortunately, arbitrary constants are technically variables)
 - *Variable*: a string name (e.g. "x", "y", etc.)
+- *Tensor*: a tensor is a list of expressions
+
+Note that there are two types of structures that implement Expression: those that use composition and those that
+don't. The use of composition allows us to use some pretty elegant recursive algorithms to do 
 
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
 available are integrals, inverse functions, and more obscure functions, but these may all be added later on.) It's
@@ -98,7 +102,21 @@ instantiated. The design, derivatives, evaluations -- all of that was easy compa
 
 For examples of how to use these classes, see the provided unit tests.
 
-## Parser
+### Differentiation Algorithms
+
+For the most part, I used the standard recursive algorithms that you learn in an introductory calculus class (.e.g
+product rule, linearity), but there were a few cases were I had to derive nonstandard algorithms to compute
+derivatives, to ensure as much generality as possible. That being noted, I doubt there is anything revolutionary 
+in my approach.
+
+Beyond the above, there are a few cases where I decided to optimize with parallelism. For instance, I opted for 
+parallel streams whenever linearity was necessary (e.g. when differentiating the sum of expressions). However,
+the most interesting use of parallelism can be found in `com.deriv.expression.Mult.java`, where I use Fork/Join
+to compute the derivatives of products in parallel. There were also a few other places where I tested parallel 
+algorithms, but found that they did not really improve the runtime. For simplicity, I used sequential algorithms 
+in such cases.
+
+### Parser
 
 The scanner is built using [jflex](http://jflex.de/manual.html), and the parser is built using 
 [CUP](http://jflex.de/manual.html). You can find the grammar rules for expressions in 
