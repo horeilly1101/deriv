@@ -7,9 +7,22 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
-public class Tensor implements Expression {
+/**
+ * A Tensor represents several expressions, organized together in a mathematical tensor.
+ *
+ * Data definition: a Tensor is a list of expressions, representing the "rows" or "elements"
+ * of the tensor.
+ */
+class Tensor implements Expression {
+  /**
+   * A list of expressions, representing the lines in the tensor.
+   */
   private List<Expression> _lines;
 
+  /**
+   * Private constructor for a Tensor.
+   * @param lines input
+   */
   private Tensor(List<Expression> lines) {
     this._lines = lines;
   }

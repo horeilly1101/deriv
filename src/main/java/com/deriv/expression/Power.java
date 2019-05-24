@@ -1,7 +1,13 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
+
+import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.function.Function;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
@@ -89,12 +95,21 @@ public class Power implements Expression {
   }
 
   public Optional<Expression> evaluate(Variable var, Expression input) {
+    /*
+     * Note: the commented out code below runs the two derivatives in parallel.
+     * This is a cool idea, but the overhead required just doesn't make it worth it.
+     */
+
+//     ExecutorService executorService = Executors.newCachedThreadPool();
+//     Future<Optional<Expression>> exponentEval = executorService
+//                                                    .submit(() -> _exponent.evaluate(var, input));
+
     return _base.evaluate(var, input)
                .flatMap(ba -> _exponent.evaluate(var, input)
-                                  // make sure we're not dividing by zero
-                                  .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
-                                                     ? Optional.empty()
-                                                     : Optional.of(power(ba, ex))));
+                                // make sure we're not dividing by zero
+                                 .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
+                                                 ? Optional.empty()
+                                                 : Optional.of(power(ba, ex))));
   }
 
   public Optional<Expression> differentiate(Variable var) {

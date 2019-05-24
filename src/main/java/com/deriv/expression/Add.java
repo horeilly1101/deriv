@@ -2,7 +2,6 @@ package com.deriv.expression;
 
 import com.deriv.expression.simplifier.AddSimplifier;
 import java.util.*;
-import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
 
@@ -97,33 +96,16 @@ public class Add implements Expression {
                  .reduce("", (a, b) -> a + " + " + b);
   }
 
-  /**
-   * Helper methods that takes advantage of the linearity of add operations.
-   * @param func linear function
-   * @return aggregated result
-   */
-  private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
-    // combines terms
-    return Optional.of(_terms.parallelStream()
-                         .map(func)
-                         .filter(Optional::isPresent)
-                         .map(Optional::get)
-                         .collect(toList()))
-             .flatMap(lst -> lst.size() == _terms.size()
-                               ? Optional.of(add(lst))
-                               : Optional.empty());
-  }
-
  @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // adds terms together
-    return linearityHelper(x -> x.evaluate(var, input));
+    return ExpressionUtils.linearityHelper(_terms, x -> x.evaluate(var, input)).map(Add::add);
   }
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
     // linearity of differentiation
-    return linearityHelper(x -> x.differentiate(var));
+    return ExpressionUtils.linearityHelper(_terms, x -> x.differentiate(var)).map(Add::add);
   }
 
   /**

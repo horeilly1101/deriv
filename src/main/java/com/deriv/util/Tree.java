@@ -21,7 +21,8 @@ public class Tree<T> {
   private T value;
 
   /**
-   * Set of subtrees. This enforces the property that each node can have at most edge to each other node.
+   * Set of subtrees. This enforces the property that each node can have at
+   * most edge to each other node.
    */
   private Set<Tree<T>> children;
 
