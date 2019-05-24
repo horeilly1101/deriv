@@ -101,14 +101,14 @@ For examples of how to use these classes, see the provided unit tests.
 
 ### Differentiation Algorithms
 
-For the most part, I used the standard recursive algorithms that you learn in an introductory calculus class (.e.g
+For the most part, I used the standard recursive algorithms that you learn in an introductory calculus class (e.g.
 product rule, linearity), but there were a few cases were I had to derive nonstandard algorithms to compute
 derivatives, to ensure as much generality as possible. That being noted, I doubt there is anything revolutionary 
 in my approach.
 
 Beyond the above, there are a few cases where I decided to optimize with parallelism. For instance, I opted for 
 parallel streams whenever linearity was necessary (e.g. when differentiating the sum of expressions). However,
-the most interesting use of parallelism can be found in `com.deriv.expression.Mult.java`, where I use Fork/Join
+the most interesting use of parallelism can be found in `com.deriv.expression.Mult`, where I use Fork/Join
 to compute the derivatives of products in parallel. There were also a few other places where I tested parallel 
 algorithms, but found that they did not really improve the runtime. For simplicity, I used sequential algorithms 
 in such cases.
