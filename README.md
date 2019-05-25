@@ -59,7 +59,7 @@ And the third is `localhost:4567/simplify/:expression`, where `:expression` is t
     
 If the given arguments in a URL are invalid, an error JSON object will be returned in all cases.
     
-NOTE: You should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
+**Note:** you should be careful to use the proper ASCII encoding references when writing your expressions in the URL.
 For example, you can't use "/" to represent division when querying the server, as that is a reserved character.
 Instead, use %2F, its ASCII encoding reference. You can find a comprehensive list of URL encoding references
 [here](https://www.w3schools.com/tags/ref_urlencode.asp), but I've put the important ones (for this project) down
@@ -108,7 +108,7 @@ to do with what you wish.
 
 ### Static Constructors
 
-You can create expressions with the available static constructors. See the documentation for available constructors
+You can create expressions with the available static constructors. See the docs for available constructors
 and more instructions on how to use them.
 
 ```
@@ -191,6 +191,6 @@ grammar is meant to increase clarity.
 
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
-- Effective Java by Joshua Bloch was a big source of inspiration.
+- Effective Java by Joshua Bloch inspired many of the design decisions, as did Rice University's COMP 215 and 310.
 - Uses [JSON-Java](https://github.com/stleary/JSON-java) to create JSON objects.
 - I built a [frontend to interact with the API](https://www.github.com/horeilly1101/deriv-frontend).
