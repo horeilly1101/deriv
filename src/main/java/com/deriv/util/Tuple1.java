@@ -30,7 +30,7 @@ public class Tuple1<T> {
 
   @Override
   public String toString() {
-    return "(" + item1.toString() + ")";
+    return "(" + item1 + ")";
   }
 
   @Override
@@ -48,7 +48,7 @@ public class Tuple1<T> {
   @Override
   public int hashCode() {
     // a hack, but it works
-    return 11 * item1.hashCode() + 9;
+    return item1.hashCode();
   }
 
   /**

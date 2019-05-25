@@ -33,7 +33,8 @@ class Tuple3Test {
   void equalsTest() {
     Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
     assertEquals(Tuple3.of(multID(), addID(), x()), tup); // check equality
-    tup.hashCode(); // run hashcode
+    assertEquals(tup, tup);
+    assertNotEquals(multID(), tup);
 
     Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
     assertEquals(Tuple3.of(add(multID(), x()), multID(), addID()), tup2); // check equality again
@@ -43,5 +44,14 @@ class Tuple3Test {
     assertNotEquals(
       Tuple3.of(new Double("1.4"), new Double("3.6"), new Double("1.0")),
       tup3); // check not equals
+  }
+
+  @Test
+  void hashCodeTest() {
+    Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
+    assertEquals(
+      31 * 31 * multID().hashCode() + 31 * addID().hashCode() + x().hashCode(),
+      tup.hashCode()
+    );
   }
 }

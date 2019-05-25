@@ -28,12 +28,19 @@ class Tuple2Test {
   void equalsTest() {
     Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
     assertEquals(Tuple2.of(multID(), addID()), tup); // check equality
-    tup.hashCode(); // run hashcode
+    assertEquals(tup, tup);
+    assertNotEquals(multID(), tup);
 
     Tuple2<Expression, Expression> tup2 = Tuple2.of(add(multID(), x()), multID());
     assertEquals(Tuple2.of(add(multID(), x()), multID()), tup2); // check equality again
 
     Tuple2<Double, Double> tup3 = Tuple2.of(new Double("1.5"), new Double("3.6"));
     assertNotEquals(Tuple2.of(new Double("1.7"), new Double("3.6")), tup3); // check not equals
+  }
+
+  @Test
+  void hashCodeTest() {
+    Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
+    assertEquals(multID().hashCode() * 31 + addID().hashCode(), tup.hashCode()); // check hashCode
   }
 }

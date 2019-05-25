@@ -39,7 +39,7 @@ public class Tuple3<T1, T2, T3> extends Tuple2<T1, T2> {
 
   @Override
   public String toString() {
-    return "(" + super.toString() + ", " + item3.toString() + ")";
+    return "(" + getItem1() + ", " + getItem2() + ", " + item3 + ")";
   }
 
   @Override
@@ -59,7 +59,7 @@ public class Tuple3<T1, T2, T3> extends Tuple2<T1, T2> {
   @Override
   public int hashCode() {
     // a hack, but it works
-    return super.hashCode() + 7 * item3.hashCode();
+    return 31 * super.hashCode() + item3.hashCode();
   }
 
   /**
