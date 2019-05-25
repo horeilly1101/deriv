@@ -14,6 +14,9 @@ public class TreeTest {
     newTree.add(Tree.makeNode(17));
     newTree.add(Tree.makeNode(5));
 
+    Tree<Integer> tree2 = Tree.of(3);
+    assertEquals(new Integer(3), tree2.getValue());
+
     System.out.println(newTree); // toString
     System.out.println(newTree.toJSON()); // toJSON
   }

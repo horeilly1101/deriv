@@ -46,6 +46,10 @@ public class Tree<T> {
     this.children = children;
   }
 
+  /**
+   * Convert the Tree into JSON.
+   * @return JSON array
+   */
   public JSONArray toJSON() {
     return hasChildren()
              ? new JSONArray().put(value)
