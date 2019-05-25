@@ -84,22 +84,22 @@ There are two main ways to use this project as a Java library.
 Check out `com.deriv.expression.Calculator`. If you instantiate a `Calculator` object, you can simplify, evaluate,
 differentiate, and simplify expressions by just providing a string representation of an expression. If you decide
 to do this, you will find it helpful to be as specific as possible with your string expressions (i.e. place 
-parentheses liberally), as it is very easy to write ambiguous string expressions.
+parentheses liberally), as they can quickly become ambiguous.
 
 ```
 // Instantiate a Calculator object
 Calculator calc = new Calculator();
 
-// Example 1 — prints "(2 * x)"
+// Example 1: prints "(2 * x)"
 System.out.println(calc.differentiate("x^2", "x").get());
 
-// Example 2 — prints "8"
+// Example 2: prints "8"
 System.out.println(calc.evaluate("3x + 2", "x", "2").get());
 
-// Example 3 — prints "(sin(x) / x + (cos(x) * ln(x)))"
+// Example 3: prints "(sin(x) / x + (cos(x) * ln(x)))"
 System.out.println(calc.differentiate("sin(x)ln(x)", "x").get());
 
-// Example 4 — prints "sin(x ^ 2)"
+// Example 4: prints "sin(x ^ 2)"
 System.out.println(calc.evaluate("sin(x)", "x", "x^2").get());
 ```
 
@@ -108,14 +108,28 @@ to do with what you wish.
 
 ### Static Constructors
 
-Alternatively
+Alternatively, you can create expressions by using the many available static constructors.
+
+```
+// Example 1: 3x
+mult(constant(3), x());
+
+// Example 2: x^2 + x + 1
+add(poly(x(), 2), x(), multID());
+
+// Example 3: sin(y^x)
+sin(power(var("y"), x()));
+
+// Example 4: ln(5) + e^z
+add(ln(constant(5)), power(e(), var("z")));
+```
 
 ## Design
 
 ### Polymorphic Expressions
 
 Definition: **Expression** is the data structure that allows us to put functions together and take their 
-derivatives. Every function is an implementation of an Expression -- this is the key design detail that glues 
+derivatives. Every function is an implementation of an Expression—this is the key design detail that glues 
 the project together. It is implemented by
 
 - *Mult*: a mult is a list of expressions, multiplied together
@@ -130,14 +144,12 @@ the project together. It is implemented by
 The above classes allow deriv to differentiate just about any function you can think of. (The only functions not
 available are integrals, inverse functions, and more obscure functions, but these may all be added later on.) It's
 interesting to note that the hardest part of this project has been simplifying the expressions before they're
-instantiated. The design, derivatives, evaluations -- all of that was easy compared to the simplification stage.
-
-For examples of how to use these classes, see the provided unit tests.
+instantiated. The design, derivatives, evaluations—all of that was easy compared to the simplification stage.
 
 ### Differentiation Algorithms
 
 For the most part, I used the standard recursive algorithms that you learn in an introductory calculus class (e.g.
-product rule, linearity), but there were a few cases were I had to derive nonstandard algorithms to compute
+product rule, linearity), but there were a few cases where I had to derive nonstandard algorithms to compute
 derivatives, to ensure as much generality as possible. That being noted, I doubt there is anything revolutionary 
 in my approach.
 
@@ -176,12 +188,8 @@ grammar is meant to increase clarity.
 
 ## Notes
 
-- The Calculator class is built with memoization EVERYWHERE, so recomputing anything in this class can be
-done in constant time. Also, since the caches are implemented as ConcurrentHashMaps, you can run multiple 
-operations on the same Calculator object in parallel, and the results will be stored as usual.
-- If you want to use this project as a library, you should focus your attention on the Calculator class.
-- The Expression functionality was built using the Composite Design Pattern.
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
+- Effective Java by Joshua Bloch was a big source of inspiration.
 - Uses [JSON-Java](https://github.com/stleary/JSON-java) to create JSON objects.
 - I built a [frontend to interact with the API](https://www.github.com/horeilly1101/deriv-frontend).

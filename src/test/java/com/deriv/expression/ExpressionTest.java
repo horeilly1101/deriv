@@ -139,4 +139,19 @@ class ExpressionTest {
     Expression expr = add(x(), poly(x(), 2));
     System.out.println(expr.differentiate(x().asVariable()));
   }
+
+  @Test
+  void readmeTest() {
+    // Example 1: 3x
+    System.out.println(mult(constant(3), x()));
+
+    // Example 2: x^2 + x + 1
+    System.out.println(add(poly(x(), 2), x(), multID()));
+
+    // Example 3: sin(y^x)
+    System.out.println(sin(power(var("y"), x())));
+
+    // Example 4: ln(5) + e^z
+    System.out.println(add(ln(constant(5)), power(e(), var("z"))));
+  }
 }
