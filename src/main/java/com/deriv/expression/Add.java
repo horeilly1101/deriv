@@ -56,7 +56,7 @@ public class Add implements Expression {
   }
 
   @Override
-  public Boolean isNegative() {
+  public boolean isNegative() {
     return _terms.stream()
                .map(Expression::isNegative)
                .reduce(true, (a, b) -> a && b);

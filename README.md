@@ -191,6 +191,6 @@ grammar is meant to increase clarity.
 
 - Dependencies are handled with Maven.
 - All code was written in IntelliJ IDEA.
-- Effective Java by Joshua Bloch inspired many of the design decisions, as did Rice University's COMP 215 and 310.
+- *Effective Java* by Joshua Bloch inspired many of the design decisions, as did Rice University's COMP 215 and 310.
 - Uses [JSON-Java](https://github.com/stleary/JSON-java) to create JSON objects.
 - I built a [frontend to interact with the API](https://www.github.com/horeilly1101/deriv-frontend).

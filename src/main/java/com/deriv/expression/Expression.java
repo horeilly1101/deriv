@@ -75,7 +75,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isMult() {
+  default boolean isMult() {
     return this.getClass().equals(Mult.class);
   }
 
@@ -84,7 +84,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isAdd() {
+  default boolean isAdd() {
     return this.getClass().equals(Add.class);
   }
 
@@ -93,7 +93,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isLog() {
+  default boolean isLog() {
     return this.getClass().equals(Log.class);
   }
 
@@ -102,7 +102,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isPower() {
+  default boolean isPower() {
     return this.getClass().equals(Power.class);
   }
 
@@ -111,7 +111,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isTrig() {
+  default boolean isTrig() {
     return this.getClass().equals(Trig.class);
   }
 
@@ -120,7 +120,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isConstant() {
+  default boolean isConstant() {
     return this.getClass().equals(Constant.class);
   }
 
@@ -129,7 +129,7 @@ public interface Expression extends Comparable<Expression> {
    *
    * @return boolean
    */
-  default Boolean isVariable() {
+  default boolean isVariable() {
     return this.getClass().equals(Variable.class);
   }
 
@@ -194,6 +194,10 @@ public interface Expression extends Comparable<Expression> {
     return (Variable) this;
   }
 
+  /**
+   * Cast a given Expression to a Tensor.
+   * @return Tensor
+   */
   default Tensor asTensor() {
     return (Tensor) this;
   }
@@ -258,7 +262,7 @@ public interface Expression extends Comparable<Expression> {
    * Checks whether or not a given expression is multiplied by -1.
    * @return boolean
    */
-  default Boolean isNegative() {
+  default boolean isNegative() {
     return false;
   }
 
@@ -267,7 +271,7 @@ public interface Expression extends Comparable<Expression> {
    * is how many expressions are composed in tensors within it.
    * @return depth
    */
-  default Integer getDepth() {
+  default int getDepth() {
     return 0;
   }
 }

@@ -70,7 +70,7 @@ class Tensor implements Expression {
   }
 
   @Override
-  public Integer getDepth() {
+  public int getDepth() {
     return 1 + _lines.get(0).getDepth();
   }
 

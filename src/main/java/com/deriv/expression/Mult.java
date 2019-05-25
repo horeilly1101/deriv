@@ -105,7 +105,7 @@ public class Mult implements Expression {
   }
 
   @Override
-  public Boolean isNegative() {
+  public boolean isNegative() {
     Expression constantFactor = this.getConstantFactor();
 
     return constantFactor.getNumerator().isNegative()

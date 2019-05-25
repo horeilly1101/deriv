@@ -9,16 +9,31 @@ import java.util.Optional;
  */
 public class Constant implements Expression {
   /**
+   * Singleton instance of constant 0.
+   */
+  private static Expression ADD_ID = constant(0);
+
+  /**
+   * Singleton instance of constant 1.
+   */
+  private static Expression MULT_ID = constant(1);
+
+  /**
+   * Singleton instance of constant e.
+   */
+  private static Expression E = new Variable("e");
+
+  /**
    * The integer value of a constant.
    */
-  private Integer _val;
+  private int _val;
 
   /**
    * Instantiates a new Constant. Avoid using as much as possible! Use the
    * easy constructor below instead.
    */
-  private Constant(Integer _val) {
-    this._val = _val;
+  private Constant(int val) {
+    this._val = val;
   }
 
   /**
@@ -42,7 +57,7 @@ public class Constant implements Expression {
    * Getter method for the value of a Constant.
    * @return val
    */
-  public Integer getVal() {
+  public int getVal() {
     return _val;
   }
 
@@ -57,7 +72,7 @@ public class Constant implements Expression {
   }
 
   @Override
-  public Boolean isNegative() {
+  public boolean isNegative() {
     return this.getVal() < 0;
   }
 
@@ -66,7 +81,7 @@ public class Constant implements Expression {
    * @return 1
    */
   public static Expression multID() {
-    return constant(1);
+    return MULT_ID;
   }
 
   /**
@@ -74,7 +89,7 @@ public class Constant implements Expression {
    * @return 0
    */
   public static Expression addID() {
-    return constant(0);
+    return ADD_ID;
   }
 
   /**
@@ -82,7 +97,7 @@ public class Constant implements Expression {
    * @return e
    */
   public static Expression e() {
-    return new Variable("e");
+    return E;
   }
 
   @Override
@@ -94,22 +109,22 @@ public class Constant implements Expression {
       return false;
 
     Constant con = (Constant) o;
-    return _val.equals(con._val);
+    return _val == con._val;
   }
 
   @Override
   public int hashCode() {
-    return 31 * _val.hashCode() + 11;
+    return 31 * Integer.hashCode(_val) + 11;
   }
 
   @Override
   public String toString() {
-    return _val.toString();
+    return Integer.toString(_val);
   }
 
   @Override
   public String toLaTex() {
-    return _val.toString();
+    return toString();
   }
 
   @Override
