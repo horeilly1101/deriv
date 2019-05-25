@@ -34,8 +34,8 @@ public class Variable implements Expression {
    * calculus, and we don't want to create any problems.
    */
   public static Expression var(String var) {
-    if (var.equals("e")) {
-      throw new RuntimeException("Variable can't be named e.");
+    if (var.equals("e") || var.equals("π")) {
+      throw new RuntimeException("Variable can't be named e or π.");
     }
 
     return new Variable(var);

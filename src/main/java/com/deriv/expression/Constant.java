@@ -24,6 +24,11 @@ public class Constant implements Expression {
   private static Expression E = new Variable("e");
 
   /**
+   * Singleton instance of constant pi.
+   */
+  private static Expression PI = new Variable("π");
+
+  /**
    * The integer value of a constant.
    */
   private int _val;
@@ -98,6 +103,14 @@ public class Constant implements Expression {
    */
   public static Expression e() {
     return E;
+  }
+
+  /**
+   * Static constructor for the number pi.
+   * @return π
+   */
+  public static Expression pi() {
+    return PI;
   }
 
   @Override
