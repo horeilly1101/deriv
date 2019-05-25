@@ -1,5 +1,7 @@
 package com.deriv.expression;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Variable implements Expression {
@@ -41,6 +43,12 @@ public class Variable implements Expression {
 
   public static Expression x() {
     return X;
+  }
+
+  public static Expression x(Integer... nums) {
+    return var("x" + Arrays.stream(nums)
+                       .map(Objects::toString)
+                       .reduce("", (a, b) -> a +  "_" + b));
   }
 
   @Override

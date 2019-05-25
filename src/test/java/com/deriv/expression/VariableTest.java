@@ -18,6 +18,15 @@ class VariableTest {
   }
 
   @Test
+  void constructorTest() {
+    Expression x_2 = x(2);
+    assertEquals("x_2", x_2.toString());
+
+    Expression x_1_2_3 = x(1, 2, 3);
+    assertEquals("x_1_2_3", x_1_2_3.toString());
+  }
+
+  @Test
   void evaluateTest() {
     // x
     Optional<Expression> ex = x().evaluate(x().asVariable(), constant(5));
