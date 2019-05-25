@@ -108,7 +108,8 @@ to do with what you wish.
 
 ### Static Constructors
 
-Alternatively, you can create expressions by using the many available static constructors.
+You can create expressions with the available static constructors. See the documentation for available constructors
+and more instructions on how to use them.
 
 ```
 // Example 1: 3x
