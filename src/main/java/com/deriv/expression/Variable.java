@@ -4,6 +4,11 @@ import java.util.Optional;
 
 public class Variable implements Expression {
   /**
+   * Singleton instance of variable x.
+   */
+  private static Expression X = new Variable("x");
+
+  /**
    * String that represents the variable. (e.g. x)
    */
   private String _var;
@@ -17,8 +22,8 @@ public class Variable implements Expression {
    * Data definition: a variable is a string name (e.g. "x", "y",
    * etc.).
    */
-  Variable(String _var) {
-    this._var = _var;
+  Variable(String var) {
+    this._var = var;
   }
 
   /**
@@ -35,7 +40,7 @@ public class Variable implements Expression {
   }
 
   public static Expression x() {
-    return new Variable("x");
+    return X;
   }
 
   @Override
