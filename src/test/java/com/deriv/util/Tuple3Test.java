@@ -34,7 +34,7 @@ class Tuple3Test {
     Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), addID(), x());
     assertEquals(Tuple3.of(multID(), addID(), x()), tup); // check equality
     assertEquals(tup, tup);
-    assertNotEquals(multID(), tup);
+    assertNotEquals(tup, multID());
 
     Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
     assertEquals(Tuple3.of(add(multID(), x()), multID(), addID()), tup2); // check equality again

@@ -43,7 +43,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the differentiate route.
    */
-  static JSONObject diffObject(Expression result, Expression expr, Variable var) {
+  private static JSONObject diffObject(Expression result, Expression expr, Variable var) {
     return jobject()
              .put("data",
                jobject()
@@ -72,7 +72,7 @@ public class Server {
   /**
    * Returns a JSON object corresponding to the evaluate route.
    */
-  static JSONObject evalObject(Expression result, Expression expr, Variable var, Expression val) {
+  private static JSONObject evalObject(Expression result, Expression expr, Variable var, Expression val) {
     return jobject()
              .put("data",
                jobject()
@@ -100,7 +100,7 @@ public class Server {
    * @param input string from url
    * @return JSON object
    */
-  static JSONObject simplifyObject(Expression result, String input) {
+  private static JSONObject simplifyObject(Expression result, String input) {
     return jobject()
              .put("data",
                jobject()

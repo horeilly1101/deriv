@@ -27,7 +27,7 @@ class Tuple1Test {
     Tuple1<Expression> tup = Tuple1.of(multID());
     assertEquals(Tuple1.of(multID()), tup); // check equality
     assertEquals(tup, tup);
-    assertNotEquals(multID(), tup);
+    assertNotEquals(tup, multID());
 
     Tuple1<Expression> tup2 = Tuple1.of(add(multID(), x()));
     assertEquals(Tuple1.of(add(multID(), x())), tup2); // check equality again

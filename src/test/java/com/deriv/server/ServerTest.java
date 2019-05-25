@@ -34,7 +34,7 @@ class ServerTest {
 
       throw new RuntimeException("unknown param asked for");
     }
-  };
+  }; // dummy request
 
   private Calculator calc = new Calculator();
 

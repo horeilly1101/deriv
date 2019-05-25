@@ -29,7 +29,7 @@ class Tuple2Test {
     Tuple2<Expression, Expression> tup = Tuple2.of(multID(), addID());
     assertEquals(Tuple2.of(multID(), addID()), tup); // check equality
     assertEquals(tup, tup);
-    assertNotEquals(multID(), tup);
+    assertNotEquals(tup, multID());
 
     Tuple2<Expression, Expression> tup2 = Tuple2.of(add(multID(), x()), multID());
     assertEquals(Tuple2.of(add(multID(), x()), multID()), tup2); // check equality again
