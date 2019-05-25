@@ -4,6 +4,11 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * A variable is a scalar variable.
+ *
+ * Data definition: a variable is a string name (e.g. "x", "y", etc.).
+ */
 public class Variable implements Expression {
   /**
    * Singleton instance of variable x.
@@ -16,22 +21,18 @@ public class Variable implements Expression {
   private String _var;
 
   /**
-   * This method is only package-private (because I want to use it
-   * to create the constant e in Constant), but you still should
-   * avoid using it to instantiate Variable objects. Use the easy
-   * constructor below instead.
-   *
-   * Data definition: a variable is a string name (e.g. "x", "y",
-   * etc.).
+   * Package-private constructor for a variable. Use one of the static
+   * constructors instead.
    */
   Variable(String var) {
     this._var = var;
   }
 
   /**
-   * Use this method to instantiate a Variable object. You can't create
-   * a variable named "e" because that's a really important constant in
-   * calculus, and we don't want to create any problems.
+   * Static constructor for a Variable. If you pass "e" or "π" as arguments to
+   * this function, it will throw an error, as those are reserved variable names.
+   * @param var variable name
+   * @return variable
    */
   public static Expression var(String var) {
     if (var.equals("e") || var.equals("π")) {
@@ -41,10 +42,19 @@ public class Variable implements Expression {
     return new Variable(var);
   }
 
+  /**
+   * Static constructor for a variable with name "x".
+   * @return variable
+   */
   public static Expression x() {
     return X;
   }
 
+  /**
+   * Static constructor for a variable with a name of the form "x_i1_..._in".
+   * @param nums indices
+   * @return variable
+   */
   public static Expression x(Integer... nums) {
     return var("x" + Arrays.stream(nums)
                        .map(Objects::toString)
@@ -79,6 +89,7 @@ public class Variable implements Expression {
     return _var;
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // update later
     return var.equals(this)
@@ -86,6 +97,7 @@ public class Variable implements Expression {
                : Optional.of(this);
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable wrt) {
     return Optional.of(wrt.equals(this)
                          ? Constant.multID()

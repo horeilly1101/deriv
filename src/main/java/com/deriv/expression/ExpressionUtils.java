@@ -7,6 +7,10 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Package-private utility class that allows us to reuse static functions among
+ * different implementations of Expression.
+ */
 class ExpressionUtils {
   /**
    * Private constructor for ExpressionUtils, meant to enforce noninstantiability.

@@ -18,8 +18,7 @@ public class Add implements Expression {
   private List<Expression> _terms;
 
   /**
-   * Instantiates an Add. Avoid using as much as possible! Use the easy constructor
-   * instead.
+   * Private constructor for an Add. Use one of the static constructors instead.
    */
   private Add(List<Expression> terms) {
     this._terms = terms;

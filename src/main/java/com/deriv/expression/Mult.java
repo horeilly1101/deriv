@@ -257,10 +257,13 @@ public class Mult implements Expression {
     }
   }
 
+  /**
+   * Extension of MultSimplifier that allows us to create Mult objects.
+   */
   private static class MultSimplifierComplete extends MultSimplifier {
     /**
      * Constructor for a MultSimplifierComplete.
-     * @param unFactors input
+     * @param unFactors input factors
      */
     MultSimplifierComplete(List<Expression> unFactors) {
       super(unFactors);

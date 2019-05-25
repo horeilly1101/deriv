@@ -54,4 +54,10 @@ class Tuple3Test {
       tup.hashCode()
     );
   }
+
+  @Test
+  void toStringTest() {
+    Tuple3<Expression, Expression, Expression> tup = Tuple3.of(multID(), x(), addID());
+    assertEquals("(1, x, 0)", tup.toString());
+  }
 }

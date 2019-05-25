@@ -41,4 +41,10 @@ class Tuple1Test {
     Tuple1<Expression> tup = Tuple1.of(multID());
     assertEquals(multID().hashCode(), tup.hashCode());
   }
+
+  @Test
+  void toStringTest() {
+    Tuple1<Expression> tup = Tuple1.of(multID());
+    assertEquals("(1)", tup.toString());
+  }
 }

@@ -6,7 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.deriv.expression.Mult.mult;
-
+/**
+ * A Trig is a trig function and it's internal expression.
+ *
+ * Data definition: a trig is a function name (e.g. "sin", "cos", etc.) and
+ * an input (Expression).
+ */
 public class Trig implements Expression {
   /**
    * String that identifies what trig function we're referring to.
@@ -18,11 +23,15 @@ public class Trig implements Expression {
    */
   private Expression _inside;
 
-  // valid trig functions
+  /**
+   * Set of valid trig functions.
+   */
   private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
                                .collect(Collectors.toSet());
 
-  // define functions for evaluating expressions
+  /**
+   * Case by case instructions for how to evaluate an expression.
+   */
   private static Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
   static {
     evalMap.put("sin", Trig::sin);
@@ -34,17 +43,19 @@ public class Trig implements Expression {
   }
 
   /**
-   * Instantiates a Trig object. Avoid using as much as possible! Instead, use
-   * one of the several constructors down below.
-   *
-   * Data definition: a trig is a function name (e.g. "sin", "cos", etc.) and
-   * an input (Expression).
+   * Private constructor for a Trig. Use one of the static constructors instead.
    */
   private Trig(String _func, Expression _inside) {
     this._func = _func;
     this._inside = _inside;
   }
 
+  /**
+   * Static constructor for a trig function.
+   * @param func trig function name (e.g. "sin")
+   * @param inside inside expression
+   * @return trig
+   */
   public static Expression trig(String func, Expression inside) {
     if (!valid.contains(func)) {
       throw new RuntimeException("Not a valid trig function!");
@@ -111,11 +122,13 @@ public class Trig implements Expression {
     return "\\" + this._func + "(" + this._inside.toLaTex() + ")";
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression val) {
     return _inside.evaluate(var, val)
                .map(x -> evalMap.get(this._func).apply(x));
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable var) {
     return _inside.differentiate(var).map(x -> {
       switch (_func) {

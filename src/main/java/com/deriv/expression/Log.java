@@ -6,7 +6,8 @@ import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
 
 /**
- * A log is the logarithm of an Expression.
+ * A log is the logarithm of an Expression. (I should note that throughout the code
+ * base, I use log(a, b) to refer to a logarithm with base a and result b.)
  *
  * Data definition: a log is two Expressions (a base and a result).
  */
@@ -22,9 +23,7 @@ public class Log implements Expression {
   private Expression _result;
 
   /**
-   * Instantiates a Log object. Avoid using as much as possible! Instead, use
-   * the easy constructor down below. (I should note that throughout the code
-   * base, I use <b>log(a, b)</b> to refer to a logarithm with base a and result b.)
+   * Private constructor for a Log. Use one of the static constructors instead.
    */
   private Log(Expression _base, Expression result) {
     this._base = _base;
@@ -32,7 +31,10 @@ public class Log implements Expression {
   }
 
   /**
-   * Use this method to instantiate a Log object.
+   * Static constructor for a logarithm.
+   * @param base of the log
+   * @param result input of the log
+   * @return new log
    */
   public static Expression log(Expression base, Expression result) {
     // future addition, simplify something like log(2, 4) or log(3, 27)
@@ -47,7 +49,9 @@ public class Log implements Expression {
   }
 
   /**
-   * Instantiate a natural logarithm.
+   * Static constructor for a natural logarithm.
+   * @param result input
+   * @return new natural log
    */
   public static Expression ln(Expression result) {
     return log(Constant.e(), result);

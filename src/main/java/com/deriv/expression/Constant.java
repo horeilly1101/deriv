@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * A Constant is a scalar constant.
  *
- * Data definition: A constant is a integer.
+ * Data definition: A constant is an int.
  */
 public class Constant implements Expression {
   /**
@@ -34,51 +34,29 @@ public class Constant implements Expression {
   private int _val;
 
   /**
-   * Instantiates a new Constant. Avoid using as much as possible! Use the
-   * easy constructor below instead.
+   * Private constructor for a constant. Use one of the static constructors instead.
    */
   private Constant(int val) {
     this._val = val;
   }
 
   /**
-   * Use this to create new constants. This method is for constants
-   * that are explicitly numbers.
+   * Static constructor for a constant that is explicitly an int.
+   * @param val num
+   * @return constant
    */
-  public static Expression constant(Integer val) {
+  public static Expression constant(int val) {
     return new Constant(val);
   }
 
   /**
-   * Use this to create new constants. This allows you to create
-   * arbitrary constants.
+   * Static constructor for an arbitrary constant, that is explicitly a String.
+   * @param val name
+   * @return constant
    */
   static Expression constant(String val) {
-    // yeah, yeah I know it says variable
+    // arbitrary constants are effectively variables
     return new Variable(val);
-  }
-
-  /**
-   * Getter method for the value of a Constant.
-   * @return val
-   */
-  public int getVal() {
-    return _val;
-  }
-
-  @Override
-  public Expression getConstantFactor() {
-    return this;
-  }
-
-  @Override
-  public Expression getSymbolicFactors() {
-    return multID();
-  }
-
-  @Override
-  public boolean isNegative() {
-    return this.getVal() < 0;
   }
 
   /**
@@ -111,6 +89,29 @@ public class Constant implements Expression {
    */
   public static Expression pi() {
     return PI;
+  }
+
+  /**
+   * Getter method for the value of a Constant.
+   * @return val
+   */
+  public int getVal() {
+    return _val;
+  }
+
+  @Override
+  public Expression getConstantFactor() {
+    return this;
+  }
+
+  @Override
+  public Expression getSymbolicFactors() {
+    return multID();
+  }
+
+  @Override
+  public boolean isNegative() {
+    return this.getVal() < 0;
   }
 
   @Override

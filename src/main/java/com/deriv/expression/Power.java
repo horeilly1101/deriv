@@ -2,44 +2,63 @@ package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.function.Function;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
 import static com.deriv.expression.Mult.*;
 
+/**
+ * A Power represents an expression to the power of another expression.
+ *
+ * Data definition: a power is two Expressions (a base and an exponent).
+ */
 public class Power implements Expression {
+  /**
+   * The base of our power.
+   */
   private Expression _base;
+
+  /**
+   * The exponent of our power.
+   */
   private Expression _exponent;
 
   /**
-   * Instantiates a Power object. Avoid using as much as possible! Use the easy constructor
-   * instead. (A power is the more general form of a polynomial and an exponential.)
-   *
-   * Data definition: a power is two Expressions (a _base and an _exponent).
+   * Private constructor for a Power. Use one of the static constructors instead.
    */
-  Power(Expression _base, Expression _exponent) {
+  private Power(Expression _base, Expression _exponent) {
     this._base = _base;
     this._exponent = _exponent;
   }
 
   /**
-   * Use this to instantiate a power.
+   * Static constructor for a power (an expression to the power of an expression).
+   * @param base expr
+   * @param exponent expr
+   * @return power
    */
   public static Expression power(Expression base, Expression exponent) {
     return new PowerSimplifierComplete(base, exponent).simplifyToExpression();
   }
 
-  public static Expression poly(Expression base, Integer exponent) {
+  /**
+   * Static constructor for a polynomial (an expression to the power of an int).
+   * @param base expr
+   * @param exponent int
+   * @return polynomial
+   */
+  public static Expression poly(Expression base, int exponent) {
     return power(base, constant(exponent));
   }
 
-  public static Expression exponential(Integer base, Expression exponent) {
+  /**
+   * Static constructor for an exponential (an int to the power of an expression).
+   * @param base int
+   * @param exponent expr
+   * @return exponential
+   */
+  public static Expression exponential(int base, Expression exponent) {
     return power(constant(base), exponent);
   }
 
@@ -94,16 +113,8 @@ public class Power implements Expression {
              : _base.toLaTex() + " ^{" + _exponent.toLaTex() + "}";
   }
 
+  @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
-    /*
-     * Note: the commented out code below runs the two derivatives in parallel.
-     * This is a cool idea, but the overhead required just doesn't make it worth it.
-     */
-
-//     ExecutorService executorService = Executors.newCachedThreadPool();
-//     Future<Optional<Expression>> exponentEval = executorService
-//                                                    .submit(() -> _exponent.evaluate(var, input));
-
     return _base.evaluate(var, input)
                .flatMap(ba -> _exponent.evaluate(var, input)
                                 // make sure we're not dividing by zero
@@ -112,6 +123,7 @@ public class Power implements Expression {
                                                  : Optional.of(power(ba, ex))));
   }
 
+  @Override
   public Optional<Expression> differentiate(Variable var) {
     // I'm not using any of the cookie cutter power rules here.
     // This is a more general approach to differentiating powers.
@@ -125,16 +137,26 @@ public class Power implements Expression {
 
   /**
    * Tests whether or not a Power is simplified, for  testing purposes.
+   * @return boolean
    */
-  Boolean isSimplified() {
+  boolean isSimplified() {
     return new PowerSimplifierComplete(_base, _exponent).isSimplified();
   }
 
+  /**
+   * Extension of PowerSimplifier that allows us to create Power objects.
+   */
   private static class PowerSimplifierComplete extends PowerSimplifier {
-    PowerSimplifierComplete(Expression unBase, Expression unExponent) {
+    /**
+     * Constructor for a PowerSimplifierComplete.
+     * @param unBase base
+     * @param unExponent exponent
+     */
+    private PowerSimplifierComplete(Expression unBase, Expression unExponent) {
       super(unBase, unExponent);
     }
 
+    @Override
     public Expression toExpression() {
       // is _exponent 1?
       if (unExponent.equals(Constant.multID())) {

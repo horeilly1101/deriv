@@ -14,8 +14,8 @@ public interface Expression extends Comparable<Expression> {
    * in the function, and then evaluates the rest of the
    * expression.
    *
-   * @param var -- a string variable name
-   * @param input -- the number to be plugged into _var
+   * @param var a string variable name
+   * @param input the number to be plugged into _var
    * @return Optional<Expression> solution
    */
   Optional<Expression> evaluate(Variable var, Expression input);
@@ -25,20 +25,10 @@ public interface Expression extends Comparable<Expression> {
    * to ensure that we can cache computed derivatives, save the steps taken, and perform any other
    * necessary computations at each call.
    *
-   * @param var -- a string variable name
+   * @param var a string variable name
    * @return Expression derivative
    */
   Optional<Expression> differentiate(Variable var);
-
-//  /**
-//   * Takes the derivative of a function and store the result in a cache. If the derivative
-//   * has already been computed, this function returns the result in constant time.
-//   *
-//   * @param var -- a string variable name
-//   * @param cacheCmd -- our cache command
-//   * @return Expression derivative
-//   */
-//  Expression differentiate(Variable var, ICacheCmd cacheCmd);
 
   /**
    * Returns a latex representation of an expression.
@@ -47,15 +37,13 @@ public interface Expression extends Comparable<Expression> {
    */
   String toLaTex();
 
-//  int getDepth();
-
   /**
    * This method compares an expression with a given object. This
    * is important, as it allows us to define an ordering on our
    * data structures. It also makes equality less strict. (i.e.
    * 2.0 * x should be equal to x * 2.0.)
    *
-   * @param ex -- the expression to be compared
+   * @param ex the expression to be compared
    * @return an integer value relating the expressions
    */
   default int compareTo(Expression ex) {
@@ -131,6 +119,15 @@ public interface Expression extends Comparable<Expression> {
    */
   default boolean isVariable() {
     return this.getClass().equals(Variable.class);
+  }
+
+  /**
+   * Checks whether or not a given expression is an instance of Tensor.
+   *
+   * @return boolean
+   */
+  default boolean isTensor() {
+    return this.getClass().equals(Tensor.class);
   }
 
   /*
