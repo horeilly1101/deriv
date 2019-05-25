@@ -18,6 +18,12 @@ class VariableTest {
   }
 
   @Test
+  void piTest() {
+    // should throw an exception
+    assertThrows(RuntimeException.class, () -> var("π"));
+  }
+
+  @Test
   void constructorTest() {
     Expression x_2 = x(2);
     assertEquals("x_2", x_2.toString());

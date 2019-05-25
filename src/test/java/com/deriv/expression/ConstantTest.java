@@ -19,5 +19,11 @@ class ConstantTest {
 
     Expression one = multID();
     assertEquals(addID(), one.differentiate(x().asVariable()).get());
+
+    Expression e = e();
+    assertEquals(addID(), e.differentiate(x().asVariable()).get());
+
+    Expression pi = pi();
+    assertEquals(addID(), pi.differentiate(x().asVariable()).get());
   }
 }
