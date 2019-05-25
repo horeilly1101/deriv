@@ -81,7 +81,7 @@ There are two main ways to use this project as a Java library.
 
 ### Calculator
 
-Check out `com.deriv.expression.Calculator`. If you instantiate a `Calculator` object, you can simplify, evaluate,
+Check out `com.deriv.expression.Calculator`. If you instantiate a `Calculator` object, you can evaluate,
 differentiate, and simplify expressions by just providing a string representation of an expression. If you decide
 to do this, you will find it helpful to be as specific as possible with your string expressions (i.e. place 
 parentheses liberally), as they can quickly become ambiguous.
@@ -108,8 +108,8 @@ to do with what you wish.
 
 ### Static Constructors
 
-You can create expressions with the available static constructors. See the docs for available constructors
-and more instructions on how to use them.
+You can also create expressions with the available static constructors. See the docs and unit tests for 
+available constructors and more instructions on how to use them.
 
 ```
 // Example 1: 3x
@@ -135,10 +135,10 @@ the project together. It is implemented by
 
 - *Mult*: a mult is a list of expressions, multiplied together
 - *Add*: an add is a list of expressions, added together
-- *Log*: a log is a _base and a result (i.e. log(_base, result))
-- *Power*: a power is a _base and an _exponent (i.e. _base ^ _exponent)
+- *Log*: a log is a base and a result (i.e. log(base, result))
+- *Power*: a power is a base and an exponent (i.e. base ^ exponent)
 - *Trig*: a trig is a trig function name and an expression
-- *Constant*: a constant is an Integer (unfortunately, arbitrary constants are technically variables)
+- *Constant*: a constant is an int (unfortunately, arbitrary constants are technically variables)
 - *Variable*: a string name (e.g. "x", "y", etc.)
 - *Tensor*: a tensor is a list of expressions
 
