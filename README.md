@@ -75,6 +75,41 @@ In particular, you should not allow forward slashes, brackets, carrots, or blank
 |      ]      |    %5D   |
 | blank space |    %20   |
 
+## Library
+
+There are two main ways to use this project as a Java library.
+
+### Calculator
+
+Check out `com.deriv.expression.Calculator`. If you instantiate a `Calculator` object, you can simplify, evaluate,
+differentiate, and simplify expressions by just providing a string representation of an expression. If you decide
+to do this, you will find it helpful to be as specific as possible with your string expressions (i.e. place 
+parentheses liberally), as it is very easy to write ambiguous string expressions.
+
+```
+// Instantiate a Calculator object
+Calculator calc = new Calculator();
+
+// Example 1 — prints "(2 * x)"
+System.out.println(calc.differentiate("x^2", "x").get());
+
+// Example 2 — prints "8"
+System.out.println(calc.evaluate("3x + 2", "x", "2").get());
+
+// Example 3 — prints "(sin(x) / x + (cos(x) * ln(x)))"
+System.out.println(calc.differentiate("sin(x)ln(x)", "x").get());
+
+// Example 4 — prints "sin(x ^ 2)"
+System.out.println(calc.evaluate("sin(x)", "x", "x^2").get());
+```
+
+And since most methods on `Calculator` return an `Optional<Expression>`, you have access to the `Expression` API
+to do with what you wish.
+
+### Static Constructors
+
+Alternatively
+
 ## Design
 
 ### Polymorphic Expressions

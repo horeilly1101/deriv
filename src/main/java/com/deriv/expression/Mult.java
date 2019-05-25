@@ -199,7 +199,7 @@ public class Mult implements Expression {
   public Optional<Expression> differentiate(Variable var) {
     /*
      * Note: my unit tests suggest that this algorithm is faster than its
-     * sequential version. See com.deriv.expresssion.ParallelTest.java for a
+     * sequential version. See com.deriv.expresssion.ParallelTest for a
      * description of the sequential version.
      */
     return new ParallelMultDerivative(_factors, var).compute();

@@ -81,7 +81,7 @@ public class Calculator {
    * @return an Optional of the resulting Expression
    */
   public Optional<Expression> differentiate(String expressionString, String wrt) {
-    // TODO store recursive operations
+    // TODO: store recursive operations
     return toOVariable(wrt) // parse the variable
              .flatMap(var -> toOExpression(expressionString) // parse the expression
                                .flatMap(ex -> differentiateCache.computeIfAbsent(
