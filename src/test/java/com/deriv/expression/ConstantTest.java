@@ -26,4 +26,11 @@ class ConstantTest {
     Expression pi = pi();
     assertEquals(addID(), pi.differentiate(x().asVariable()).get());
   }
+
+  @Test
+  void toLatexTest() {
+    //5
+    Expression con = constant(5);
+    assertEquals(con.toString(), con.toLaTex());
+  }
 }

@@ -65,4 +65,11 @@ class VariableTest {
     assertEquals(x(), ex.differentiate(var("y").asVariable()).get());
     assertEquals(var("y"), ex.differentiate(x().asVariable()).get());
   }
+
+  @Test
+  void toLatexTest() {
+    // y
+    Expression y = var("y");
+    assertEquals(y.toString(), y.toLaTex());
+  }
 }

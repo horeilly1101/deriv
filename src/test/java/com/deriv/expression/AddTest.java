@@ -132,8 +132,9 @@ class AddTest {
   }
 
   @Test
-  void hey() {
-    System.out.println(add(poly(x(), 2), x()));
-    System.out.println(div(add(poly(x(), 2), x()), x()));
+  void toLatexTest() {
+    // x + sin(x)
+    Expression ex = add(x(), sin(x()));
+    assertEquals("x + \\sin(x)", ex.toLaTex());
   }
 }

@@ -69,4 +69,15 @@ class LogTest {
     Expression lg = log(constant(2), x());
     assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()).get());
   }
+
+  @Test
+  void toLatexTest() {
+    // log(2, x)
+    Expression lg = log(constant(2), x());
+    assertEquals("\\log_{2} x", lg.toLaTex());
+
+    // ln(x)
+    Expression nat = ln(x());
+    assertEquals("\\ln(x)", nat.toLaTex());
+  }
 }

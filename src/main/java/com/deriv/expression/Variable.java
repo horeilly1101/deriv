@@ -86,7 +86,7 @@ public class Variable implements Expression {
 
   @Override
   public String toLaTex() {
-    return _var;
+    return toString();
   }
 
   @Override

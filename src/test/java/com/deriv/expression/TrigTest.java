@@ -94,4 +94,10 @@ class TrigTest {
     Expression co = cos(sin(x()));
     assertEquals(negate(mult(cos(x()), sin(sin(x())))), co.differentiate(x().asVariable()).get());
   }
+
+  @Test
+  void toLatexTest() {
+    Expression ex = sin(poly(x(), 2));
+    assertEquals("\\sin(x ^{2})", ex.toLaTex());
+  }
 }

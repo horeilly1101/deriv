@@ -136,4 +136,11 @@ class MultTest {
     Expression ex = mult(x(), poly(ln(x()), -1));
     System.out.println(ex);
   }
+
+  @Test
+  void toLatexTest() {
+    // x * sinx(x)
+    Expression mul = mult(x(), sin(x()));
+    assertEquals("\\sin(x)x", mul.toLaTex());
+  }
 }

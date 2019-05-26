@@ -95,4 +95,11 @@ class PowerTest {
     Expression ex3 = power(x(), x());
     assertEquals(mult(add(multID(), ln(x())), power(x(), x())), ex3.differentiate(x().asVariable()).get());
   }
+
+  @Test
+  void toLatexTest() {
+    // 2 ^ x
+    Expression ex = exponential(2, x());
+    assertEquals("2 ^{x}", ex.toLaTex());
+  }
 }
