@@ -38,11 +38,15 @@ class Tuple3Test {
 
     Tuple3<Expression, Expression, Expression> tup2 = Tuple3.of(add(multID(), x()), multID(), addID());
     assertEquals(Tuple3.of(add(multID(), x()), multID(), addID()), tup2); // check equality again
+    assertNotEquals(Tuple3.of(add(multID(), x()), multID(), multID()), tup2);
 
     Tuple3<Double, Double, Double> tup3
       = Tuple3.of(new Double("1.5"), new Double("3.6"), new Double("1.0"));
     assertNotEquals(
       Tuple3.of(new Double("1.4"), new Double("3.6"), new Double("1.0")),
+      tup3); // check not equals
+    assertNotEquals(
+      Tuple3.of(new Double("1.5"), new Double("3.7"), new Double("1.0")),
       tup3); // check not equals
   }
 
