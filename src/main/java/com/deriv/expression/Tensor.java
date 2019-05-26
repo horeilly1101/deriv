@@ -3,7 +3,6 @@ package com.deriv.expression;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
@@ -74,26 +73,14 @@ class Tensor implements Expression {
     return 1 + _lines.get(0).getDepth();
   }
 
-  private Optional<Expression> linearityHelper(Function<Expression, Optional<Expression>> func) {
-    // combines terms
-    return Optional.of(_lines.parallelStream()
-                         .map(func)
-                         .filter(Optional::isPresent)
-                         .map(Optional::get)
-                         .collect(toList()))
-             .flatMap(lst -> lst.size() == _lines.size()
-                               ? Optional.of(of(lst))
-                               : Optional.empty());
-  }
-
   @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
-    return linearityHelper(x -> x.evaluate(var, input));
+    return ExpressionUtils.linearityHelper(_lines, x -> x.evaluate(var, input)).map(Tensor::of);
   }
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-    return linearityHelper(x -> x.differentiate(var));
+    return ExpressionUtils.linearityHelper(_lines, x -> x.differentiate(var)).map(Tensor::of);
   }
 
   @Override

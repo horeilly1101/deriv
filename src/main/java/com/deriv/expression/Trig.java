@@ -73,22 +73,47 @@ public class Trig implements Expression {
     return new Trig("sin", inside);
   }
 
+  /**
+   * Static constructor for the cosine of a function.
+   * @param inside expr
+   * @return cos
+   */
   public static Expression cos(Expression inside) {
     return new Trig("cos", inside);
   }
 
+  /**
+   * Static constructor for the tangent of a function.
+   * @param inside expr
+   * @return tan
+   */
   public static Expression tan(Expression inside) {
     return new Trig("tan", inside);
   }
 
+  /**
+   * Static constructor for the cosecant of a function.
+   * @param inside expr
+   * @return csc
+   */
   public static Expression csc(Expression inside) {
     return new Trig("csc", inside);
   }
 
+  /**
+   * Static constructor for the secant of a function.
+   * @param inside expr
+   * @return sec
+   */
   public static Expression sec(Expression inside) {
     return new Trig("sec", inside);
   }
 
+  /**
+   * Static constructor for the cotangent of a function.
+   * @param inside expr
+   * @return cot
+   */
   public static Expression cot(Expression inside) {
     return new Trig("cot", inside);
   }
