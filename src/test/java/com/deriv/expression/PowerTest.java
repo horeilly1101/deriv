@@ -21,6 +21,17 @@ class PowerTest {
   }
 
   @Test
+  void getterTest() {
+    Expression ex1 = poly(x(), 2);
+    assertEquals(ex1, ex1.getNumerator());
+    assertEquals(multID(), ex1.getDenominator());
+
+    Expression ex2 = poly(x(), -2);
+    assertEquals(multID(), ex2.getNumerator());
+    assertEquals(poly(x(), 2), ex2.getDenominator());
+  }
+
+  @Test
   void simplifyTest() {
     // 2.0 ^ 3.0
     Expression ex = power(constant(2), constant(3));
@@ -54,6 +65,7 @@ class PowerTest {
     Expression ex8 = poly(poly(x(), 2), 3);
     assertEquals(poly(x(), 6), ex8);
     assertTrue(ex8.asPower().isSimplified());
+    assertNotEquals(poly(x(), 7), ex8);
   }
 
   @Test
@@ -79,6 +91,10 @@ class PowerTest {
     // 1 / 0
     Expression ex4 = poly(x(), -1);
     assertEquals(Optional.empty(), ex4.evaluate(x().asVariable(), addID()));
+
+    // x ^ -2
+    Expression ex5 = poly(x(), -2);
+    assertFalse(ex5.evaluate(x().asVariable(), addID()).isPresent());
   }
 
   @Test
@@ -101,5 +117,9 @@ class PowerTest {
     // 2 ^ x
     Expression ex = exponential(2, x());
     assertEquals("2 ^{x}", ex.toLaTex());
+
+    // x ^ -2
+    Expression ex2 = poly(x(), -2);
+    assertEquals("\\frac{1}{x ^{2}}", ex2.toLaTex());
   }
 }

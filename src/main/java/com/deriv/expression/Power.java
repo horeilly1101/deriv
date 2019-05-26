@@ -1,7 +1,6 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
-
 import java.util.Optional;
 
 import static com.deriv.expression.Constant.*;
