@@ -157,12 +157,6 @@ class ExpressionTest {
   }
 
   @Test
-  void newOne() {
-    Expression expr = add(x(), poly(x(), 2));
-    System.out.println(expr.differentiate(x().asVariable()));
-  }
-
-  @Test
   void readmeTest() {
     // Example 1: 3x
     System.out.println(mult(constant(3), x()));

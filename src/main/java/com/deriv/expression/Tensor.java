@@ -35,9 +35,9 @@ class Tensor implements Expression {
   }
 
   public static Expression of(List<Expression> lines) {
-    if(!isValid(lines)) {
-      throw new RuntimeException("Each Expression must have the same depth!");
-    }
+//    if(!isValid(lines)) {
+//      throw new RuntimeException("Each Expression must have the same depth!");
+//    }
 
     return new Tensor(lines);
   }
@@ -48,6 +48,10 @@ class Tensor implements Expression {
 
   public Tensor getTensor(int idx) {
     return get(idx).asTensor();
+  }
+
+  List<Expression> getLines() {
+    return _lines;
   }
 
   @Override

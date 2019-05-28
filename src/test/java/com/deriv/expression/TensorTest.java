@@ -4,15 +4,59 @@ import org.junit.jupiter.api.Test;
 
 import static com.deriv.expression.Add.add;
 import static com.deriv.expression.Constant.constant;
+import static com.deriv.expression.Constant.multID;
 import static com.deriv.expression.Power.poly;
 import static com.deriv.expression.Variable.x;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TensorTest {
   @Test
   void ofTest() {
-    Expression ten1 = Tensor.of(Tensor.of(x()), Tensor.of(add(x(), constant(2), poly(x(), 2))));
-    System.out.println(ten1);
-    System.out.println(ten1.evaluate(x().asVariable(), constant(3)).get());
-    System.out.println(ten1.differentiate(x().asVariable()).get());
+    // [[x], [x + 2 + x^2]]
+    Expression ten = Tensor.of(
+      Tensor.of(x()),
+      Tensor.of(add(x(), constant(2), poly(x(), 2)))
+    );
+    System.out.println(ten);
+    System.out.println(ten.evaluate(x().asVariable(), constant(3)).get());
+    System.out.println(ten.differentiate(x().asVariable()).get());
+  }
+
+  @Test
+  void getTest() {
+    // [[x], [x + 2 + x^2]]
+    Expression ten = Tensor.of(
+      Tensor.of(x()),
+      Tensor.of(add(x(), constant(2), poly(x(), 2)))
+    );
+    assertEquals(Tensor.of(x()), ten.asTensor().get(0));
+    assertEquals(x(), ten.asTensor().getTensor(0).get(0));
+    assertTrue(ten.asTensor().getTensor(0).isTensor());
+  }
+
+  @Test
+  void equalsTest() {
+    // [1]
+    Expression ten = Tensor.of(multID());
+    assertEquals(Tensor.of(multID()), ten);
+    assertEquals(ten, ten);
+    assertNotEquals(multID(), ten);
+    assertEquals(ten.asTensor().getLines().hashCode(), ten.hashCode());
+  }
+
+  @Test
+  void toStringTest() {
+    // [1]
+    Expression ten = Tensor.of(Tensor.of(multID()));
+    assertEquals("[[1]]", ten.toString());
+  }
+
+  @Test
+  void toLatexTest() {
+    // [1]
+    Expression ten = Tensor.of(Tensor.of(multID()));
+    assertEquals(ten.toString(), ten.toLaTex());
   }
 }
