@@ -15,50 +15,72 @@ class ExpressionTest {
 
   @Test
   void typeCheckTest() {
+    // mult
     Expression mult = mult(x(), e());
     assertTrue(mult.isMult());
 
+    // add
     Expression ad = add(x(), multID());
     assertTrue(ad.isAdd());
 
+    // log
     Expression lo = log(e(), x());
     assertTrue(lo.isLog());
 
+    // power
     Expression pow = poly(x(), 2);
     assertTrue(pow.isPower());
 
+    // trig
     Expression trig = sin(x());
     assertTrue(trig.isTrig());
 
+    // constant
     Expression con = constant(17);
     assertTrue(con.isConstant());
 
+    // variable
     Expression va = var("y");
     assertTrue(va.isVariable());
+
+    // tensor
+    Expression ten = Tensor.of(multID());
+    assertTrue(ten.isTensor());
   }
 
   @Test
   void typeCastTest() {
+    // mult
     Expression mult = mult(x(), e());
     assertTrue(mult.asMult().isMult());
 
+    // add
     Expression ad = add(x(), multID());
     assertTrue(ad.asAdd().isAdd());
 
+    // log
     Expression lo = log(e(), x());
     assertTrue(lo.asLog().isLog());
 
+    // power
     Expression pow = poly(x(), 2);
     assertTrue(pow.asPower().isPower());
 
+    // trig
     Expression trig = sin(x());
     assertTrue(trig.asTrig().isTrig());
 
+    // constant
     Expression con = constant(17);
     assertTrue(con.asConstant().isConstant());
 
+    // variable
     Expression va = var("y");
     assertTrue(va.asVariable().isVariable());
+
+    // tensor
+    Expression ten = Tensor.of(multID());
+    assertTrue(ten.asTensor().isTensor());
   }
 
   @Test

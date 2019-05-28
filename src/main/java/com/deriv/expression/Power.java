@@ -157,17 +157,17 @@ public class Power implements Expression {
 
     @Override
     public Expression toExpression() {
-      // is _exponent 1?
+      // is exponent 1?
       if (unExponent.equals(Constant.multID())) {
         return unBase;
       }
 
-      // is _base 1?
+      // is base 1?
       if (unBase.equals(multID())) {
         return multID();
       }
 
-      // is _exponent 0?
+      // is exponent 0?
       if (unExponent.equals(Constant.addID())) {
         return multID();
       }

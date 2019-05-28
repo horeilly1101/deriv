@@ -27,11 +27,7 @@ class Tensor implements Expression {
   }
 
   private static boolean isValid(List<Expression> lines) {
-    return lines.stream().map(Expression::getDepth)
-             .reduce((a, b) -> a.equals(b) ? a : -1)
-             .map(x -> !x.equals(-1))
-             .orElse(false)
-             && lines.size() != 0;
+    return true;
   }
 
   public static Expression of(Expression... lines) {
@@ -44,6 +40,14 @@ class Tensor implements Expression {
     }
 
     return new Tensor(lines);
+  }
+
+  public Expression get(int idx) {
+    return _lines.get(idx);
+  }
+
+  public Tensor getTensor(int idx) {
+    return get(idx).asTensor();
   }
 
   @Override

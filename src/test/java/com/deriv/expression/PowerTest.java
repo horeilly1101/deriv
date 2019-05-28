@@ -81,6 +81,7 @@ class PowerTest {
     Optional<Expression> eval2 = ex2.evaluate(x().asVariable(), constant(2));
     assertTrue(eval2.isPresent());
     assertEquals(constant(16), eval2.get());
+    assertEquals(addID(), ex2.evaluate(x().asVariable(), addID()).get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
