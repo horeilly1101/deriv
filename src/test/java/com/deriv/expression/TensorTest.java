@@ -37,6 +37,20 @@ public class TensorTest {
   }
 
   @Test
+  void depthTest() {
+    // [[x], [x + 2 + x^2]]
+    Expression ten = Tensor.of(
+      Tensor.of(x()),
+      Tensor.of(add(x(), constant(2), poly(x(), 2)))
+    );
+    assertEquals(2, ten.getDepth());
+
+    // [1]
+    Expression ten2 = Tensor.of(multID());
+    assertEquals(1, ten2.getDepth());
+  }
+
+  @Test
   void equalsTest() {
     // [1]
     Expression ten = Tensor.of(multID());
