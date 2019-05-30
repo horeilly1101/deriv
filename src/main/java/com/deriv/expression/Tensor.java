@@ -26,30 +26,72 @@ class Tensor implements Expression {
     this._lines = lines;
   }
 
+  /**
+   * Static method that returns true if the input list can form a valid
+   * tensor, false otherwise.
+   * @param lines input
+   * @return boolean
+   */
   private static boolean isValid(List<Expression> lines) {
+    if (lines.size() < 1)
+      return false;
+
+    int depth = lines.get(0).getDepth();
+
+    for (Expression line : lines) {
+      if (line.getDepth() != depth)
+        return false;
+    }
+
     return true;
   }
 
+  /**
+   * Static constructor for a tensor. Each expression in lines must have
+   * the same depth, otherwise an excpetion will be thrown at runtime.
+   * @param lines input
+   * @return tensor
+   */
   public static Expression of(Expression... lines) {
     return of(Arrays.asList(lines));
   }
 
+  /**
+   * Static constructor for a tensor. Each expression in lines must have
+   * the same depth, otherwise an excpetion will be thrown at runtime.
+   * @param lines input
+   * @return tensor
+   */
   public static Expression of(List<Expression> lines) {
-//    if(!isValid(lines)) {
-//      throw new RuntimeException("Each Expression must have the same depth!");
-//    }
+    if(!isValid(lines)) {
+      throw new RuntimeException("Each Expression must have the same depth!");
+    }
 
     return new Tensor(lines);
   }
 
+  /**
+   * Method to get the ith "row" of the tensor.
+   * @param idx index
+   * @return expression
+   */
   public Expression get(int idx) {
     return _lines.get(idx);
   }
 
+  /**
+   * Method to get the ith "row" of the tensor. Casts the result to a Tensor.
+   * @param idx index
+   * @return expression
+   */
   public Tensor getTensor(int idx) {
     return get(idx).asTensor();
   }
 
+  /**
+   * Getter method for _lines.
+   * @return _lines
+   */
   List<Expression> getLines() {
     return _lines;
   }
