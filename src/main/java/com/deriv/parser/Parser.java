@@ -8,7 +8,8 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class Parser {
   private String inputString;
@@ -29,8 +30,8 @@ public class Parser {
     for (;;) {
       // default token is empty
       Symbol current;
-      // we need to catch the exception
-      // (but this should never happen)
+
+      // we need to catch the exception (but this should never happen)
       try {
         current = flex.next_token();
       } catch (IOException e) {
@@ -38,26 +39,21 @@ public class Parser {
       }
 
       // scanner returns an error when there's an error
-      if (current.sym == sym.error) {
+      if (current.sym == sym.error)
         return Optional.empty();
-      }
 
       // the scanner returns EOF when finished
-      if (current.sym == sym.EOF) {
+      if (current.sym == sym.EOF)
         break;
-      }
 
       tokens.add(current);
     }
 
-    return Optional.of(tokens.stream()
-                           .map(x -> x.sym)
-                           .collect(Collectors.toList()));
+    return Optional.of(tokens.stream().map(x -> x.sym).collect(toList()));
   }
 
   /**
    * Parses a String into an Optional of Expression.
-   *
    * Note: The version of CupParser I use is deprecated. However, after looking through the
    * code, I can find no problem with it. It does exactly what I need it to do.
    */

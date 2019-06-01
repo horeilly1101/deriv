@@ -30,11 +30,10 @@ public class Add implements Expression {
    * @return Add
    */
   public static Expression add(List<Expression> terms) {
-    if (terms.isEmpty()) {
+    if (terms.isEmpty())
       throw new RuntimeException("Don't instantiate an add with an empty list!");
-    } else {
-      return new AddSimplifierComplete(terms).simplifyToExpression();
-    }
+
+    return new AddSimplifierComplete(terms).simplifyToExpression();
   }
 
   /**
@@ -80,19 +79,20 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    return "(" + _terms.get(0)
-               + _terms.subList(1, _terms.size()).stream()
-                     .map(Expression::toString)
-                     .reduce("", (a, b) -> a + " + " + b)
-               + ")";
+
+
+    return "("
+             + _terms.stream()
+                 .map(Objects::toString)
+                 .collect(joining(" + "))
+             + ")";
   }
 
   @Override
   public String toLaTex() {
-    return _terms.get(0).toLaTex()
-             + _terms.subList(1, _terms.size()).stream()
-                 .map(Expression::toLaTex)
-                 .reduce("", (a, b) -> a + " + " + b);
+    return _terms.stream()
+             .map(Expression::toLaTex)
+             .collect(joining(" + "));
   }
 
  @Override

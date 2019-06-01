@@ -41,9 +41,8 @@ public class Log implements Expression {
     // idea: just implement getBase() to output the root of a constant,
     // if it's a perfect root
 
-    if (result.getBase().equals(base)) {
+    if (result.getBase().equals(base))
       return result.getExponent();
-    }
 
     return new Log(base, result);
   }

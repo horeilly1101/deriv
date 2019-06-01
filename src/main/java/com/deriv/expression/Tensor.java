@@ -33,11 +33,12 @@ class Tensor implements Expression {
    * @return boolean
    */
   private static boolean isValid(List<Expression> lines) {
+    // it doesn't make sense to have an empty tensor
     if (lines.size() < 1)
       return false;
 
+    // we need each line in the tensor to have the same depth
     int depth = lines.get(0).getDepth();
-
     for (Expression line : lines) {
       if (line.getDepth() != depth)
         return false;
@@ -63,9 +64,8 @@ class Tensor implements Expression {
    * @return tensor
    */
   public static Expression of(List<Expression> lines) {
-    if(!isValid(lines)) {
+    if(!isValid(lines))
       throw new RuntimeException("Each Expression must have the same depth!");
-    }
 
     return new Tensor(lines);
   }
@@ -98,7 +98,10 @@ class Tensor implements Expression {
 
   @Override
   public String toString() {
-    return _lines.stream().map(Object::toString).collect(toList()).toString();
+    return _lines.stream()
+             .map(Object::toString) // call toString on each line
+             .collect(toList())
+             .toString(); // convert result to string
   }
 
   @Override

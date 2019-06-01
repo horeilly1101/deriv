@@ -20,21 +20,6 @@ class ExpressionUtils {
     throw new AssertionError();
   }
 
-//  /**
-//   * Generic, functional way to catch an error and return a value from a Future.
-//   * @param futureResult input future
-//   * @param <T> type parameter
-//   * @return result
-//   */
-//  static <T> Optional<T> safeFutureGet(Future<T> futureResult) {
-//    try {
-//      return Optional.ofNullable(futureResult.get());
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//      return Optional.empty();
-//    }
-//  }
-
   /**
    * Helper methods that takes advantage of the linearity of add operations.
    * @param func linear function

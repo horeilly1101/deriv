@@ -2,10 +2,11 @@ package com.deriv.expression;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.deriv.expression.Mult.mult;
+import static java.util.stream.Collectors.toSet;
+
 /**
  * A Trig is a trig function and it's internal expression.
  *
@@ -27,7 +28,7 @@ public class Trig implements Expression {
    * Set of valid trig functions.
    */
   private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
-                               .collect(Collectors.toSet());
+                               .collect(toSet());
 
   /**
    * Case by case instructions for how to evaluate an expression.
@@ -57,9 +58,8 @@ public class Trig implements Expression {
    * @return trig
    */
   public static Expression trig(String func, Expression inside) {
-    if (!valid.contains(func)) {
+    if (!valid.contains(func))
       throw new RuntimeException("Not a valid trig function!");
-    }
 
     return new Trig(func, inside);
   }
@@ -150,7 +150,7 @@ public class Trig implements Expression {
   @Override
   public Optional<Expression> evaluate(Variable var, Expression val) {
     return _inside.evaluate(var, val)
-               .map(x -> evalMap.get(this._func).apply(x));
+             .map(x -> evalMap.get(this._func).apply(x));
   }
 
   @Override

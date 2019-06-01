@@ -280,16 +280,15 @@ public class Mult implements Expression {
                                     .filter(Expression::isAdd)
                                     .collect(toList());
 
-        if (con.size() == 1 && remain.size() == 1) {
-          // distribute the constant amongst the terms
+        if (con.size() == 1 && remain.size() == 1)
+          // distribute the constant among the terms
           return add(
             remain.get(0).asAdd().getTerms().stream()
               .map(x -> mult(con.get(0), x))
               .collect(toList()));
-        }
       }
 
-      // sort the _factors
+      // sort the factors
       List<Expression> simplified = unFactors.stream().sorted().collect(toList());
       return simplified.size() > 1 ? new Mult(simplified) : simplified.get(0);
     }

@@ -158,19 +158,17 @@ public class Power implements Expression {
     @Override
     public Expression toExpression() {
       // is exponent 1?
-      if (unExponent.equals(Constant.multID())) {
+      if (unExponent.equals(Constant.multID()))
         return unBase;
-      }
+
 
       // is base 1?
-      if (unBase.equals(multID())) {
+      if (unBase.equals(multID()))
         return multID();
-      }
 
       // is exponent 0?
-      if (unExponent.equals(Constant.addID())) {
+      if (unExponent.equals(Constant.addID()))
         return multID();
-      }
 
       return new Power(unBase, unExponent);
     }

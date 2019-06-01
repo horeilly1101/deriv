@@ -65,8 +65,8 @@ public class Server {
                result,
                calc.toOExpression(expr).get(),
                calc.toOVariable(var).get(),
-               calc.toOExpression(val).get()))
-             .orElseGet(() -> error(res)); // return an error if unsuccessful
+               calc.toOExpression(val).get()
+             )).orElseGet(() -> error(res)); // return an error if unsuccessful
   }
 
   /**
