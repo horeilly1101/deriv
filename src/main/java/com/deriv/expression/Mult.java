@@ -3,9 +3,11 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.MultSimplifier;
 import java.util.*;
 import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
 
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.Power.*;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static com.deriv.expression.Constant.*;
 
@@ -158,11 +160,11 @@ public class Mult implements Expression {
       return num.toString() + " / " + den.toString();
     }
 
-    return "(" + _factors.get(0).toString()
-               + _factors.subList(1, _factors.size()).stream() //  sublist is O(1)
-                     .map(Expression::toString)
-                     .reduce("", (a, b) -> a + " * " + b)
-               + ")";
+    return "("
+             + _factors.stream()
+                 .map(Expression::toString)
+                 .collect(joining(" * "))
+             + ")";
   }
 
   @Override
@@ -176,10 +178,9 @@ public class Mult implements Expression {
       return "\\frac{" + num.toLaTex() + "}{" + den.toLaTex() + "}";
     }
 
-    return _factors.get(0).toLaTex()
-             + _factors.subList(1, _factors.size()).stream() //  sublist is O(1)
-                 .map(ex -> ex.isAdd() ? "(" + ex.toLaTex() + ")" : ex.toLaTex())
-                 .reduce("", (a, b) -> a + b);
+    return _factors.stream() //  sublist is O(1)
+             .map(ex -> ex.isAdd() ? "(" + ex.toLaTex() + ")" : ex.toLaTex())
+             .collect(joining());
   }
 
   @Override
@@ -280,12 +281,13 @@ public class Mult implements Expression {
                                     .filter(Expression::isAdd)
                                     .collect(toList());
 
-        if (con.size() == 1 && remain.size() == 1)
+        if (con.size() == 1 && remain.size() == 1) {
           // distribute the constant among the terms
           return add(
             remain.get(0).asAdd().getTerms().stream()
               .map(x -> mult(con.get(0), x))
               .collect(toList()));
+        }
       }
 
       // sort the factors
