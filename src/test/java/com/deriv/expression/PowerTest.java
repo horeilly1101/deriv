@@ -66,6 +66,10 @@ class PowerTest {
     assertEquals(poly(x(), 6), ex8);
     assertTrue(ex8.asPower().isSimplified());
     assertNotEquals(poly(x(), 7), ex8);
+
+    // x ^ -1
+    Expression ex9 = inverse(x());
+    assertEquals(poly(x(), -1), ex9);
   }
 
   @Test

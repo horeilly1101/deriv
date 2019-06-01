@@ -1,6 +1,8 @@
 package com.deriv.expression;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * A Constant is a scalar constant.
@@ -149,5 +151,10 @@ public class Constant implements Expression {
   @Override
   public Optional<Expression> differentiate(Variable var) {
     return Optional.of(addID());
+  }
+
+  @Override
+  public Set<Variable> getVariables() {
+    return new HashSet<>();
   }
 }

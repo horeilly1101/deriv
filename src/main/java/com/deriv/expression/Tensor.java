@@ -3,6 +3,8 @@ package com.deriv.expression;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.toList;
@@ -135,6 +137,11 @@ class Tensor implements Expression {
   @Override
   public Optional<Expression> differentiate(Variable var) {
     return ExpressionUtils.linearityHelper(_lines, x -> x.differentiate(var)).map(Tensor::of);
+  }
+
+  @Override
+  public Set<Variable> getVariables() {
+    return _lines.stream().flatMap(x -> x.getVariables().stream()).collect(Collectors.toSet());
   }
 
   @Override

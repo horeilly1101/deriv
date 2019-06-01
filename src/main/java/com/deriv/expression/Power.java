@@ -1,7 +1,11 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
@@ -59,6 +63,15 @@ public class Power implements Expression {
    */
   public static Expression exponential(int base, Expression exponent) {
     return power(constant(base), exponent);
+  }
+
+  /**
+   * Invert the input expression (i.e. raise it to the power of -1).
+   * @param expr input expression
+   * @return inverted expression
+   */
+  public static Expression inverse(Expression expr) {
+    return poly(expr, -1);
   }
 
   @Override
@@ -132,6 +145,13 @@ public class Power implements Expression {
     return mult(_exponent, ln(_base))
              .differentiate(var)
              .map(x -> mult(power(_base, _exponent), x));
+  }
+
+  @Override
+  public Set<Variable> getVariables() {
+    Set<Variable> varSet = _exponent.getVariables();
+    varSet.addAll(_base.getVariables());
+    return varSet;
   }
 
   /**

@@ -1,6 +1,7 @@
 package com.deriv.expression;
 
 import java.util.Optional;
+import java.util.Set;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
@@ -113,5 +114,12 @@ public class Log implements Expression {
 
     // otherwise
     return div(ln(_result), ln(_base)).differentiate(var);
+  }
+
+  @Override
+  public Set<Variable> getVariables() {
+    Set<Variable> varSet = _result.getVariables();
+    varSet.addAll(_base.getVariables());
+    return varSet;
   }
 }

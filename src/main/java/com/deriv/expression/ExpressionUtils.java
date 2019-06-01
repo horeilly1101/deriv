@@ -40,11 +40,11 @@ class ExpressionUtils {
   }
 
   /**
-   * Return a shallow copy of a list. This is a simple function, but this allows us to make
+   * Return a shallow copy of a list. This is a simple function, but it allows us to make
    * the process of copying a list more readable.
    * @param lst input list
    * @param <T> type of object in input list
-   * @return
+   * @return shallow copy of input list
    */
   static <T> List<T> shallowCopy(List<T> lst) {
     return new ArrayList<>(lst);

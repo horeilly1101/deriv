@@ -1,8 +1,13 @@
 package com.deriv.expression;
 
 import java.util.Optional;
+import java.util.Set;
 
-import static com.deriv.expression.Constant.*;
+import static com.deriv.expression.Constant.addID;
+import static com.deriv.expression.Constant.multID;
+import static com.deriv.expression.Mult.mult;
+import static com.deriv.expression.Add.add;
+import static com.deriv.expression.Power.inverse;
 
 /**
  * An Expression is the all-encompassing data structure that allows
@@ -31,11 +36,42 @@ public interface Expression extends Comparable<Expression> {
   Optional<Expression> differentiate(Variable var);
 
   /**
+   * Method that returns a set of all the variables contained in the expression.
+   * @return
+   */
+  Set<Variable> getVariables();
+
+  /**
    * Returns a latex representation of an expression.
    *
    * @return latex representation.
    */
   String toLaTex();
+
+//  default Optional<Expression> differentiate(Tensor wrt) {
+//    return null;
+//  }
+//
+//  default Optional<Expression> differentiate(Expression wrt) {
+//    if (wrt.isTensor())
+//      return differentiate(wrt.asTensor());
+//
+//    Expression result = addID();
+//
+//    for (Variable var : wrt.getVariables()) {
+//      Optional<Expression> firstDerivative = differentiate(var);
+//      Optional<Expression> secondDerivative = wrt.differentiate(var);
+//
+//      // fail if either derivative isn't present
+//      if (!firstDerivative.isPresent() || !secondDerivative.isPresent())
+//        return Optional.empty();
+//
+//      result = add(result, mult(firstDerivative.get(), inverse(secondDerivative.get())));
+//    }
+//
+//    return Optional.of(result);
+//
+//  }
 
   /**
    * This method compares an expression with a given object. This

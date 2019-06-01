@@ -106,6 +106,11 @@ public class Add implements Expression {
     return ExpressionUtils.linearityHelper(_terms, x -> x.differentiate(var)).map(Add::add);
   }
 
+  @Override
+  public Set<Variable> getVariables() {
+    return _terms.stream().flatMap(x -> x.getVariables().stream()).collect(toSet());
+  }
+
   /**
    * Extension of AddSimplifier that allows us to create Add objects.
    */

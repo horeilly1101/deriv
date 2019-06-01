@@ -3,6 +3,7 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.MultSimplifier;
 import java.util.*;
 import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
 
 import static com.deriv.expression.Add.*;
 import static com.deriv.expression.ExpressionUtils.shallowCopy;
@@ -203,6 +204,11 @@ public class Mult implements Expression {
      * description of the sequential version.
      */
     return new ParallelMultDerivative(_factors, var).compute();
+  }
+
+  @Override
+  public Set<Variable> getVariables() {
+    return _factors.stream().flatMap(x -> x.getVariables().stream()).collect(Collectors.toSet());
   }
 
   /**

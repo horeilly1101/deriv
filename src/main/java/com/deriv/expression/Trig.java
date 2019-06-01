@@ -200,4 +200,9 @@ public class Trig implements Expression {
       }
     });
   }
+
+  @Override
+  public Set<Variable> getVariables() {
+    return _inside.getVariables();
+  }
 }

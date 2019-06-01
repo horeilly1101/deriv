@@ -1,8 +1,9 @@
 package com.deriv.expression;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toSet;
 
 /**
  * A variable is a scalar variable.
@@ -104,4 +105,8 @@ public class Variable implements Expression {
                          : Constant.addID());
   }
 
+  @Override
+  public Set<Variable> getVariables() {
+    return Stream.of(this).collect(toSet());
+  }
 }
