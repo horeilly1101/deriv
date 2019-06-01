@@ -3,9 +3,9 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.MultSimplifier;
 import java.util.*;
 import java.util.concurrent.RecursiveTask;
-import java.util.stream.Collectors;
 
 import static com.deriv.expression.Add.*;
+import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static com.deriv.expression.Power.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
@@ -37,12 +37,11 @@ public class Mult implements Expression {
    * @return Expression
    */
   public static Expression mult(List<Expression> factors) {
-    if (factors.isEmpty()) {
-      // bad
+    if (factors.isEmpty()) // can't allow this
       throw new RuntimeException("Don't instantiate a term with an empty list!");
-    }
 
-    return new MultSimplifierComplete(factors).simplifyToExpression();
+
+    return new MultSimplifierComplete(shallowCopy(factors)).simplifyToExpression();
   }
 
   /**
@@ -78,7 +77,7 @@ public class Mult implements Expression {
    * @return factors
    */
   public List<Expression> getFactors() {
-    return _factors;
+    return shallowCopy(_factors);
   }
 
   @Override

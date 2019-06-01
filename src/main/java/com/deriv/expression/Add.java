@@ -3,6 +3,7 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.AddSimplifier;
 import java.util.*;
 
+import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.*;
 
 /**
@@ -33,7 +34,7 @@ public class Add implements Expression {
     if (terms.isEmpty())
       throw new RuntimeException("Don't instantiate an add with an empty list!");
 
-    return new AddSimplifierComplete(terms).simplifyToExpression();
+    return new AddSimplifierComplete(shallowCopy(terms)).simplifyToExpression();
   }
 
   /**
@@ -50,7 +51,7 @@ public class Add implements Expression {
    * @return terms
    */
   public List<Expression> getTerms() {
-    return _terms;
+    return shallowCopy(_terms);
   }
 
   @Override
@@ -79,8 +80,6 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-
-
     return "("
              + _terms.stream()
                  .map(Objects::toString)

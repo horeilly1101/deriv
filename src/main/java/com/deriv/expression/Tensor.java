@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -39,10 +40,10 @@ class Tensor implements Expression {
 
     // we need each line in the tensor to have the same depth
     int depth = lines.get(0).getDepth();
-    for (Expression line : lines) {
+    for (Expression line : lines)
       if (line.getDepth() != depth)
         return false;
-    }
+
 
     return true;
   }
@@ -67,7 +68,7 @@ class Tensor implements Expression {
     if(!isValid(lines))
       throw new RuntimeException("Each Expression must have the same depth!");
 
-    return new Tensor(lines);
+    return new Tensor(shallowCopy(lines));
   }
 
   /**
@@ -93,7 +94,7 @@ class Tensor implements Expression {
    * @return _lines
    */
   List<Expression> getLines() {
-    return _lines;
+    return shallowCopy(_lines); // copy the list, just in case
   }
 
   @Override
