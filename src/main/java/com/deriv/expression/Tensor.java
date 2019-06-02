@@ -10,6 +10,8 @@ import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.toList;
 
 /**
+ * WARNING: This class is in development and is not fully supported.
+ *
  * A Tensor represents several expressions, organized together in a mathematical tensor.
  *
  * Data definition: a Tensor is a list of expressions, representing the "rows" or "elements"

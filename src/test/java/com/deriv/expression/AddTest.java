@@ -137,4 +137,9 @@ class AddTest {
     Expression ex = add(x(), sin(x()));
     assertEquals("x + \\sin(x)", ex.toLaTex());
   }
+
+//  @Test
+//  void getVariablesTest() {
+//
+//  }
 }

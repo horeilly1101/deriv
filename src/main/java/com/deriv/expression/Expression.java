@@ -37,7 +37,7 @@ public interface Expression extends Comparable<Expression> {
 
   /**
    * Method that returns a set of all the variables contained in the expression.
-   * @return
+   * @return a set of variables contained in the expression
    */
   Set<Variable> getVariables();
 
@@ -48,30 +48,26 @@ public interface Expression extends Comparable<Expression> {
    */
   String toLaTex();
 
-//  default Optional<Expression> differentiate(Tensor wrt) {
-//    return null;
-//  }
-//
-//  default Optional<Expression> differentiate(Expression wrt) {
-//    if (wrt.isTensor())
-//      return differentiate(wrt.asTensor());
-//
-//    Expression result = addID();
-//
-//    for (Variable var : wrt.getVariables()) {
-//      Optional<Expression> firstDerivative = differentiate(var);
-//      Optional<Expression> secondDerivative = wrt.differentiate(var);
-//
-//      // fail if either derivative isn't present
-//      if (!firstDerivative.isPresent() || !secondDerivative.isPresent())
-//        return Optional.empty();
-//
-//      result = add(result, mult(firstDerivative.get(), inverse(secondDerivative.get())));
-//    }
-//
-//    return Optional.of(result);
-//
-//  }
+  default Optional<Expression> differentiate(Expression wrt) {
+    if (wrt.isTensor())
+      return differentiate(wrt.asTensor());
+
+    Expression result = addID();
+
+    for (Variable var : wrt.getVariables()) {
+      Optional<Expression> firstDerivative = differentiate(var);
+      Optional<Expression> secondDerivative = wrt.differentiate(var);
+
+      // fail if either derivative isn't present
+      if (!firstDerivative.isPresent() || !secondDerivative.isPresent())
+        return Optional.empty();
+
+      result = add(result, mult(firstDerivative.get(), inverse(secondDerivative.get())));
+    }
+
+    return Optional.of(result);
+
+  }
 
   /**
    * This method compares an expression with a given object. This
