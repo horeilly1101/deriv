@@ -1,4 +1,3 @@
 ignore:
-  - "src/main/java/com/deriv/parser/CupParser.java"
-  - "src/main/java/com/deriv/parser/FlexScanner.java"
-  - "src/main/java/com/deriv/parser/sym.java"
+  - "src/main/java/com/deriv/parser"
+  - "src/main/java/com/deriv/server"
