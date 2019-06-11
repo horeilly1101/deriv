@@ -10,7 +10,8 @@ import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.toList;
 
 /**
- * WARNING: This class is in development and is not fully supported.
+ * WARNING: This class is in development and is not fully supported. Use at your
+ * own risk.
  *
  * A Tensor represents several expressions, organized together in a mathematical tensor.
  *
