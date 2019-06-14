@@ -3,6 +3,7 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.AddSimplifier;
 import java.util.*;
 
+import static com.deriv.expression.ExpressionUtils.mapAndJoin;
 import static com.deriv.expression.ExpressionUtils.shallowCopy;
 import static java.util.stream.Collectors.*;
 
@@ -80,18 +81,12 @@ public class Add implements Expression {
 
   @Override
   public String toString() {
-    return "("
-             + _terms.stream()
-                 .map(Objects::toString)
-                 .collect(joining(" + "))
-             + ")";
+    return "(" + mapAndJoin(_terms, Objects::toString, " + ") + ")";
   }
 
   @Override
   public String toLaTex() {
-    return _terms.stream()
-             .map(Expression::toLaTex)
-             .collect(joining(" + "));
+    return mapAndJoin(_terms, Expression::toLaTex, " + ");
   }
 
  @Override
@@ -129,9 +124,10 @@ public class Add implements Expression {
                                 .sorted((a, b) -> -1 * a.compareTo(b))
                                 .collect(toList());
 
-      return simplified.size() > 1
-         ? new Add(simplified)
-         : simplified.get(0);
+      if (simplified.size() > 1)
+        return new Add(simplified);
+
+      return simplified.get(0);
     }
   }
 }

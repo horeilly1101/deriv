@@ -1,9 +1,13 @@
 package com.deriv.expression;
 
-import java.util.*;
+import java.util.Optional;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
+import static com.deriv.expression.ExpressionUtils.mapAndJoin;
 
 /**
  * A variable is a scalar variable.
@@ -36,9 +40,8 @@ public class Variable implements Expression {
    * @return variable
    */
   public static Expression var(String var) {
-    if (var.equals("e") || var.equals("π")) {
+    if (var.equals("e") || var.equals("π"))
       throw new RuntimeException("Variable can't be named e or π.");
-    }
 
     return new Variable(var);
   }
@@ -57,9 +60,9 @@ public class Variable implements Expression {
    * @return variable
    */
   public static Expression x(Integer... nums) {
-    return var("x" + Arrays.stream(nums)
-                       .map(Objects::toString)
-                       .reduce("", (a, b) -> a +  "_" + b));
+    String varSubscript = Arrays.stream(nums).map(Objects::toString)
+                            .reduce("", (a, b) -> a + "_" + b);
+    return var("x" + varSubscript);
   }
 
   @Override
@@ -92,17 +95,12 @@ public class Variable implements Expression {
 
   @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
-    // update later
-    return var.equals(this)
-               ? Optional.of(input)
-               : Optional.of(this);
+    return Optional.of(var.equals(this) ? input : this);
   }
 
   @Override
   public Optional<Expression> differentiate(Variable wrt) {
-    return Optional.of(wrt.equals(this)
-                         ? Constant.multID()
-                         : Constant.addID());
+    return Optional.of(wrt.equals(this) ? Constant.multID() : Constant.addID());
   }
 
   @Override

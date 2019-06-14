@@ -3,10 +3,10 @@ package com.deriv.expression;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Future;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.joining;
 
 /**
  * Package-private utility class that allows us to reuse static functions among
@@ -15,7 +15,6 @@ import static java.util.stream.Collectors.toList;
 class ExpressionUtils {
   /**
    * Private constructor for ExpressionUtils, meant to enforce noninstantiability.
-   * Inspired by Effective Java 3rd Edition.
    */
   private ExpressionUtils() {
     throw new AssertionError();
@@ -48,5 +47,9 @@ class ExpressionUtils {
    */
   static <T> List<T> shallowCopy(List<T> lst) {
     return new ArrayList<>(lst);
+  }
+
+  static <T> String mapAndJoin(List<T> inputList, Function<T, String> mapping, String delimiter) {
+    return inputList.stream().map(mapping).collect(joining(delimiter));
   }
 }

@@ -1,9 +1,6 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
-
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -113,9 +110,10 @@ public class Power implements Expression {
 
   @Override
   public String toString() {
-    return this._exponent.isNegative()
-               ? "1 / " + power(_base, negate(_exponent)).toString()
-               : _base.toString() + " ^ " + _exponent.toString();
+    if (this._exponent.isNegative())
+      return "1 / " + power(_base, negate(_exponent)).toString();
+
+    return _base.toString() + " ^ " + _exponent.toString();
   }
 
   @Override
@@ -137,10 +135,8 @@ public class Power implements Expression {
 
   @Override
   public Optional<Expression> differentiate(Variable var) {
-    // I'm not using any of the cookie cutter power rules here.
-    // This is a more general approach to differentiating powers.
-    // Take the derivative of f(x) ^ g(x) for arbitrary f, g and
-    // this is what you'll get.
+    // I'm not using any of the cookie cutter power rules here. This is a more general approach to differentiating
+    // powers. Take the derivative of f(x) ^ g(x) for arbitrary f, g and this is what you'll get.
 
     return mult(_exponent, ln(_base))
              .differentiate(var)

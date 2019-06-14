@@ -87,9 +87,10 @@ public class Log implements Expression {
 
   @Override
   public String toLaTex() {
-    return (_base.equals(e()))
-             ? "\\ln(" + _result.toLaTex() + ")"
-             : "\\log_{" + _base.toLaTex() + "} " + _result.toLaTex();
+    if (_base.equals(e()))
+      return "\\ln(" + _result.toLaTex() + ")";
+
+    return "\\log_{" + _base.toLaTex() + "} " + _result.toLaTex();
   }
 
   @Override
@@ -106,11 +107,8 @@ public class Log implements Expression {
     // calculate the derivative of log(g(x), f(x)) for arbitrary
     // g, f and this is what you'll get
 
-    // if log is a natural log
-    if (_base.equals(e())) {
-      return _result.differentiate(var)
-               .map(x -> mult(x, div(multID(), _result)));
-    }
+    if (_base.equals(e())) // if log is a natural log
+      return _result.differentiate(var).map(x -> mult(x, div(multID(), _result)));
 
     // otherwise
     return div(ln(_result), ln(_base)).differentiate(var);
