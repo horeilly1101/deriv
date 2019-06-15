@@ -1,9 +1,8 @@
 package com.deriv.expression;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.joining;
@@ -61,5 +60,13 @@ class ExpressionUtils {
    */
   static <T> String mapAndJoin(Collection<T> inputCollection, Function<T, String> mapping, String delimiter) {
     return inputCollection.stream().map(mapping).collect(joining(delimiter));
+  }
+
+  static <T> Optional<T> oGetFuture(Future<Optional<T>> futureOptional) {
+    try {
+      return futureOptional.get();
+    } catch (InterruptedException | ExecutionException e){
+      return Optional.empty();
+    }
   }
 }

@@ -1,6 +1,8 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.PowerSimplifier;
+import com.deriv.util.ThreadManager;
+
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -126,12 +128,14 @@ public class Power implements Expression {
 
   @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
+    Future<Optional<Expression>> futureExponent = ThreadManager.submitTask(() -> _exponent.evaluate(var, input));
+
     return _base.evaluate(var, input)
-               .flatMap(ba -> _exponent.evaluate(var, input)
-                                // make sure we're not dividing by zero
-                                 .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
-                                                 ? Optional.empty()
-                                                 : Optional.of(power(ba, ex))));
+               .flatMap(ba -> ExpressionUtils.oGetFuture(futureExponent)
+                       .flatMap(ex -> ba.equals(addID()) && ex.isNegative()
+                               // make sure we're not dividing by zero
+                               ? Optional.empty()
+                               : Optional.of(power(ba, ex))));
   }
 
   @Override

@@ -1,10 +1,14 @@
 package com.deriv.expression;
 
+import com.deriv.util.ThreadManager;
+
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Mult.*;
+import static com.deriv.expression.ExpressionUtils.*;
 
 /**
  * A log is the logarithm of an Expression. (I should note that throughout the code
@@ -95,11 +99,13 @@ public class Log implements Expression {
 
   @Override
   public Optional<Expression> evaluate(Variable var, Expression val) {
+    Future<Optional<Expression>> futureBase = ThreadManager.submitTask(() -> _result.evaluate(var, val));
+
     return _base.evaluate(var, val)
-               .flatMap(ba -> _result.evaluate(var, val)
-                                  .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0
-                                                     ? Optional.empty()
-                                                     : Optional.of(log(ba, re))));
+               .flatMap(ba -> oGetFuture(futureBase)
+                       .flatMap(re -> re.isConstant() && re.asConstant().getVal() <= 0
+                               ? Optional.empty()
+                               : Optional.of(log(ba, re))));
   }
 
   @Override
