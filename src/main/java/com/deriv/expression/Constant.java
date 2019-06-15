@@ -8,7 +8,8 @@ import java.util.Set;
  * A Constant is a scalar constant. This class provides several static constructors to create common constants.
  * I recommend you use these instead of creating the constants yourself.
  *
- * Data definition: A constant is an int.
+ * Data definition: A constant is an int. Want to create a number that isn't rational? Give it a name and
+ * make it a variable.
  */
 public class Constant implements Expression {
   /**
