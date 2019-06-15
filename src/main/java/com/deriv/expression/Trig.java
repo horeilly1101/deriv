@@ -194,8 +194,7 @@ public class Trig implements Expression {
               2));
 
         default:
-          throw new RuntimeException("Why is _func not dealt with in switch statement?");
-
+          throw new RuntimeException("func is not dealt with in switch statement.");
       }
     });
   }

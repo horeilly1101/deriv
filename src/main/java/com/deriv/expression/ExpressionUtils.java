@@ -1,11 +1,11 @@
 package com.deriv.expression;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -25,22 +25,23 @@ class ExpressionUtils {
    * @param func linear function
    * @return aggregated result
    */
-  static Optional<List<Expression>> linearityHelper(
-    List<Expression> elements, Function<Expression, Optional<Expression>> func) {
-    // combines terms
-    return Optional.of(elements.parallelStream()
-                         .map(func)
-                         .filter(Optional::isPresent)
-                         .map(Optional::get)
-                         .collect(toList()))
-             .flatMap(lst -> lst.size() == elements.size()
-                               ? Optional.of(lst)
-                               : Optional.empty());
+  static <T> Optional<List<T>> linearityHelper(List<T> elements, Function<T, Optional<T>> func) {
+    List<T> newList = new ArrayList<>();
+
+    for (T element : elements) {
+      Optional<T> oMapped = func.apply(element);
+      if (!oMapped.isPresent())
+        return Optional.empty();
+      newList.add(oMapped.get());
+    }
+
+    return Optional.of(newList);
   }
 
   /**
    * Return a shallow copy of a list. This is a simple function, but it allows us to make
    * the process of copying a list more readable.
+   *
    * @param lst input list
    * @param <T> type of object in input list
    * @return shallow copy of input list
@@ -49,7 +50,16 @@ class ExpressionUtils {
     return new ArrayList<>(lst);
   }
 
-  static <T> String mapAndJoin(List<T> inputList, Function<T, String> mapping, String delimiter) {
-    return inputList.stream().map(mapping).collect(joining(delimiter));
+  /**
+   * Map the items in a collection to a string, and then join them with a delimiter into a single string.
+   *
+   * @param inputCollection input collection
+   * @param mapping a function from the items in the collection to a string
+   * @param delimiter the string to separate each item with
+   * @param <T> the type of item in the collection
+   * @return resulting string
+   */
+  static <T> String mapAndJoin(Collection<T> inputCollection, Function<T, String> mapping, String delimiter) {
+    return inputCollection.stream().map(mapping).collect(joining(delimiter));
   }
 }

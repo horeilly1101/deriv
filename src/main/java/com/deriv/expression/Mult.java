@@ -249,7 +249,8 @@ public class Mult implements Expression {
       // compute derivatives
       RecursiveTask<Optional<Expression>> task = new ParallelMultDerivative(factorList.subList(0, mid), var);
       task.fork(); // fork the first derivative
-      Optional<Expression> secondDerivative = new ParallelMultDerivative(factorList.subList(mid, factorList.size()), var).compute();
+      Optional<Expression> secondDerivative
+        = new ParallelMultDerivative(factorList.subList(mid, factorList.size()), var).compute();
       Optional<Expression> firstDerivative = task.join();
 
       // combine the derivatives together
