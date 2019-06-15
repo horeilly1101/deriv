@@ -48,9 +48,15 @@ public interface Expression extends Comparable<Expression> {
    */
   String toLaTex();
 
+  /**
+   * Skeleton, template method for differentiating an expression by another expression. This is possible through
+   * repeated application of the chain rule from multivariate calculus.
+   * @param wrt expression to differentiated with respect to.
+   * @return optional of returned derivative
+   */
   default Optional<Expression> differentiate(Expression wrt) {
     if (wrt.isTensor())
-      return differentiate(wrt.asTensor());
+      return wrt.asTensor().differentiating(this); // differentiating by a tensor is handled separately
 
     Expression result = addID();
 

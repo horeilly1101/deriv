@@ -142,6 +142,16 @@ class Tensor implements Expression {
     return ExpressionUtils.linearityHelper(_lines, x -> x.differentiate(var)).map(Tensor::of);
   }
 
+  /**
+   * Method that differentiates an expression with respect to a tensor.
+   * @param expr being differentiated
+   * @return optional of resulting  derivative
+   */
+  public Optional<Expression> differentiating(Expression expr) {
+    return ExpressionUtils.linearityHelper(_lines, expr::differentiate).map(Tensor::of);
+  }
+
+
   @Override
   public Set<Variable> getVariables() {
     return _lines.stream().flatMap(x -> x.getVariables().stream()).collect(Collectors.toSet());
