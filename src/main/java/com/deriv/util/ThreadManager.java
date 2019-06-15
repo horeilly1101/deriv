@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
  * Thin wrapper around a thread pool.
  */
 public class ThreadManager {
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(8);
 
     public static <T> Future<T> submitTask(Callable<T> computation) {
         return EXECUTOR_SERVICE.submit(computation);
