@@ -17,7 +17,7 @@ public class Add implements Expression {
   /**
    * A list of terms to be added together.
    */
-  private List<Expression> _terms;
+  private final List<Expression> _terms;
 
   /**
    * Private constructor for an Add. Use one of the static constructors instead.

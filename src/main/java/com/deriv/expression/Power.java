@@ -3,6 +3,7 @@ package com.deriv.expression;
 import com.deriv.expression.simplifier.PowerSimplifier;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import static com.deriv.expression.Constant.*;
 import static com.deriv.expression.Log.*;
@@ -17,12 +18,12 @@ public class Power implements Expression {
   /**
    * The base of our power.
    */
-  private Expression _base;
+  private final Expression _base;
 
   /**
    * The exponent of our power.
    */
-  private Expression _exponent;
+  private final Expression _exponent;
 
   /**
    * Private constructor for a Power. Use one of the static constructors instead.

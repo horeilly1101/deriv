@@ -22,14 +22,14 @@ public class Mult implements Expression {
   /**
    * A list of factors to be multiplied together.
    */
-  private List<Expression> _factors;
+  private final List<Expression> _factors;
 
   /**
    * Instantiates a Mult. Avoid using as much as possible! Use the easy constructor
    * instead.
    */
-  private Mult(List<Expression> _factors) {
-    this._factors = _factors;
+  private Mult(List<Expression> factors) {
+    this._factors = factors;
   }
 
   /**

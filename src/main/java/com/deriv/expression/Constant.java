@@ -5,7 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A Constant is a scalar constant.
+ * A Constant is a scalar constant. This class provides several static constructors to create common constants.
+ * I recommend you use these instead of creating the constants yourself.
  *
  * Data definition: A constant is an int.
  */
@@ -13,27 +14,27 @@ public class Constant implements Expression {
   /**
    * Singleton instance of constant 0.
    */
-  private static Expression ADD_ID = constant(0);
+  private static final Expression ADD_ID = constant(0);
 
   /**
    * Singleton instance of constant 1.
    */
-  private static Expression MULT_ID = constant(1);
+  private static final Expression MULT_ID = constant(1);
 
   /**
    * Singleton instance of constant e.
    */
-  private static Expression E = new Variable("e");
+  private static final Expression E = new Variable("e");
 
   /**
    * Singleton instance of constant pi.
    */
-  private static Expression PI = new Variable("π");
+  private static final Expression PI = new Variable("π");
 
   /**
    * The integer value of a constant.
    */
-  private int _val;
+  private final int _val;
 
   /**
    * Private constructor for a constant. Use one of the static constructors instead.

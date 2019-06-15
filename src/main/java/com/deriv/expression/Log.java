@@ -16,18 +16,18 @@ public class Log implements Expression {
   /**
    * The base of the logarithm.
    */
-  private Expression _base;
+  private final Expression _base;
 
   /**
    * The result (input) of the logarithm.
    */
-  private Expression _result;
+  private final Expression _result;
 
   /**
    * Private constructor for a Log. Use one of the static constructors instead.
    */
-  private Log(Expression _base, Expression result) {
-    this._base = _base;
+  private Log(Expression base, Expression result) {
+    this._base = base;
     this._result = result;
   }
 

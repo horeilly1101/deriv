@@ -17,23 +17,22 @@ public class Trig implements Expression {
   /**
    * String that identifies what trig function we're referring to.
    */
-  private String _func;
+  private final String _func;
 
   /**
    * The expression that the trig function operates on.
    */
-  private Expression _inside;
+  private final Expression _inside;
 
   /**
    * Set of valid trig functions.
    */
-  private static Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot")
-                               .collect(toSet());
+  private static final Set<String> valid = Stream.of("sin", "cos", "tan", "csc", "sec", "cot").collect(toSet());
 
   /**
    * Case by case instructions for how to evaluate an expression.
    */
-  private static Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
+  private static final Map<String, Function<Expression, Expression>> evalMap = new TreeMap<>();
   static {
     evalMap.put("sin", Trig::sin);
     evalMap.put("cos", Trig::cos);
@@ -46,9 +45,9 @@ public class Trig implements Expression {
   /**
    * Private constructor for a Trig. Use one of the static constructors instead.
    */
-  private Trig(String _func, Expression _inside) {
-    this._func = _func;
-    this._inside = _inside;
+  private Trig(String func, Expression inside) {
+    this._func = func;
+    this._inside = inside;
   }
 
   /**

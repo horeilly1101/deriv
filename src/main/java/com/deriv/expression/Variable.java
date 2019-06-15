@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
-import static com.deriv.expression.ExpressionUtils.mapAndJoin;
 
 /**
  * A variable is a scalar variable.
@@ -18,12 +17,12 @@ public class Variable implements Expression {
   /**
    * Singleton instance of variable x.
    */
-  private static Expression X = new Variable("x");
+  private static final Expression X = new Variable("x");
 
   /**
    * String that represents the variable. (e.g. x)
    */
-  private String _var;
+  private final String _var;
 
   /**
    * Package-private constructor for a variable. Use one of the static

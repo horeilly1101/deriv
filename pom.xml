@@ -30,11 +30,9 @@
             </plugin>
 
             <!-- allows us to test code coverage with codecov -->
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-
                 <executions>
                     <execution>
                         <goals>

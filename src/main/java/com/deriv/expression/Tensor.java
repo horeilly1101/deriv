@@ -22,7 +22,7 @@ class Tensor implements Expression {
   /**
    * A list of expressions, representing the lines in the tensor.
    */
-  private List<Expression> _lines;
+  private final List<Expression> _lines;
 
   /**
    * Private constructor for a Tensor.
