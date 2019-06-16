@@ -20,8 +20,8 @@ public class TensorTest {
       Tensor.of(add(x(), constant(2), poly(x(), 2)))
     );
     System.out.println(ten);
-    System.out.println(ten.evaluate(x().asVariable(), constant(3)).get());
-    System.out.println(ten.differentiate(x().asVariable()).get());
+    System.out.println(ten.evaluate(x(), constant(3)).get());
+    System.out.println(ten.differentiate(x()).get());
   }
 
   @Test

@@ -95,19 +95,19 @@ class MultTest {
   void evaluateTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
-    Optional<Expression> eval = ex.evaluate(x().asVariable(), constant(2));
+    Optional<Expression> eval = ex.evaluate(x(), constant(2));
     assertTrue(eval.isPresent());
     assertEquals(constant(8), eval.get());
 
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
-    Optional<Expression> eval2 = ex2.evaluate(x().asVariable(), constant(3));
+    Optional<Expression> eval2 = ex2.evaluate(x(), constant(3));
     assertTrue(eval2.isPresent());
     assertEquals(mult(constant("a"), constant(9)), eval2.get());
 
     // 3 / x
     Expression ex3 = div(constant(3), x());
-    Optional<Expression> eval3 = ex3.evaluate(x().asVariable(), addID());
+    Optional<Expression> eval3 = ex3.evaluate(x(), addID());
     assertFalse(eval3.isPresent());
   }
 
@@ -115,19 +115,19 @@ class MultTest {
   void derivativeTest() {
     // x * x * 2
     Expression ex = mult(x(), x(), constant(2));
-    assertEquals(mult(constant(4), x()), ex.differentiate(x().asVariable()).get());
+    assertEquals(mult(constant(4), x()), ex.differentiate(x()).get());
 
     // x * a * 3, where a is a constant
     Expression ex2 = mult(x(), constant("a"), constant(3));
-    assertEquals(mult(constant("a"), constant(3)), ex2.differentiate(x().asVariable()).get());
+    assertEquals(mult(constant("a"), constant(3)), ex2.differentiate(x()).get());
 
     // x * ln(x)
     Expression ex3 = mult(x(), ln(x()));
-    assertEquals(add(multID(), ln(x())), ex3.differentiate(x().asVariable()).get());
+    assertEquals(add(multID(), ln(x())), ex3.differentiate(x()).get());
 
     // x * sin(x)
     Expression ex4 = mult(x(), sin(x()));
-    assertEquals(add(sin(x()), mult(x(), cos(x()))), ex4.differentiate(x().asVariable()).get());
+    assertEquals(add(sin(x()), mult(x(), cos(x()))), ex4.differentiate(x()).get());
   }
 
   @Test

@@ -96,39 +96,39 @@ class AddTest {
   void evaluateTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    Optional<Expression> eval = ex.evaluate(x().asVariable(), constant(2));
+    Optional<Expression> eval = ex.evaluate(x(), constant(2));
     assertTrue(eval.isPresent());
     assertEquals(constant(6), eval.get());
 
     // x + a + 3, where a is a constant
     Expression ex2 = add(x(), constant("a"), constant(3));
-    Optional<Expression> eval2 = ex2.evaluate(x().asVariable(), constant(3));
+    Optional<Expression> eval2 = ex2.evaluate(x(), constant(3));
     assertTrue(eval2.isPresent());
     assertEquals(add(constant("a"), constant(6)), eval2.get());
 
     // x + 1/x
     // can't divide by 0!
     Expression ex3 = add(x(), poly(x(), -1));
-    assertEquals(Optional.empty(), ex3.evaluate(x().asVariable(), addID()));
+    assertEquals(Optional.empty(), ex3.evaluate(x(), addID()));
   }
 
   @Test
   void derivativeTest() {
     // x + x + 2
     Expression ex = add(x(), x(), constant(2));
-    assertEquals(constant(2), ex.differentiate(x().asVariable()).get());
+    assertEquals(constant(2), ex.differentiate(x()).get());
 
     // a * x + 3, where a is a constant
     Expression ex2 = add(mult(x(), constant("a")), constant(3));
-    assertEquals(constant("a"), ex2.differentiate(x().asVariable()).get());
+    assertEquals(constant("a"), ex2.differentiate(x()).get());
 
     // x + ln(x)
     Expression ex3 = add(x(), ln(x()));
-    assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate(x().asVariable()).get());
+    assertEquals(add(multID(), poly(x(), -1)), ex3.differentiate(x()).get());
 
     // x + sin(x)
     Expression ex4 = add(x(), sin(x()));
-    assertEquals(add(multID(), cos(x())), ex4.differentiate(x().asVariable()).get());
+    assertEquals(add(multID(), cos(x())), ex4.differentiate(x()).get());
   }
 
   @Test

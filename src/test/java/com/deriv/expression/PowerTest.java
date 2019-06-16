@@ -76,45 +76,45 @@ class PowerTest {
   void evaluateTest() {
     // 5 ^ x
     Expression ex = exponential(5, x());
-    Optional<Expression> eval = ex.evaluate(x().asVariable(), constant(3));
+    Optional<Expression> eval = ex.evaluate(x(), constant(3));
     assertTrue(eval.isPresent());
     assertEquals(constant(125), eval.get());
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);
-    Optional<Expression> eval2 = ex2.evaluate(x().asVariable(), constant(2));
+    Optional<Expression> eval2 = ex2.evaluate(x(), constant(2));
     assertTrue(eval2.isPresent());
     assertEquals(constant(16), eval2.get());
-    assertEquals(addID(), ex2.evaluate(x().asVariable(), addID()).get());
+    assertEquals(addID(), ex2.evaluate(x(), addID()).get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
-    Optional<Expression> eval3 = ex3.evaluate(x().asVariable(), constant(3));
+    Optional<Expression> eval3 = ex3.evaluate(x(), constant(3));
     assertTrue(eval3.isPresent());
     assertEquals(constant(27), eval3.get());
 
     // 1 / 0
     Expression ex4 = poly(x(), -1);
-    assertEquals(Optional.empty(), ex4.evaluate(x().asVariable(), addID()));
+    assertEquals(Optional.empty(), ex4.evaluate(x(), addID()));
 
     // x ^ -2
     Expression ex5 = poly(x(), -2);
-    assertFalse(ex5.evaluate(x().asVariable(), addID()).isPresent());
+    assertFalse(ex5.evaluate(x(), addID()).isPresent());
   }
 
   @Test
   void differentiateTest() {
     // 5 ^ x
     Expression ex = exponential(3, x());
-    assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate(x().asVariable()).get());
+    assertEquals(mult(power(constant(3), x()), ln(constant(3))), ex.differentiate(x()).get());
 
     // x ^ 4
     Expression ex2 = poly(x(), 4);
-    assertEquals(mult(constant(4), poly(x(), 3)), ex2.differentiate(x().asVariable()).get());
+    assertEquals(mult(constant(4), poly(x(), 3)), ex2.differentiate(x()).get());
 
     // x ^ x
     Expression ex3 = power(x(), x());
-    assertEquals(mult(add(multID(), ln(x())), power(x(), x())), ex3.differentiate(x().asVariable()).get());
+    assertEquals(mult(add(multID(), ln(x())), power(x(), x())), ex3.differentiate(x()).get());
   }
 
   @Test

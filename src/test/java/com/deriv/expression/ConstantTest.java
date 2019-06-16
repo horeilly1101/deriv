@@ -15,16 +15,16 @@ class ConstantTest {
     // of completeness
 
     Expression c = constant("c");
-    assertEquals(addID(), c.differentiate(x().asVariable()).get());
+    assertEquals(addID(), c.differentiate(x()).get());
 
     Expression one = multID();
-    assertEquals(addID(), one.differentiate(x().asVariable()).get());
+    assertEquals(addID(), one.differentiate(x()).get());
 
     Expression e = e();
-    assertEquals(addID(), e.differentiate(x().asVariable()).get());
+    assertEquals(addID(), e.differentiate(x()).get());
 
     Expression pi = pi();
-    assertEquals(addID(), pi.differentiate(x().asVariable()).get());
+    assertEquals(addID(), pi.differentiate(x()).get());
   }
 
   @Test

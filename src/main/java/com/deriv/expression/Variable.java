@@ -17,7 +17,7 @@ public class Variable implements Expression {
   /**
    * Singleton instance of variable x.
    */
-  private static final Expression X = new Variable("x");
+  private static final Variable X = new Variable("x");
 
   /**
    * String that represents the variable. (e.g. x)
@@ -49,7 +49,7 @@ public class Variable implements Expression {
    * Static constructor for a variable with name "x".
    * @return variable
    */
-  public static Expression x() {
+  public static Variable x() {
     return X;
   }
 

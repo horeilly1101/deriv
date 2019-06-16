@@ -41,17 +41,17 @@ class LogTest {
     Expression lg = log(constant(2), x());
 
     // evaluate at 2
-    Optional<Expression> eval = lg.evaluate(x().asVariable(), constant(2));
+    Optional<Expression> eval = lg.evaluate(x(), constant(2));
     assertTrue(eval.isPresent());
     assertEquals(multID(), eval.get());
 
     // evaluate at 5
-    Optional<Expression> eval2 = lg.evaluate(x().asVariable(), constant(5));
+    Optional<Expression> eval2 = lg.evaluate(x(), constant(5));
     assertTrue(eval2.isPresent());
     assertEquals(log(constant(2), constant(5)), eval2.get());
 
     // evaluate at -1
-    Optional<Expression> eval3 = lg.evaluate(x().asVariable(), negate(multID()));
+    Optional<Expression> eval3 = lg.evaluate(x(), negate(multID()));
     assertFalse(eval3.isPresent());
   }
 
@@ -59,15 +59,15 @@ class LogTest {
   void differentiateTest() {
     // ln(x)
     Expression ln = ln(x());
-    assertEquals(div(multID(), x()), ln.differentiate(x().asVariable()).get());
+    assertEquals(div(multID(), x()), ln.differentiate(x()).get());
 
     // log(e, x)
     Expression ln2 = log(e(), x());
-    assertEquals(ln.differentiate(x().asVariable()).get(), ln2.differentiate(x().asVariable()).get());
+    assertEquals(ln.differentiate(x()).get(), ln2.differentiate(x()).get());
 
     // log(2, x)
     Expression lg = log(constant(2), x());
-    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x().asVariable()).get());
+    assertEquals(div(multID(), mult(ln(constant(2)), x())), lg.differentiate(x()).get());
   }
 
   @Test

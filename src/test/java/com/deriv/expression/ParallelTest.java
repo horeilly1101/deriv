@@ -136,12 +136,12 @@ class ParallelTest {
     runComparison("addEvaluateTest",
       () -> ExpressionUtils.linearityHelper(
         result.asAdd().getTerms(),
-        x -> x.evaluate(x().asVariable(), multID()))
+        x -> x.evaluate(x(), multID()))
               .map(Add::add), // add the results
 
       () -> sequentialLinearityHelper(
         result.asAdd().getTerms(),
-        x -> x.evaluate(x().asVariable(), multID()))
+        x -> x.evaluate(x(), multID()))
               .map(Add::add)); // add the results
   }
 
@@ -152,11 +152,11 @@ class ParallelTest {
     runComparison("addDerivativeTest",
       () -> ExpressionUtils.linearityHelper(
         result.asAdd().getTerms(),
-        x -> x.differentiate(x().asVariable())).map(Add::add),
+        x -> x.differentiate(x())).map(Add::add),
 
       () -> sequentialLinearityHelper(
         result.asAdd().getTerms(),
-        x -> x.differentiate(x().asVariable())).map(Add::add));
+        x -> x.differentiate(x())).map(Add::add));
   }
 
 //  @Test
@@ -166,11 +166,11 @@ class ParallelTest {
     runComparison("addDerivativeTest2",
       () -> ExpressionUtils.linearityHelper(
         result.asAdd().getTerms(),
-        x -> x.differentiate(x().asVariable())).map(Add::add),
+        x -> x.differentiate(x())).map(Add::add),
 
       () -> sequentialLinearityHelper(
         result.asAdd().getTerms(),
-        x -> x.differentiate(x().asVariable())).map(Add::add));
+        x -> x.differentiate(x())).map(Add::add));
   }
 
 //  @Test
@@ -180,11 +180,11 @@ class ParallelTest {
     runComparison("multEvaluateTest",
       () -> ExpressionUtils.linearityHelper(
         result.asMult().getFactors(),
-        x -> x.evaluate(x().asVariable(), multID())).map(Mult::mult),
+        x -> x.evaluate(x(), multID())).map(Mult::mult),
 
       () -> sequentialLinearityHelper(
         result.asMult().getFactors(),
-        x -> x.evaluate(x().asVariable(), multID())).map(Mult::mult));
+        x -> x.evaluate(x(), multID())).map(Mult::mult));
   }
 
 //  @Test
@@ -192,9 +192,9 @@ class ParallelTest {
     Expression result = mult(sinList(1_000));
 
     runComparison("multDerivativeTest",
-      () -> result.differentiate(x().asVariable()), // parallel
+      () -> result.differentiate(x()), // parallel
 
-      () -> sequentialMultDerivative(result.asMult().getFactors(), x().asVariable()));
+      () -> sequentialMultDerivative(result.asMult().getFactors(), x()));
   }
 
 //  @Test
@@ -202,8 +202,8 @@ class ParallelTest {
     Expression result = mult(expoList(500));
 
     runComparison("multDerivativeTest2",
-      () -> result.differentiate(x().asVariable()), // parallel
+      () -> result.differentiate(x()), // parallel
 
-      () -> sequentialMultDerivative(result.asMult().getFactors(), x().asVariable()));
+      () -> sequentialMultDerivative(result.asMult().getFactors(), x()));
   }
 }

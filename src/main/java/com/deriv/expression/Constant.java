@@ -15,22 +15,22 @@ public class Constant implements Expression {
   /**
    * Singleton instance of constant 0.
    */
-  private static final Expression ADD_ID = constant(0);
+  private static final Constant ADD_ID = new Constant(0);
 
   /**
    * Singleton instance of constant 1.
    */
-  private static final Expression MULT_ID = constant(1);
+  private static final Constant MULT_ID = new Constant(1);
 
   /**
    * Singleton instance of constant e.
    */
-  private static final Expression E = new Variable("e");
+  private static final Variable E = new Variable("e");
 
   /**
    * Singleton instance of constant pi.
    */
-  private static final Expression PI = new Variable("π");
+  private static final Variable PI = new Variable("π");
 
   /**
    * The integer value of a constant.

@@ -35,12 +35,12 @@ class VariableTest {
   @Test
   void evaluateTest() {
     // x
-    Optional<Expression> ex = x().evaluate(x().asVariable(), constant(5));
+    Optional<Expression> ex = x().evaluate(x(), constant(5));
     assertTrue(ex.isPresent());
     assertEquals(constant(5), ex.get());
 
     // y
-    Optional<Expression> ex2 = var("y").evaluate(x().asVariable(), constant(4));
+    Optional<Expression> ex2 = var("y").evaluate(x(), constant(4));
     assertTrue(ex2.isPresent());
     assertEquals(var("y"), ex2.get());
   }
@@ -49,13 +49,13 @@ class VariableTest {
   void derivativeTest() {
     // x
     Expression xVar = x();
-    assertEquals(multID(), xVar.differentiate(x().asVariable()).get());
+    assertEquals(multID(), xVar.differentiate(x()).get());
     assertEquals(addID(), xVar.differentiate(var("y").asVariable()).get());
 
     // y
     Expression yVar = var("y");
     assertEquals(multID(), yVar.differentiate(var("y").asVariable()).get());
-    assertEquals(addID(), yVar.differentiate(x().asVariable()).get());
+    assertEquals(addID(), yVar.differentiate(x()).get());
   }
 
   @Test
@@ -63,7 +63,7 @@ class VariableTest {
     // x * y
     Expression ex = mult(x(), var("y"));
     assertEquals(x(), ex.differentiate(var("y").asVariable()).get());
-    assertEquals(var("y"), ex.differentiate(x().asVariable()).get());
+    assertEquals(var("y"), ex.differentiate(x()).get());
   }
 
   @Test

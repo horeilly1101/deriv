@@ -38,7 +38,7 @@ class Tensor implements Expression {
    * @param lines input
    * @return boolean
    */
-  private static boolean isValid(List<Expression> lines) {
+  private static boolean isValid(List<? extends Expression> lines) {
     // it doesn't make sense to have an empty tensor
     if (lines.size() < 1)
       return false;
@@ -69,7 +69,7 @@ class Tensor implements Expression {
    * @param lines input
    * @return tensor
    */
-  public static Expression of(List<Expression> lines) {
+  public static Expression of(List<? extends Expression> lines) {
     if(!isValid(lines))
       throw new RuntimeException("Each Expression must have the same depth!");
 

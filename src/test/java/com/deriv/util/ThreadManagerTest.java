@@ -29,7 +29,7 @@ class ThreadManagerTest {
     @Test
     void submitExpressionTest() {
         Future<Optional<Expression>> futureOExpression
-                = ThreadManager.submitTask(() -> x().differentiate(x().asVariable()));
+                = ThreadManager.submitTask(() -> x().differentiate(x()));
 
         Expression retrievedExpression;
         try {
