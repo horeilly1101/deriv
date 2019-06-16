@@ -1,7 +1,11 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.AddSimplifier;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Optional;
+import java.util.Arrays;
+import java.util.Objects;
 
 import static com.deriv.expression.ExpressionUtils.mapAndJoin;
 import static com.deriv.expression.ExpressionUtils.shallowCopy;

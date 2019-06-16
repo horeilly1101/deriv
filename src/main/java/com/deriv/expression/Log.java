@@ -6,9 +6,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Future;
 
-import static com.deriv.expression.Constant.*;
-import static com.deriv.expression.Mult.*;
-import static com.deriv.expression.ExpressionUtils.*;
+import static com.deriv.expression.Constant.multID;
+import static com.deriv.expression.Constant.e;
+import static com.deriv.expression.Mult.mult;
+import static com.deriv.expression.Mult.div;
+import static com.deriv.expression.ExpressionUtils.oGetFuture;
 
 /**
  * A log is the logarithm of an Expression. (I should note that throughout the code

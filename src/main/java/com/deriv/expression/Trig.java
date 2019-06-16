@@ -1,8 +1,11 @@
 package com.deriv.expression;
 
-import java.util.*;
+import java.util.Set;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import java.util.Optional;
 
 import static com.deriv.expression.Mult.mult;
 import static java.util.stream.Collectors.toSet;

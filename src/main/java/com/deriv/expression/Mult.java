@@ -1,16 +1,20 @@
 package com.deriv.expression;
 
 import com.deriv.expression.simplifier.MultSimplifier;
-import java.util.*;
+import java.util.List;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
 
-import static com.deriv.expression.Add.*;
+import static com.deriv.expression.Add.add;
 import static com.deriv.expression.ExpressionUtils.shallowCopy;
-import static com.deriv.expression.Power.*;
+import static com.deriv.expression.Power.poly;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
-import static com.deriv.expression.Constant.*;
+import static com.deriv.expression.Constant.multID;
+import static com.deriv.expression.Constant.constant;
 
 /**
  * A Mult represents several factors, multiplied together.

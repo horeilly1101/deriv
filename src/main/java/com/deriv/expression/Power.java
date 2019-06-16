@@ -7,9 +7,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Future;
 
-import static com.deriv.expression.Constant.*;
-import static com.deriv.expression.Log.*;
-import static com.deriv.expression.Mult.*;
+import static com.deriv.expression.Constant.multID;
+import static com.deriv.expression.Constant.addID;
+import static com.deriv.expression.Constant.constant;
+import static com.deriv.expression.Log.ln;
+import static com.deriv.expression.Mult.mult;
+import static com.deriv.expression.Mult.negate;
 
 /**
  * A Power represents an expression to the power of another expression.
