@@ -1,7 +1,5 @@
 package com.deriv.expression;
 
-import com.deriv.util.ThreadManager;
-
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -26,11 +24,11 @@ class ExpressionUtils {
    * @param func linear function
    * @return aggregated result
    */
-  static <T> Optional<List<T>> linearityHelper(List<T> elements, Function<T, Optional<T>> func) {
+  static <T> Optional<List<T>> linearityHelper(List<? extends T> elements, Function<? super T, Optional<T>> func) {
     List<T> newList = new ArrayList<>();
 
     for (T element : elements) {
-      Optional<T> oMapped = func.apply(element);
+      Optional<? extends T> oMapped = func.apply(element);
       if (!oMapped.isPresent())
         return Optional.empty();
       newList.add(oMapped.get());
@@ -47,7 +45,7 @@ class ExpressionUtils {
    * @param <T> type of object in input list
    * @return shallow copy of input list
    */
-  static <T> List<T> shallowCopy(List<T> lst) {
+  static <T> List<T> shallowCopy(List<? extends T> lst) {
     return new ArrayList<>(lst);
   }
 

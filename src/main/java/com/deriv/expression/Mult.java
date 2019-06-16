@@ -37,7 +37,7 @@ public class Mult implements Expression {
    * @param factors list of expressions
    * @return Expression
    */
-  public static Expression mult(List<Expression> factors) {
+  public static Expression mult(List<? extends Expression> factors) {
     if (factors.isEmpty()) // can't allow this
       throw new RuntimeException("Don't instantiate a term with an empty list!");
 
@@ -186,14 +186,7 @@ public class Mult implements Expression {
   @Override
   public Optional<Expression> evaluate(Variable var, Expression input) {
     // multiplies terms together
-    return Optional.of(_factors.parallelStream()
-                         .map(x -> x.evaluate(var, input))
-                         .filter(Optional::isPresent)
-                         .map(Optional::get)
-                         .collect(toList()))
-             .flatMap(lst -> lst.size() == _factors.size()
-                               ? Optional.of(mult(lst))
-                               : Optional.empty());
+    return ExpressionUtils.linearityHelper(_factors, x -> x.evaluate(var, input)).map(Mult::mult);
   }
 
   @Override

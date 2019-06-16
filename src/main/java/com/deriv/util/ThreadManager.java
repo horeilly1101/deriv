@@ -13,7 +13,7 @@ public class ThreadManager {
     /**
      * Static, final singleton thread pool to be used throughout the application.
      */
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(8);
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
 
     /**
      * Static method to submit a task to the internal thread pool.

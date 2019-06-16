@@ -31,7 +31,7 @@ public class Add implements Expression {
    * @param terms list of expressions
    * @return Add
    */
-  public static Expression add(List<Expression> terms) {
+  public static Expression add(List<? extends Expression> terms) {
     if (terms.isEmpty())
       throw new RuntimeException("Don't instantiate an add with an empty list!");
 

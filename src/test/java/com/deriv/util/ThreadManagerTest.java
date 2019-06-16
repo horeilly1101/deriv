@@ -28,7 +28,8 @@ class ThreadManagerTest {
 
     @Test
     void submitExpressionTest() {
-        Future<Optional<Expression>> futureOExpression = ThreadManager.submitTask(() -> x().differentiate(x().asVariable()));
+        Future<Optional<Expression>> futureOExpression
+                = ThreadManager.submitTask(() -> x().differentiate(x().asVariable()));
 
         Expression retrievedExpression;
         try {
