@@ -1,8 +1,9 @@
 # deriv 
+
+> An open source derivative calculator REST API (and Java library). Check out the [frontend](https://www.github.com/horeilly1101/deriv-frontend).
+
 [![Build Status](https://travis-ci.com/horeilly1101/deriv.svg?branch=master)](https://travis-ci.com/horeilly1101/deriv)
 [![codecov](https://codecov.io/gh/horeilly1101/deriv/branch/master/graph/badge.svg)](https://codecov.io/gh/horeilly1101/deriv)
-
-An open source derivative calculator REST API (and Java library). Check out the [frontend](https://www.github.com/horeilly1101/deriv-frontend).
 
 ## In Development
 
